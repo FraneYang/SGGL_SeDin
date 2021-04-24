@@ -428,6 +428,52 @@
                 return name;
             }
         }
+        /// <summary>
+        /// 获取该项目下，角色名称
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public static string GetRoleName(string projectId, string RoleId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string name = string.Empty;
+                if (projectId != null)
+                {
+                    name = (from x in db.Base_Project
+                            join y in db.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            join z in db.Sys_User on y.UserId equals z.UserId
+                            where x.ProjectId == projectId && y.RoleId.Contains(RoleId)
+                            select z.UserName).FirstOrDefault();
+                }
+                return name;
+            }
+        }
+
+        /// <summary>
+        /// 获取该项目下，角色ID
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public static string GetRoleID(string projectId, string RoleId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string UserId = string.Empty;
+                if (projectId != null)
+                {
+                    UserId = (from x in db.Base_Project
+                            join y in db.Project_ProjectUser on x.ProjectId equals y.ProjectId
+                            join z in db.Sys_User on y.UserId equals z.UserId
+                            where x.ProjectId == projectId && y.RoleId.Contains(RoleId)
+                            select z.UserId).FirstOrDefault();
+                }
+                return UserId;
+            }
+        }
+
         #endregion
 
         /// <summary>

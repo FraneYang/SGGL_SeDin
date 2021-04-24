@@ -101,6 +101,10 @@ namespace BLL
             newCheckMonth.ConstructionData = CheckMonth.ConstructionData;
             newCheckMonth.NextMonthPlan = CheckMonth.NextMonthPlan;
             newCheckMonth.NeedSolved = CheckMonth.NeedSolved;
+            newCheckMonth.MonthOk = CheckMonth.MonthOk;
+            newCheckMonth.AllOk = CheckMonth.AllOk;
+            newCheckMonth.MonthDataOk = CheckMonth.MonthDataOk;
+            newCheckMonth.AllDataOk = CheckMonth.AllDataOk;
 
             db.Check_CheckMonth.InsertOnSubmit(newCheckMonth);
             db.SubmitChanges();
@@ -127,6 +131,10 @@ namespace BLL
             newCheckMonth.ConstructionData = CheckMonth.ConstructionData;
             newCheckMonth.NextMonthPlan = CheckMonth.NextMonthPlan;
             newCheckMonth.NeedSolved = CheckMonth.NeedSolved;
+            newCheckMonth.MonthOk = CheckMonth.MonthOk;
+            newCheckMonth.AllOk = CheckMonth.AllOk;
+            newCheckMonth.MonthDataOk = CheckMonth.MonthDataOk;
+            newCheckMonth.AllDataOk = CheckMonth.AllDataOk;
 
             db.SubmitChanges();
         }

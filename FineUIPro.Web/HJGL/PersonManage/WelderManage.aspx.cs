@@ -326,6 +326,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                             Funs.DB.Welder_WelderQualify.DeleteAllOnSubmit(ItemCheck);
                             Funs.DB.SubmitChanges();
                         }
+                        BLL.PersonQualityService.DeletePersonQuality(this.tvControlItem.SelectedNodeID);
                         BLL.WelderService.DeleteWelderById(this.tvControlItem.SelectedNodeID);
                     }
                     else
@@ -340,6 +341,7 @@ namespace FineUIPro.Web.HJGL.PersonManage
                 else
                 {
                     BindGrid();
+                    InitTreeMenu();
                     ShowNotify("删除成功！", MessageBoxIcon.Success);
                 }
             }
@@ -481,29 +483,31 @@ namespace FineUIPro.Web.HJGL.PersonManage
                     foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                     {
                         string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                        var welder = BLL.WelderQualifyService.GetWelderQualifyById(rowID);
-                        if (welder != null)
+                        var welderQualify = BLL.WelderQualifyService.GetWelderQualifyById(rowID);
+                        if (welderQualify != null)
                         {
-                            string cont = judgementDelete(rowID);
-                            if (string.IsNullOrEmpty(cont))
+                            strShowNotify = judgementDelete(welderQualify.WelderId);
+                            if (string.IsNullOrEmpty(strShowNotify))
                             {
                                 BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
+                                BindGvItem();
+                                ShowNotify("删除成功！", MessageBoxIcon.Success);
                                 //BLL.LogService.AddLog(this.CurrUser.LoginProjectId, this.CurrUser.UserId, "删除安装组件信息");
                             }
-                            //else
-                            //{
-                            //    strShowNotify += Resources.Lan.WelderQualification + "：" + welder.QualificationItem + cont;
-                            //}
+                            else
+                            {
+                                if (welderQualify.IsAudit != true)
+                                {
+                                    BLL.WelderQualifyService.DeleteWelderQualifyById(rowID);
+                                    BindGvItem();
+                                    ShowNotify("删除成功！", MessageBoxIcon.Success);
+                                }
+                                else
+                                {
+                                    Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
+                                }
+                            }
                         }
-                    }
-                    if (!string.IsNullOrEmpty(strShowNotify))
-                    {
-                        Alert.ShowInTop(strShowNotify, MessageBoxIcon.Warning);
-                    }
-                    else
-                    {
-                        BindGvItem();
-                        ShowNotify("删除成功！", MessageBoxIcon.Success);
                     }
                 }
             }

@@ -397,6 +397,7 @@
     <Content Include="HJGL\LeakVacuum\LV_ItemEndCheckEdit.aspx" />
     <Content Include="HJGL\LeakVacuum\SelectPipeline.aspx" />
     <Content Include="HJGL\NDT\NDTBatch.aspx" />
+    <Content Include="HJGL\NDT\NDTBatchAudit.aspx" />
     <Content Include="HJGL\NDT\NDTBatchEdit.aspx" />
     <Content Include="HJGL\NDT\RepairNotice.aspx" />
     <Content Include="HJGL\PersonManage\CheckerItem.aspx" />
@@ -412,6 +413,7 @@
     <Content Include="HJGL\PointTrust\OpenResetPoint.aspx" />
     <Content Include="HJGL\PointTrust\PointAudit.aspx" />
     <Content Include="HJGL\PointTrust\PointBatch.aspx" />
+    <Content Include="HJGL\PointTrust\PointTrust.aspx" />
     <Content Include="HJGL\PointTrust\TrustBatch.aspx" />
     <Content Include="HJGL\PurgingCleaning\PC_ItemEndCheck.aspx" />
     <Content Include="HJGL\PurgingCleaning\PC_ItemEndCheckEdit.aspx" />
@@ -446,6 +448,7 @@
     <Content Include="HJGL\WeldingManage\WeldJointBatchEdit.aspx" />
     <Content Include="HJGL\WeldingManage\WeldJointEdit.aspx" />
     <Content Include="HJGL\WeldingManage\WeldJointList.aspx" />
+    <Content Include="HJGL\WeldingManage\WeldJointView.aspx" />
     <Content Include="HJGL\WeldingManage\WeldReport.aspx" />
     <Content Include="HJGL\WeldingManage\WeldReportEdit.aspx" />
     <Content Include="HJGL\WeldingManage\WeldTask.aspx" />
@@ -904,11 +907,39 @@
     <Content Include="Person\ShuntEdit.aspx" />
     <Content Include="Person\ShuntList.aspx" />
     <Content Include="Person\ShuntView.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl1.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl10.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl11.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl12.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl13.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl14.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl15.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl16.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl17.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl18.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl19.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl2.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl3.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl4.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl5.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl6.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl7.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl8.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl9.aspx" />
     <Content Include="PHTGL\ContractCompile\Contract.aspx" />
     <Content Include="PHTGL\ContractCompile\ContractAgreement.aspx" />
     <Content Include="PHTGL\ContractCompile\ContractAgreementEdit.aspx" />
     <Content Include="PHTGL\ContractCompile\ContractEdit.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractFormation.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractFormationEdit.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractReview.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractReviewDetail.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractReviewEdit.aspx" />
     <Content Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx" />
+    <Content Include="PHTGL\ContractCompile\SpecialTermsConditions.aspx" />
+    <Content Include="PHTGL\ContractCompile\test1.aspx" />
+    <Content Include="PHTGL\ContractCompile\test2.aspx" />
+    <Content Include="PHTGL\ContractCompile\test3.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
@@ -6452,6 +6483,13 @@
     <Compile Include="HJGL\NDT\NDTBatch.aspx.designer.cs">
       <DependentUpon>NDTBatch.aspx</DependentUpon>
     </Compile>
+    <Compile Include="HJGL\NDT\NDTBatchAudit.aspx.cs">
+      <DependentUpon>NDTBatchAudit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\NDT\NDTBatchAudit.aspx.designer.cs">
+      <DependentUpon>NDTBatchAudit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="HJGL\NDT\NDTBatchEdit.aspx.cs">
       <DependentUpon>NDTBatchEdit.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -6556,6 +6594,13 @@
     </Compile>
     <Compile Include="HJGL\PointTrust\PointBatch.aspx.designer.cs">
       <DependentUpon>PointBatch.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\PointTrust\PointTrust.aspx.cs">
+      <DependentUpon>PointTrust.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\PointTrust\PointTrust.aspx.designer.cs">
+      <DependentUpon>PointTrust.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\PointTrust\TrustBatch.aspx.cs">
       <DependentUpon>TrustBatch.aspx</DependentUpon>
@@ -6797,6 +6842,13 @@
     </Compile>
     <Compile Include="HJGL\WeldingManage\WeldJointList.aspx.designer.cs">
       <DependentUpon>WeldJointList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\WeldJointView.aspx.cs">
+      <DependentUpon>WeldJointView.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\WeldJointView.aspx.designer.cs">
+      <DependentUpon>WeldJointView.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WeldingManage\WeldReport.aspx.cs">
       <DependentUpon>WeldReport.aspx</DependentUpon>
@@ -9710,6 +9762,139 @@
     <Compile Include="Person\ShuntView.aspx.designer.cs">
       <DependentUpon>ShuntView.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl1.aspx.cs">
+      <DependentUpon>AttachUrl1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl1.aspx.designer.cs">
+      <DependentUpon>AttachUrl1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl10.aspx.cs">
+      <DependentUpon>AttachUrl10.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl10.aspx.designer.cs">
+      <DependentUpon>AttachUrl10.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl11.aspx.cs">
+      <DependentUpon>AttachUrl11.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl11.aspx.designer.cs">
+      <DependentUpon>AttachUrl11.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl12.aspx.cs">
+      <DependentUpon>AttachUrl12.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl12.aspx.designer.cs">
+      <DependentUpon>AttachUrl12.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl13.aspx.cs">
+      <DependentUpon>AttachUrl13.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl13.aspx.designer.cs">
+      <DependentUpon>AttachUrl13.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl14.aspx.cs">
+      <DependentUpon>AttachUrl14.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl14.aspx.designer.cs">
+      <DependentUpon>AttachUrl14.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl15.aspx.cs">
+      <DependentUpon>AttachUrl15.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl15.aspx.designer.cs">
+      <DependentUpon>AttachUrl15.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl16.aspx.cs">
+      <DependentUpon>AttachUrl16.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl16.aspx.designer.cs">
+      <DependentUpon>AttachUrl16.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl17.aspx.cs">
+      <DependentUpon>AttachUrl17.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl17.aspx.designer.cs">
+      <DependentUpon>AttachUrl17.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl18.aspx.cs">
+      <DependentUpon>AttachUrl18.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl18.aspx.designer.cs">
+      <DependentUpon>AttachUrl18.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl19.aspx.cs">
+      <DependentUpon>AttachUrl19.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl19.aspx.designer.cs">
+      <DependentUpon>AttachUrl19.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl2.aspx.cs">
+      <DependentUpon>AttachUrl2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl2.aspx.designer.cs">
+      <DependentUpon>AttachUrl2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl3.aspx.cs">
+      <DependentUpon>AttachUrl3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl3.aspx.designer.cs">
+      <DependentUpon>AttachUrl3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl4.aspx.cs">
+      <DependentUpon>AttachUrl4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl4.aspx.designer.cs">
+      <DependentUpon>AttachUrl4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl5.aspx.cs">
+      <DependentUpon>AttachUrl5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl5.aspx.designer.cs">
+      <DependentUpon>AttachUrl5.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl6.aspx.cs">
+      <DependentUpon>AttachUrl6.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl6.aspx.designer.cs">
+      <DependentUpon>AttachUrl6.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl7.aspx.cs">
+      <DependentUpon>AttachUrl7.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl7.aspx.designer.cs">
+      <DependentUpon>AttachUrl7.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl8.aspx.cs">
+      <DependentUpon>AttachUrl8.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl8.aspx.designer.cs">
+      <DependentUpon>AttachUrl8.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl9.aspx.cs">
+      <DependentUpon>AttachUrl9.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl9.aspx.designer.cs">
+      <DependentUpon>AttachUrl9.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PHTGL\ContractCompile\Contract.aspx.cs">
       <DependentUpon>Contract.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9738,12 +9923,75 @@
     <Compile Include="PHTGL\ContractCompile\ContractEdit.aspx.designer.cs">
       <DependentUpon>ContractEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractFormation.aspx.cs">
+      <DependentUpon>ContractFormation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractFormation.aspx.designer.cs">
+      <DependentUpon>ContractFormation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractFormationEdit.aspx.cs">
+      <DependentUpon>ContractFormationEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractFormationEdit.aspx.designer.cs">
+      <DependentUpon>ContractFormationEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReview.aspx.cs">
+      <DependentUpon>ContractReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReview.aspx.designer.cs">
+      <DependentUpon>ContractReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReviewDetail.aspx.cs">
+      <DependentUpon>ContractReviewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReviewDetail.aspx.designer.cs">
+      <DependentUpon>ContractReviewDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReviewEdit.aspx.cs">
+      <DependentUpon>ContractReviewEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractReviewEdit.aspx.designer.cs">
+      <DependentUpon>ContractReviewEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx.cs">
       <DependentUpon>GeneralTermsConditions.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx.designer.cs">
       <DependentUpon>GeneralTermsConditions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\SpecialTermsConditions.aspx.cs">
+      <DependentUpon>SpecialTermsConditions.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\SpecialTermsConditions.aspx.designer.cs">
+      <DependentUpon>SpecialTermsConditions.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test1.aspx.cs">
+      <DependentUpon>test1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test1.aspx.designer.cs">
+      <DependentUpon>test1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test2.aspx.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test2.aspx.designer.cs">
+      <DependentUpon>test2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test3.aspx.cs">
+      <DependentUpon>test3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\test3.aspx.designer.cs">
+      <DependentUpon>test3.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\MainItem.aspx.cs">
       <DependentUpon>MainItem.aspx</DependentUpon>

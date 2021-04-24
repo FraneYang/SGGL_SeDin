@@ -67,7 +67,7 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:NumberBox ID="txtSize" Label="达因" runat="server"
+                                        <f:NumberBox ID="txtSize" Label="达因" runat="server" Readonly="true"
                                             LabelWidth="100px" DecimalPrecision="4" NoNegative="true" ShowRedStar="true" Required="true" LabelAlign="Right">
                                         </f:NumberBox>
                                         <f:NumberBox ID="txtThickness" Label="壁厚" runat="server"

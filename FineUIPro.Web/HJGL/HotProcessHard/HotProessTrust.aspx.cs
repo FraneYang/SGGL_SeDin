@@ -502,14 +502,10 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     var hotProessItems = from x in Funs.DB.HJGL_HotProess_TrustItem where x.HotProessTrustId == this.HotProessTrustId select x;
                     foreach (var item in hotProessItems)
                     {
-                        if (!string.IsNullOrEmpty(item.HotProessTrustItemId))
+                        if (item.IsCompleted != null)
                         {
-                            var hotReort = (from x in Funs.DB.HJGL_HotProess_Report where x.HotProessTrustItemId == item.HotProessTrustItemId select x).ToList();
-                            if (hotReort.Count() > 0)
-                            {
-                                ShowNotify("已生成热处理报告，不能删除！", MessageBoxIcon.Warning);
-                                return;
-                            }
+                            ShowNotify("已生成热处理报告，不能删除！", MessageBoxIcon.Warning);
+                            return;
                         }
                     }
                     BLL.HotProessTrustItemService.DeleteHotProessTrustItemById(this.HotProessTrustId);

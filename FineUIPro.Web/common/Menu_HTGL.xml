@@ -2,4 +2,9 @@
 <Tree>
   <TreeNode id="8IDKGJE2-09B1-4607-BC6D-865CE48F0002" Text="单位管理" NavigateUrl="SysManage/Unit.aspx">
   </TreeNode>
+<TreeNode id="E36CBDD0-2E49-415E-BBE7-B8222F40D749" Text="合同模板" NavigateUrl=""><TreeNode id="C141ABE5-E377-45C1-9507-E723C40099B8" Text="基本信息" NavigateUrl="PHTGL/ContractCompile/Contract.aspx"></TreeNode>
+<TreeNode id="C5560FF5-8181-4BA2-8326-D2B49E45660C" Text="合同协议书" NavigateUrl="PHTGL/ContractCompile/ContractAgreement.aspx"></TreeNode>
+<TreeNode id="98573D16-3310-4292-96A5-A59B9A5E6B6B" Text="通用条款" NavigateUrl="PHTGL/ContractCompile/GeneralTermsConditions.aspx"></TreeNode>
+<TreeNode id="98367C43-9C85-467E-9144-288D80101E41" Text="专用条款" NavigateUrl="PHTGL/ContractCompile/SpecialTermsConditions.aspx"></TreeNode>
+</TreeNode>
 </Tree>

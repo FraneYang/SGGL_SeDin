@@ -78,12 +78,15 @@
                                     Width="60px" HeaderTextAlign="Center" TextAlign="Center" ColumnID="tfNumber" />
                                 <f:GroupField HeaderText="设计基础数据" TextAlign="Center">
                                     <Columns>
-                                        <f:WindowField ColumnID="WeldJointCode" HeaderTextAlign="Center" TextAlign="Left"
+                                        <%--<f:WindowField ColumnID="WeldJointCode" HeaderTextAlign="Center" TextAlign="Left"
                                             Width="100px" WindowID="Window1" HeaderText="焊口号"
                                             DataTextField="WeldJointCode" DataIFrameUrlFields="WeldJointId" DataIFrameUrlFormatString="WeldJointEdit.aspx?WeldJointId={0}"
                                             Title="焊口号" DataToolTipField="WeldJointCode"
                                             SortField="WeldJointCode" Locked="true">
-                                        </f:WindowField>
+                                        </f:WindowField>--%>
+                                        <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode" DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
+                                            TextAlign="Left" Width="100px">
+                                        </f:RenderField>
                                         <f:RenderField HeaderText="材质1" ColumnID="Material1Code" DataField="Material1Code" SortField="Material1Code" FieldType="String" HeaderTextAlign="Center"
                                             TextAlign="Left" Width="90px">
                                         </f:RenderField>
@@ -204,6 +207,9 @@
             <f:MenuButton ID="btnMenuInsert" OnClick="btnMenuInsert_Click" EnablePostBack="true"
                 runat="server" Text="插入焊口" Icon="TableRowInsert">
             </f:MenuButton>
+            <f:MenuButton ID="btnView" OnClick="btnView_Click" EnablePostBack="true" Icon="ApplicationViewIcons"
+            runat="server" Text="查看">
+        </f:MenuButton>
             <f:MenuButton ID="btnMenuDelete" OnClick="btnMenuDelete_Click" EnablePostBack="true"
                 ConfirmText="删除选中行？" ConfirmTarget="Top" runat="server"
                 Text="删除" Icon="Delete">

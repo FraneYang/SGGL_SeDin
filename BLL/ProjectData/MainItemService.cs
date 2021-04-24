@@ -147,6 +147,23 @@ namespace BLL
             }
         }
         /// <summary>
+        /// 主项名称下拉框
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="projectId"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitGridMainItemDownList(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        {
+            dropName.DataValueField = "Text";
+            dropName.DataTextField = "Text";
+            dropName.DataSource = GetMainItemList(projectId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        /// <summary>
         /// 根据项目id 获取 
         /// </summary>
         /// <param name="projectId"></param>

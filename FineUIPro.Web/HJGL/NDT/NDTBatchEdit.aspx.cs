@@ -13,17 +13,17 @@ namespace FineUIPro.Web.HJGL.NDT
     {
         #region 定义项
         /// <summary>
-        /// 检测单主键
+        /// 委托单主键
         /// </summary>
-        public string NDEID
+        public string TrustBatchId
         {
             get
             {
-                return (string)ViewState["NDEID"];
+                return (string)ViewState["TrustBatchId"];
             }
             set
             {
-                ViewState["NDEID"] = value;
+                ViewState["TrustBatchId"] = value;
             }
         }
         #endregion
@@ -38,12 +38,7 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (!IsPostBack)
             {
-                this.NDEID = Request.Params["NDEID"];
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2, true);
-                BLL.UnitService.InitUnitByProjectIdUnitTypeDropDownList(this.drpNDEUnit, this.CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_5, true);
-                BLL.UnitWorkService.InitUnitWorkDropDownList(this.drpUnitWork, this.CurrUser.LoginProjectId, true);
-                ///探伤类型
-                BLL.Base_DetectionTypeService.InitDetectionTypeDropDownList(this.drpDetectionType, true, string.Empty);
+                this.TrustBatchId = Request.Params["TrustBatchId"];
                 ///评定级别
                 ListItem[] list = new ListItem[5];
                 list[0] = new ListItem("Ⅰ", "Ⅰ");
@@ -163,47 +158,20 @@ namespace FineUIPro.Web.HJGL.NDT
         /// </summary>
         private void PageInfoLoad()
         {
-            var check = BLL.Batch_NDEService.GetNDEViewById(this.NDEID);
+            var check = BLL.Batch_NDEService.GetNDEViewByTrustBatchId(this.TrustBatchId);
             if (check != null)
             {
                 this.txtNDECode.Text = check.NDECode;
-                if (!string.IsNullOrEmpty(check.UnitId))
-                {
-                    this.drpUnit.SelectedValue = check.UnitId;
-                }
-                if (!string.IsNullOrEmpty(check.UnitWorkId))
-                {
-                    this.drpUnitWork.SelectedValue = check.UnitWorkId;
-                }
-                if (check.NDEDate != null)
-                {
-                    this.txtNDEDate.Text = string.Format("{0:yyyy-MM-dd}", check.NDEDate);
-                }
-                if (!string.IsNullOrEmpty(check.NDEUnit))
-                {
-                    this.drpNDEUnit.SelectedValue = check.NDEUnit;
-                }
-                if (!string.IsNullOrEmpty(check.DetectionTypeId))
-                {
-                    this.drpDetectionType.SelectedValue = check.DetectionTypeId;
-                }
-
-                this.drpBatchTrust.DataValueField = "TrustBatchId";
-                this.drpBatchTrust.DataTextField = "TrustBatchCode";
-                List<Model.HJGL_Batch_BatchTrust> list = (from x in Funs.DB.HJGL_Batch_BatchTrust where x.TrustBatchId == check.TrustBatchId select x).ToList();
-                this.drpBatchTrust.DataSource = list;
-                this.drpBatchTrust.DataBind();
-                this.drpBatchTrust.SelectedValue = check.TrustBatchId;
-                this.drpBatchTrust.Enabled = false;
-                if (!string.IsNullOrEmpty(check.TrustBatchId))
-                {
-                    this.drpBatchTrust.SelectedValue = check.TrustBatchId;
-                }
-
-                List<Model.View_Batch_NDEItem> GetNDEItem = BLL.Batch_NDEItemService.GetViewNDEItem(this.NDEID);
+                this.txtUnit.Text = check.UnitName;
+                this.txtUnitWork.Text = check.UnitWorkName;
+                this.txtNDEUnit.Text = check.NDEUnitName;
+                this.txtDetectionType.Text = check.DetectionTypeCode;
+                this.hdDetectionType.Text = check.DetectionTypeId;
+                this.txtTrustCode.Text = check.TrustBatchCode;
+                List<Model.View_Batch_NDEItem> GetNDEItem = BLL.Batch_NDEItemService.GetViewNDEItem(check.NDEID);
                 List<string> trustBatchItemIds = (from x in GetNDEItem
                                                   select x.TrustBatchItemId).ToList();
-                var batchTrustItems = BLL.Batch_BatchTrustItemService.GetViewBatchTrustItem(this.drpBatchTrust.SelectedValue);
+                var batchTrustItems = BLL.Batch_BatchTrustItemService.GetViewBatchTrustItem(this.TrustBatchId);
                 foreach (var batchTrustItem in batchTrustItems)
                 {
                     if (!trustBatchItemIds.Contains(batchTrustItem.TrustBatchItemId))
@@ -223,148 +191,55 @@ namespace FineUIPro.Web.HJGL.NDT
             }
             else
             {
-                string unitWorkId = Request.Params["unitWorkId"];
-                if (!string.IsNullOrEmpty(unitWorkId))
+                var trust = BLL.Batch_BatchTrustService.GetBatchTrustViewById(this.TrustBatchId);
+                if (trust != null)
                 {
-                    var w = BLL.UnitWorkService.getUnitWorkByUnitWorkId(unitWorkId);
-                    if (w != null)
+                    if (trust.TrustType == "R")  //返修委托
                     {
-                        if (w.NDEUnit != null)
-                        {
-                            drpNDEUnit.SelectedValue = w.NDEUnit;
-                        }
-                        if (w.UnitId != null)
-                        {
-                            drpUnit.SelectedValue = w.UnitId;
-                        }
-                    }
-
-                    this.drpUnitWork.SelectedValue = w.UnitWorkId;
-                }
-                this.SimpleForm1.Reset(); ///重置所有字段
-                this.txtNDEDate.Text = string.Format("{0:yyyy-MM-dd}", System.DateTime.Now);
-            }
-        }
-        #endregion
-
-        #region 单位下拉框变化加载对应的委托单信息
-        /// <summary>
-        /// 单位下拉框变化加载对应的委托单信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
-            {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
-                this.drpBatchTrust.SelectedValue = BLL.Const._Null;
-                this.Grid1.DataSource = null;
-                this.Grid1.DataBind();
-            }
-        }
-        #endregion
-
-        #region 单位工程下拉框变化加载对应的委托单信息
-        /// <summary>
-        /// 单位工程下拉框变化加载对应的委托单信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpInstallation_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
-            {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
-                this.drpBatchTrust.SelectedValue = BLL.Const._Null;
-                this.Grid1.DataSource = null;
-                this.Grid1.DataBind();
-            }
-        }
-        #endregion
-
-        #region 探伤类型下拉框变化加载对应的委托单信息
-        /// <summary>
-        /// 单位工程下拉框变化加载对应的委托单信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpDetectionType_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
-            {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
-                this.drpBatchTrust.SelectedValue = BLL.Const._Null;
-                this.Grid1.DataSource = null;
-                this.Grid1.DataBind();
-            }
-        }
-        #endregion
-
-        #region 管线号变化加载对应的委托单信息
-        /// <summary>
-        /// 管线号变化加载对应的委托单信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void txtPipelineCode_TextChanged(object sender, EventArgs e)
-        {
-            this.drpBatchTrust.Items.Clear();
-            if (this.drpUnit.SelectedValue != BLL.Const._Null && this.drpUnitWork.SelectedValue != BLL.Const._Null && this.drpDetectionType.SelectedValue != BLL.Const._Null)
-            {
-                BLL.Batch_BatchTrustService.InitTrustBatchDropDownList(this.drpBatchTrust, true, this.drpUnit.SelectedValue, this.drpDetectionType.SelectedValue, this.txtPipelineCode.Text.Trim(), "请选择");
-                this.drpBatchTrust.SelectedValue = BLL.Const._Null;
-                this.Grid1.DataSource = null;
-                this.Grid1.DataBind();
-            }
-        }
-        #endregion
-
-        #region 委托单下拉框变化加载对应的委托单明细信息
-        /// <summary>
-        /// 委托单下拉框变化加载对应的委托单明细信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void drpBatchTrust_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (this.drpBatchTrust.SelectedValue != BLL.Const._Null)
-            {
-                var trust = BLL.Batch_BatchTrustService.GetBatchTrustById(this.drpBatchTrust.SelectedValue);
-                if (trust != null && trust.NDEUuit != null)
-                {
-                    drpNDEUnit.SelectedValue = trust.NDEUuit;
-                }
-                List<Model.View_Batch_NDEItem> nDEItems = new List<Model.View_Batch_NDEItem>();
-                var batchTrustItems = BLL.Batch_BatchTrustItemService.GetViewBatchTrustItem(this.drpBatchTrust.SelectedValue);
-                foreach (var batchTrustItem in batchTrustItems)
-                {
-                    Model.View_Batch_NDEItem nDEItem = new Model.View_Batch_NDEItem();
-                    nDEItem.NDEItemID = BLL.SQLHelper.GetNewID(typeof(Model.HJGL_Batch_NDEItem));
-                    nDEItem.PipelineCode = batchTrustItem.PipelineCode;
-                    nDEItem.WeldJointCode = batchTrustItem.WeldJointCode;
-                    nDEItem.UnitWorkCode = batchTrustItem.UnitWorkCode;
-                    nDEItem.WelderCode = batchTrustItem.WelderCode;
-                    if (batchTrustItem.TrustType == "2")
-                    {
-                        nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "K1";
-                    }
-                    else if (batchTrustItem.TrustType == "3")
-                    {
-                        nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "A";
+                        this.txtNDECode.Text = trust.TrustBatchCode.Replace("-FXWT-", "-FXJC-");
                     }
                     else
                     {
-                        nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode;
+                        this.txtNDECode.Text = trust.TrustBatchCode.Replace("-WT-", "-JC-");
                     }
+                    this.txtUnit.Text = trust.UnitName;
+                    this.txtUnitWork.Text = trust.UnitWorkName;
+                    Model.Base_Unit unit = BLL.UnitService.GetUnitByUnitId(trust.NDEUnit);
+                    if (unit != null)
+                    {
+                        this.txtNDEUnit.Text = unit.UnitName;
+                    }
+                    this.txtDetectionType.Text = trust.DetectionTypeCode;
+                    this.hdDetectionType.Text = trust.DetectionTypeId;
+                    this.txtTrustCode.Text = trust.TrustBatchCode;
+                    List<Model.View_Batch_NDEItem> GetNDEItem = new List<Model.View_Batch_NDEItem>();
+                    var batchTrustItems = BLL.Batch_BatchTrustItemService.GetViewBatchTrustItem(this.TrustBatchId);
+                    foreach (var batchTrustItem in batchTrustItems)
+                    {
+                        Model.View_Batch_NDEItem nDEItem = new Model.View_Batch_NDEItem();
+                        nDEItem.NDEItemID = BLL.SQLHelper.GetNewID(typeof(Model.HJGL_Batch_NDEItem));
+                        nDEItem.PipelineCode = batchTrustItem.PipelineCode;
+                        nDEItem.WeldJointCode = batchTrustItem.WeldJointCode;
+                        nDEItem.UnitWorkCode = batchTrustItem.UnitWorkCode;
+                        nDEItem.WelderCode = batchTrustItem.WelderCode;
+                        if (batchTrustItem.TrustType == "2")
+                        {
+                            nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "K1";
+                        }
+                        else if (batchTrustItem.TrustType == "3")
+                        {
+                            nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode + "A";
+                        }
+                        else
+                        {
+                            nDEItem.NDEReportNo = batchTrustItem.TrustBatchCode.Replace("-WT-", "-JC-");
+                        }
 
-                    nDEItem.TrustBatchItemId = batchTrustItem.TrustBatchItemId;
-                    nDEItems.Add(nDEItem);
+                        nDEItem.TrustBatchItemId = batchTrustItem.TrustBatchItemId;
+                        GetNDEItem.Add(nDEItem);
+                    }
+                    this.BindGrid(GetNDEItem);  // 初始化页面 
                 }
-                BindGrid(nDEItems);
             }
         }
         #endregion
@@ -436,21 +311,6 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnSave))
             {
-                if (BLL.Batch_NDEService.IsExistNDECode(this.txtNDECode.Text, !string.IsNullOrEmpty(this.NDEID) ? this.NDEID : "", this.CurrUser.LoginProjectId))
-                {
-                    ShowNotify("检测流水号已存在，请重新录入！", MessageBoxIcon.Warning);
-                    return;
-                }
-                if (string.IsNullOrEmpty(this.txtNDEDate.Text) || string.IsNullOrEmpty(this.txtNDECode.Text.Trim()))
-                {
-                    ShowNotify("检测流水号、检测日期不能为空！", MessageBoxIcon.Warning);
-                    return;
-                }
-                if (drpBatchTrust.SelectedValue == Const._Null)
-                {
-                    ShowNotify("请选择要检测的委托单！", MessageBoxIcon.Warning);
-                    return;
-                }
                 List<Model.View_Batch_NDEItem> GetNDEItem = this.CollectGridNDEItem();
                 if (this.Grid1.Rows.Count == 0)
                 {
@@ -476,43 +336,27 @@ namespace FineUIPro.Web.HJGL.NDT
                 }
 
                 Model.HJGL_Batch_NDE newNDE = new Model.HJGL_Batch_NDE();
-                if (this.drpBatchTrust.SelectedValue != BLL.Const._Null)
-                {
-                    newNDE.TrustBatchId = this.drpBatchTrust.SelectedValue;
-                }
-                newNDE.ProjectId = this.CurrUser.LoginProjectId;
-                if (this.drpUnit.SelectedValue != BLL.Const._Null)
-                {
-                    newNDE.UnitId = this.drpUnit.SelectedValue;
-                }
-                if (this.drpUnitWork.SelectedValue != BLL.Const._Null)
-                {
-                    newNDE.UnitWorkId = this.drpUnitWork.SelectedValue;
-                }
-                if (this.drpNDEUnit.SelectedValue != BLL.Const._Null)
-                {
-                    newNDE.NDEUnit = this.drpNDEUnit.SelectedValue;
-                }
-
-                if (drpBatchTrust.SelectedValue != Const._Null)
-                {
-                    var trust = BLL.Batch_BatchTrustService.GetBatchTrustById(this.drpBatchTrust.SelectedValue);
-                    newNDE.UnitWorkId = trust.UnitWorkId;
-                }
-
+                Model.HJGL_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustById(this.TrustBatchId);
+                newNDE.TrustBatchId = trust.TrustBatchId;
                 newNDE.NDECode = this.txtNDECode.Text.Trim();
-                newNDE.NDEDate = Funs.GetNewDateTime(this.txtNDEDate.Text.Trim());
+                newNDE.ProjectId = this.CurrUser.LoginProjectId;
+                newNDE.UnitId = trust.UnitId;
+                newNDE.UnitWorkId = trust.UnitWorkId;
+                newNDE.NDEUnit = trust.NDEUnit;
                 newNDE.NDEMan = this.CurrUser.UserId;
-                if (!string.IsNullOrEmpty(this.NDEID))
+                string nedId = string.Empty;
+                Model.View_Batch_NDE nde = BLL.Batch_NDEService.GetNDEViewByTrustBatchId(this.TrustBatchId);
+                if (nde!=null)
                 {
-                    newNDE.NDEID = this.NDEID;
+                    nedId= nde.NDEID;
+                    newNDE.NDEID = nde.NDEID;
                     BLL.Batch_NDEService.UpdateNDE(newNDE);
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnSave, this.NDEID);
                 }
                 else
                 {
-                    this.NDEID = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_NDE));
-                    newNDE.NDEID = this.NDEID;
+                    nedId= SQLHelper.GetNewID(typeof(Model.HJGL_Batch_NDE));
+                    newNDE.NDEID = nedId;
                     BLL.Batch_NDEService.AddNDE(newNDE);
                     //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnSave, this.NDEID);
                 }
@@ -526,7 +370,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     {
                         Model.HJGL_Batch_NDEItem newItem = new Model.HJGL_Batch_NDEItem();
                         newItem.NDEItemID = item.NDEItemID;
-                        newItem.NDEID = this.NDEID;
+                        newItem.NDEID = nedId;
                         newItem.TrustBatchItemId = item.TrustBatchItemId;
                         newItem.DetectionTypeId = item.DetectionTypeId;
                         newItem.RequestDate = item.RequestDate;
@@ -601,7 +445,7 @@ namespace FineUIPro.Web.HJGL.NDT
                     Model.View_Batch_NDEItem item = new Model.View_Batch_NDEItem();
                     item.NDEItemID = values.Value<string>("NDEItemID");
                     item.TrustBatchItemId = values.Value<string>("TrustBatchItemId");
-                    item.DetectionTypeId = this.drpDetectionType.SelectedValue;
+                    item.DetectionTypeId = this.hdDetectionType.Text;
                     item.RepairLocation = values.Value<string>("RepairLocation");
                     item.TotalFilm = Funs.GetNewInt(values.Value<string>("TotalFilm"));
                     item.PassFilm = Funs.GetNewInt(values.Value<string>("PassFilm"));

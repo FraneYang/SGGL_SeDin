@@ -82,16 +82,28 @@
                             runat="server" BoxFlex="1" DataKeyNames="PT_PipeId,PipelineId" AllowCellEditing="true"
                             EnableColumnLines="true" ClicksToEdit="2" DataIDField="PT_PipeId" SortField="UnitWorkCode,PipelineCode" SortDirection="ASC" OnSort="Grid1_Sort" EnableTextSelection="True" IsDatabasePaging="true" PageSize="100" OnPageIndexChange="Grid1_PageIndexChange" ForceFit="true">
                             <Toolbars>
-                                <f:Toolbar ID="Toolbar3" Position="Bottom" runat="server">
+                                <f:Toolbar ID="TbPipeline" Position="Bottom" runat="server" Hidden="true">
                                     <Items>
                                         <f:Label CssClass="Cyan" runat="server" ID="lbCyan" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
                                         <f:Label runat="server" ID="lab1" Label="未焊完" LabelWidth="70px" Width="120px" LabelAlign="Right"></f:Label>
                                         <f:Label CssClass="Yellow" runat="server" ID="Label1" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
                                         <f:Label runat="server" ID="lab2" Label="已焊完，未达检测比例" LabelWidth="170px" Width="220px" LabelAlign="Right"></f:Label>
-                                        <f:Label CssClass="Green" runat="server" ID="Label2" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab3" Label="已焊完，已达检测比例，但有不合格" LabelWidth="260px" Width="310px" LabelAlign="Right"></f:Label>
                                         <f:Label CssClass="Purple" runat="server" ID="Label4" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
-                                        <f:Label runat="server" ID="lab4" Label="已通过" LabelWidth="70px" Width="120px" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab3" Label="已焊完，已达检测比例，但有不合格" LabelWidth="260px" Width="310px" LabelAlign="Right"></f:Label>
+                                        <f:Label CssClass="Green" runat="server" ID="Label2" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab4" Label="具备试压条件管线数" LabelWidth="150px" Width="180px" LabelAlign="Right"></f:Label>
+                                    </Items>
+                                </f:Toolbar>
+                                <f:Toolbar ID="TbNotPipeline" Position="Bottom" runat="server" Hidden="true">
+                                    <Items>
+                                        <f:Label CssClass="Cyan" runat="server" ID="Label3" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab12" Label="12" LabelWidth="320px" Width="350px" LabelAlign="Right"></f:Label>
+                                        <f:Label CssClass="Yellow" runat="server" ID="Label6" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab22" Label="未关闭的检测批数" LabelWidth="140px" Width="210px" LabelAlign="Right"></f:Label>
+                                        <f:Label CssClass="Purple" runat="server" ID="Label10" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab32" Label="未检测或检测不合格的焊口数" LabelWidth="210px" Width="250px" LabelAlign="Right"></f:Label>
+                                        <f:Label CssClass="Green" runat="server" ID="Label8" Text="&nbsp;&nbsp;&nbsp;&nbsp;" LabelAlign="Right"></f:Label>
+                                        <f:Label runat="server" ID="lab42" Label="具备试压条件管线数" LabelWidth="150px" Width="180px" LabelAlign="Right"></f:Label>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
@@ -106,7 +118,7 @@
                                 <f:RenderField HeaderText="总焊口" ColumnID="WeldJointCount" DataField="WeldJointCount" SortField="WeldJointCount"
                                     FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="70px">
                                 </f:RenderField>
-                                <f:RenderField HeaderText="完成总焊口" ColumnID="WeldJointCountT" DataField="WeldJointCountT" SortField="WeldJointCountT"
+                                <f:RenderField HeaderText="已焊焊口" ColumnID="WeldJointCountT" DataField="WeldJointCountT" SortField="WeldJointCountT"
                                     FieldType="Int" HeaderTextAlign="Center" TextAlign="Left" Width="90px">
                                 </f:RenderField>
                                 <f:RenderField HeaderText="合格数" ColumnID="CountS" DataField="CountS" SortField="CountS"

@@ -177,15 +177,15 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 foreach (var trust in trusts)
                 {
                     TreeNode newNode = new TreeNode();
-
+                    string code= "FXWT-" + trust.TrustBatchCode.Substring(trust.TrustBatchCode.Length - 4);
                     if (string.Format("{0:yyyy-MM-dd}", trust.TrustDate) == string.Format("{0:yyyy-MM-dd}", System.DateTime.Now))
                     {
-                        newNode.Text = "<font color='#EE0000'>" + trust.TrustBatchCode + "</font>";
+                        newNode.Text = "<font color='#EE0000'>" + code + "</font>";
                         newNode.ToolTip = "当天委托单";
                     }
                     else
                     {
-                        newNode.Text = trust.TrustBatchCode;
+                        newNode.Text = code;
                         newNode.ToolTip = "非当天委托单";
                     }
                     newNode.NodeID = trust.TrustBatchId;
@@ -238,9 +238,9 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
                 {
                     lbIsAudit.Text = "未审核";
                 }
-                if (!string.IsNullOrEmpty(trust.NDEUuit))
+                if (!string.IsNullOrEmpty(trust.NDEUnit))
                 {
-                    var unit = BLL.UnitService.GetUnitByUnitId(trust.NDEUuit);
+                    var unit = BLL.UnitService.GetUnitByUnitId(trust.NDEUnit);
                     if (unit != null)
                     {
                         lbNDEUnit.Text = unit.UnitName;

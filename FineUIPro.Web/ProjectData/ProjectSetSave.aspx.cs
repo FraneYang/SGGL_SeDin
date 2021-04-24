@@ -139,10 +139,13 @@ namespace FineUIPro.Web.ProjectData
         /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (this.drpProvince.SelectedValue == BLL.Const._Null)
+            if (!this.ckbIsForeign.Checked)
             {
-                ShowNotify("请选择省份!", MessageBoxIcon.Warning);
-                return;
+                if (this.drpProvince.SelectedValue == BLL.Const._Null)
+                {
+                    ShowNotify("请选择省份!", MessageBoxIcon.Warning);
+                    return;
+                }
             }
             Base_Project project = new Base_Project
             {
@@ -159,11 +162,10 @@ namespace FineUIPro.Web.ProjectData
                 Remark=this.txtRemark.Text.Trim(),
                 Telephone=this.txtTelephone.Text.Trim(),
                 Country=this.txtCountry.Text.Trim(),
-                Province=this.drpProvince.SelectedValue,
                 City=this.txtCity.Text.Trim(),
                 EnglishRemark=this.txtEnglishRemark.Text.Trim(),
             };
-
+           
             if (!string.IsNullOrEmpty(txtStartDate.Text.Trim()))
             {
                 project.StartDate = Funs.GetNewDateTime(this.txtStartDate.Text.Trim());
@@ -177,6 +179,10 @@ namespace FineUIPro.Web.ProjectData
             if (this.drpProjectType.SelectedValue != BLL.Const._Null)
             {
                 project.ProjectType = this.drpProjectType.SelectedValue;
+            }
+            if (this.drpProvince.SelectedValue != BLL.Const._Null)
+            {
+                project.Province = this.drpProvince.SelectedValue;
             }
             if (this.drpUnit.SelectedValue != BLL.Const._Null)
             {
@@ -384,6 +390,20 @@ namespace FineUIPro.Web.ProjectData
                 TimeSpan ts2 = new TimeSpan(eDate.Value.AddMonths(0-a).Ticks);
                 TimeSpan ts = ts1.Subtract(ts2).Duration();
                 this.txtDuration.Text = (Math.Round((ts.Days * 1.0 / 30),1) + a).ToString();
+            }
+        }
+
+        protected void ckbIsForeign_CheckedChanged(object sender, CheckedEventArgs e)
+        {
+            if (this.ckbIsForeign.Checked)
+            {
+                this.drpProvince.ShowRedStar = false;
+                this.drpProvince.Required = false;
+            }
+            else
+            {
+                this.drpProvince.ShowRedStar = true;
+                this.drpProvince.Required = true;
             }
         }
     }

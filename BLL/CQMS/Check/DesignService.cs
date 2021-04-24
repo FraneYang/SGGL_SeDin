@@ -233,6 +233,18 @@ namespace BLL
         /// </summary>
         /// <param name="startTime">开始时间</param>
         /// <param name="endTime">结束时间</param>
+        public static List<Model.Check_Design> GetDesignListsByTime(string projectId, DateTime startTime, DateTime endTime)
+        {
+            Model.SGGLDB db = Funs.DB;
+            return (from x in db.Check_Design
+                   where x.ProjectId == projectId && x.DesignDate >= startTime && x.DesignDate < endTime
+                   select x).ToList();
+        }
+        /// <summary>
+        /// 根据时间段获取设计变更集合
+        /// </summary>
+        /// <param name="startTime">开始时间</param>
+        /// <param name="endTime">结束时间</param>
         public static IEnumerable GetDesignListByTime(string projectId, DateTime startTime, DateTime endTime)
         {
             Model.SGGLDB db = Funs.DB;

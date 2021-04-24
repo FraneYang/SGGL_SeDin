@@ -185,7 +185,7 @@
             ListItem[] list = new ListItem[5];
             list[0] = new ListItem("施工总承包分包合同", "1");
             list[1] = new ListItem("施工专业分包合同", "2");
-            list[2] = new ListItem("上官红劳务分包合同", "3");
+            list[2] = new ListItem("施工劳务分包合同 ", "3");
             list[3] = new ListItem("试车服务合同", "4");
             list[4] = new ListItem("租赁合同", "5");
             return list;

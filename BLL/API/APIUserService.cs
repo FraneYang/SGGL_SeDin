@@ -265,5 +265,68 @@ namespace BLL
                 }
             }
         }
+
+        /// <summary>
+        ///  根据单位类型获取用户信息
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="userIds"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public static List<Model.UserItem> getUserByProjectIdUserIdsQuery(string projectId, string userIds, string strParam)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.UserItem> getDataList = new List<Model.UserItem>();
+                List<string> userList = Funs.GetStrListByStr(userIds, ',');
+                if (userList.Count() > 0)
+                {
+                    var getDataLists = (from x in db.Sys_User
+                                        join y in db.Project_ProjectUser on x.UserId equals y.UserId
+                                        where y.ProjectId == projectId
+                                        select new Model.UserItem
+                                        {
+                                            UserId = x.UserId,
+                                            Account = x.Account,
+                                            UserCode = x.UserCode,
+                                            Password = x.Password,
+                                            UserName = x.UserName,
+                                            RoleId = y.RoleId,
+                                            RoleName = RoleService.getRoleNamesRoleIds(y.RoleId),
+                                            UnitId = y.UnitId,
+                                            UnitName = db.Base_Unit.First(z => z.UnitId == y.UnitId).UnitName,
+                                            LoginProjectId = y.ProjectId,
+                                            LoginProjectName = db.Base_Project.First(z => z.ProjectId == y.ProjectId).ProjectName,
+                                            IdentityCard = x.IdentityCard,
+                                            Email = x.Email,
+                                            Telephone = x.Telephone,
+                                            IsOffice = x.IsOffice,
+                                            SignatureUrl = x.SignatureUrl.Replace('\\', '/'),
+                                        });
+                    if (!string.IsNullOrEmpty(strParam))
+                    {
+                        getDataLists = getDataLists.Where(x => x.UserName.Contains(strParam));
+                    }
+
+                    string unitId = Const.UnitId_SEDIN;
+                    var unitList = (from x in db.Sys_User where userList.Contains(x.UserId) select x.UnitId).Distinct().ToList();
+                    if (unitList.Count() == 1)
+                    {
+                        unitId = unitList.FirstOrDefault();
+                        getDataList = getDataLists.Where(x => x.UnitId == unitId).ToList();
+
+                    }
+                    else if (!unitList.Contains(unitId))
+                    {
+                        getDataList = getDataLists.Where(x => unitList.Contains(x.UnitId)).ToList();
+                    }
+                    else
+                    {
+                        getDataList = getDataLists.Where(x => x.UnitId == unitId).ToList();
+                    }
+                }
+                return getDataList.OrderBy(x => x.UnitName).ThenBy(x => x.UserName).ToList();
+            }
+        }
     }
 }

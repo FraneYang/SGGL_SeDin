@@ -75,7 +75,7 @@
                  <Items>
                    <f:DropDownList ID="drpUnit" Label="所属单位" runat="server" EnableEdit="true">
                    </f:DropDownList>
-                     <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" LabelWidth="150px"></f:CheckBox>                     
+                     <f:CheckBox runat="server" ID="ckbIsForeign" Label="海外项目" LabelWidth="150px" AutoPostBack="true" OnCheckedChanged="ckbIsForeign_CheckedChanged"></f:CheckBox>                     
                 </Items>
             </f:FormRow> 
             <f:FormRow>

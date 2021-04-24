@@ -16,6 +16,14 @@
                     ShowBorder="true" Layout="VBox" ShowHeader="false" AutoScroll="true" BodyPadding="5px"
                     IconFont="ArrowCircleLeft">
                     <Toolbars>
+                        <f:Toolbar ID="Toolbar4" Position="Top" runat="server" ToolbarAlign="Left">
+                        <Items>
+                            <f:TextBox ID="txtWelderCode" runat="server" EmptyText="输入查询条件"
+                                AutoPostBack="true" Label="焊工号" LabelWidth="90px"
+                                OnTextChanged="Tree_TextChanged" Width="300px" LabelAlign="Right">
+                            </f:TextBox>
+                        </Items>
+                    </f:Toolbar>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
                                 <f:DatePicker ID="txtTrustDateMonth" runat="server" Label="月份"
@@ -24,20 +32,23 @@
                                 </f:DatePicker>
                             </Items>
                         </f:Toolbar>
-                        <f:Toolbar ID="Toolbar5" Position="Top" runat="server" ToolbarAlign="Left">
+                        <%--<f:Toolbar ID="Toolbar5" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
                                 <f:TextBox ID="txtSearchCode" runat="server" EmptyText="输入查询条件"
                                     AutoPostBack="true" Label="委托单号" LabelWidth="100px"
                                     OnTextChanged="Tree_TextChanged" Width="265px" LabelAlign="Right">
                                 </f:TextBox>
                             </Items>
-                        </f:Toolbar>
+                        </f:Toolbar>--%>
                     </Toolbars>
                     <Items>
                         <f:Tree ID="tvControlItem" ShowHeader="false" Height="500px" Title="无损委托单"
                             OnNodeCommand="tvControlItem_NodeCommand" runat="server" ShowBorder="false" EnableCollapse="true"
                             EnableSingleClickExpand="true" AutoLeafIdentification="true" EnableSingleExpand="true"
                             EnableTextSelection="true" OnNodeExpand="tvControlItem_TreeNodeExpanded">
+                            <Listeners>
+                                <f:Listener Event="beforenodecontextmenu" Handler="onTreeNodeContextMenu" />
+                            </Listeners>
                         </f:Tree>
                     </Items>
                 </f:Panel>
@@ -45,21 +56,21 @@
                     Layout="VBox" ShowHeader="false" BodyPadding="5px" IconFont="PlusCircle" Title="无损委托单"
                     TitleToolTip="无损委托单" AutoScroll="true">
                     <Toolbars>
-                        <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
+                        <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right" Hidden="true">
                             <Items>
-                                <f:ToolbarFill ID="ToolbarFill1" runat="server">
+                                <f:ToolbarFill ID="ToolbarFill1" runat="server" >
                                 </f:ToolbarFill>
                                 <f:Button ID="btnAudit" Text="审核" ToolTip="审核后才可进行检测" Icon="Accept" runat="server"
                                     OnClick="btnAudit_Click" Hidden="true">
                                 </f:Button>
-                                <f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
+                                <%--<f:Button ID="btnPointAudit" Text="生成委托单" ToolTip="监理点口审核并生成委托单" Icon="ArrowNsew" runat="server"
                                 OnClick="btnPointAudit_Click">
-                            </f:Button>
+                            </f:Button>--%>
                                 <f:Button ID="btnDelete" Text="删除" Icon="Delete" runat="server" Hidden="true"
                                     OnClick="btnDelete_Click">
                                 </f:Button>
                                 <f:Button ID="btnPrint" Text="打印" Icon="Printer" runat="server"
-                                    OnClick="btnPrint_Click">
+                                    OnClick="btnPrint_Click" Hidden="true">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
@@ -88,7 +99,7 @@
                                             LabelWidth="170px" LabelAlign="Right">
                                         </f:Label>
                                         
-                                        <f:Label ID="lbIsCheck" Label="是否检测" runat="server"
+                                        <f:Label ID="lbIsTrust" Label="是否委托" runat="server"
                                             LabelWidth="105px" LabelAlign="Right">
                                         </f:Label>
                                         <f:Label ID="lbIsAudit" Label="是否审核" runat="server" Hidden="true"
@@ -101,9 +112,9 @@
                     </Items>
                     <Items>
                         <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="无损委托单"
-                            EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="TrustBatchItemId"
+                            EnableCollapse="true" runat="server" BoxFlex="1" DataKeyNames="PointBatchItemId"
                             AllowCellEditing="true" AllowColumnLocking="true" EnableColumnLines="true" ClicksToEdit="2"
-                            DataIDField="TrustBatchItemId" AllowSorting="true" SortField="PipelineCode,WeldJointCode"
+                            DataIDField="PointBatchItemId" AllowSorting="true" SortField="PipelineCode,WeldJointCode"
                             SortDirection="ASC" OnSort="Grid1_Sort" AllowPaging="true" IsDatabasePaging="true"
                             PageSize="25" OnPageIndexChange="Grid1_PageIndexChange" EnableTextSelection="True">
                             <Columns>
@@ -169,8 +180,17 @@
             EnableMaximize="true" Target="Top" EnableResize="false" runat="server" OnClose="Window1_Close"
             IsModal="true" Width="1050px" Height="650px">
         </f:Window>
+        <f:Menu ID="Menu1" runat="server">
+            <f:MenuButton ID="btnPointAudit" EnablePostBack="true" runat="server" Text="委托" Icon="ArrowNsew" OnClick="btnPointAudit_Click">
+            </f:MenuButton>
+        </f:Menu>
     </form>
     <script type="text/javascript">
+        var menuID1 = '<%= Menu1.ClientID %>';
+        function onTreeNodeContextMenu(event, rowId) {
+            F(menuID1).show();  //showAt(event.pageX, event.pageY);
+            return false;
+        }
         function reloadGrid() {
             __doPostBack(null, 'reloadGrid');
         }

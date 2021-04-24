@@ -439,7 +439,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
                 else if (Type.ToString() == Const.TestPackage_ReAudit2)
                 {
-                    return "施工分包商重新整改";
+                    return "施工分包商继续整改";
                 }
                 else if (Type.ToString() == Const.TestPackage_Complete)
                 {

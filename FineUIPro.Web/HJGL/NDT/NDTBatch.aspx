@@ -32,7 +32,7 @@
                     <f:Toolbar ID="Toolbar5" Position="Top" runat="server" ToolbarAlign="Left">
                         <Items>
                             <f:TextBox ID="txtSearchCode" runat="server" EmptyText="输入查询条件"
-                                AutoPostBack="true" Label="检测单号" LabelWidth="100px"
+                                AutoPostBack="true" Label="委托单号" LabelWidth="100px"
                                 OnTextChanged="Tree_TextChanged" LabelAlign="Right">
                             </f:TextBox>
                         </Items>
@@ -54,7 +54,7 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left" >
                         <Items>
-                            <f:HiddenField runat="server" ID="hdNDEID">
+                            <f:HiddenField runat="server" ID="hdTrustBatchId">
                             </f:HiddenField>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
@@ -86,28 +86,29 @@
                         <Rows>
                             <f:FormRow>
                                 <Items>
-                                     <f:Label ID="txtTrustBatchCode" Label="委托单号" runat="server"
+                                     <f:Label ID="txtNDECode" Label="检测单号" runat="server"
                                         LabelWidth="120px" LabelAlign="Right">
                                     </f:Label>
                                     <f:Label ID="txtUnitName" Label="单位名称" runat="server" LabelWidth="130px"
                                         LabelAlign="Right">
                                     </f:Label>
-                                   
-                                    <f:Label ID="txtNDEDate" Label="检测日期" runat="server" LabelWidth="130px"
-                                        LabelAlign="Right">
+                                   <f:Label ID="txtCheckUnit" Label="检测单位" runat="server"
+                                        LabelWidth="120px" LabelAlign="Right">
                                     </f:Label>
+                                   
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:Label ID="txtUnitWork" Label="单位工程编号" runat="server"
-                                        LabelWidth="130px" LabelAlign="Right" Hidden="true">
-                                    </f:Label> 
-                                    <f:Label ID="txtCheckUnit" Label="检测单位" runat="server"
-                                        LabelWidth="120px" LabelAlign="Right">
-                                    </f:Label>
+                                    
                                     <f:Label ID="txtDetectionTypeCode" Label="检测方法" runat="server"
                                         LabelWidth="130px" LabelAlign="Right">
+                                    </f:Label>
+                                    <f:Label ID="txtIsCheck" Label="是否检测" runat="server"
+                                        LabelWidth="130px" LabelAlign="Right" >
+                                    </f:Label> 
+                                     <f:Label ID="txtNDEDate" Label="检测日期" runat="server" LabelWidth="130px" Hidden="true"
+                                        LabelAlign="Right">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>
@@ -116,8 +117,8 @@
                 </Items>
                 <Items>
                     <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="检测单明细" EnableCollapse="true"
-                        runat="server" BoxFlex="1" DataKeyNames="NDEItemID" AllowCellEditing="true" AllowColumnLocking="true"
-                        EnableColumnLines="true" ClicksToEdit="2" DataIDField="NDEItemID" AllowSorting="true"
+                        runat="server" BoxFlex="1" DataKeyNames="TrustBatchItemId,NDEItemID" AllowCellEditing="true" AllowColumnLocking="true"
+                        EnableColumnLines="true" ClicksToEdit="2" DataIDField="TrustBatchItemId" AllowSorting="true"
                         SortField="PipelineCode,WeldJointCode" SortDirection="ASC" OnSort="Grid1_Sort" OnRowCommand="Grid1_RowCommand"
                         AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnPageIndexChange="Grid1_PageIndexChange"
                         EnableTextSelection="True">
@@ -132,7 +133,7 @@
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode"
+                            <f:RenderField HeaderText="单位工程" ColumnID="UnitWorkCode" DataField="UnitWorkCode" Hidden="true"
                                 SortField="UnitWorkCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="100px">
                             </f:RenderField>
@@ -229,6 +230,9 @@
         </f:MenuButton>
             <f:MenuButton ID="btnAudit" OnClick="btnAudit_Click" EnablePostBack="true" Hidden="true" Icon="TableKey"
             runat="server" Text="审核">
+        </f:MenuButton>
+            <f:MenuButton ID="btnView" OnClick="btnView_Click" EnablePostBack="true" Hidden="true" Icon="ApplicationViewIcons"
+            runat="server" Text="查看">
         </f:MenuButton>
             <%--<f:MenuButton ID="BtnRepairRecord" OnClick="BtnRepairRecord_Click" EnablePostBack="true" Hidden="true" Icon="TableEdit"
             runat="server" Text="生成返修通知单">

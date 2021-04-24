@@ -54,6 +54,16 @@ namespace FineUIPro.Web.Person
                               left join Sys_User U on C.UserId=U.UserId where QuarterCheckId=@QuarterCheckId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@QuarterCheckId", this.QuarterCheckId));
+            Model.Person_QuarterCheck getCheck = BLL.Person_QuarterCheckService.GetPerson_QuarterCheckById(this.QuarterCheckId);
+            if (getCheck.UserId == this.CurrUser.UserId || this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId)
+            {
+
+            }
+            else
+            {
+                strSql += " AND C.UserId=@UserId";
+                listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
+            }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 

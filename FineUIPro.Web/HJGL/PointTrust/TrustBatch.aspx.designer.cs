@@ -49,6 +49,24 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Panel panelLeftRegion;
         
         /// <summary>
+        /// Toolbar4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar4;
+        
+        /// <summary>
+        /// txtWelderCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtWelderCode;
+        
+        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -65,24 +83,6 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DatePicker txtTrustDateMonth;
-        
-        /// <summary>
-        /// Toolbar5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar5;
-        
-        /// <summary>
-        /// txtSearchCode 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtSearchCode;
         
         /// <summary>
         /// tvControlItem 控件。
@@ -128,15 +128,6 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnAudit;
-        
-        /// <summary>
-        /// btnPointAudit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnPointAudit;
         
         /// <summary>
         /// btnDelete 控件。
@@ -202,13 +193,13 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Label lbNDEUnit;
         
         /// <summary>
-        /// lbIsCheck 控件。
+        /// lbIsTrust 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label lbIsCheck;
+        protected global::FineUIPro.Label lbIsTrust;
         
         /// <summary>
         /// lbIsAudit 控件。
@@ -263,5 +254,23 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window1;
+        
+        /// <summary>
+        /// Menu1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Menu Menu1;
+        
+        /// <summary>
+        /// btnPointAudit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnPointAudit;
     }
 }

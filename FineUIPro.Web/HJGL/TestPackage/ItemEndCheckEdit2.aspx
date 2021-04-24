@@ -6,6 +6,12 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
+    <style type="text/css">
+        .LabelColor {
+            color: Red;
+            font-size: small;
+        }
+    </style>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -63,7 +69,12 @@
                             <f:FormRow ID="ckA">
                                 <Items>
                                     <f:CheckBox runat="server" ID="ckAIsOK" Label="A项已全部整改完成" LabelWidth="150px" ShowRedStar="true"></f:CheckBox>
-                                    <f:CheckBox runat="server" ID="ckBIsOK" Label="B项已全部整改完成" LabelWidth="150px" ShowRedStar="true"></f:CheckBox>
+                                    <f:CheckBox runat="server" ID="ckBIsOK" Label="B项已全部整改完成" LabelWidth="150px" ></f:CheckBox>
+                                </Items>
+                            </f:FormRow>
+                            <f:FormRow>
+                                <Items>
+                                    <f:Label runat="server" ID="lbRemark" LabelWidth="150px" CssClass="LabelColor" Label="备注" Text="A类尾项：试压前必须整改完成；B类尾项：可在试压后整改完成。"></f:Label>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow ID="IsAgree" Hidden="true">

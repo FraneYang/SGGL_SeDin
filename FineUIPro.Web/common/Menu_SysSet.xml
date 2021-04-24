@@ -6,6 +6,7 @@
 <TreeNode id="2231022B-3519-42FC-A2E6-1DB9A98039DD" Text="角色授权" NavigateUrl="SysManage/RolePower.aspx"></TreeNode>
 <TreeNode id="E6F0167E-B0FD-4A32-9C47-25FB9E0FDC4E" Text="用户信息" NavigateUrl="SysManage/UserList.aspx"></TreeNode>
 <TreeNode id="E4BFDCFD-2B1F-49C5-B02B-1C91BFFAAC6E" Text="环境设置" NavigateUrl="SysManage/SysConstSet.aspx"></TreeNode>
+<TreeNode id="8FA7237E-DB0C-436C-6666-8C3A560EE688" Text="报表设计" NavigateUrl="ReportPrint/PrintDesigner.aspx"></TreeNode>
 </TreeNode>
 <TreeNode id="D363BD9D-4DEC-45D8-89C8-B0E49DEF61B4" Text="基础设置" NavigateUrl=""><TreeNode id="5196A6FD-4BF1-46B3-8D24-9A3CE5BB4760" Text="公共设置" NavigateUrl=""><TreeNode id="AEB427BD-AE1A-47CC-9337-368BB06B37F7" Text="项目类型定义" NavigateUrl="BaseInfo/ProjectType.aspx"></TreeNode>
 <TreeNode id="685F1E0D-987E-491C-9DC7-014098DEE0C3" Text="单位类型定义" NavigateUrl="BaseInfo/UnitType.aspx"></TreeNode>

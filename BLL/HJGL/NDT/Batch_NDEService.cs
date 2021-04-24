@@ -21,6 +21,26 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据委托单主键获取检测单
+        /// </summary>
+        /// <param name="NDEID"></param>
+        /// <returns></returns>
+        public static Model.HJGL_Batch_NDE GetNDEByTrustBatchId(string TrustBatchId)
+        {
+            return Funs.DB.HJGL_Batch_NDE.FirstOrDefault(e => e.TrustBatchId == TrustBatchId);
+        }
+
+        /// <summary>
+        /// 根据委托单主键获取检测单
+        /// </summary>
+        /// <param name="TrustBatchId"></param>
+        /// <returns></returns>
+        public static Model.View_Batch_NDE GetNDEViewByTrustBatchId(string TrustBatchId)
+        {
+            return Funs.DB.View_Batch_NDE.FirstOrDefault(e => e.TrustBatchId == TrustBatchId);
+        }
+
+        /// <summary>
         /// 根据主键获取检测单视图
         /// </summary>
         /// <param name="NDEID"></param>

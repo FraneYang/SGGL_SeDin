@@ -304,286 +304,302 @@ namespace FineUIPro.Web.HSSE.EduTrain
 
         protected void btnPrint_Click(object sender, EventArgs e)
         {
-            if (Grid1.SelectedRowIndexArray.Length == 0)
-            {
-                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
-                return;
-            }
-            //PrinterDocService.PrinterDocMethod(Const.ProjectTestRecordMenuId, Grid1.SelectedRowID, "试卷");
-            string personName = string.Empty;
-            string unitName = string.Empty;
-            string postName = string.Empty;
-            string identityCard = string.Empty;
             string newUrl = string.Empty;
-            string filePath = string.Empty;
-            string rootPath = Server.MapPath("~/");
-            string initTemplatePath = Const.TestRecordTemplateUrl;
-            string uploadfilepath = rootPath + initTemplatePath;
-            Model.SGGLDB db = Funs.DB;
-            var getTestRecord = TestRecordService.GetTestRecordById(Grid1.SelectedRowID);
-            if (getTestRecord != null)
+            string pdfUrl = string.Empty;
+            try
             {
-                var getTestItems = from x in Funs.DB.Training_TestRecordItem
-                                   where x.TestRecordId == Grid1.SelectedRowID
-                                   select x;
-                var person = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == getTestRecord.TestManId);
-                if (person != null)
+                if (Grid1.SelectedRowIndexArray.Length == 0)
                 {
-                    unitName = BLL.UnitService.GetUnitNameByUnitId(person.UnitId);
-                    postName = WorkPostService.getWorkPostNamesWorkPostIds(person.WorkPostId);
-                    personName = person.PersonName;
-                    identityCard = person.IdentityCard;
+                    Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                    return;
                 }
-                newUrl = uploadfilepath.Replace(".doc", "-" + personName + ".doc");
-                filePath = initTemplatePath.Replace(".doc", "-" + personName + ".pdf");
-                File.Copy(uploadfilepath, newUrl);
-                //更新书签内容
-                Document doc = new Aspose.Words.Document(newUrl);
-                Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
-                if (bookmarkProjectName != null)
+                //PrinterDocService.PrinterDocMethod(Const.ProjectTestRecordMenuId, Grid1.SelectedRowID, "试卷");
+                string personName = string.Empty;
+                string unitName = string.Empty;
+                string postName = string.Empty;
+                string identityCard = string.Empty;
+
+                string filePath = string.Empty;
+                string rootPath = Server.MapPath("~/");
+                string initTemplatePath = Const.TestRecordTemplateUrl;
+                string uploadfilepath = rootPath + initTemplatePath;
+                Model.SGGLDB db = Funs.DB;
+                var getTestRecord = TestRecordService.GetTestRecordById(Grid1.SelectedRowID);
+                if (getTestRecord != null)
                 {
-                    bookmarkProjectName.Text = "赛鼎工程有限公司" + ProjectService.GetProjectNameByProjectId(getTestRecord.ProjectId);
-                }
-                Bookmark bookmarkTrainName = doc.Range.Bookmarks["TrainName"];
-                if (bookmarkTrainName != null)
-                {
-                    var getTrainTypeName = (from x in db.Training_TestPlan
-                                            join z in db.Training_Plan on x.PlanId equals z.PlanId
-                                            join t in db.Base_TrainType on z.TrainTypeId equals t.TrainTypeId
-                                            where x.TestPlanId == getTestRecord.TestPlanId
-                                            select t.TrainTypeName).FirstOrDefault();
-                    bookmarkTrainName.Text = getTrainTypeName ?? "" + "培训试题";
-                }
-                Bookmark bookmarkUnitName = doc.Range.Bookmarks["UnitName"];
-                if (bookmarkUnitName != null)
-                {
-                    bookmarkUnitName.Text = unitName;
-                }
-                Bookmark bookmarkPostName = doc.Range.Bookmarks["PostName"];
-                if (bookmarkPostName != null)
-                {
-                    bookmarkPostName.Text = postName;
-                }
-                Bookmark bookmarkDate = doc.Range.Bookmarks["Date"];
-                if (bookmarkDate != null)
-                {
-                    bookmarkDate.Text = string.Format("{0:yyyy-MM-dd}", getTestRecord.TestStartTime);
-                }
-                Bookmark bookmarkPersonName = doc.Range.Bookmarks["PersonName"];
-                if (bookmarkPersonName != null)
-                {
-                    bookmarkPersonName.Text = personName;
-                }
-                Bookmark bookmarkIdentityCard = doc.Range.Bookmarks["IdentityCard"];
-                if (bookmarkIdentityCard != null)
-                {
-                    bookmarkIdentityCard.Text = identityCard;
-                }
-                Bookmark bookmarkScores = doc.Range.Bookmarks["Scores"];
-                if (bookmarkScores != null)
-                {
-                    bookmarkScores.Text = (getTestRecord.TestScores ?? 0).ToString();
-                }
-                Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
-                bool isbool = builder.MoveToBookmark("Content");
-                if (isbool)
-                {
-                    builder.StartTable();
-                    builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
-                    builder.CellFormat.Borders.LineStyle = LineStyle.None;
-                    builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
-                    builder.RowFormat.LeftIndent = 5;
-                    builder.Bold = false;
-                    builder.RowFormat.Height = 20;
-                    builder.Bold = false;
-                    builder.Font.Size = 10.5;
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                    builder.CellFormat.Width = 420;
-                    builder.Write("一、单项选择题 (每题2分，共50分)");
-                    builder.EndRow();
-                    var getSingleItem = getTestItems.Where(x => x.TestType == "1").ToList();
-                    if (getSingleItem.Count > 0)
+                    var getTestItems = from x in Funs.DB.Training_TestRecordItem
+                                       where x.TestRecordId == Grid1.SelectedRowID
+                                       select x;
+                    var person = db.SitePerson_Person.FirstOrDefault(x => x.PersonId == getTestRecord.TestManId);
+                    if (person != null)
                     {
-                        int num = 1;
-                        foreach (var item in getSingleItem)
+                        unitName = BLL.UnitService.GetUnitNameByUnitId(person.UnitId);
+                        postName = WorkPostService.getWorkPostNamesWorkPostIds(person.WorkPostId);
+                        personName = person.PersonName;
+                        identityCard = person.IdentityCard;
+                    }
+                    newUrl = uploadfilepath.Replace(".doc", "-" + personName + ".doc");
+                    filePath = initTemplatePath.Replace(".doc", "-" + personName + ".pdf");
+                    File.Copy(uploadfilepath, newUrl);
+                    //更新书签内容
+                    Document doc = new Aspose.Words.Document(newUrl);
+                    Bookmark bookmarkProjectName = doc.Range.Bookmarks["ProjectName"];
+                    if (bookmarkProjectName != null)
+                    {
+                        bookmarkProjectName.Text = "赛鼎工程有限公司" + ProjectService.GetProjectNameByProjectId(getTestRecord.ProjectId);
+                    }
+                    Bookmark bookmarkTrainName = doc.Range.Bookmarks["TrainName"];
+                    if (bookmarkTrainName != null)
+                    {
+                        var getTrainTypeName = (from x in db.Training_TestPlan
+                                                join z in db.Training_Plan on x.PlanId equals z.PlanId
+                                                join t in db.Base_TrainType on z.TrainTypeId equals t.TrainTypeId
+                                                where x.TestPlanId == getTestRecord.TestPlanId
+                                                select t.TrainTypeName).FirstOrDefault();
+                        bookmarkTrainName.Text = getTrainTypeName ?? "" + "培训试题";
+                    }
+                    Bookmark bookmarkUnitName = doc.Range.Bookmarks["UnitName"];
+                    if (bookmarkUnitName != null)
+                    {
+                        bookmarkUnitName.Text = unitName;
+                    }
+                    Bookmark bookmarkPostName = doc.Range.Bookmarks["PostName"];
+                    if (bookmarkPostName != null)
+                    {
+                        bookmarkPostName.Text = postName;
+                    }
+                    Bookmark bookmarkDate = doc.Range.Bookmarks["Date"];
+                    if (bookmarkDate != null)
+                    {
+                        bookmarkDate.Text = string.Format("{0:yyyy-MM-dd}", getTestRecord.TestStartTime);
+                    }
+                    Bookmark bookmarkPersonName = doc.Range.Bookmarks["PersonName"];
+                    if (bookmarkPersonName != null)
+                    {
+                        bookmarkPersonName.Text = personName;
+                    }
+                    Bookmark bookmarkIdentityCard = doc.Range.Bookmarks["IdentityCard"];
+                    if (bookmarkIdentityCard != null)
+                    {
+                        bookmarkIdentityCard.Text = identityCard;
+                    }
+                    Bookmark bookmarkScores = doc.Range.Bookmarks["Scores"];
+                    if (bookmarkScores != null)
+                    {
+                        bookmarkScores.Text = (getTestRecord.TestScores ?? 0).ToString();
+                    }
+                    Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
+                    bool isbool = builder.MoveToBookmark("Content");
+                    if (isbool)
+                    {
+                        builder.StartTable();
+                        builder.RowFormat.Alignment = Aspose.Words.Tables.RowAlignment.Center;
+                        builder.CellFormat.Borders.LineStyle = LineStyle.None;
+                        builder.CellFormat.Borders.Color = System.Drawing.Color.Black;
+                        builder.RowFormat.LeftIndent = 5;
+                        builder.Bold = false;
+                        builder.RowFormat.Height = 20;
+                        builder.Bold = false;
+                        builder.Font.Size = 10.5;
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                        builder.CellFormat.Width = 420;
+                        builder.Write("一、单项选择题 (每题2分，共50分)");
+                        builder.EndRow();
+                        var getSingleItem = getTestItems.Where(x => x.TestType == "1").ToList();
+                        if (getSingleItem.Count > 0)
                         {
-                            string Avstracts = item.Abstracts.Replace("　", "").Replace(" ", "").Replace("（", "(").Replace("）", ")").Replace("()", "(" + item.SelectedItem + ")");
-                            builder.InsertCell();
-                            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                            builder.CellFormat.Width = 420;
-                            builder.Write(num + "、" + Avstracts);
-                            //builder.InsertBreak(BreakType.LineBreak);
-                            builder.EndRow();
-                            string str = string.Empty;
-                            if (!string.IsNullOrEmpty(item.AItem))
+                            int num = 1;
+                            foreach (var item in getSingleItem)
                             {
-                                str += "A." + item.AItem;
+                                string Avstracts = item.Abstracts.Replace("　", "").Replace(" ", "").Replace("（", "(").Replace("）", ")").Replace("()", "(" + item.SelectedItem + ")");
+                                builder.InsertCell();
+                                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                                builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                                builder.CellFormat.Width = 420;
+                                builder.Write(num + "、" + Avstracts);
+                                //builder.InsertBreak(BreakType.LineBreak);
+                                builder.EndRow();
+                                string str = string.Empty;
+                                if (!string.IsNullOrEmpty(item.AItem))
+                                {
+                                    str += "A." + item.AItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.BItem))
+                                {
+                                    str += "    B." + item.BItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.CItem))
+                                {
+                                    str += "    C." + item.CItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.DItem))
+                                {
+                                    str += "    D." + item.DItem;
+                                }
+                                builder.InsertCell();
+                                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                                builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                                builder.CellFormat.Width = 420;
+                                builder.Write(str);
+                                builder.EndRow();
+                                num++;
                             }
-                            if (!string.IsNullOrEmpty(item.BItem))
+                        }
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                        builder.CellFormat.Width = 420;
+                        builder.Write("二、多项选择题 (每题3分，共30分)");
+                        builder.EndRow();
+                        var getMultipleItem = getTestItems.Where(x => x.TestType == "2").ToList();
+                        if (getMultipleItem.Count > 0)
+                        {
+                            int num = 1;
+                            foreach (var item in getMultipleItem)
                             {
-                                str += "    B." + item.BItem;
+                                string Avstracts = item.Abstracts.Replace("　", "").Replace(" ", "").Replace("（", "(").Replace("）", ")").Replace("()", "(" + item.SelectedItem + ")");
+                                builder.InsertCell();
+                                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                                builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                                builder.CellFormat.Width = 420;
+                                builder.Write(num + "、" + Avstracts);
+                                //builder.InsertBreak(BreakType.LineBreak);
+                                builder.EndRow();
+                                string str = string.Empty;
+                                if (!string.IsNullOrEmpty(item.AItem))
+                                {
+                                    str += "A." + item.AItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.BItem))
+                                {
+                                    str += "    B." + item.BItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.CItem))
+                                {
+                                    str += "    C." + item.CItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.DItem))
+                                {
+                                    str += "    D." + item.DItem;
+                                }
+                                if (!string.IsNullOrEmpty(item.EItem))
+                                {
+                                    str += "    E." + item.EItem;
+                                }
+                                builder.InsertCell();
+                                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                                builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                                builder.CellFormat.Width = 420;
+                                builder.Write(str);
+                                builder.EndRow();
+                                num++;
                             }
-                            if (!string.IsNullOrEmpty(item.CItem))
+                        }
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                        builder.CellFormat.Width = 420;
+                        builder.Write("三、判断题 (每题1分，共20分)");
+                        builder.EndRow();
+                        var getIsTrueItem = getTestItems.Where(x => x.TestType == "3").ToList();
+                        if (getIsTrueItem.Count > 0)
+                        {
+                            int num = 1;
+                            foreach (var item in getIsTrueItem)
                             {
-                                str += "    C." + item.CItem;
+                                var Avstracts = item.Abstracts;
+                                if (Avstracts.IndexOf("(") > -1)
+                                {
+                                    Avstracts = Avstracts.Replace("(", "（" + item.SelectedItem == "（A" ? "（√" : "（×");
+                                }
+                                else
+                                {
+                                    if (Avstracts.IndexOf("（") > -1)
+                                        Avstracts = Avstracts.Replace("（", "（" + item.SelectedItem == "（A" ? "（√" : "（×");
+                                }
+                                builder.InsertCell();
+                                builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                                builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                                builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                                builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
+                                builder.CellFormat.Width = 420;
+                                builder.Write(num + "、" + Avstracts);
+                                builder.EndRow();
+                                num++;
                             }
-                            if (!string.IsNullOrEmpty(item.DItem))
-                            {
-                                str += "    D." + item.DItem;
-                            }
-                            builder.InsertCell();
-                            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                            builder.CellFormat.Width = 420;
-                            builder.Write(str);
-                            builder.EndRow();
-                            num++;
                         }
                     }
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                    builder.CellFormat.Width = 420;
-                    builder.Write("二、多项选择题 (每题3分，共30分)");
-                    builder.EndRow();
-                    var getMultipleItem = getTestItems.Where(x => x.TestType == "2").ToList();
-                    if (getMultipleItem.Count > 0)
+                    builder.EndTable();
+                    builder.MoveToBookmark("Photo");
+                    var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == Grid1.SelectedRowID);
+                    if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
                     {
-                        int num = 1;
-                        foreach (var item in getMultipleItem)
+                        List<string> listUrl = Funs.GetStrListByStr(attachFile.AttachUrl, ',');
+                        int count = listUrl.Count();
+                        if (count > 0)
                         {
-                            string Avstracts = item.Abstracts.Replace("　", "").Replace(" ", "").Replace("（", "(").Replace("）", ")").Replace("()", "(" + item.SelectedItem + ")");
-                            builder.InsertCell();
-                            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                            builder.CellFormat.Width = 420;
-                            builder.Write(num + "、" + Avstracts);
-                            //builder.InsertBreak(BreakType.LineBreak);
-                            builder.EndRow();
-                            string str = string.Empty;
-                            if (!string.IsNullOrEmpty(item.AItem))
+                            for (int i = 0; i < 3; i++)
                             {
-                                str += "A." + item.AItem;
-                            }
-                            if (!string.IsNullOrEmpty(item.BItem))
-                            {
-                                str += "    B." + item.BItem;
-                            }
-                            if (!string.IsNullOrEmpty(item.CItem))
-                            {
-                                str += "    C." + item.CItem;
-                            }
-                            if (!string.IsNullOrEmpty(item.DItem))
-                            {
-                                str += "    D." + item.DItem;
-                            }
-                            if (!string.IsNullOrEmpty(item.EItem))
-                            {
-                                str += "    E." + item.EItem;
-                            }
-                            builder.InsertCell();
-                            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                            builder.CellFormat.Width = 420;
-                            builder.Write(str);
-                            builder.EndRow();
-                            num++;
-                        }
-                    }
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                    builder.CellFormat.Width = 420;
-                    builder.Write("三、判断题 (每题1分，共20分)");
-                    builder.EndRow();
-                    var getIsTrueItem = getTestItems.Where(x => x.TestType == "3").ToList();
-                    if (getIsTrueItem.Count > 0)
-                    {
-                        int num = 1;
-                        foreach (var item in getIsTrueItem)
-                        {
-                            var Avstracts = item.Abstracts;
-                            if (Avstracts.IndexOf("(") > -1)
-                            {
-                                Avstracts = Avstracts.Replace("(", "（" + item.SelectedItem == "（A" ? "（√" : "（×");
-                            }
-                            else
-                            {
-                                if (Avstracts.IndexOf("（") > -1)
-                                    Avstracts = Avstracts.Replace("（", "（" + item.SelectedItem == "（A" ? "（√" : "（×");
-                            }
-                            builder.InsertCell();
-                            builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                            builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                            builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                            builder.ParagraphFormat.Alignment = ParagraphAlignment.Left;//水平居左对齐
-                            builder.CellFormat.Width = 420;
-                            builder.Write(num + "、" + Avstracts);
-                            builder.EndRow();
-                            num++;
-                        }
-                    }
-                }
-                builder.EndTable();
-                builder.MoveToBookmark("Photo");
-                var attachFile = Funs.DB.AttachFile.FirstOrDefault(x => x.ToKeyId == Grid1.SelectedRowID);
-                if (attachFile != null && !string.IsNullOrEmpty(attachFile.AttachUrl))
-                {
-                    List<string> listUrl = Funs.GetStrListByStr(attachFile.AttachUrl, ',');
-                    int count = listUrl.Count();
-                    if (count > 0)
-                    {
-                        for (int i = 0; i < 3; i++)
-                        {
-                            if (!string.IsNullOrWhiteSpace(listUrl[i]))
-                            {
-                                string nUrl = (Funs.SGGLUrl + listUrl[i]).Replace('\\', '/');
-                                //if (File.Exists(nUrl))
-                                //{
+                                if (!string.IsNullOrWhiteSpace(listUrl[i]))
+                                {
+                                    string nUrl = (Funs.SGGLUrl + listUrl[i]).Replace('\\', '/');
+                                    //if (File.Exists(nUrl))
+                                    //{
                                     builder.InsertImage(nUrl, 100, 100);
                                     builder.Write("    ");
-                                //}
+                                    //}
+                                }
                             }
                         }
                     }
-                }
-                doc.Save(newUrl);
-                //生成PDF文件
-                string pdfUrl = newUrl.Replace(".doc", ".pdf");
-                Document doc1 = new Aspose.Words.Document(newUrl);
-                //验证参数
-                if (doc1 == null) { throw new Exception("Word文件无效"); }
-                doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-                string fileName = Path.GetFileName(filePath);
-                FileInfo info = new FileInfo(pdfUrl);
-                long fileSize = info.Length;
-                Response.Clear();
-                Response.ContentType = "application/x-zip-compressed";
-                Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-                Response.AddHeader("Content-Length", fileSize.ToString());
-                Response.TransmitFile(pdfUrl, 0, fileSize);
-                Response.Flush();
-                Response.Close();
-                File.Delete(newUrl);
-                File.Delete(pdfUrl);
+                    doc.Save(newUrl);
+                    //生成PDF文件
+                    pdfUrl = newUrl.Replace(".doc", ".pdf");
+                    Document doc1 = new Aspose.Words.Document(newUrl);
+                    //验证参数
+                    if (doc1 == null) { throw new Exception("Word文件无效"); }
+                    doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
+                    string fileName = Path.GetFileName(filePath);
+                    FileInfo info = new FileInfo(pdfUrl);
+                    long fileSize = info.Length;
+                    Response.Clear();
+                    Response.ContentType = "application/x-zip-compressed";
+                    Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
+                    Response.AddHeader("Content-Length", fileSize.ToString());
+                    Response.TransmitFile(pdfUrl, 0, fileSize);
+                    Response.Flush();
+                    Response.Close();
+                    File.Delete(newUrl);
+                    File.Delete(pdfUrl);
 
+                }
+            }
+            catch (Exception)
+            {
+                if (File.Exists(newUrl))
+                {
+                    File.Delete(newUrl);
+                }
+                if (File.Exists(pdfUrl))
+                {
+                    File.Delete(pdfUrl);
+                }
             }
         }
     }

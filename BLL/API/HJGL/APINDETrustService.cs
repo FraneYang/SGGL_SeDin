@@ -292,7 +292,7 @@ namespace BLL
                     newBatchTrust.UnitId = trust.UnitId;
                     newBatchTrust.UnitWorkId = trust.UnitWorkId;
                     newBatchTrust.DetectionTypeId = trust.DetectionTypeId;
-                    newBatchTrust.NDEUuit = unitWork.NDEUnit;
+                    newBatchTrust.NDEUnit = unitWork.NDEUnit;
 
                     BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
 

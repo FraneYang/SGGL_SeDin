@@ -39,10 +39,10 @@
                             </f:Toolbar>
                         </Toolbars>
                         <Columns>
-                             <f:RenderField HeaderText="批编号" ColumnID="PointBatchCode"
+                             <%--<f:RenderField HeaderText="批编号" ColumnID="PointBatchCode"
                                 DataField="PointBatchCode" SortField="PointBatchCode" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="180px" ExpandUnusedSpace="true">
-                            </f:RenderField>
+                            </f:RenderField>--%>
                             <f:RenderField HeaderText="焊口号" ColumnID="WeldJointCode"
                                 DataField="WeldJointCode" SortField="WeldJointCode" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="120px">

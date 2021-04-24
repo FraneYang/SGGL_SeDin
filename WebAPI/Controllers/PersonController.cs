@@ -110,7 +110,7 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
-        
+
         #region 获取在岗、离岗、待审人员数量
         /// <summary>
         /// 获取在岗、离岗、待审人员列表

@@ -200,6 +200,8 @@ namespace FineUIPro.Web.HJGL.PointTrust
                                        && x.UnitWorkId == e.Node.ParentNode.NodeID
                                        && x.DetectionTypeId == e.Node.NodeID.Split('|')[0]
                                        && x.DetectionRateId == item.DetectionRateId
+                                       && x.StartDate < Convert.ToDateTime(this.txtStartTime.Text.Trim() + "-01").AddMonths(1)
+                                       && x.StartDate >= Convert.ToDateTime(this.txtStartTime.Text.Trim() + "-01")
                                        select x;
                     if (item.DetectionRateValue > 0)   //探伤比例为0的批不显示
                     {
@@ -252,22 +254,22 @@ namespace FineUIPro.Web.HJGL.PointTrust
                         ToolTip = "批",
                         EnableClickEvent = true,
                     };
-
+                    string code = "DK-" + item.PointBatchCode.Substring(item.PointBatchCode.Length - 4);
                     if (!item.EndDate.HasValue) ////批 没有关闭 粉色
                     {
-                        newNode.Text = "<font color='#FA58D0'>" + item.PointBatchCode + "</font>";
+                        newNode.Text = "<font color='#FA58D0'>" + code + "</font>";
                         newNode.ToolTip = "批尚未关闭";
                     }
                     // 当天批
                     else if (string.Format("{0:yyyy-MM-dd}", item.StartDate) == string.Format("{0:yyyy-MM-dd}", System.DateTime.Now)
                         || string.Format("{0:yyyy-MM-dd}", item.EndDate) == string.Format("{0:yyyy-MM-dd}", System.DateTime.Now))
                     {
-                        newNode.Text = "<font color='#EE0000'>" + item.PointBatchCode + "</font>";
+                        newNode.Text = "<font color='#EE0000'>" + code + "</font>";
                         newNode.ToolTip = "当天批";
                     }
                     else
                     {
-                        newNode.Text = item.PointBatchCode;
+                        newNode.Text = code;
                     }
                     e.Node.Nodes.Add(newNode);
 
@@ -286,10 +288,71 @@ namespace FineUIPro.Web.HJGL.PointTrust
         /// <param name="e"></param>
         protected void tvControlItem_NodeCommand(object sender, TreeCommandEventArgs e)
         {
+            this.TbPipeline.Hidden = true;
+            this.TbNotPipeline.Hidden = true;
             if (this.tvControlItem.SelectedNodeID != "0")
             {
+                Model.SGGLDB db = Funs.DB;
                 this.PointBatchId = tvControlItem.SelectedNodeID;
                 this.BindGrid();
+                Model.Project_Sys_Set batch = BLL.Project_SysSetService.GetSysSetBySetId("5", this.CurrUser.LoginProjectId);
+                if (batch != null)
+                {
+                    if (batch.SetValue.Contains("6"))  //按管线组批
+                    {
+                        this.TbPipeline.Hidden = false;
+                        var pipeline = (from x in db.HJGL_Pipeline
+                                        join y in db.HJGL_WeldJoint on x.PipelineId equals y.PipelineId
+                                        join z in db.HJGL_Batch_PointBatchItem on y.WeldJointId equals z.WeldJointId
+                                        where z.PointBatchId == this.PointBatchId
+                                        select x).FirstOrDefault();
+                        if (pipeline != null)
+                        {
+                            this.lbPipelineCode.Text = pipeline.PipelineCode;
+                            Model.Base_DetectionRate rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(pipeline.DetectionRateId);
+                            if (rate != null)
+                            {
+                                this.lbRate.Text = rate.DetectionRateValue + "%";
+                                int totalJointCount = db.HJGL_WeldJoint.Count(x => x.PipelineId == pipeline.PipelineId);
+                                int needJointNum = Convert.ToInt32(Math.Ceiling((totalJointCount * rate.DetectionRateValue.Value) * 0.01));
+                                this.lbNeedJointNum.Text = needJointNum.ToString();
+                                var pointJointNum = (from x in db.HJGL_Batch_PointBatchItem
+                                                     join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                                     where y.PipelineId == pipeline.PipelineId && x.PointState == "1"
+                                                     select x).Count();
+                                this.lbPointJointNum.Text = pointJointNum.ToString();
+                                this.lbLastJointNum.Text = (needJointNum - pointJointNum).ToString();
+                            }
+                        }
+                    }
+                    else   //不按管线组批
+                    {
+                        this.TbNotPipeline.Hidden = false;
+                        string unitWorkId = this.tvControlItem.SelectedNode.ParentNode.ParentNode.ParentNode.NodeID;
+                        string rateStr = this.tvControlItem.SelectedNode.ParentNode.Text;
+                        string rateId = this.tvControlItem.SelectedNode.ParentNode.NodeID.Split('|')[0];
+                        string detectionType= this.tvControlItem.SelectedNode.ParentNode.ParentNode.NodeID.Split('|')[0];
+                        this.lbTotalJointNum.Label = "本单位工程检测比例为" + rateStr + "的焊口总数";
+                        int totalJointNum = (from x in db.HJGL_WeldJoint
+                                             join y in db.HJGL_Pipeline on x.PipelineId equals y.PipelineId
+                                             where y.DetectionRateId == rateId && y.UnitWorkId == unitWorkId && y.DetectionType== detectionType
+                                             select x).Count();
+                        this.lbTotalJointNum.Text = totalJointNum.ToString();
+                        Model.Base_DetectionRate rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(rateId);
+                        if (rate != null)
+                        {
+                            int needJointNum = Convert.ToInt32(Math.Ceiling((totalJointNum * rate.DetectionRateValue.Value) * 0.01));
+                            this.lbNeedJointNum2.Text = needJointNum.ToString();
+                            var pointJointNum = (from x in db.HJGL_Batch_PointBatchItem
+                                                 join y in db.HJGL_Batch_PointBatch on x.PointBatchId equals y.PointBatchId
+                                                 where y.DetectionRateId == rateId && y.UnitWorkId == unitWorkId && y.DetectionTypeId == detectionType
+                                                 && x.PointState == "1"
+                                                 select x).Count();
+                            this.lbPointJointNum2.Text = pointJointNum.ToString();
+                            this.lbLastJointNum2.Text = (needJointNum - pointJointNum).ToString();
+                        }
+                    }
+                }
             }
         }
         #endregion
@@ -308,6 +371,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             Model.HJGL_Batch_PointBatch pointBatch = BLL.PointBatchService.GetPointBatchById(this.PointBatchId);
             if (pointBatch != null)
             {
+                this.txtPointBatchCode.Text = pointBatch.PointBatchCode;
                 if (pointBatch.StartDate.HasValue)
                 {
                     this.txtStartDate.Text = string.Format("{0:yyyy-MM-dd}", pointBatch.StartDate);
@@ -316,6 +380,28 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 {
                     this.txtEndDate.Text = string.Format("{0:yyyy-MM-dd}", pointBatch.EndDate);
                     this.txtState.Text = "已关闭";
+                }
+            }
+            var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                             join y in Funs.DB.HJGL_Batch_PointBatchItem on x.PointBatchItemId equals y.PointBatchItemId
+                             where y.PointBatchId == this.PointBatchId
+                             select x).FirstOrDefault();
+            if (trustItem != null)
+            {
+                this.txtPointState.Text = "不可调整";
+            }
+            else
+            {
+                if (pointBatch != null)
+                {
+                    if (pointBatch.IsClosed == true)
+                    {
+                        this.txtPointState.Text = "不可调整";
+                    }
+                    else
+                    {
+                        this.txtPointState.Text = "可调整";
+                    }
                 }
             }
         }
@@ -435,6 +521,60 @@ namespace FineUIPro.Web.HJGL.PointTrust
         #endregion
         #endregion
 
+        #region 手动关闭批
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnClose_Click(object sender, EventArgs e)
+        {
+            var batch = BLL.PointBatchService.GetPointBatchById(this.PointBatchId);
+            if (batch != null)
+            {
+                if (!batch.EndDate.HasValue)
+                {
+                    PointBatchService.UpdateBatchIsClosed2(this.PointBatchId, DateTime.Now);
+                    //生成委托单
+                    Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
+                    var project = BLL.ProjectService.GetProjectByProjectId(batch.ProjectId);
+                    var unit = BLL.UnitService.GetUnitByUnitId(batch.UnitId);
+                    var area = BLL.UnitWorkService.getUnitWorkByUnitWorkId(batch.UnitWorkId);
+                    var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(batch.DetectionTypeId);
+                    var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
+
+                    string perfix = string.Empty;
+
+                    newBatchTrust.TrustBatchCode = batch.PointBatchCode.Replace("-DK-", "-WT-");
+                    string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                    newBatchTrust.TrustBatchId = trustBatchId;
+
+                    newBatchTrust.TrustDate = DateTime.Now;
+                    newBatchTrust.ProjectId = batch.ProjectId;
+                    newBatchTrust.PointBatchId = batch.PointBatchId;
+                    newBatchTrust.UnitId = batch.UnitId;
+                    newBatchTrust.UnitWorkId = batch.UnitWorkId;
+                    newBatchTrust.DetectionTypeId = batch.DetectionTypeId;
+                    newBatchTrust.DetectionRateId = batch.DetectionRateId;
+                    newBatchTrust.PointBatchId = this.PointBatchId;
+                    BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+                    this.BindGrid();
+                    Alert.ShowInTop("关批成功！", MessageBoxIcon.Success);
+                }
+                else
+                {
+                    Alert.ShowInTop("批已关闭！", MessageBoxIcon.Success);
+                }
+            }
+            else
+            {
+                Alert.ShowInTop("请选择检验批！", MessageBoxIcon.Success);
+            }
+
+
+        }
+        #endregion
+
         #region 自动点口、打开重新点口、点口审核
         /// <summary>
         /// 
@@ -487,6 +627,21 @@ namespace FineUIPro.Web.HJGL.PointTrust
             {
                 if (!string.IsNullOrEmpty(this.PointBatchId))
                 {
+                    var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                                     join y in Funs.DB.HJGL_Batch_PointBatchItem on x.PointBatchItemId equals y.PointBatchItemId
+                                     where y.PointBatchId == this.PointBatchId
+                                     select x).FirstOrDefault();
+                    if (trustItem != null)
+                    {
+                        Alert.ShowInTop("该批次不可调整！");
+                        return;
+                    }
+                    Model.HJGL_Batch_PointBatch pointBatch = BLL.PointBatchService.GetPointBatchById(this.PointBatchId);
+                    if (pointBatch != null && pointBatch.IsClosed == true)
+                    {
+                        Alert.ShowInTop("该批次不可调整！");
+                        return;
+                    }
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("OpenResetPoint.aspx?PointBatchId={0}", this.PointBatchId, "重新点口 - ")));
                 }
                 else
@@ -572,6 +727,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
         #endregion
 
 
+
         #region 切除焊口
 
         #endregion
@@ -651,13 +807,13 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 //    }
                 //    catch { }
                 //}
-                string s = code.Substring(code.Length-1,1);
+                string s = code.Substring(code.Length - 1, 1);
                 string m = string.Empty;
                 if (s == "A")
                 {
                     m = "B";
                 }
-                else if(s == "B")
+                else if (s == "B")
                 {
                     m = "C";
                 }

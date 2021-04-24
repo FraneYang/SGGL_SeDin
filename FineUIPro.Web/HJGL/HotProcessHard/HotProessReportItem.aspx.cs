@@ -70,8 +70,12 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                         }
                     }
                 }
-                
-
+                //若生成硬度委托，则焊口是否完成状态不可更改
+                Model.HJGL_Hard_TrustItem hardTrustItem = BLL.Hard_TrustItemService.GetHardTrustItemByHotProessTrustItemId(this.hotProessTrustItemId);
+                if (hardTrustItem != null)
+                {
+                    this.drpIsCompleted.Enabled = false;
+                }
                 //// 绑定表格
                 this.BindGrid();
             }
@@ -223,6 +227,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ShowNotify("请选择是否完成！", MessageBoxIcon.Warning);
                 return;
             }
+            HotProessReportList = GetDetails();
+            if (this.drpIsCompleted.SelectedValue == "True")
+            {
+                if (HotProessReportList.Count == 0)
+                {
+                    ShowNotify("请添加热处理报告数据后，再点击保存完成！", MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             string hotProessTrustItemId = Request.Params["HotProessTrustItemId"];
             var hotProessFeedback = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hotProessTrustItemId);
             if (this.drpIsCompleted.SelectedValue != BLL.Const._Null)
@@ -238,7 +251,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             BLL.HotProessTrustItemService.UpdateHotProessFeedback(hotProessFeedback);
             ///保存热处理报告
             HotProessReportService.DeleteAllHotProessReportById(hotProessTrustItemId);
-            HotProessReportList = GetDetails();
+          
             foreach (var item in HotProessReportList)
             {
                 Model.HJGL_HotProess_Report NewReport = new Model.HJGL_HotProess_Report();

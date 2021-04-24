@@ -139,7 +139,7 @@ namespace FineUIPro.Web.CQMS.Check
                             if (CheckMonthEndDay.SetValue != "")
                             {
                                 startTime = Convert.ToDateTime(checkMonth.Months.Value.AddMonths(-1).Year.ToString() + "-" + checkMonth.Months.Value.AddMonths(-1).Month.ToString() + "-" + CheckMonthStartDay.SetValue);
-                                endTime = Convert.ToDateTime(checkMonth.Months.Value.AddMonths(-1).Year.ToString() + "-" + checkMonth.Months.Value.AddMonths(-1).Month.ToString() + "-" + CheckMonthEndDay.SetValue);
+                                endTime = Convert.ToDateTime(checkMonth.Months.Value.AddMonths(-1).Year.ToString() + "-" + checkMonth.Months.Value.Month.ToString() + "-" + CheckMonthEndDay.SetValue);
                             }
                             else
                             {
@@ -223,7 +223,7 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkDay2 = doc.Range.Bookmarks["Day2"];
                 if (bookmarkDay2 != null)
                 {
-                    bookmarkDay2.Text = (endTime.Day - 1).ToString();
+                    bookmarkDay2.Text = (endTime.Day).ToString();
                 }
                 Bookmark bookmarkManagementOverview = doc.Range.Bookmarks["ManagementOverview"];
                 if (bookmarkManagementOverview != null)
@@ -237,127 +237,302 @@ namespace FineUIPro.Web.CQMS.Check
                 }
                 Aspose.Words.DocumentBuilder builder = new Aspose.Words.DocumentBuilder(doc);
                 //质量缺陷/不合格项整改关闭情况
+                var MonthRectifylist = MonthRectifyService.getListData(fileId);
                 List<Model.View_Check_JointCheckDetail> checkLists = JointCheckDetailService.GetJointCheckDetailListByTime(CurrUser.LoginProjectId, startTime, endTime);
                 List<Model.View_Check_JointCheckDetail> totalCheckLists = JointCheckDetailService.GetTotalJointCheckDetailListByTime(CurrUser.LoginProjectId, endTime);
+                var MonthRectify1 = MonthRectifylist.FirstOrDefault(x => x.Depart == "质量监督站");
                 Bookmark bookmarkThisCheck1 = doc.Range.Bookmarks["ThisCheck1"];
                 if (bookmarkThisCheck1 != null)
                 {
-                    bookmarkThisCheck1.Text = checkLists.Where(x => x.ProposeUnitType == "11").Count().ToString();
+                    if (MonthRectify1 != null)
+                    {
+                        bookmarkThisCheck1.Text = MonthRectify1.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck1.Text = checkLists.Where(x => x.ProposeUnitType == "11").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck1 = doc.Range.Bookmarks["ThisOKCheck1"];
                 if (bookmarkThisOKCheck1 != null)
                 {
-                    bookmarkThisOKCheck1.Text = checkLists.Where(x => x.ProposeUnitType == "11" && x.OK == 1).Count().ToString();
+                    if (MonthRectify1 != null)
+                    {
+                        bookmarkThisOKCheck1.Text = MonthRectify1.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck1.Text = checkLists.Where(x => x.ProposeUnitType == "11" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck1 = doc.Range.Bookmarks["TotalCheck1"];
                 if (bookmarkTotalCheck1 != null)
                 {
-                    bookmarkTotalCheck1.Text = totalCheckLists.Where(x => x.ProposeUnitType == "11").Count().ToString();
+                    if (MonthRectify1 != null)
+                    {
+                        bookmarkTotalCheck1.Text = MonthRectify1.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck1.Text = totalCheckLists.Where(x => x.ProposeUnitType == "11").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck1 = doc.Range.Bookmarks["TotalOKCheck1"];
                 if (bookmarkTotalOKCheck1 != null)
                 {
-                    bookmarkTotalOKCheck1.Text = totalCheckLists.Where(x => x.ProposeUnitType == "11" && x.OK == 1).Count().ToString();
+                    if (MonthRectify1 != null)
+                    {
+                        bookmarkTotalOKCheck1.Text = MonthRectify1.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck1.Text = totalCheckLists.Where(x => x.ProposeUnitType == "11" && x.OK == 1).Count().ToString();
+                    }
                 }
+                var MonthRectify2 = MonthRectifylist.FirstOrDefault(x => x.Depart == "集团公司");
                 Bookmark bookmarkThisCheck2 = doc.Range.Bookmarks["ThisCheck2"];
                 if (bookmarkThisCheck2 != null)
                 {
-                    bookmarkThisCheck2.Text = checkLists.Where(x => x.ProposeUnitType == "8").Count().ToString();
+                    if (MonthRectify2 != null)
+                    {
+                        bookmarkThisCheck2.Text = MonthRectify2.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck2.Text = checkLists.Where(x => x.ProposeUnitType == "8").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck2 = doc.Range.Bookmarks["ThisOKCheck2"];
                 if (bookmarkThisOKCheck2 != null)
                 {
-                    bookmarkThisOKCheck2.Text = checkLists.Where(x => x.ProposeUnitType == "8" && x.OK == 1).Count().ToString();
+                    if (MonthRectify2 != null)
+                    {
+                        bookmarkThisOKCheck2.Text = MonthRectify2.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck2.Text = checkLists.Where(x => x.ProposeUnitType == "8" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck2 = doc.Range.Bookmarks["TotalCheck2"];
                 if (bookmarkTotalCheck2 != null)
                 {
-                    bookmarkTotalCheck2.Text = totalCheckLists.Where(x => x.ProposeUnitType == "8").Count().ToString();
+                    if (MonthRectify2 != null)
+                    {
+                        bookmarkTotalCheck2.Text = MonthRectify2.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck2.Text = totalCheckLists.Where(x => x.ProposeUnitType == "8").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck2 = doc.Range.Bookmarks["TotalOKCheck2"];
                 if (bookmarkTotalOKCheck2 != null)
                 {
-                    bookmarkTotalOKCheck2.Text = totalCheckLists.Where(x => x.ProposeUnitType == "8" && x.OK == 1).Count().ToString();
+                    if (MonthRectify2 != null)
+                    {
+                        bookmarkTotalOKCheck2.Text = MonthRectify2.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck2.Text = totalCheckLists.Where(x => x.ProposeUnitType == "8" && x.OK == 1).Count().ToString();
+                    }
                 }
+                var MonthRectify3 = MonthRectifylist.FirstOrDefault(x => x.Depart == "公司本部");
                 Bookmark bookmarkThisCheck3 = doc.Range.Bookmarks["ThisCheck3"];
                 if (bookmarkThisCheck3 != null)
                 {
-                    bookmarkThisCheck3.Text = checkLists.Where(x => x.ProposeUnitType == "10").Count().ToString();
+                    if (MonthRectify3 != null)
+                    {
+                        bookmarkThisCheck3.Text = MonthRectify3.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck3.Text = checkLists.Where(x => x.ProposeUnitType == "10").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck3 = doc.Range.Bookmarks["ThisOKCheck3"];
                 if (bookmarkThisOKCheck3 != null)
                 {
-                    bookmarkThisOKCheck3.Text = checkLists.Where(x => x.ProposeUnitType == "10" && x.OK == 1).Count().ToString();
+                    if (MonthRectify3 != null)
+                    {
+                        bookmarkThisOKCheck3.Text = MonthRectify3.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck3.Text = checkLists.Where(x => x.ProposeUnitType == "10" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck3 = doc.Range.Bookmarks["TotalCheck3"];
                 if (bookmarkTotalCheck3 != null)
                 {
-                    bookmarkTotalCheck3.Text = totalCheckLists.Where(x => x.ProposeUnitType == "10").Count().ToString();
+                    if (MonthRectify3 != null)
+                    {
+                        bookmarkTotalCheck3.Text = MonthRectify3.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck3.Text = totalCheckLists.Where(x => x.ProposeUnitType == "10").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck3 = doc.Range.Bookmarks["TotalOKCheck3"];
                 if (bookmarkTotalOKCheck3 != null)
                 {
-                    bookmarkTotalOKCheck3.Text = totalCheckLists.Where(x => x.ProposeUnitType == "10" && x.OK == 1).Count().ToString();
+                    if (MonthRectify3 != null)
+                    {
+                        bookmarkTotalOKCheck3.Text = MonthRectify3.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck3.Text = totalCheckLists.Where(x => x.ProposeUnitType == "10" && x.OK == 1).Count().ToString();
+                    }
                 }
+                var MonthRectify4 = MonthRectifylist.FirstOrDefault(x => x.Depart == "建设单位");
                 Bookmark bookmarkThisCheck4 = doc.Range.Bookmarks["ThisCheck4"];
                 if (bookmarkThisCheck4 != null)
                 {
-                    bookmarkThisCheck4.Text = checkLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
+                    if (MonthRectify4 != null)
+                    {
+                        bookmarkThisCheck4.Text = MonthRectify4.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck4.Text = checkLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck4 = doc.Range.Bookmarks["ThisOKCheck4"];
                 if (bookmarkThisOKCheck4 != null)
                 {
-                    bookmarkThisOKCheck4.Text = checkLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
+                    if (MonthRectify4 != null)
+                    {
+                        bookmarkThisOKCheck4.Text = MonthRectify4.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck4.Text = checkLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck4 = doc.Range.Bookmarks["TotalCheck4"];
                 if (bookmarkTotalCheck4 != null)
                 {
-                    bookmarkTotalCheck4.Text = totalCheckLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
+                    if (MonthRectify4 != null)
+                    {
+                        bookmarkTotalCheck4.Text = MonthRectify4.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck4.Text = totalCheckLists.Where(x => x.ProposeUnitType == "1").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck4 = doc.Range.Bookmarks["TotalOKCheck4"];
                 if (bookmarkTotalOKCheck4 != null)
                 {
-                    bookmarkTotalOKCheck4.Text = totalCheckLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
+                    if (MonthRectify4 != null)
+                    {
+                        bookmarkTotalOKCheck4.Text = MonthRectify4.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck4.Text = totalCheckLists.Where(x => x.ProposeUnitType == "1" && x.OK == 1).Count().ToString();
+                    }
                 }
+                var MonthRectify5 = MonthRectifylist.FirstOrDefault(x => x.Depart == "监理单位");
                 Bookmark bookmarkThisCheck5 = doc.Range.Bookmarks["ThisCheck5"];
                 if (bookmarkThisCheck5 != null)
                 {
-                    bookmarkThisCheck5.Text = checkLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
+                    if (MonthRectify5 != null)
+                    {
+                        bookmarkThisCheck5.Text = MonthRectify5.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck5.Text = checkLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck5 = doc.Range.Bookmarks["ThisOKCheck5"];
                 if (bookmarkThisOKCheck5 != null)
                 {
-                    bookmarkThisOKCheck5.Text = checkLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
+                    if (MonthRectify5 != null)
+                    {
+                        bookmarkThisOKCheck5.Text = MonthRectify5.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck5.Text = checkLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck5 = doc.Range.Bookmarks["TotalCheck5"];
                 if (bookmarkTotalCheck5 != null)
                 {
-                    bookmarkTotalCheck5.Text = totalCheckLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
+                    if (MonthRectify5 != null)
+                    {
+                        bookmarkTotalCheck5.Text = MonthRectify5.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck5.Text = totalCheckLists.Where(x => x.ProposeUnitType == "2").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck5 = doc.Range.Bookmarks["TotalOKCheck5"];
                 if (bookmarkTotalOKCheck5 != null)
                 {
-                    bookmarkTotalOKCheck5.Text = totalCheckLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
+                    if (MonthRectify5 != null)
+                    {
+                        bookmarkTotalOKCheck5.Text = MonthRectify5.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck5.Text = totalCheckLists.Where(x => x.ProposeUnitType == "2" && x.OK == 1).Count().ToString();
+                    }
                 }
+                var MonthRectify6 = MonthRectifylist.FirstOrDefault(x => x.Depart == "总承包商项目部");
                 Bookmark bookmarkThisCheck6 = doc.Range.Bookmarks["ThisCheck6"];
                 if (bookmarkThisCheck6 != null)
                 {
-                    bookmarkThisCheck6.Text = checkLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
+                    if (MonthRectify6 != null)
+                    {
+                        bookmarkThisCheck6.Text = MonthRectify6.ThisRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisCheck6.Text = checkLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkThisOKCheck6 = doc.Range.Bookmarks["ThisOKCheck6"];
                 if (bookmarkThisOKCheck6 != null)
                 {
-                    bookmarkThisOKCheck6.Text = checkLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
+                    if (MonthRectify6 != null)
+                    {
+                        bookmarkThisOKCheck6.Text = MonthRectify6.ThisOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkThisOKCheck6.Text = checkLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalCheck6 = doc.Range.Bookmarks["TotalCheck6"];
                 if (bookmarkTotalCheck6 != null)
                 {
-                    bookmarkTotalCheck6.Text = totalCheckLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
+                    if (MonthRectify6 != null)
+                    {
+                        bookmarkTotalCheck6.Text = MonthRectify6.TotalRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalCheck6.Text = totalCheckLists.Where(x => x.ProposeUnitType == "5").Count().ToString();
+                    }
                 }
                 Bookmark bookmarkTotalOKCheck6 = doc.Range.Bookmarks["TotalOKCheck6"];
                 if (bookmarkTotalOKCheck6 != null)
                 {
-                    bookmarkTotalOKCheck6.Text = totalCheckLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
+                    if (MonthRectify6 != null)
+                    {
+                        bookmarkTotalOKCheck6.Text = MonthRectify6.TotalOKRectifyNum.ToString();
+                    }
+                    else
+                    {
+                        bookmarkTotalOKCheck6.Text = totalCheckLists.Where(x => x.ProposeUnitType == "5" && x.OK == 1).Count().ToString();
+                    }
                 }
                 //无损检测情况
                 builder.MoveToBookmark("Table2");
@@ -369,9 +544,11 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.Bold = false;
                 builder.RowFormat.Height = 20;
                 builder.Bold = false;
-                List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList("3", CurrUser.LoginProjectId);
+                List<Model.Base_Unit> units = UnitService.GetUnitByProjectIdUnitTypeList(CurrUser.LoginProjectId, BLL.Const.ProjectUnitType_2);
+                var ndtList = BLL.MonthNDTCheckService.getListData(fileId);
                 foreach (Model.Base_Unit unit in units)
                 {
+                    var ndt = ndtList.FirstOrDefault(x => x.UnitId == unit.UnitId);
                     //施工分包商
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -387,7 +564,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 47;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.FilmNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //不合格（张）
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -395,7 +579,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 56;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.NotOKFileNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //已返修（张）
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -403,7 +594,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 54;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.RepairFileNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //一次合格率
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -411,7 +609,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 55;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.OneOKRate);
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //累计拍片总数
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -419,7 +624,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 48;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.TotalFilmNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //累计不合格（张）
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -427,7 +639,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 63;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.TotalNotOKFileNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //累计一次合格率
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -435,7 +654,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 63;
-                    builder.Write("0");
+                    if (ndt != null)
+                    {
+                        builder.Write(ndt.TotalOneOKRate);
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     builder.EndRow();
                 }
                 //合计
@@ -453,7 +679,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 47;
-                builder.Write("0");
+                int sumFilmNum = ndtList.Sum(x => x.FilmNum ?? 0);
+                builder.Write(sumFilmNum.ToString());
                 //不合格（张）
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -461,7 +688,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 56;
-                builder.Write("0");
+                int sumNotOKFileNum = ndtList.Sum(x => x.NotOKFileNum ?? 0);
+                builder.Write(sumNotOKFileNum.ToString());
                 //已返修（张）
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -469,7 +697,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 54;
-                builder.Write("0");
+                int sumRepairFileNum = ndtList.Sum(x => x.RepairFileNum ?? 0);
+                builder.Write(sumRepairFileNum.ToString());
                 //一次合格率
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -477,7 +706,15 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 55;
-                builder.Write("0");
+                string sumOneOKRate = "0";
+                if (sumFilmNum > 0)
+                {
+                    var a = Convert.ToDouble(sumFilmNum - sumNotOKFileNum);
+                    var b = Convert.ToDouble(sumFilmNum);
+                    decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                    sumOneOKRate = result.ToString() + "%";
+                }
+                builder.Write(sumOneOKRate);
                 //累计拍片总数
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -485,7 +722,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 48;
-                builder.Write("0");
+                int sumTotalFilmNum = ndtList.Sum(x => x.TotalFilmNum ?? 0);
+                builder.Write(sumTotalFilmNum.ToString());
                 //累计不合格（张）
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -493,7 +731,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 63;
-                builder.Write("0");
+                int sumTotalNotOKFileNum = ndtList.Sum(x => x.TotalNotOKFileNum ?? 0);
+                builder.Write(sumTotalNotOKFileNum.ToString());
                 //累计一次合格率
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -501,7 +740,15 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 63;
-                builder.Write("0");
+                string sumTotalOneOKRate = "0";
+                if (sumTotalFilmNum > 0)
+                {
+                    var a = Convert.ToDouble(sumTotalFilmNum - sumTotalNotOKFileNum);
+                    var b = Convert.ToDouble(sumTotalFilmNum);
+                    decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                    sumOneOKRate = result.ToString() + "%";
+                }
+                builder.Write(sumTotalOneOKRate);
                 builder.EndRow();
                 builder.EndTable();
                 //焊工资格评定情况
@@ -514,8 +761,10 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.Bold = false;
                 builder.RowFormat.Height = 20;
                 builder.Bold = false;
+                var welderList = BLL.MonthWelderService.getListData(fileId);
                 foreach (Model.Base_Unit unit in units)
                 {
+                    var welder = welderList.FirstOrDefault(x => x.UnitId == unit.UnitId);
                     //施工分包商
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -531,7 +780,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 51;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.ThisPersonNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //合格人数
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -539,7 +795,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 72;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.ThisOKPersonNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //合格率
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -547,7 +810,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 71;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.ThisOKRate);
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //总人数
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -555,7 +825,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 53;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.TotalPersonNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //合格人数
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -563,7 +840,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 77;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.TotalOKPersonNum.ToString());
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     //合格率
                     builder.InsertCell();
                     builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -571,7 +855,14 @@ namespace FineUIPro.Web.CQMS.Check
                     builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                     builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                     builder.CellFormat.Width = 62;
-                    builder.Write("0");
+                    if (welder != null)
+                    {
+                        builder.Write(welder.TotalOKRate);
+                    }
+                    else
+                    {
+                        builder.Write("0");
+                    }
                     builder.EndRow();
                 }
                 //合计
@@ -589,7 +880,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 51;
-                builder.Write("0");
+                int sumThisPersonNum = welderList.Sum(x => x.ThisPersonNum ?? 0);
+                builder.Write(sumThisPersonNum.ToString());
                 //合格人数
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -597,7 +889,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 72;
-                builder.Write("0");
+                int sumThisOKPersonNum = welderList.Sum(x => x.ThisOKPersonNum ?? 0);
+                builder.Write(sumThisOKPersonNum.ToString());
                 //合格率
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -605,7 +898,15 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 71;
-                builder.Write("0");
+                string sumThisOKRate = "0";
+                if (sumThisPersonNum > 0)
+                {
+                    var a = Convert.ToDouble(sumThisOKPersonNum);
+                    var b = Convert.ToDouble(sumThisPersonNum);
+                    decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                    sumThisOKRate = result.ToString() + "%";
+                }
+                builder.Write(sumThisOKRate);
                 //总人数
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -613,7 +914,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 53;
-                builder.Write("0");
+                int sumTotalPersonNum = welderList.Sum(x => x.TotalPersonNum ?? 0);
+                builder.Write(sumTotalPersonNum.ToString());
                 //合格人数
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -621,7 +923,8 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 77;
-                builder.Write("0");
+                int sumTotalOKPersonNum = welderList.Sum(x => x.TotalOKPersonNum ?? 0);
+                builder.Write(sumTotalOKPersonNum.ToString());
                 //合格率
                 builder.InsertCell();
                 builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
@@ -629,7 +932,15 @@ namespace FineUIPro.Web.CQMS.Check
                 builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
                 builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
                 builder.CellFormat.Width = 62;
-                builder.Write("0");
+                string sumTotalOKRate = "0";
+                if (sumTotalPersonNum > 0)
+                {
+                    var a = Convert.ToDouble(sumTotalOKPersonNum);
+                    var b = Convert.ToDouble(sumTotalPersonNum);
+                    decimal result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                    sumTotalOKRate = result.ToString() + "%";
+                }
+                builder.Write(sumTotalOKRate);
                 builder.EndRow();
                 builder.EndTable();
                 //质量验收情况
@@ -728,58 +1039,78 @@ namespace FineUIPro.Web.CQMS.Check
                 Bookmark bookmarkMonthOkqualificationRate = doc.Range.Bookmarks["MonthOkqualificationRate"];
                 if (bookmarkMonthOkqualificationRate != null)
                 {
-
                     decimal result = 12.30M;
-                    if (spotCheckDetailOKLists.Count > 0 && spotCheckDetailLists.Count > 0)
+                    if (!string.IsNullOrEmpty(checkMonth.MonthOk))
                     {
-                        var a = Convert.ToDouble(spotCheckDetailOKLists.Count);
-                        var b = Convert.ToDouble(spotCheckDetailLists.Count);
-                        result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
-                        bookmarkMonthOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        bookmarkMonthOkqualificationRate.Text = checkMonth.MonthOk;
                     }
-
+                    else
+                    {
+                        if (spotCheckDetailOKLists.Count > 0 && spotCheckDetailLists.Count > 0)
+                        {
+                            var a = Convert.ToDouble(spotCheckDetailOKLists.Count);
+                            var b = Convert.ToDouble(spotCheckDetailLists.Count);
+                            result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                            bookmarkMonthOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        }
+                    }
                 }
                 Bookmark bookmarkOkqualificationRate = doc.Range.Bookmarks["OkqualificationRate"];
                 if (bookmarkOkqualificationRate != null)
                 {
-
                     decimal result = 12.30M;
-                    if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailLists.Count > 0)
+                    if (!string.IsNullOrEmpty(checkMonth.AllOk))
                     {
-                        var a = Convert.ToDouble(TotalCheckDetailOKLists.Count);
-                        var b = Convert.ToDouble(TotalCheckDetailLists.Count);
-                        result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
-                        bookmarkOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        bookmarkOkqualificationRate.Text = checkMonth.AllOk;
                     }
-
+                    else
+                    {
+                        if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailLists.Count > 0)
+                        {
+                            var a = Convert.ToDouble(TotalCheckDetailOKLists.Count);
+                            var b = Convert.ToDouble(TotalCheckDetailLists.Count);
+                            result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                            bookmarkOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        }
+                    }
                 }
                 Bookmark bookmarkMonthDataOkqualificationRate = doc.Range.Bookmarks["MonthDataOkqualificationRate"];
                 if (bookmarkMonthDataOkqualificationRate != null)
                 {
-
                     decimal result = 12.30M;
-                    if (spotCheckDetailOKLists.Count > 0 && spotCheckDetailDataOKLists.Count > 0)
+                    if (!string.IsNullOrEmpty(checkMonth.MonthDataOk))
                     {
-                        var a = Convert.ToDouble(spotCheckDetailDataOKLists.Count);
-                        var b = Convert.ToDouble(spotCheckDetailOKLists.Where(x => x.IsDataOK != "2").ToList().Count);
-                        result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
-                        bookmarkMonthDataOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        bookmarkMonthDataOkqualificationRate.Text = checkMonth.MonthDataOk;
                     }
-
+                    else
+                    {
+                        if (spotCheckDetailOKLists.Count > 0 && spotCheckDetailDataOKLists.Count > 0)
+                        {
+                            var a = Convert.ToDouble(spotCheckDetailDataOKLists.Count);
+                            var b = Convert.ToDouble(spotCheckDetailOKLists.Where(x => x.IsDataOK != "2").ToList().Count);
+                            result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                            bookmarkMonthDataOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        }
+                    }
                 }
                 Bookmark bookmarkDataOkqualificationRate = doc.Range.Bookmarks["DataOkqualificationRate"];
                 if (bookmarkDataOkqualificationRate != null)
                 {
-
                     decimal result = 12.30M;
-                    if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailDataOKLists.Count > 0)
+                    if (!string.IsNullOrEmpty(checkMonth.AllDataOk))
                     {
-                        var a = Convert.ToDouble(TotalCheckDetailDataOKLists.Count);
-                        var b = Convert.ToDouble(TotalCheckDetailOKLists.Where(x => x.IsDataOK != "2").ToList().Count);
-                        result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
-                        bookmarkDataOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        bookmarkDataOkqualificationRate.Text = checkMonth.AllDataOk;
                     }
-
+                    else
+                    {
+                        if (TotalCheckDetailOKLists.Count > 0 && TotalCheckDetailDataOKLists.Count > 0)
+                        {
+                            var a = Convert.ToDouble(TotalCheckDetailDataOKLists.Count);
+                            var b = Convert.ToDouble(TotalCheckDetailOKLists.Where(x => x.IsDataOK != "2").ToList().Count);
+                            result = decimal.Round(decimal.Parse((a / b * 100).ToString()), 2);
+                            bookmarkDataOkqualificationRate.Text = result.ToString() + "%" ?? "";
+                        }
+                    }
                 }
 
                 //特种设备安装告知、监检情况
@@ -980,80 +1311,154 @@ namespace FineUIPro.Web.CQMS.Check
                 string mainItemName = string.Empty;
                 string CNProfessionalName = string.Empty;
                 string state = string.Empty;
-                foreach (Model.Check_Design design in designs)
+                var designList = BLL.MonthDesignService.getListData(fileId);
+                if (designList.Count > 0)
                 {
-                    //序号
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 42;
-                    builder.Write(num.ToString());
-                    //编号
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 132;
-                    builder.Write(design.DesignCode);
-                    //主项
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 67;
-                    if (!string.IsNullOrEmpty(design.MainItemId))
+                    foreach (Model.Check_MonthDesign design in designList)
                     {
-                        var mainItem = MainItemService.GetMainItemByMainItemId(design.MainItemId);
-                        if (mainItem != null)
+                        //序号
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 42;
+                        builder.Write(num.ToString());
+                        //编号
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 132;
+                        builder.Write(design.DesignCode);
+                        //主项
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 67;
+                        if (!string.IsNullOrEmpty(design.MainItemId))
                         {
-                            mainItemName = mainItem.MainItemName;
+                            var mainItem = MainItemService.GetMainItemByMainItemId(design.MainItemId);
+                            if (mainItem != null)
+                            {
+                                mainItemName = mainItem.MainItemName;
+                            }
                         }
-                    }
 
-                    builder.Write(mainItemName);
-                    //专业
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 67;
-                    var cn = CNProfessionalService.GetCNProfessional(design.CNProfessionalCode);
-                    if (cn != null)
-                    {
-                        CNProfessionalName = cn.ProfessionalName;
+                        builder.Write(mainItemName);
+                        //专业
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 67;
+                        var cn = DesignProfessionalService.GetDesignProfessional(design.DesignProfessionalId);
+                        if (cn != null)
+                        {
+                            CNProfessionalName = cn.ProfessionalName;
+                        }
+                        builder.Write(CNProfessionalName);
+                        //施工完成情况
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 112;
+                        builder.Write(design.State);
+                        //备注
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 68;
+                        builder.Write(design.Remark);
+                        builder.EndRow();
+                        num++;
                     }
-                    builder.Write(CNProfessionalName);
-                    //施工完成情况
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 112;
-                    if (design.State == Const.Design_Complete)
+                }
+                else
+                {
+                    foreach (Model.Check_Design design in designs)
                     {
-                        state = "已完成";
+                        //序号
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 42;
+                        builder.Write(num.ToString());
+                        //编号
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 132;
+                        builder.Write(design.DesignCode);
+                        //主项
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 67;
+                        if (!string.IsNullOrEmpty(design.MainItemId))
+                        {
+                            var mainItem = MainItemService.GetMainItemByMainItemId(design.MainItemId);
+                            if (mainItem != null)
+                            {
+                                mainItemName = mainItem.MainItemName;
+                            }
+                        }
+
+                        builder.Write(mainItemName);
+                        //专业
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 67;
+                        var cn = DesignProfessionalService.GetDesignProfessional(design.CNProfessionalCode);
+                        if (cn != null)
+                        {
+                            CNProfessionalName = cn.ProfessionalName;
+                        }
+                        builder.Write(CNProfessionalName);
+                        //施工完成情况
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 112;
+                        if (design.State == Const.Design_Complete)
+                        {
+                            state = "已完成";
+                        }
+                        else
+                        {
+                            state = "未完成";
+                        }
+                        builder.Write(state);
+                        //备注
+                        builder.InsertCell();
+                        builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
+                        builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
+                        builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
+                        builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
+                        builder.CellFormat.Width = 68;
+                        builder.Write(string.Empty);
+                        builder.EndRow();
+                        num++;
                     }
-                    else
-                    {
-                        state = "未完成";
-                    }
-                    builder.Write(state);
-                    //备注
-                    builder.InsertCell();
-                    builder.CellFormat.VerticalMerge = Aspose.Words.Tables.CellMerge.None;
-                    builder.CellFormat.HorizontalMerge = Aspose.Words.Tables.CellMerge.First;
-                    builder.CellFormat.VerticalAlignment = Aspose.Words.Tables.CellVerticalAlignment.Center;//垂直居中对齐
-                    builder.ParagraphFormat.Alignment = ParagraphAlignment.Center;//水平居中对齐
-                    builder.CellFormat.Width = 68;
-                    builder.Write(string.Empty);
-                    builder.EndRow();
-                    num++;
                 }
                 builder.EndTable();
                 Bookmark bookmarkConstructionData = doc.Range.Bookmarks["ConstructionData"];

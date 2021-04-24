@@ -5,12 +5,14 @@ using System.Data.SqlClient;
 using System.IO;
 using System.IO.Compression;
 using System.Linq;
+using System.Text;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Aspose.Words;
 using BLL;
 using Newtonsoft.Json.Linq;
+using AspNet = System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.Person
 {
@@ -30,8 +32,11 @@ namespace FineUIPro.Web.Person
                     this.btnMenuDelete.Hidden = false;
                     this.BtnCreat.Hidden = false;
                     this.btnOut.Hidden = false;
+                    this.btnOut2.Hidden = false;
                     GridColumn columnexport = Grid1.FindColumn("export");
+                    GridColumn columnGrade = Grid1.FindColumn("Grade");
                     columnexport.Hidden = false;
+                    columnGrade.Hidden = false;
                 }
                 this.drpCheckType.DataTextField = "Text";
                 this.drpCheckType.DataValueField = "Value";
@@ -51,7 +56,7 @@ namespace FineUIPro.Web.Person
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.CurrUser.UserId != BLL.Const.sysglyId && this.CurrUser.UserId != BLL.Const.hfnbdId)
             {
-                strSql += " AND QuarterCheckId in (select QuarterCheckId from Person_QuarterCheckApprove where UserId=@UserId and ApproveDate is null) ";
+                strSql += " AND (QuarterCheckId in (select QuarterCheckId from Person_QuarterCheckApprove where UserId=@UserId and ApproveDate is null)) ";
                 listStr.Add(new SqlParameter("@UserId", this.CurrUser.UserId));
             }
             strSql += " AND (StartTime>=@startTime or @startTime='') and (EndTime<=@endTime or @endTime='') ";
@@ -71,7 +76,8 @@ namespace FineUIPro.Web.Person
             {
                 if (drpState.SelectedValue == "1")  //筛选考核结束时，去除未办理条件限制
                 {
-                    strSql = strSql.Replace(" and ApproveDate is null", "");
+                    strSql = strSql.Replace(" and ApproveDate is null)", ") or C.UserId=@UserId2");
+                    listStr.Add(new SqlParameter("@UserId2", this.CurrUser.UserId));
                 }
                 strSql += " AND C.State=@State ";
                 listStr.Add(new SqlParameter("@State", this.drpState.SelectedValue));
@@ -91,6 +97,24 @@ namespace FineUIPro.Web.Person
                 return State.ToString() == "1" ? "考核结束" : "正在考核";
             }
             return "";
+        }
+
+        protected string ConvertGrade(object QuarterCheckId)
+        {
+            decimal grade = 0;
+            if (!string.IsNullOrEmpty(QuarterCheckId.ToString()))
+            {
+                var list = BLL.Person_QuarterCheckItemService.GetCheckItemListById(QuarterCheckId.ToString());
+                foreach (var item in list)
+                {
+                    if (item.Grade != null)
+                    {
+                        grade += item.Grade.Value * item.StandardGrade.Value / 100;
+                    }
+                }
+
+            }
+            return grade.ToString("0.##");
         }
         protected void btnQuery_Click(object sender, EventArgs e)
         {
@@ -113,7 +137,7 @@ namespace FineUIPro.Web.Person
                 return;
             }
             string Id = Grid1.SelectedRowID;
-            if (this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId)
+            if (this.CurrUser.UserId == BLL.Const.sysglyId || this.CurrUser.UserId == BLL.Const.hfnbdId || this.drpState.SelectedValue == "1")
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PersonCheckingView.aspx?QuarterCheckId={0}", Id, "编辑 - ")));
             }
@@ -187,23 +211,23 @@ namespace FineUIPro.Web.Person
             DateTime endTime = DateTime.Now;
             if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-1" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-3" + "-31"))
             {
-                startTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-1" + "-1");
-                endTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-3" + "-31");
+                startTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-10" + "-1");
+                endTime = Convert.ToDateTime(DateTime.Now.AddYears(-1).ToString() + "-12" + "-31");
             }
             else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-4" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-6" + "-30"))
+            {
+                startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-1" + "-1");
+                endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-3" + "-31");
+            }
+            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-7" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-9" + "-30"))
             {
                 startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-4" + "-1");
                 endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-6" + "-30");
             }
-            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-7" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-9" + "-30"))
+            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-10" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-12" + "-31"))
             {
                 startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-7" + "-1");
                 endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-9" + "-30");
-            }
-            else if (DateTime.Now >= Convert.ToDateTime(DateTime.Now.Year + "-10" + "-1") && DateTime.Now.Date <= Convert.ToDateTime(DateTime.Now.Year + "-12" + "-31"))
-            {
-                startTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-10" + "-1");
-                endTime = Convert.ToDateTime(DateTime.Now.Year.ToString() + "-12" + "-31");
             }
             var QuarterCheck = BLL.Person_QuarterCheckService.GetQuarterCheckByDateTime(startTime, endTime);
             if (QuarterCheck == null)
@@ -1179,31 +1203,6 @@ namespace FineUIPro.Web.Person
         /// <param name="QuarterCheckId"></param>
         private void SaveConstructEgItem(string ProjectId, string QuarterCheckId)
         {
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 8,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
             ///获取施工经理
             var ConstructionManager = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ConstructionManager);
             if (ConstructionManager != null)
@@ -1352,6 +1351,19 @@ namespace FineUIPro.Web.Person
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 8,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1397,31 +1409,6 @@ namespace FineUIPro.Web.Person
         /// <param name="QuarterCheckId"></param>
         private void SaveSecurityEgItem(string ProjectId, string QuarterCheckId)
         {
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 6,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
             ///获取安全经理
             var SecurityManager = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.HSSEManager);
             if (SecurityManager != null)
@@ -1530,6 +1517,19 @@ namespace FineUIPro.Web.Person
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 6,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1596,31 +1596,6 @@ namespace FineUIPro.Web.Person
                     ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
                     QuarterCheckId = QuarterCheckId,
                     UserId = ConstructionManager.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 6,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
                 };
                 BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
             }
@@ -1709,6 +1684,19 @@ namespace FineUIPro.Web.Person
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 6,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1834,37 +1822,24 @@ namespace FineUIPro.Web.Person
                 };
                 BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
             }
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
+
+            ///获取部室
+            var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
+            if (SGGLManager != null)
             {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
                     QuarterCheckId = QuarterCheckId,
                     TargetClass1 = "其他工作情况（30%）",
                     TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
                     CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
+                    UserId = SGGLManager.UserId,
                     SortId = 5,
                     StandardGrade = 10,
                 };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
 
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
-
-
-            ///获取部室
-            var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
-            if (SGGLManager != null)
-            {
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -2200,8 +2175,8 @@ namespace FineUIPro.Web.Person
                     }
                     uploadfilepath = rootPath + initTemplatePath;
                     var userName = BLL.UserService.GetUserByUserId(GetQuarterCheck.UserId).UserName;
-                    newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + userName + ".doc");
-                    filePath = initTemplatePath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + userName + ".pdf");
+                    newUrl = uploadfilepath.Replace(".doc", userName + string.Format("{0:yyyy-MM}", DateTime.Now) + ".doc");
+                    filePath = initTemplatePath.Replace(".doc", userName + string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
                     File.Copy(uploadfilepath, newUrl);
                     //更新书签内容
                     Document doc = new Aspose.Words.Document(newUrl);
@@ -2739,7 +2714,7 @@ namespace FineUIPro.Web.Person
                     uploadfilepath = rootPath + initTemplatePath;
                     var userName = BLL.UserService.GetUserByUserId(GetQuarterCheck.UserId).UserName;
                     //newUrl = uploadfilepath.Replace(".doc", string.Format("{0:yyyy-MM}", DateTime.Now) + userName + ".doc").Replace("Person", "Person\\员工考核");
-                    newUrl = uploadfilepath.Replace("Person\\", "Person\\"+ userName + string.Format("{0:yyyy-MM}", DateTime.Now)).Replace("Person", "Person\\员工考核");
+                    newUrl = uploadfilepath.Replace("Person\\", "Person\\" + userName + string.Format("{0:yyyy-MM}", DateTime.Now)).Replace("Person", "Person\\员工考核");
                     File.Copy(uploadfilepath, newUrl);
                     //更新书签内容
                     Document doc = new Aspose.Words.Document(newUrl);
@@ -3203,6 +3178,79 @@ namespace FineUIPro.Web.Person
             {
                 File.Delete(item);
             }
+        }
+        #endregion
+
+        #region 导出按钮
+        /// 导出按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnOut2_Click(object sender, EventArgs e)
+        {
+            Response.ClearContent();
+            string filename = Funs.GetNewFileName();
+            Response.AddHeader("content-disposition", "attachment; filename=" + System.Web.HttpUtility.UrlEncode("员工考核信息" + filename, System.Text.Encoding.UTF8) + ".xls");
+            Response.ContentType = "application/excel";
+            Response.ContentEncoding = System.Text.Encoding.UTF8;
+            this.Grid1.PageSize = 10000;
+            BindGrid();
+            Response.Write(GetGridTableHtml(Grid1));
+            Response.End();
+        }
+
+#pragma warning disable CS0108 // “PersonList.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
+        /// <summary>
+        /// 导出方法
+        /// </summary>
+        /// <param name="grid"></param>
+        /// <returns></returns>
+        private string GetGridTableHtml(Grid grid)
+#pragma warning restore CS0108 // “PersonList.GetGridTableHtml(Grid)”隐藏继承的成员“PageBase.GetGridTableHtml(Grid)”。如果是有意隐藏，请使用关键字 new。
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("<meta http-equiv=\"content-type\" content=\"application/excel; charset=UTF-8\"/>");
+            sb.Append("<table cellspacing=\"0\" rules=\"all\" border=\"1\" style=\"border-collapse:collapse;\">");
+            sb.Append("<tr>");
+            foreach (GridColumn column in grid.Columns)
+            {
+                if (column.ColumnID != "export")
+                {
+                    sb.AppendFormat("<td>{0}</td>", column.HeaderText);
+                }
+            }
+            sb.Append("</tr>");
+            foreach (GridRow row in grid.Rows)
+            {
+                sb.Append("<tr>");
+                foreach (GridColumn column in grid.Columns)
+                {
+                    if (column.ColumnID != "export")
+                    {
+                        string html = row.Values[column.ColumnIndex].ToString();
+                        if (column.ColumnID == "tfNumber")
+                        {
+                            html = (row.FindControl("labNumber") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "UserId")
+                        {
+                            html = (row.FindControl("lbState") as AspNet.Label).Text;
+                        }
+                        if (column.ColumnID == "Grade")
+                        {
+                            html = (row.FindControl("lbGrade") as AspNet.Label).Text;
+                        }
+                        //sb.AppendFormat("<td>{0}</td>", html);
+                        sb.AppendFormat("<td style='vnd.ms-excel.numberformat:@;width:140px;'>{0}</td>", html);
+                    }
+                }
+
+                sb.Append("</tr>");
+            }
+
+            sb.Append("</table>");
+
+            return sb.ToString();
         }
         #endregion
     }

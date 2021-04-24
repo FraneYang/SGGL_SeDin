@@ -78,7 +78,7 @@
                                             LabelWidth="100px" DecimalPrecision="4" NoNegative="true" ShowRedStar="true" Required="true"
                                             EnableBlurEvent="true" OnBlur="txtText_TextChanged" LabelAlign="Right">
                                         </f:NumberBox>
-                                        <f:NumberBox ID="txtSize" Label="达因" runat="server"
+                                        <f:NumberBox ID="txtSize" Label="达因" runat="server" Readonly="true"
                                             LabelWidth="100px" DecimalPrecision="4" NoNegative="true" ShowRedStar="true" Required="true" LabelAlign="Right">
                                         </f:NumberBox>
                                     </Items>

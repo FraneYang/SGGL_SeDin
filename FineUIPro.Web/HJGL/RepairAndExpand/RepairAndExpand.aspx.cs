@@ -882,17 +882,29 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             {
                 if (!string.IsNullOrEmpty(repairRecordId) && repairRecord.AuditDate.HasValue)
                 {
+                    var oldTrust = (from x in Funs.DB.HJGL_Batch_BatchTrust
+                                    join y in Funs.DB.HJGL_Batch_BatchTrustItem on x.TrustBatchId equals y.TrustBatchId
+                                    join z in Funs.DB.HJGL_Batch_NDEItem on y.TrustBatchItemId equals z.TrustBatchItemId
+                                    where z.NDEItemID == repairRecord.NDEItemID
+                                    select x).FirstOrDefault();
+
                     // 返修委托
                     Model.HJGL_Batch_BatchTrust newRepairTrust = new Model.HJGL_Batch_BatchTrust();
                     string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
                     newRepairTrust.TrustBatchId = trustBatchId;
-                    newRepairTrust.TrustBatchCode = repairRecord.RepairRecordCode;
+                    string perfix = repairRecord.RepairRecordCode.Substring(0, repairRecord.RepairRecordCode.Length - 4);
+                    newRepairTrust.TrustBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode4ByProjectId", "dbo.HJGL_Batch_BatchTrust", "TrustBatchCode", this.CurrUser.LoginProjectId, perfix);
                     newRepairTrust.TrustDate = DateTime.Now;
                     newRepairTrust.ProjectId = repairRecord.ProjectId;
                     newRepairTrust.UnitId = repairRecord.UnitId;
                     newRepairTrust.UnitWorkId = repairRecord.UnitWorkId;
                     newRepairTrust.DetectionTypeId = repairRecord.DetectionTypeId;
+                    newRepairTrust.DetectionRateId = oldTrust.DetectionRateId;
                     newRepairTrust.TrustType = "R";
+                    if (oldTrust != null)
+                    {
+                        newRepairTrust.NDEUnit = oldTrust.NDEUnit;
+                    }
                     BLL.Batch_BatchTrustService.AddBatchTrust(newRepairTrust);  // 新增返修委托单
 
                     Model.HJGL_Batch_BatchTrustItem newRepairTrustItem = new Model.HJGL_Batch_BatchTrustItem();
@@ -1056,7 +1068,7 @@ namespace FineUIPro.Web.HJGL.RepairAndExpand
             //}
         }
 
-        private void RandomExport(string mark,string pointState)
+        private void RandomExport(string mark, string pointState)
         {
             int num = Grid1.Rows.Count;
             if (mark == "A")

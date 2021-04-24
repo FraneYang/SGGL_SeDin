@@ -38,7 +38,7 @@ namespace BLL
                                     {
                                         BaseInfoId = x.ProjectId,
                                         BaseInfoCode = x.ProjectCode,
-                                        BaseInfoName = x.ProjectName
+                                        BaseInfoName = x.ShortName ?? x.ProjectName,
                                     }
                                 ).ToList();
                 return getDataLists;
@@ -557,7 +557,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getDataLists = (from x in db.ProjectData_TeamGroup
-                                    join y in  db.SitePerson_Person on x.GroupLeaderId equals y.PersonId
+                                    join y in db.SitePerson_Person on x.GroupLeaderId equals y.PersonId
                                     where x.TeamGroupId == teamGroupId && y.PersonId != null
                                     select new Model.BaseInfoItem { BaseInfoId = y.PersonId, BaseInfoCode = y.CardNo, BaseInfoName = y.PersonName }).FirstOrDefault();
                 return getDataLists;
@@ -611,7 +611,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getDataLists = (from x in db.Base_PictureType
-                                    where menuType == null || x.MenuType ==menuType
+                                    where menuType == null || x.MenuType == menuType
                                     orderby x.Code
                                     select new Model.BaseInfoItem { BaseInfoId = x.PictureTypeId, BaseInfoCode = x.Code, BaseInfoName = x.Name }).ToList();
                 return getDataLists;
@@ -714,7 +714,7 @@ namespace BLL
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
                 var getDataLists = (from x in db.RealName_City
-                                    where countryId == null || countryId=="" || x.CountryId== countryId
+                                    where countryId == null || countryId == "" || x.CountryId == countryId
                                     orderby x.ProvinceCode
                                     select new Model.BaseInfoItem { BaseInfoId = x.ProvinceCode, BaseInfoCode = x.Name, BaseInfoName = x.Cname }).ToList();
                 return getDataLists;

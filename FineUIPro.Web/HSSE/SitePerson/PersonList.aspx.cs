@@ -529,30 +529,33 @@ namespace FineUIPro.Web.HSSE.SitePerson
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
-                bool isShow = false;
-                if (Grid1.SelectedRowIndexArray.Length == 1)
-                {
-                    isShow = true;
-                }
-                int i = 0;
+                string message = string.Empty;
                 foreach (int rowIndex in Grid1.SelectedRowIndexArray)
                 {
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
-                    if (this.judgementDelete(rowID, isShow))
+                    var getV = BLL.PersonService.GetPersonById(rowID);
+                    if (getV != null)
                     {
-                        i++;
-                        var getV = BLL.PersonService.GetPersonById(rowID);
-                        if (getV != null)
+                        string rowMessage = this.judgementDelete(rowID, getV.PersonName);
+                        if (string.IsNullOrEmpty(rowMessage))
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, getV.PersonName, getV.PersonId, BLL.Const.PersonListMenuId, BLL.Const.BtnDelete);
                             BLL.PersonService.DeletePerson(rowID);
                         }
+                        else
+                        {
+                            message += rowMessage;
+                        }
                     }
                 }
                 BindGrid();
-                if (i > 0)
+                if (string.IsNullOrEmpty(message))
                 {
-                    ShowNotify("删除数据成功!（表格数据已重新绑定）", MessageBoxIcon.Success);
+                    ShowNotify("删除数据成功!", MessageBoxIcon.Success);
+                }
+                else
+                {
+                    Alert.ShowInParent(message, MessageBoxIcon.Warning);
                 }
             }
         }
@@ -563,26 +566,33 @@ namespace FineUIPro.Web.HSSE.SitePerson
         /// <param name="rowID"></param>
         /// <param name="isShow"></param>
         /// <returns></returns>
-        private bool judgementDelete(string rowID, bool isShow)
+        private string judgementDelete(string rowID, string name)
         {
-            string content = string.Empty;
-            var q = from x in Funs.DB.QualityAudit_PersonQuality where x.PersonId == rowID select x;
-            if (q.Count() > 0)
+            string content = string.Empty;           
+            ///培训记录
+            var getTrainRecord = from x in Funs.DB.EduTrain_TrainRecordDetail
+                                 join y in Funs.DB.EduTrain_TrainRecord on x.TrainingId equals y.TrainingId
+                                 where x.PersonId == rowID
+                                 select y;
+            foreach (var item in getTrainRecord)
             {
-                content += "人员资质中已存在该人员，无法删除！";
+                content += "培训记录【" + item.TrainingCode + "】";
             }
-            if (string.IsNullOrEmpty(content))
+            ///考试计划 - 考试记录           
+            var getTestRecode = from x in Funs.DB.Training_TestRecord
+                                join y in Funs.DB.Training_TestPlan on x.TestPlanId equals y.TestPlanId
+                                where x.TestManId == rowID
+                                select y;
+            foreach (var item in getTestRecode)
             {
-                return true;
-            }
-            else
+                content += "考试计划【" + item.PlanCode + "】";
+            }         
+
+            if (!string.IsNullOrEmpty(content))
             {
-                if (isShow)
-                {
-                    Alert.ShowInTop(content);
-                }
-                return false;
+                content += "中已使用该人员【" + name + "】！";
             }
+            return content;
         }
         #endregion
 

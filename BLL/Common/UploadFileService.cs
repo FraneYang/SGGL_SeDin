@@ -310,12 +310,11 @@ namespace BLL
             {
                 rootUrl = Funs.RootPath;
             }
-            var imageByte = AttachFileService.SetImageToByteArray(rootUrl + attachUrl.Split(',')[0]);
             List<Model.AttachFile> sour = (from x in Funs.DB.AttachFile
                                            where x.MenuId == menuId &&  x.ToKeyId == toKeyId
                                            select x).ToList();
             if (sour.Count() == 0)
-            {           
+            {
                 Model.AttachFile att = new Model.AttachFile
                 {
                     AttachFileId = SQLHelper.GetNewID(),
@@ -323,9 +322,14 @@ namespace BLL
                     AttachSource = source.ToString(),
                     AttachUrl = attachUrl,
                     MenuId = menuId,
-                    ImageByte= imageByte,
+                    //ImageByte= imageByte,
                     //AttachPath= attachPath,
                 };
+
+                if (menuId == Const.PersonListMenuId)
+                {
+                    att.ImageByte = AttachFileService.SetImageToByteArray(rootUrl + attachUrl.Split(',')[0]);
+                }
                 Funs.DB.AttachFile.InsertOnSubmit(att);
                 Funs.DB.SubmitChanges();
             }
@@ -338,7 +342,10 @@ namespace BLL
                     att.AttachSource = source.ToString();
                     att.AttachUrl = attachUrl;
                     att.MenuId = menuId;
-                    att.ImageByte = imageByte;
+                    if (menuId == Const.PersonListMenuId)
+                    {
+                        att.ImageByte = AttachFileService.SetImageToByteArray(rootUrl + attachUrl.Split(',')[0]);
+                    }
                     Funs.DB.SubmitChanges();
                 }
             }

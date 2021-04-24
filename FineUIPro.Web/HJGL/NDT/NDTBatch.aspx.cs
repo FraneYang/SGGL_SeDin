@@ -13,17 +13,17 @@ namespace FineUIPro.Web.HJGL.NDT
     {
         #region 定义项
         /// <summary>
-        /// 检测单主键
+        /// 委托单主键
         /// </summary>
-        public string NDEID
+        public string TrustBatchId
         {
             get
             {
-                return (string)ViewState["NDEID"];
+                return (string)ViewState["TrustBatchId"];
             }
             set
             {
-                ViewState["NDEID"] = value;
+                ViewState["TrustBatchId"] = value;
             }
         }
         #endregion
@@ -41,7 +41,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 GetButtonPower();
                 this.txtNDEDateMonth.Text = string.Format("{0:yyyy-MM}", DateTime.Now);
                 this.ddlPageSize.SelectedValue = this.Grid1.PageSize.ToString();
-                this.NDEID = string.Empty;
+                this.TrustBatchId = string.Empty;
                 this.InitTreeMenu();//加载树
             }
         }
@@ -62,10 +62,10 @@ namespace FineUIPro.Web.HJGL.NDT
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_NDTBatchMenuId);
             if (buttonList.Count() > 0)
             {
-                if (buttonList.Contains(BLL.Const.BtnAdd))
-                {
-                    this.btnNew.Hidden = false;
-                }
+                //if (buttonList.Contains(BLL.Const.BtnAdd))
+                //{
+                //    this.btnNew.Hidden = false;
+                //}
                 if (buttonList.Contains(BLL.Const.BtnSave))
                 {
                     this.btnEdit.Hidden = false;
@@ -179,10 +179,10 @@ namespace FineUIPro.Web.HJGL.NDT
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-            var p = from x in Funs.DB.HJGL_Batch_NDE
+            var p = from x in Funs.DB.HJGL_Batch_BatchTrust
                     where x.UnitWorkId == node.NodeID
-                    && x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
-                    && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
+                    && x.TrustDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
+                    && x.TrustDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
                     select x;
             if (p.Count() > 0)
             {
@@ -203,13 +203,13 @@ namespace FineUIPro.Web.HJGL.NDT
                                      select new { x.DetectionTypeId, x.DetectionTypeCode, x.DetectionTypeName };
                 foreach (var item in detectionTypes)
                 {
-                    var types = (from x in Funs.DB.View_Batch_NDE
+                    var types = (from x in Funs.DB.HJGL_Batch_BatchTrust
                                  join y in Funs.DB.Base_DetectionType
                                  on x.DetectionTypeId equals y.DetectionTypeId
                                  where x.ProjectId == this.CurrUser.LoginProjectId
                                        && x.UnitWorkId == e.Node.NodeID
                                        && x.DetectionTypeId == item.DetectionTypeId
-                                 orderby x.DetectionTypeCode
+                                 orderby y.DetectionTypeCode
                                  select y).Distinct();
 
                     TreeNode newNode = new TreeNode();
@@ -226,8 +226,8 @@ namespace FineUIPro.Web.HJGL.NDT
 
                     TreeNode tn1 = new TreeNode
                     {
-                        Text = "检测单号",
-                        NodeID = "检测单号",
+                        Text = "委托单号",
+                        NodeID = "委托单号",
                     };
                     newNode.Nodes.Add(tn1);
                 }
@@ -235,35 +235,92 @@ namespace FineUIPro.Web.HJGL.NDT
 
             if (e.Node.CommandName == "探伤类型")
             {
-                ///单号
                 string ndtTypeId = e.Node.NodeID.Split('|')[0];
-                var checks = from x in Funs.DB.View_Batch_NDE
-                             where x.NDEDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
-                             && x.NDEDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
-                             && x.ProjectId == this.CurrUser.LoginProjectId && x.NDECode.Contains(this.txtSearchCode.Text.Trim())
-                             && x.UnitWorkId.ToString() == e.Node.ParentNode.NodeID
-                             && x.DetectionTypeId == ndtTypeId
-                             orderby x.NDECode descending
+                var detectionRates = from x in Funs.DB.Base_DetectionRate
+                                     orderby x.DetectionRateCode
+                                     select new { x.DetectionRateId, x.DetectionRateCode, x.DetectionRateValue };
+                foreach (var item in detectionRates)
+                {
+                    var trusts = from x in Funs.DB.HJGL_Batch_BatchTrust
+                                 where x.TrustDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
+                                 && x.TrustDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
+                                 && x.ProjectId == this.CurrUser.LoginProjectId && x.TrustBatchCode.Contains(this.txtSearchCode.Text.Trim())
+                                 && x.UnitWorkId.ToString() == e.Node.ParentNode.NodeID
+                                 && x.DetectionTypeId == ndtTypeId && x.DetectionRateId == item.DetectionRateId
+                                 orderby x.TrustBatchCode descending
+                                 select x;
+                    if (item.DetectionRateValue > 0)   //探伤比例为0的批不显示
+                    {
+                        TreeNode newNode = new TreeNode();
+                        if (trusts.Count() > 0)
+                        {
+                            newNode.Text = item.DetectionRateValue.ToString() + "%";
+                            newNode.NodeID = item.DetectionRateId + "|" + e.Node.NodeID;
+                            newNode.EnableExpandEvent = true;
+                            newNode.ToolTip = item.DetectionRateCode;
+                            newNode.CommandName = "检测比例";
+
+                            e.Node.Nodes.Add(newNode);
+                        }
+
+                        TreeNode tn1 = new TreeNode
+                        {
+                            Text = "检测批",
+                            NodeID = "检测批",
+                        };
+                        newNode.Nodes.Add(tn1);
+                    }
+                }
+            }
+            if (e.Node.CommandName == "检测比例")
+            {
+                ///单号
+                string ndtTypeId = e.Node.ParentNode.NodeID.Split('|')[0];
+                string ndtRateId = e.NodeID.Split('|')[0];
+                var trusts = from x in Funs.DB.HJGL_Batch_BatchTrust
+                             where x.TrustDate < Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01").AddMonths(1)
+                             && x.TrustDate >= Convert.ToDateTime(this.txtNDEDateMonth.Text.Trim() + "-01")
+                             && x.ProjectId == this.CurrUser.LoginProjectId && x.TrustBatchCode.Contains(this.txtSearchCode.Text.Trim())
+                             && x.UnitWorkId.ToString() == e.Node.ParentNode.ParentNode.NodeID
+                             && x.DetectionTypeId == ndtTypeId && x.DetectionRateId == ndtRateId
+                             orderby x.TrustBatchCode descending
                              select x;
-                foreach (var check in checks)
+                foreach (var trust in trusts)
                 {
                     TreeNode newNode = new TreeNode();
-                    //if (!check.AuditDate.HasValue)
-                    //{
-                    //    newNode.Text = "<font color='#EE0000'>" + check.NDECode + "</font>";
-                    //}
-                    //else
-                    //{
-                        newNode.Text = check.NDECode;
-                    //}
-                    newNode.NodeID = check.NDEID;
-                    newNode.ToolTip = "check";
-                    newNode.CommandName = "检测单号";
+                    string code = string.Empty;
+                    if (trust.TrustType == "R")
+                    {
+                        code = "FXWT-" + trust.TrustBatchCode.Substring(trust.TrustBatchCode.Length - 4);
+                    }
+                    else
+                    {
+                        code = "WT-" + trust.TrustBatchCode.Substring(trust.TrustBatchCode.Length - 4);
+                    }
+                    // 未检测委托红色显示
+                    if (BLL.Batch_NDEService.GetNDEViewByTrustBatchId(trust.TrustBatchId) == null)
+                    {
+                        Model.HJGL_Batch_PointBatch batch = BLL.PointBatchService.GetPointBatchById(trust.PointBatchId);
+                        if (batch != null && batch.IsClosed == true)
+                        {
+                            newNode.Text = code;
+                        }
+                        else
+                        {
+                            newNode.Text = "<font color='#EE0000'>" + code + "</font>";
+                        }
+                    }
+                    else
+                    {
+                        newNode.Text = code;
+                    }
+                    newNode.NodeID = trust.TrustBatchId;
+                    newNode.ToolTip = "委托单号";
+                    newNode.CommandName = "委托单号";
                     newNode.EnableClickEvent = true;
                     e.Node.Nodes.Add(newNode);
                 }
             }
-
         }
         #endregion
 
@@ -278,26 +335,37 @@ namespace FineUIPro.Web.HJGL.NDT
             var buttonList = BLL.CommonService.GetAllButtonList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_NDTBatchMenuId);
             if (this.tvControlItem.SelectedNode.CommandName == "建筑工程" || this.tvControlItem.SelectedNode.CommandName == "安装工程" || this.tvControlItem.SelectedNode.CommandName == "探伤类型")
             {
-                this.btnNew.Hidden = true;
+                //this.btnNew.Hidden = true;
                 this.btnEdit.Hidden = true;
                 this.btnAudit.Hidden = true;
-                //this.BtnRepairRecord.Hidden = true;
+                this.btnView.Hidden = true;
                 this.btnDelete.Hidden = true;
             }
             else if (this.tvControlItem.SelectedNode.CommandName == "单位工程")
             {
-                if (buttonList.Contains(BLL.Const.BtnAdd))
-                {
-                    this.btnNew.Hidden = false;
-                }
+                //if (buttonList.Contains(BLL.Const.BtnAdd))
+                //{
+                //    this.btnNew.Hidden = false;
+                //}
                 this.btnEdit.Hidden = true;
                 this.btnAudit.Hidden = true;
-                //this.BtnRepairRecord.Hidden = true;
+                this.btnView.Hidden = true;
                 this.btnDelete.Hidden = true;
             }
-            else if (this.tvControlItem.SelectedNode.CommandName == "检测单号")
+            else if (this.tvControlItem.SelectedNode.CommandName == "探伤类型")
             {
-                this.btnNew.Hidden = true;
+                //if (buttonList.Contains(BLL.Const.BtnAdd))
+                //{
+                //    this.btnNew.Hidden = false;
+                //}
+                this.btnEdit.Hidden = true;
+                this.btnAudit.Hidden = true;
+                this.btnView.Hidden = true;
+                this.btnDelete.Hidden = true;
+            }
+            else if (this.tvControlItem.SelectedNode.CommandName == "委托单号")
+            {
+                //this.btnNew.Hidden = true;
                 if (buttonList.Contains(BLL.Const.BtnSave))
                 {
                     this.btnEdit.Hidden = false;
@@ -306,16 +374,13 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     this.btnAudit.Hidden = false;
                 }
-                //if (buttonList.Contains(BLL.Const.BtnRepairNotice))
-                //{
-                //    this.BtnRepairRecord.Hidden = false;
-                //}
+                this.btnView.Hidden = false;
                 if (buttonList.Contains(BLL.Const.BtnDelete))
                 {
                     this.btnDelete.Hidden = false;
                 }
             }
-            this.NDEID = tvControlItem.SelectedNodeID;
+            this.TrustBatchId = tvControlItem.SelectedNodeID;
             this.BindGrid();
         }
         #endregion
@@ -331,37 +396,48 @@ namespace FineUIPro.Web.HJGL.NDT
         /// </summary>
         private void BindGrid()
         {
-            if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.ToolTip == "check")
+            if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.ToolTip == "委托单号")
             {
                 this.SetTextTemp();
                 this.PageInfoLoad(); ///页面输入提交信息
-                string strSql = @"SELECT * FROM dbo.View_Batch_NDEItem d WHERE NDEID=@NDEID ";
-                List<SqlParameter> listStr = new List<SqlParameter>
+                var check = Funs.DB.View_Batch_NDE.FirstOrDefault(x => x.TrustBatchId == this.TrustBatchId);
+                if (check != null)
                 {
-
-                };
-                listStr.Add(new SqlParameter("@NDEID", this.tvControlItem.SelectedNodeID));
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-
-                // 2.获取当前分页数据
-                //var table = this.GetPagedDataTable(Grid1, tb1);
-                Grid1.RecordCount = tb.Rows.Count;
-                tb = GetFilteredTable(Grid1.FilteredData, tb);
-                var table = this.GetPagedDataTable(Grid1, tb);
-                Grid1.DataSource = table;
-                Grid1.DataBind();
-                for (int i = 0; i < this.Grid1.Rows.Count; i++)
-                {
-                    string id = Grid1.DataKeys[i][0].ToString();
-                    Model.HJGL_Batch_NDEItem item = BLL.Batch_NDEItemService.GetNDEItemById(id);
-                    if (item != null)
+                    string strSql = @"SELECT * FROM dbo.View_Batch_NDEItem d WHERE NDEID=@NDEID ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
                     {
-                        if (item.SubmitDate == null)    //未审核
-                        {
-                            this.Grid1.Rows[i].CellCssClasses[15] = "f-grid-cell-uneditable";
-                        }
-                    }
+
+                    };
+                    listStr.Add(new SqlParameter("@NDEID", check.NDEID));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    // 2.获取当前分页数据
+                    //var table = this.GetPagedDataTable(Grid1, tb1);
+                    Grid1.RecordCount = tb.Rows.Count;
+                    tb = GetFilteredTable(Grid1.FilteredData, tb);
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+                }
+                else
+                {
+                    string strSql = @"SELECT * FROM dbo.View_Batch_BatchTrustItem d WHERE TrustBatchId=@TrustBatchId ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
+                    {
+
+                    };
+                    listStr.Add(new SqlParameter("@TrustBatchId", this.TrustBatchId));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    // 2.获取当前分页数据
+                    //var table = this.GetPagedDataTable(Grid1, tb1);
+                    Grid1.RecordCount = tb.Rows.Count;
+                    tb = GetFilteredTable(Grid1.FilteredData, tb);
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
                 }
             }
         }
@@ -373,18 +449,42 @@ namespace FineUIPro.Web.HJGL.NDT
         private void PageInfoLoad()
         {
             this.SimpleForm1.Reset(); ///重置所有字段
-            var check = Funs.DB.View_Batch_NDE.FirstOrDefault(x => x.NDEID == this.NDEID);
+            var check = Funs.DB.View_Batch_NDE.FirstOrDefault(x => x.TrustBatchId == this.TrustBatchId);
             if (check != null)
             {
                 this.txtUnitName.Text = check.UnitName;
-                this.txtUnitWork.Text = check.UnitWorkName;
+                this.txtIsCheck.Text = "已检测";
                 this.txtCheckUnit.Text = check.NDEUnitName;
                 this.txtDetectionTypeCode.Text = check.DetectionTypeCode;
                 if (check.NDEDate != null)
                 {
                     this.txtNDEDate.Text = string.Format("{0:yyyy-MM-dd}", check.NDEDate);
                 }
-                this.txtTrustBatchCode.Text = check.TrustBatchCode;
+                this.txtNDECode.Text = check.NDECode;
+            }
+            else
+            {
+                Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewById(this.TrustBatchId);
+                if (trust != null)
+                {
+                    Model.HJGL_Batch_PointBatch batch = BLL.PointBatchService.GetPointBatchById(trust.PointBatchId);
+                    if (batch != null && batch.IsClosed == true)
+                    {
+                        this.txtIsCheck.Text = "无需检测";
+                    }
+                    else
+                    {
+                        this.txtUnitName.Text = trust.UnitName;
+                        this.txtIsCheck.Text = "未检测";
+                        Model.Base_Unit ndeUnit = BLL.UnitService.GetUnitByUnitId(trust.NDEUnit);
+                        if (ndeUnit != null)
+                        {
+                            this.txtCheckUnit.Text = ndeUnit.UnitName;
+                        }
+                        this.txtDetectionTypeCode.Text = trust.DetectionTypeCode;
+                        this.txtNDECode.Text = string.Empty;
+                    }
+                }
             }
         }
         #endregion
@@ -395,11 +495,11 @@ namespace FineUIPro.Web.HJGL.NDT
         private void SetTextTemp()
         {
             this.txtUnitName.Text = string.Empty;
-            this.txtUnitWork.Text = string.Empty;
+            this.txtIsCheck.Text = string.Empty;
             this.txtCheckUnit.Text = string.Empty;
             this.txtDetectionTypeCode.Text = string.Empty;
             this.txtNDEDate.Text = string.Empty;
-            this.txtTrustBatchCode.Text = string.Empty;
+            this.txtNDECode.Text = string.Empty;
         }
         #endregion
 
@@ -456,7 +556,7 @@ namespace FineUIPro.Web.HJGL.NDT
                 {
                     this.SetTextTemp();
                     string window = String.Format("NDTBatchEdit.aspx?unitWorkId={0}", tvControlItem.SelectedNodeID, "新增 - ");
-                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdNDEID.ClientID)
+                    PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdTrustBatchId.ClientID)
                       + Window1.GetShowReference(window));
                 }
                 else
@@ -480,15 +580,15 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnSave))
             {
-                if (this.tvControlItem.SelectedNode != null)
+                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
                 {
-                    Model.HJGL_Batch_NDE check = BLL.Batch_NDEService.GetNDEById(this.tvControlItem.SelectedNodeID);
+                    Model.View_Batch_NDE check = BLL.Batch_NDEService.GetNDEViewByTrustBatchId(this.tvControlItem.SelectedNodeID);
                     if (check != null)
                     {
                         if (check.AuditDate == null)
                         {
-                            string window = String.Format("NDTBatchEdit.aspx?NDEID={0}", this.NDEID, "编辑 - ");
-                            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdNDEID.ClientID)
+                            string window = String.Format("NDTBatchEdit.aspx?TrustBatchId={0}", this.TrustBatchId, "编辑 - ");
+                            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdTrustBatchId.ClientID)
                               + Window1.GetShowReference(window));
                         }
                         else
@@ -498,7 +598,18 @@ namespace FineUIPro.Web.HJGL.NDT
                     }
                     else
                     {
-                        ShowNotify("请选择要编辑的记录", MessageBoxIcon.Warning);
+                        var batch = (from x in Funs.DB.HJGL_Batch_PointBatch
+                                     join y in Funs.DB.HJGL_Batch_BatchTrust on x.PointBatchId equals y.PointBatchId
+                                     where y.TrustBatchId == this.TrustBatchId
+                                     select x).FirstOrDefault();
+                        if (batch != null && batch.IsClosed == true)
+                        {
+                            ShowNotify("该委托无需检测", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        string window = String.Format("NDTBatchEdit.aspx?TrustBatchId={0}", this.TrustBatchId, "编辑 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdTrustBatchId.ClientID)
+                          + Window1.GetShowReference(window));
                     }
                 }
                 else
@@ -525,14 +636,14 @@ namespace FineUIPro.Web.HJGL.NDT
             {
                 if (this.tvControlItem.SelectedNode != null)
                 {
-                    Model.HJGL_Batch_NDE check = BLL.Batch_NDEService.GetNDEById(this.tvControlItem.SelectedNodeID);
+                    Model.HJGL_Batch_NDE check = BLL.Batch_NDEService.GetNDEByTrustBatchId(this.tvControlItem.SelectedNodeID);
                     if (check != null)
                     {
                         string trustId = check.TrustBatchId;
-                        if (judgementDelete(this.tvControlItem.SelectedNodeID))
+                        if (judgementDelete(check.NDEID))
                         {
-                            BLL.Batch_NDEItemService.DeleteNDEItemById(this.NDEID);
-                            BLL.Batch_NDEService.DeleteNDEById(this.NDEID);
+                            BLL.Batch_NDEItemService.DeleteNDEItemById(check.NDEID);
+                            BLL.Batch_NDEService.DeleteNDEById(check.NDEID);
                             BLL.Batch_BatchTrustService.UpdatTrustBatchtState(trustId, null);
                             //BLL.Sys_LogService.AddLog(BLL.Const.System_6, this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnDelete, this.NDEID);
                             ShowNotify("删除成功！", MessageBoxIcon.Success);
@@ -543,7 +654,7 @@ namespace FineUIPro.Web.HJGL.NDT
                         }
                         else
                         {
-                            ShowNotify("不能删除，明细检测已有审核！", MessageBoxIcon.Warning);
+                            ShowNotify("检测单明细已审核，不能删除！", MessageBoxIcon.Warning);
                         }
                     }
                     else
@@ -584,20 +695,34 @@ namespace FineUIPro.Web.HJGL.NDT
                 //    }
                 //}
                 //var notOKCheckItem = from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID  select x;
-                string ndtItem = Grid1.SelectedRowID;
-                if (ndtItem != string.Empty)
+                if (Grid1.SelectedRow != null)
                 {
-                    var q = BLL.Batch_NDEItemService.GetNDEItemById(ndtItem);
-                    if (q.PassFilm != q.TotalFilm && q.SubmitDate.HasValue)
+                    if (Grid1.SelectedRow.DataKeys[1] != null)
                     {
-                        string window = String.Format("RepairNotice.aspx?NDEItemID={0}", ndtItem, "返修通知单");
-                        PageContext.RegisterStartupScript(WindowRepair.GetShowReference(window));
+                        string ndtItem = Grid1.SelectedRow.DataKeys[1].ToString();
+                        if (ndtItem != string.Empty)
+                        {
+                            var q = BLL.Batch_NDEItemService.GetNDEItemById(ndtItem);
+                            if (q.PassFilm != q.TotalFilm && q.SubmitDate.HasValue)
+                            {
+                                string window = String.Format("RepairNotice.aspx?NDEItemID={0}", ndtItem, "返修通知单");
+                                PageContext.RegisterStartupScript(WindowRepair.GetShowReference(window));
+                            }
+                            else
+                            {
+                                ShowNotify("请选择不合格并且已审核的检测项！", MessageBoxIcon.Warning);
+                            }
+
+                        }
+                        else
+                        {
+                            ShowNotify("请选择不合格检测项！", MessageBoxIcon.Warning);
+                        }
                     }
                     else
                     {
-                        ShowNotify("请选择不合格并且已审核的检测项！", MessageBoxIcon.Warning);
+                        ShowNotify("请选择不合格检测项！", MessageBoxIcon.Warning);
                     }
-
                 }
                 else
                 {
@@ -633,7 +758,7 @@ namespace FineUIPro.Web.HJGL.NDT
             }
             else
             {
-                Alert.ShowInTop(content, MessageBoxIcon.Error);
+                //Alert.ShowInTop(content, MessageBoxIcon.Error);
                 return false;
             }
         }
@@ -647,10 +772,10 @@ namespace FineUIPro.Web.HJGL.NDT
         /// <param name="e"></param>
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-            this.NDEID = this.hdNDEID.Text;
+            this.TrustBatchId = this.hdTrustBatchId.Text;
             this.BindGrid();
             //this.InitTreeMenu();
-            this.hdNDEID.Text = string.Empty;
+            this.hdTrustBatchId.Text = string.Empty;
         }
 
         /// <summary>
@@ -692,68 +817,40 @@ namespace FineUIPro.Web.HJGL.NDT
         {
             if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnAuditing))
             {
-                List<Model.HJGL_Batch_NDEItem> GetNDEItem = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID);
-                Model.SGGLDB db = Funs.DB;
-                ////全部记录都已录入探伤报告编号
-                //var isNull = GetNDEItem.FirstOrDefault(x => x.NDEReportNo == null);
-                //if (isNull == null)
-                //{
-                //    foreach (var item in GetNDEItem)
-                //    {
-                //        if (!item.SubmitDate.HasValue)
-                //        {
-                //            if (!string.IsNullOrEmpty(item.CheckResult) && !String.IsNullOrEmpty(item.NDEReportNo))
-                //            {
-                //                var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(item.DetectionTypeId);
-                //                if (ndt.DetectionTypeCode.Contains("RT") && (!item.PassFilm.HasValue || !item.TotalFilm.HasValue))
-                //                {
-                //                    ShowNotify("请填写拍片总数和拍片合格数！", MessageBoxIcon.Warning);
-                //                    return;
-                //                }
-
-                //                if (item.TotalFilm < item.PassFilm)
-                //                {
-                //                    ShowNotify("拍片合格数不能大于拍片总数！", MessageBoxIcon.Warning);
-                //                    return;
-                //                }
-                //            }
-                //            BLL.Batch_NDEItemService.NDEItemAudit(item.NDEItemID,DateTime.Now);
-                //        }
-                //    }
-                //}
-                //else
-                //{
-                //    ShowNotify("所有记录需填写探伤报告编号后才可审核！", MessageBoxIcon.Warning);
-                //    return;
-                //}
-
-                //未录入检测结果的焊口，取消委托状态，可重新委托检测
-                Model.HJGL_Batch_NDE nde = BLL.Batch_NDEService.GetNDEById(this.NDEID);
-                List<Model.HJGL_Batch_BatchTrustItem> list = (from x in Funs.DB.HJGL_Batch_BatchTrustItem where x.TrustBatchId == nde.TrustBatchId select x).ToList();
-                foreach (var item in list)
+                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
                 {
-                    var ndeItem = GetNDEItem.FirstOrDefault(x=>x.TrustBatchItemId==item.TrustBatchItemId);
-                    if (ndeItem == null)   //未录入检测结果的焊口
+                    Model.View_Batch_NDE check = BLL.Batch_NDEService.GetNDEViewByTrustBatchId(this.tvControlItem.SelectedNodeID);
+                    if (check != null)
                     {
-                        BLL.Batch_BatchTrustItemService.DeleteTrustItemByTrustBatchItemId(item.TrustBatchItemId);
+                        if (check.AuditDate == null)
+                        {
+                            string window = String.Format("NDTBatchAudit.aspx?TrustBatchId={0}", this.TrustBatchId, "编辑 - ");
+                            PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdTrustBatchId.ClientID)
+                              + Window1.GetShowReference(window));
+                        }
+                        else
+                        {
+                            ShowNotify("该单据已审核！", MessageBoxIcon.Warning);
+                        }
+                    }
+                    else
+                    {
+                        var batch = (from x in Funs.DB.HJGL_Batch_PointBatch
+                                     join y in Funs.DB.HJGL_Batch_BatchTrust on x.PointBatchId equals y.PointBatchId
+                                     where y.TrustBatchId == this.TrustBatchId
+                                     select x).FirstOrDefault();
+                        if (batch != null && batch.IsClosed == true)
+                        {
+                            ShowNotify("该委托无需检测", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        ShowNotify("请先编辑检测单记录！", MessageBoxIcon.Warning);
                     }
                 }
-
-            
-                if (nde != null)
+                else
                 {
-                    nde.AuditDate = DateTime.Now;
-                    BLL.Batch_NDEService.UpdateNDE(nde);
-                    //int trustItemCount = BLL.Batch_BatchTrustItemService.GetBatchTrustItemByTrustBatchId(nde.TrustBatchId).Count;
-                    //int checkItemCount = BLL.Batch_NDEItemService.GetNDEItemByNDEID(this.NDEID).Count;
-                    //int noResultCheckItemCount = (from x in Funs.DB.HJGL_Batch_NDEItem where x.NDEID == this.NDEID && x.CheckResult == null select x).Count();
-                    //if (trustItemCount == checkItemCount && noResultCheckItemCount == 0)  //全部检测结果录入完毕，更新字段
-                    //{
-                        BLL.Batch_BatchTrustService.UpdatTrustBatchtState(nde.TrustBatchId, true);
-                    //}
+                    ShowNotify("请选择要审核的记录", MessageBoxIcon.Warning);
                 }
-
-                ShowNotify("审核成功！", MessageBoxIcon.Success);
             }
             else
             {
@@ -793,6 +890,52 @@ namespace FineUIPro.Web.HJGL.NDT
             //    catch { }
             //}
             //BLL.Batch_PointBatchService.UpdateNewKuoOrCutJointNo(pointBatchItem.PointBatchItemId, jot);
+        }
+        #endregion
+
+        #region 检测单 查看事件
+        /// <summary>
+        /// 查看检测单
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_NDTBatchMenuId, Const.BtnAuditing))
+            {
+                if (this.tvControlItem.SelectedNode != null && this.tvControlItem.SelectedNode.CommandName == "委托单号")
+                {
+                    Model.View_Batch_NDE check = BLL.Batch_NDEService.GetNDEViewByTrustBatchId(this.tvControlItem.SelectedNodeID);
+                    if (check != null)
+                    {
+                        string window = String.Format("NDTBatchAudit.aspx?TrustBatchId={0}&View=View", this.TrustBatchId, "编辑 - ");
+                        PageContext.RegisterStartupScript(Window1.GetSaveStateReference(this.hdTrustBatchId.ClientID)
+                          + Window1.GetShowReference(window));
+                    }
+                    else
+                    {
+                        var batch = (from x in Funs.DB.HJGL_Batch_PointBatch
+                                     join y in Funs.DB.HJGL_Batch_BatchTrust on x.PointBatchId equals y.PointBatchId
+                                     where y.TrustBatchId == this.TrustBatchId
+                                     select x).FirstOrDefault();
+                        if (batch != null && batch.IsClosed == true)
+                        {
+                            ShowNotify("该委托无需检测", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        ShowNotify("请先编辑检测单记录！", MessageBoxIcon.Warning);
+                    }
+                }
+                else
+                {
+                    ShowNotify("请选择要审核的记录", MessageBoxIcon.Warning);
+                }
+            }
+            else
+            {
+                ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
+                return;
+            }
         }
         #endregion
 

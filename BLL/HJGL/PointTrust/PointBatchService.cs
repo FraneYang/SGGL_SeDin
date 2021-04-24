@@ -34,6 +34,21 @@ namespace BLL
         }
 
         /// <summary>
+        /// 修改批主表批关闭状态
+        /// </summary>
+        /// <param name="batch"></param>
+        public static void UpdateBatchIsClosed2(string PointBatchId, DateTime endDate)
+        {
+            Model.HJGL_Batch_PointBatch newBatch = Funs.DB.HJGL_Batch_PointBatch.FirstOrDefault(e => e.PointBatchId == PointBatchId);
+            if (newBatch != null)
+            {
+                newBatch.EndDate = endDate;
+                newBatch.IsClosed = true;
+                Funs.DB.SubmitChanges();
+            }
+        }
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="check"></param>

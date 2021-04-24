@@ -249,7 +249,14 @@ namespace FineUIPro.Web.HJGL.WeldingManage
         {
             if (BLL.CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, BLL.Const.HJGL_WeldJointMenuId, BLL.Const.BtnModify))
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointEdit.aspx?WeldJointId={0}", Grid1.SelectedRowID, "编辑 - ")));
+                if (BLL.WeldTaskService.GetWeldTaskByWeldJointId(Grid1.SelectedRowID) != null)  //已下任务单，不可修改数据
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointView.aspx?WeldJointId={0}", Grid1.SelectedRowID, "编辑 - ")));
+                }
+                else
+                {
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointEdit.aspx?WeldJointId={0}", Grid1.SelectedRowID, "编辑 - ")));
+                }
             }
             else
             {
@@ -305,6 +312,11 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
                     return;
                 }
+                if (BLL.WeldTaskService.GetWeldTaskByWeldJointId(Grid1.SelectedRowID) != null)  //已下任务单，不可修改数据
+                {
+                    Alert.ShowInTop("该焊口已生成焊接任务单，不能编辑！", MessageBoxIcon.Warning);
+                    return;
+                }
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointEdit.aspx?WeldJointId={0}", Grid1.SelectedRowID, "维护 - ")));
             }
             else
@@ -333,6 +345,21 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 ShowNotify("您没有这个权限，请与管理员联系！", MessageBoxIcon.Warning);
             }
+        }
+
+        /// <summary>
+        /// 焊口信息查看
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnView_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录", MessageBoxIcon.Warning);
+                return;
+            }
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("WeldJointView.aspx?WeldJointId={0}", Grid1.SelectedRowID, "维护 - ")));
         }
 
         /// <summary>

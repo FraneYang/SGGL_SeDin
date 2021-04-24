@@ -112,6 +112,15 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Toolbar Toolbar3;
         
         /// <summary>
+        /// txtPointBatchCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtPointBatchCode;
+        
+        /// <summary>
         /// btnAutoPoint 控件。
         /// </summary>
         /// <remarks>
@@ -119,6 +128,15 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnAutoPoint;
+        
+        /// <summary>
+        /// btnClose 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnClose;
         
         /// <summary>
         /// btnbtnOpenResetPoint 控件。
@@ -166,6 +184,105 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         protected global::FineUIPro.Button btnPrint;
         
         /// <summary>
+        /// TbPipeline 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar TbPipeline;
+        
+        /// <summary>
+        /// lbPipelineCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbPipelineCode;
+        
+        /// <summary>
+        /// lbRate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbRate;
+        
+        /// <summary>
+        /// lbNeedJointNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbNeedJointNum;
+        
+        /// <summary>
+        /// lbPointJointNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbPointJointNum;
+        
+        /// <summary>
+        /// lbLastJointNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbLastJointNum;
+        
+        /// <summary>
+        /// TbNotPipeline 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar TbNotPipeline;
+        
+        /// <summary>
+        /// lbTotalJointNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbTotalJointNum;
+        
+        /// <summary>
+        /// lbNeedJointNum2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbNeedJointNum2;
+        
+        /// <summary>
+        /// lbPointJointNum2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbPointJointNum2;
+        
+        /// <summary>
+        /// lbLastJointNum2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label lbLastJointNum2;
+        
+        /// <summary>
         /// SimpleForm1 控件。
         /// </summary>
         /// <remarks>
@@ -200,6 +317,15 @@ namespace FineUIPro.Web.HJGL.PointTrust {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label txtState;
+        
+        /// <summary>
+        /// txtPointState 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtPointState;
         
         /// <summary>
         /// Grid1 控件。

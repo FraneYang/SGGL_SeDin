@@ -47,12 +47,12 @@
                 <f:FormRow ColumnWidths="70% 30%">
                     <Items>
                         <f:Label ID="Label44" runat="server" Text="根据《中华人民共和国民法典》、《中华人民共和国建筑法》及有关法律规定，遵循平等、自愿、公平和诚实信用的原则，双方就"></f:Label>
-                     <f:TextBox ID="txtContents" runat="server"></f:TextBox>
-                         </Items>
+                        <f:TextBox ID="txtContents" runat="server"></f:TextBox>
+                    </Items>
                 </f:FormRow>
-               <f:FormRow>
+                <f:FormRow>
                     <Items>
-                      <f:Label ID="Label47" runat="server" Text="分包工程施工及有关事项协商一致，共同达成如下协议："></f:Label>
+                        <f:Label ID="Label47" runat="server" Text="分包工程施工及有关事项协商一致，共同达成如下协议："></f:Label>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -82,7 +82,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtFundingSources" runat="server" Label="资金来源" LabelWidth="160px" EmptyText="业主依据总包合同支付给总承包商的工程款。（示例性描述）"></f:TextBox>
+                        <f:TextBox ID="txtFundingSources" runat="server" Label="资金来源" LabelWidth="160px" Text="业主依据总包合同支付给总承包商的工程款。"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -246,7 +246,7 @@
                         <f:Label ID="Label16" runat="server" Text="（4）施工分包商按照国家有关规定向总承包商开具"></f:Label>
                         <f:TextBox ID="txtInvoice" runat="server"></f:TextBox>
                         <f:Label ID="Label17" runat="server" Text="建筑业增值税专用发票。如国家相关税率政策发生变化，则按照最新的税率政策相应进行价格的调整。"></f:Label>
-</Items>
+                    </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
@@ -362,7 +362,7 @@
                         <f:Panel ID="Panel12" runat="server" ShowHeader="false" ShowBorder="false">
                             <Items>
                                 <f:ContentPanel ID="ContentPanel14" runat="server" ShowHeader="false" ShowBorder="false">
-                                   （4）	合同终止：总承包商、施工分包商履行完毕合同全部义务，竣工结算价款支付完毕，施工分包商向总承包商交付竣工工程及相关资料及质保期届满后，本合同即告终止。合同终止后，总承包商、施工分包商应当遵循诚实信用原则，履行通知、协助、保密等义务。
+                                    （4）	合同终止：总承包商、施工分包商履行完毕合同全部义务，竣工结算价款支付完毕，施工分包商向总承包商交付竣工工程及相关资料及质保期届满后，本合同即告终止。合同终止后，总承包商、施工分包商应当遵循诚实信用原则，履行通知、协助、保密等义务。
                                 </f:ContentPanel>
                             </Items>
                         </f:Panel>
@@ -373,106 +373,106 @@
                         <f:Panel ID="Panel13" runat="server" ShowHeader="false" ShowBorder="false">
                             <Items>
                                 <f:ContentPanel ID="ContentPanel15" runat="server" ShowHeader="false" ShowBorder="false">
-                                  签字页：
+                                    签字页：
                                 </f:ContentPanel>
                             </Items>
                         </f:Panel>
                     </Items>
                 </f:FormRow>
-                   <f:FormRow>
+                <f:FormRow>
                     <Items>
-                      <f:Label ID="Label29" runat="server" Text="总承包商：赛鼎工程有限公司" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label29" runat="server" Text="总承包商：赛鼎工程有限公司" CssClass="widthBlod"></f:Label>
                         <f:TextBox ID="txtSub" runat="server" Label="施工分包商" CssClass="widthBlod"></f:TextBox>
                     </Items>
                 </f:FormRow>
-                 <f:FormRow>
+                <f:FormRow>
                     <Items>
-                      <f:Label ID="Label30" runat="server" Text="（公章或合同专用章）" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label30" runat="server" Text="（公章或合同专用章）" CssClass="widthBlod"></f:Label>
                         <f:Label ID="Label31" runat="server" Text="（公章或合同专用章）" CssClass="widthBlod"></f:Label>
                     </Items>
                 </f:FormRow>
-                 <f:FormRow>
+                <f:FormRow>
                     <Items>
-                      <f:Label ID="Label32" runat="server" Text="法定代表人或其委托代理人：" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label32" runat="server" Text="法定代表人或其委托代理人：" CssClass="widthBlod"></f:Label>
                         <f:Label ID="Label33" runat="server" Text="法定代表人或其委托代理人：" CssClass="widthBlod"></f:Label>
                     </Items>
                 </f:FormRow>
-                 <f:FormRow>
+                <f:FormRow>
                     <Items>
-                      <f:Label ID="Label34" runat="server" Text="（签字）" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label34" runat="server" Text="（签字）" CssClass="widthBlod"></f:Label>
                         <f:Label ID="Label35" runat="server" Text="（签字）" CssClass="widthBlod"></f:Label>
                     </Items>
                 </f:FormRow>
                 <f:FormRow ColumnWidths="10% 5% 5% 30% 10% 5% 5% 30%">
                     <Items>
                         <f:Label ID="Label36" runat="server" Text="签订日期：" CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label38" runat="server" Text="年" CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label39" runat="server" Text="月" CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label40" runat="server" Text="日" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label38" runat="server" Text="年" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label39" runat="server" Text="月" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label40" runat="server" Text="日" CssClass="widthBlod"></f:Label>
                         <f:Label ID="Label37" runat="server" Text="签订日期： " CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label41" runat="server" Text="年" CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label42" runat="server" Text="月" CssClass="widthBlod"></f:Label>
-                           <f:Label ID="Label43" runat="server" Text="日" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label41" runat="server" Text="年" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label42" runat="server" Text="月" CssClass="widthBlod"></f:Label>
+                        <f:Label ID="Label43" runat="server" Text="日" CssClass="widthBlod"></f:Label>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtSocialCreditCode1" runat="server" Label="统一社会信用代码" LabelWidth="150px" Text="9114 0100 4057 4708 1B"></f:TextBox>
-                        <f:TextBox ID="txtSocialCreditCode2" runat="server" Label="统一社会信用代码" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtSocialCreditCode2" runat="server" Label="统一社会信用代码" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtAddress1" runat="server" Label="地址" LabelWidth="150px" Text="山西综改示范区太原学府园晋阳街赛鼎路1号"></f:TextBox>
-                        <f:TextBox ID="txtAddress2" runat="server" Label="地址" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtAddress2" runat="server" Label="地址" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtZipCode1" runat="server" Label="邮政编码" LabelWidth="150px" Text="030032"></f:TextBox>
-                        <f:TextBox ID="txtZipCode2" runat="server" Label="邮政编码" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtZipCode2" runat="server" Label="邮政编码" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtLegalRepresentative1" runat="server" Label="法定代表人" LabelWidth="150px"  Text="李缠乐"></f:TextBox>
-                        <f:TextBox ID="txtLegalRepresentative2" runat="server" Label="法定代表人" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtLegalRepresentative1" runat="server" Label="法定代表人" LabelWidth="150px" Text="李缠乐"></f:TextBox>
+                        <f:TextBox ID="txtLegalRepresentative2" runat="server" Label="法定代表人" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtEntrustedAgent1" runat="server" Label="委托代理人" LabelWidth="150px"  Text="马建国"></f:TextBox>
-                        <f:TextBox ID="txtEntrustedAgent2" runat="server" Label="委托代理人" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtEntrustedAgent1" runat="server" Label="委托代理人" LabelWidth="150px" Text="马建国"></f:TextBox>
+                        <f:TextBox ID="txtEntrustedAgent2" runat="server" Label="委托代理人" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtTelephone1" runat="server" Label="电  话" LabelWidth="150px"  Text="0351-2179017"></f:TextBox>
-                        <f:TextBox ID="txtTelephone2" runat="server" Label="电  话" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtTelephone1" runat="server" Label="电  话" LabelWidth="150px" Text="0351-2179017"></f:TextBox>
+                        <f:TextBox ID="txtTelephone2" runat="server" Label="电  话" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtFax1" runat="server" Label="传  真" LabelWidth="150px"  ></f:TextBox>
-                        <f:TextBox ID="txtFax2" runat="server" Label="传  真" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtFax1" runat="server" Label="传  真" LabelWidth="150px"></f:TextBox>
+                        <f:TextBox ID="txtFax2" runat="server" Label="传  真" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtEmail1" runat="server" Label="电子信箱" LabelWidth="150px"  ></f:TextBox>
-                        <f:TextBox ID="txtEmail2" runat="server" Label="电子信箱" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtEmail1" runat="server" Label="电子信箱" LabelWidth="150px"></f:TextBox>
+                        <f:TextBox ID="txtEmail2" runat="server" Label="电子信箱" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtBank1" runat="server" Label="开户银行" LabelWidth="150px" Text="建行太原市康乐街支行"></f:TextBox>
-                        <f:TextBox ID="txtBank2" runat="server" Label="开户银行" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtBank2" runat="server" Label="开户银行" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
                         <f:TextBox ID="txtAccount1" runat="server" Label="账  号" LabelWidth="150px" Text="14001826208050011009"></f:TextBox>
-                        <f:TextBox ID="txtAccount2" runat="server" Label="账  号" LabelWidth="150px" ></f:TextBox>
+                        <f:TextBox ID="txtAccount2" runat="server" Label="账  号" LabelWidth="150px"></f:TextBox>
                     </Items>
                 </f:FormRow>
             </Rows>
@@ -484,7 +484,6 @@
                 </f:Toolbar>
             </Toolbars>
         </f:Form>
-        
     </form>
 </body>
 </html>

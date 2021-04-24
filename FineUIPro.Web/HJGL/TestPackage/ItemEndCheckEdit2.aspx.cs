@@ -135,6 +135,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             Grid1.DataBind();
             if (Grid1.Rows.Count > 0)
             {
+                var itemEndCheckList = ItemEndCheckListService.GetItemEndCheckListByID(ItemEndCheckListId);
                 foreach (JObject mergedRow in Grid1.GetMergedData())
                 {
                     JObject values = mergedRow.Value<JObject>("values");
@@ -146,6 +147,18 @@ namespace FineUIPro.Web.HJGL.TestPackage
                         AspNet.Button btnNotOK = (AspNet.Button)Grid1.Rows[i].FindControl("btnNotOK");
                         btnOK.Visible = false;
                         btnNotOK.Visible = false;
+                    }
+                    string itemCheckId = this.Grid1.Rows[i].DataKeys[1].ToString();
+                    Model.PTP_ItemEndCheck itemCheck = BLL.AItemEndCheckService.GetAItemEndCheckByID(itemCheckId);
+                    if (itemEndCheckList.BIsOK != true)   //未勾选B项全部整改完成，则B项内容不能操作是否合格
+                    {
+                        if (itemCheck.ItemType == "B")
+                        {
+                            AspNet.Button btnOK = this.Grid1.Rows[i].FindControl("btnOK") as AspNet.Button;
+                            AspNet.Button btnNotOK = this.Grid1.Rows[i].FindControl("btnNotOK") as AspNet.Button;
+                            btnOK.Visible = false;
+                            btnNotOK.Visible = false;
+                        }
                     }
                 }
             }
@@ -390,7 +403,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
                 else if (Type.ToString() == Const.TestPackage_ReAudit2)
                 {
-                    return "施工分包商重新整改";
+                    return "施工分包商继续整改";
                 }
                 else if (Type.ToString() == Const.TestPackage_Complete)
                 {

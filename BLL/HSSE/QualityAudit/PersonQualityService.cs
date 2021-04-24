@@ -118,5 +118,20 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 根据人员Id删除一个资质信息
+        /// </summary>
+        /// <param name="ShuntId"></param>
+        public static void DeletePersonQuality(string personId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            Model.QualityAudit_PersonQuality personQuality = db.QualityAudit_PersonQuality.First(e => e.PersonId == personId);
+            if (personQuality != null)
+            {
+                db.QualityAudit_PersonQuality.DeleteOnSubmit(personQuality);
+                db.SubmitChanges();
+            }
+        }
     }
 }

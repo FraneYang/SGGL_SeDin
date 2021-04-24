@@ -132,8 +132,8 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                               select new { x.WeldJointId, z.UnitWorkId }).Distinct().ToList();
 
             var TrustItemList = (from x in Funs.DB.HJGL_Hard_TrustItem
-                             join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
-                             where y.ProjectId == this.CurrUser.LoginProjectId 
+                                 join y in Funs.DB.HJGL_Hard_Trust on x.HardTrustID equals y.HardTrustID
+                                 where y.ProjectId == this.CurrUser.LoginProjectId
                                  select new { x.WeldJointId, y.UnitWorkId }).ToList();
             if (unitWork1.Count() > 0)
             {
@@ -483,14 +483,20 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                             //}
                             ////删除硬度报告记录
                             //BLL.Hard_ReportService.DeleteHard_ReportsByHardTrustItemID(hardTrustItem.HardTrustItemID);
-                            if (!string.IsNullOrEmpty(hardTrustItem.HardTrustItemID))
+                            if (hardTrustItem.IsPass != null)
                             {
-                                var hardReort = (from x in Funs.DB.HJGL_Hard_Report where x.HardTrustItemID == hardTrustItem.HardTrustItemID select x).ToList();
-                                if (hardReort.Count() > 0)
-                                {
-                                    ShowNotify("已生成硬度检测报告，不能删除！", MessageBoxIcon.Warning);
-                                    return;
-                                }
+                                ShowNotify("已生成硬度检测报告，不能删除！", MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                        foreach (var hardTrustItem in hardTrustItems)
+                        {
+                            //更新热处理委托明细的口已做硬度委托
+                            Model.HJGL_HotProess_TrustItem hotProessTrustItem = BLL.HotProessTrustItemService.GetHotProessTrustItemById(hardTrustItem.HotProessTrustItemId);
+                            if (hotProessTrustItem != null)
+                            {
+                                hotProessTrustItem.IsTrust = null;
+                                BLL.HotProessTrustItemService.UpdateHotProessTrustItem(hotProessTrustItem);
                             }
                         }
                         BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);

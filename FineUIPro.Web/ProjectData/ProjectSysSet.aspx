@@ -68,7 +68,7 @@
                                                 <f:CheckBox ID="cb4" runat="server" Text="探伤比例" Checked="true" Enabled="false"></f:CheckBox>
                                                 <f:CheckBox ID="cb5" runat="server" Text="管线等级"></f:CheckBox>
                                                 <f:CheckBox ID="cb6" runat="server" Text="管线"></f:CheckBox>
-                                                <f:CheckBox ID="cb7" runat="server" Text="焊工"></f:CheckBox>
+                                                <f:CheckBox ID="cb7" runat="server" Text="焊工" Enabled="false"></f:CheckBox>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>

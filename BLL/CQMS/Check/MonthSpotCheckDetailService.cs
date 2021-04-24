@@ -16,21 +16,11 @@ namespace BLL
         /// <param name="satartRowIndex"></param>
         /// <param name="maximumRows"></param>
         /// <returns></returns>
-        public static IEnumerable getListData(string CheckMonthId)
+        public static List<Model.Check_MonthSpotCheckDetail> getListData(string CheckMonthId)
         {
-            return from x in db.Check_MonthSpotCheckDetail
+            return (from x in db.Check_MonthSpotCheckDetail
                    where x.CheckMonthId == CheckMonthId
-                   select new
-                   {
-                       x.MonthSpotCheckDetailId,
-                       x.CheckMonthId,
-                       x.ControlPoint,
-                       x.TotalNum,
-                       x.ThisOKNum,
-                       x.TotalOKNum,
-                       x.TotalOKRate,
-                       x.Remark,
-                   };
+                   select x).ToList();
         }
 
         /// <summary>

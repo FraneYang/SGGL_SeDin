@@ -177,10 +177,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
                     newBatchTrust.TrustDate = DateTime.Now;
                     newBatchTrust.ProjectId = batch.ProjectId;
+                    newBatchTrust.PointBatchId = batch.PointBatchId;
                     newBatchTrust.UnitId = batch.UnitId;
                     newBatchTrust.UnitWorkId = batch.UnitWorkId;
                     newBatchTrust.DetectionTypeId = batch.DetectionTypeId;
-                    newBatchTrust.NDEUuit = area.NDEUnit;
+                    newBatchTrust.DetectionRateId = batch.DetectionRateId;
+                    newBatchTrust.NDEUnit = area.NDEUnit;
 
                     BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
 

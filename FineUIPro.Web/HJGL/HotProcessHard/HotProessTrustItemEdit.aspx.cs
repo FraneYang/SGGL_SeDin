@@ -9,7 +9,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
     public partial class HotProessTrustItemEdit : PageBase
     {
         #region 定义项
-      
+
         /// <summary>
         /// 单位主键
         /// </summary>
@@ -91,7 +91,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             rootNode.ToolTip = "绿色表示管线下有已焊接的焊口未委托热处理";
             rootNode.Expanded = true;
             this.tvControlItem.Nodes.Add(rootNode);
-           
+
             var hotProessItems = from x in Funs.DB.HJGL_HotProess_TrustItem select x;    //热处理委托明细集合
             var iso = from x in Funs.DB.HJGL_Pipeline where x.ProjectId == this.CurrUser.LoginProjectId && x.UnitId == this.UnitId select x;
             if (!string.IsNullOrEmpty(this.txtIsono.Text))
@@ -159,9 +159,9 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
 
             List<Model.View_HJGL_HotProessTrustItemSearch> toDoMatterList = (from x in Funs.DB.View_HJGL_HotProessTrustItemSearch
                                                                              where x.ProjectId == this.CurrUser.LoginProjectId && x.HotProessTrustItemId == null
-                                                                                && x.IsHotProess==true
-                                                                        orderby x.WeldJointCode
-                                                                        select x).ToList();
+                                                                                && x.IsHotProess == true
+                                                                             orderby x.WeldJointCode
+                                                                             select x).ToList();
             if (rblIsWeld.SelectedValue == "0")
             {
                 toDoMatterList = toDoMatterList.Where(x => x.WeldingDailyId == null).ToList();
@@ -196,7 +196,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
             //Grid1.RecordCount = tb.Rows.Count;
             //tb = GetFilteredTable(Grid1.FilteredData, tb);
 
-            
+
             //var table = this.GetPagedDataTable(Grid1, tb);
 
             Grid1.DataSource = toDoMatterList;

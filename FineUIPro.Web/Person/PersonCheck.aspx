@@ -45,6 +45,9 @@
                             AjaxLoadingType="Mask" ShowAjaxLoadingMaskText="true" AjaxLoadingMaskText="正在导出数据到服务器，请稍候"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
                                     </f:Button>
+                                <f:Button ID="btnOut2" OnClick="btnOut2_Click" runat="server" ToolTip="导出台账" Icon="FolderUp" Hidden="true"
+                                            EnableAjax="false" DisableControlBeforePostBack="false">
+                                        </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>
@@ -76,7 +79,12 @@
                         </f:RenderField>
                         <f:TemplateField Width="110px" ColumnID="UserId" HeaderText="考核状态" TextAlign="Left">
                             <ItemTemplate>
-                                <asp:Label ID="lbtnPro" runat="server" Text='<%# ConvertApprove(Eval("State")) %>'></asp:Label>
+                                <asp:Label ID="lbState" runat="server" Text='<%# ConvertApprove(Eval("State")) %>'></asp:Label>
+                            </ItemTemplate>
+                        </f:TemplateField>
+                        <f:TemplateField Width="110px" ColumnID="Grade" HeaderText="分数" TextAlign="Left" Hidden="true">
+                            <ItemTemplate>
+                                <asp:Label ID="lbGrade" runat="server" Text='<%# ConvertGrade(Eval("QuarterCheckId")) %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
                         <f:LinkButtonField ColumnID="export" HeaderText="导出" Width="60px" Icon="ArrowUp" CommandName="export" Hidden="true"/>

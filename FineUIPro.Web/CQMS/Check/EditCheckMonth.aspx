@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>质量月报</title>
     <style type="text/css">
         .f-grid-row .f-grid-cell-inner {
@@ -60,22 +60,38 @@
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
                             <f:Grid ID="GridRectify" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
-                                EnableColumnLines="true" ForceFit="true">
+                                EnableColumnLines="true" ForceFit="true" AllowCellEditing="true" ClicksToEdit="1">
                                 <Columns>
                                     <f:RenderField Width="150px" ColumnID="Depart" DataField="Depart"
                                         FieldType="String" HeaderText="部门" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
+                                        HeaderTextAlign="Center">
                                     </f:RenderField>
                                     <f:RenderField Width="150px" ColumnID="ThisRectifyNum" DataField="ThisRectifyNum"
                                         FieldType="String" HeaderText="本月发出整改项" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtThisRectifyNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("ThisRectifyNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                     <f:RenderField Width="150px" ColumnID="ThisOKRectifyNum" DataField="ThisOKRectifyNum"
                                         FieldType="String" HeaderText="本月关闭整改项" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtThisOKRectifyNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("ThisOKRectifyNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                     <f:RenderField Width="150px" ColumnID="TotalRectifyNum" DataField="TotalRectifyNum"
                                         FieldType="String" HeaderText="累计发出整改项" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalRectifyNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalRectifyNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                     <f:RenderField Width="150px" ColumnID="TotalOKRectifyNum" DataField="TotalOKRectifyNum" FieldType="string" HeaderText="累计关闭整改项" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalOKRectifyNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalOKRectifyNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                 </Columns>
                             </f:Grid>
@@ -89,22 +105,36 @@
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
                             <f:Grid ID="GridNDTCheck" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
-                                DataKeyNames="" EnableColumnLines="true" EnableSummary="true" SummaryPosition="Flow" ForceFit="true">
+                                DataKeyNames="" EnableColumnLines="true" EnableSummary="true" SummaryPosition="Flow" ForceFit="true" AllowCellEditing="true" ClicksToEdit="1">
                                 <Columns>
-                                    <f:RenderField Width="130px" ColumnID="UnitName" DataField="UnitName"
-                                        FieldType="String" HeaderText="施工分包商" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
-                                    </f:RenderField>
+                                    <f:TemplateField ColumnID="UnitName" Width="130px" HeaderText="施工分包商" HeaderTextAlign="Center" TextAlign="Center"
+                                        EnableLock="true">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label2" runat="server" Text='<%# ConvertUnitName(Eval("UnitId")) %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </f:TemplateField>
                                     <f:GroupField HeaderText="本月无损检测" TextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="110px" ColumnID="FilmNum" DataField="FilmNum"
                                                 FieldType="String" HeaderText="拍片总数" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtFilmNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("FilmNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="NotOKFileNum" DataField="NotOKFileNum"
                                                 FieldType="String" HeaderText="不合格(张)" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtNotOKFileNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("NotOKFileNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="RepairFileNum" DataField="RepairFileNum"
                                                 FieldType="String" HeaderText="已返修(张)" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtRepairFileNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("RepairFileNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="OneOKRate" DataField="OneOKRate"
                                                 FieldType="String" HeaderText="一次合格率" TextAlign="Center" HeaderTextAlign="Center">
@@ -114,13 +144,27 @@
 
                                     <f:RenderField Width="120px" ColumnID="TotalFilmNum" DataField="TotalFilmNum"
                                         FieldType="String" HeaderText="累计拍片总数" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalFilmNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalFilmNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                     <f:RenderField Width="120px" ColumnID="TotalNotOKFileNum" DataField="TotalNotOKFileNum"
                                         FieldType="String" HeaderText="累计不合格(张)" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalNotOKFileNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalNotOKFileNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
                                     <f:RenderField Width="120px" ColumnID="TotalOneOKRate" DataField="TotalOneOKRate" SortField="AcceptDate" FieldType="string" HeaderText="累计一次合格率" TextAlign="Center" HeaderTextAlign="Center">
                                     </f:RenderField>
+                                    <f:RenderField Width="110px" ColumnID="UnitId" DataField="UnitId" Hidden="true"
+                                        FieldType="String" HeaderText="单位Id" TextAlign="Center" HeaderTextAlign="Center">
+                                    </f:RenderField>
                                 </Columns>
+                                <Listeners>
+                                    <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
+                                </Listeners>
                             </f:Grid>
                         </f:ContentPanel>
 
@@ -132,19 +176,29 @@
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
                             <f:Grid ID="GridWelder" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" EnableSummary="true" SummaryPosition="Flow"
-                                DataKeyNames="" EnableColumnLines="true" ForceFit="true">
+                                DataKeyNames="" EnableColumnLines="true" ForceFit="true" AllowCellEditing="true" ClicksToEdit="1">
                                 <Columns>
-                                    <f:RenderField Width="130px" ColumnID="UnitName" DataField="UnitName"
-                                        FieldType="String" HeaderText="施工分包商" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
-                                    </f:RenderField>
+                                    <f:TemplateField ColumnID="UnitName" Width="130px" HeaderText="施工分包商" HeaderTextAlign="Center" TextAlign="Center"
+                                        EnableLock="true">
+                                        <ItemTemplate>
+                                            <asp:Label ID="Label4" runat="server" Text='<%# ConvertUnitName(Eval("UnitId")) %>'></asp:Label>
+                                        </ItemTemplate>
+                                    </f:TemplateField>
                                     <f:GroupField HeaderText="本月焊工入场评定" TextAlign="Center">
                                         <Columns>
                                             <f:RenderField Width="110px" ColumnID="ThisPersonNum" DataField="ThisPersonNum"
                                                 FieldType="String" HeaderText="总人数" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtThisPersonNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("ThisPersonNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="ThisOKPersonNum" DataField="ThisOKPersonNum"
                                                 FieldType="String" HeaderText="合格人数" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtThisOKPersonNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("ThisOKPersonNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="ThisOKRate" DataField="ThisOKRate"
                                                 FieldType="String" HeaderText="合格率" TextAlign="Center" HeaderTextAlign="Center">
@@ -155,17 +209,30 @@
                                         <Columns>
                                             <f:RenderField Width="110px" ColumnID="TotalPersonNum" DataField="TotalPersonNum"
                                                 FieldType="String" HeaderText="总人数" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtTotalPersonNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalPersonNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="TotalOKPersonNum" DataField="TotalOKPersonNum"
                                                 FieldType="String" HeaderText="合格人数" TextAlign="Center" HeaderTextAlign="Center">
+                                                <Editor>
+                                                    <f:NumberBox ID="txtTotalOKPersonNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalOKPersonNum") %>'>
+                                                    </f:NumberBox>
+                                                </Editor>
                                             </f:RenderField>
                                             <f:RenderField Width="110px" ColumnID="TotalOKRate" DataField="TotalOKRate"
                                                 FieldType="String" HeaderText="合格率" TextAlign="Center" HeaderTextAlign="Center">
                                             </f:RenderField>
                                         </Columns>
                                     </f:GroupField>
-
+                                    <f:RenderField Width="110px" ColumnID="UnitId" DataField="UnitId" Hidden="true"
+                                        FieldType="String" HeaderText="单位Id" TextAlign="Center" HeaderTextAlign="Center">
+                                    </f:RenderField>
                                 </Columns>
+                                <Listeners>
+                                    <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
+                                </Listeners>
                             </f:Grid>
                         </f:ContentPanel>
 
@@ -174,15 +241,15 @@
                 <f:FormRow>
                     <Items>
                         <f:ContentPanel ID="ContentPanel6" Title=" 2.5 质量验收情况  " ShowBorder="true"
-                            BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true" 
+                            BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
                             <f:Grid ID="GridSpotCheckDetail" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
-                                DataKeyNames="" EnableColumnLines="true" ForceFit="true">
+                                DataKeyNames="" EnableColumnLines="true" ForceFit="true" AllowCellEditing="true" ClicksToEdit="1">
                                 <Toolbars>
                                     <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                                         <Items>
-                                            <f:Label ID="MonthOk" runat="server" Label="本月质量验收一次合格率" Width="400px" LabelWidth="190px"></f:Label>
-                                            <f:Label ID="AllOk" runat="server" Label="累计质量验收一次合格率" Width="400px" LabelWidth="190px"></f:Label>
+                                            <f:TextBox ID="txtMonthOk" runat="server" Label="本月质量验收一次合格率" Width="400px" LabelWidth="190px"></f:TextBox>
+                                            <f:TextBox ID="txtAllOk" runat="server" Label="本月质量验收一次合格率" Width="400px" LabelWidth="190px"></f:TextBox>
                                         </Items>
                                     </f:Toolbar>
                                 </Toolbars>
@@ -195,22 +262,37 @@
                                     </f:TemplateField>
                                     <f:RenderField Width="180px" ColumnID="ControlPoint" DataField="ControlPoint"
                                         FieldType="String" HeaderText="控制点等级" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
+                                        HeaderTextAlign="Center">
                                     </f:RenderField>
-                                    <f:RenderField Width="180px" ColumnID="TotalNum" DataField="TotalNum"
+                                    <f:RenderField Width="180px" ColumnID="TotalSpotNum" DataField="TotalNum"
                                         FieldType="String" HeaderText="总数" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalSpotNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="180px" ColumnID="ThisOKNum" DataField="ThisOKNum"
+                                    <f:RenderField Width="180px" ColumnID="ThisSpotOKNum" DataField="ThisOKNum"
                                         FieldType="String" HeaderText="本月完成" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtThisSpotOKNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("ThisOKNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="180px" ColumnID="TotalOKNum" DataField="TotalOKNum"
+                                    <f:RenderField Width="180px" ColumnID="TotalSpotOKNum" DataField="TotalOKNum"
                                         FieldType="String" HeaderText="累计完成" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:NumberBox ID="txtTotalSpotOKNum" NoDecimal="true" NoNegative="true" runat="server" Text='<%# Bind("TotalOKNum") %>'>
+                                            </f:NumberBox>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="180px" ColumnID="TotalOKRate" DataField="TotalOKRate"
+                                    <f:RenderField Width="180px" ColumnID="TotalSpotOKRate" DataField="TotalOKRate"
                                         FieldType="String" HeaderText="累计完成百分比" TextAlign="Center" HeaderTextAlign="Center">
                                     </f:RenderField>
 
                                 </Columns>
+                                <Listeners>
+                                    <f:Listener Event="afteredit" Handler="onGridAfterEdit" />
+                                </Listeners>
                             </f:Grid>
                         </f:ContentPanel>
 
@@ -222,12 +304,12 @@
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
                             <f:Grid ID="GridSpecialEquipmentDetail" IsFluid="true" CssClass="blockpanel" ClicksToEdit="1" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" DataIDField="SpecialEquipmentDetailId"
-                                  ForceFit="true" EnableColumnLines="true" AllowCellEditing="true">
+                                ForceFit="true" EnableColumnLines="true" AllowCellEditing="true">
                                 <Columns>
 
                                     <f:RenderField Width="130px" ColumnID="SpecialEquipmentName" DataField="SpecialEquipmentName"
                                         FieldType="String" HeaderText="设备名称" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
+                                        HeaderTextAlign="Center">
                                     </f:RenderField>
                                     <f:RenderField Width="130px" ColumnID="TotalNum" DataField="TotalNum"
                                         HeaderText="总数" TextAlign="Center" HeaderTextAlign="Center">
@@ -289,8 +371,17 @@
                         <f:ContentPanel ID="ContentPanel8" Title="2.7 设计变更情况  " ShowBorder="true"
                             BodyPadding="10px" EnableCollapse="true" ShowHeader="true" AutoScroll="true"
                             runat="server">
-                            <f:Grid ID="GridDesign" IsFluid="true" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false"
-                                DataKeyNames="" EnableColumnLines="true"  ForceFit="true">
+                            <f:Grid ID="GridDesign" IsFluid="true" CssClass="blockpanel" Height="250px" ShowBorder="true" ShowHeader="false" runat="server" EnableCollapse="false" OnRowCommand="GridDesign_RowCommand"
+                                DataKeyNames="MonthDesignId" DataIDField="MonthDesignId" EnableColumnLines="true" ForceFit="true" AllowCellEditing="true" ClicksToEdit="1">
+                                <Toolbars>
+                                    <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
+                                        <Items>
+                                            <f:Button ID="btnNew" ToolTip="新增" Text="新增" Icon="Add" EnablePostBack="true"
+                                                runat="server" OnClick="btnNew_Click">
+                                            </f:Button>
+                                        </Items>
+                                    </f:Toolbar>
+                                </Toolbars>
                                 <Columns>
                                     <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
                                         EnableLock="true" Locked="False">
@@ -300,23 +391,42 @@
                                     </f:TemplateField>
                                     <f:RenderField Width="100px" ColumnID="DesignCode" DataField="DesignCode"
                                         FieldType="String" HeaderText="变更编号" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:TextBox ID="txtDesignCode" runat="server" Text='<%# Bind("DesignCode") %>'>
+                                            </f:TextBox>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="100px" ColumnID="MainItemName" DataField="MainItemName"
+                                    <f:RenderField Width="100px" ColumnID="MainItemId" DataField="MainItemId"
                                         FieldType="String" HeaderText="主项" TextAlign="Center"
-                                        HeaderTextAlign="Center" >
+                                        HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:DropDownList runat="server" ID="drpMainItemId" EnableEdit="true"></f:DropDownList>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:RenderField Width="110px" ColumnID="CNProfessional" DataField="CNProfessional"
+                                    <f:RenderField Width="110px" ColumnID="DesignProfessionalId" DataField="DesignProfessionalId"
                                         FieldType="String" HeaderText="专业" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:DropDownList runat="server" ID="drpDesignProfessionalId" EnableEdit="true"></f:DropDownList>
+                                        </Editor>
                                     </f:RenderField>
-                                    <f:TemplateField ColumnID="State" Width="110px" HeaderText="施工完成情况" HeaderTextAlign="Center" TextAlign="Center"
-                                        EnableLock="true" Locked="False">
-                                        <ItemTemplate>
-                                            <asp:Label ID="Label3" runat="server" Text='<%# ConvertState(Eval("DesignId")) %>'></asp:Label>
-                                        </ItemTemplate>
-                                    </f:TemplateField>
-                                    <f:RenderField Width="110px" ColumnID="Remark" DataField=""
+                                    <f:RenderField Width="110px" ColumnID="State" DataField="State"
+                                        FieldType="String" HeaderText="施工完成情况" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:DropDownList runat="server" ID="drpState" EnableEdit="true">
+                                                <f:ListItem Text="已完成" Value="已完成" />
+                                                <f:ListItem Text="未完成" Value="未完成" />
+                                            </f:DropDownList>
+                                        </Editor>
+                                    </f:RenderField>
+                                    <f:RenderField Width="110px" ColumnID="Remark" DataField="Remark"
                                         FieldType="String" HeaderText="备注" TextAlign="Center" HeaderTextAlign="Center">
+                                        <Editor>
+                                            <f:TextBox ID="txtRemark" runat="server" Text='<%# Bind("Remark") %>'>
+                                            </f:TextBox>
+                                        </Editor>
                                     </f:RenderField>
+                                    <f:LinkButtonField Width="30px" TextAlign="Center" HeaderText="删除" ToolTip="删除" CommandName="del"
+                                        Icon="Delete" />
                                 </Columns>
                             </f:Grid>
                         </f:ContentPanel>
@@ -330,8 +440,8 @@
                             runat="server">
 
                             <Items>
-                                <f:Label ID="MonthDataOk" runat="server" Label="本月质量记录同步率" Width="600px" LabelWidth="160px"></f:Label>
-                                <f:Label ID="AllDataOk" runat="server" Label="累计质量记录同步率" Width="600px" LabelWidth="160px"></f:Label>
+                                <f:TextBox ID="txtMonthDataOk" runat="server" Label="本月质量记录同步率" Width="600px" LabelWidth="160px"></f:TextBox>
+                                <f:TextBox ID="txtAllDataOk" runat="server" Label="本月质量记录同步率" Width="600px" LabelWidth="160px"></f:TextBox>
                                 <f:TextArea ID="txtConstructionData" ShowRedStar="true" Required="true" runat="server" Width="1230px" MaxLength="3000"></f:TextArea>
                             </Items>
 
@@ -381,7 +491,7 @@
     <script type="text/javascript">
         function onGridAfterEdit(event, value, params) {
             var me = this, columnId = params.columnId, rowId = params.rowId;
-           
+
             if (columnId === 'TotalNum' || columnId === 'TotalCompleteNum1') {
                 var TotalNum = me.getCellValue(rowId, 'TotalNum');
                 var TotalCompleteNum1 = me.getCellValue(rowId, 'TotalCompleteNum1');
@@ -391,8 +501,8 @@
                     } else {
                         me.updateCellValue(rowId, 'TotalRate1', (""));
                     }
-                    
-                } 
+
+                }
             }
 
             if (columnId === 'TotalNum' || columnId === 'TotalCompleteNum2') {
@@ -400,15 +510,80 @@
                 var TotalCompleteNum2 = me.getCellValue(rowId, 'TotalCompleteNum2');
 
                 if (TotalNum.toString() != "" && TotalCompleteNum2.toString() != "") {
-                    if (TotalNum !== "0" ) {
+                    if (TotalNum !== "0") {
                         me.updateCellValue(rowId, 'TotalRate2', (TotalCompleteNum2 / TotalNum * 100).toFixed(2) + "%");
                     } else {
                         me.updateCellValue(rowId, 'TotalRate2', (""));
                     }
-                    
-                }
 
+                }
             }
+
+            if (columnId === 'FilmNum' || columnId === 'NotOKFileNum') {
+                var FilmNum = me.getCellValue(rowId, 'FilmNum');
+                var NotOKFileNum = me.getCellValue(rowId, 'NotOKFileNum');
+                if (FilmNum.toString() != "" && NotOKFileNum.toString() != "") {
+                    if (FilmNum !== "0") {
+                        me.updateCellValue(rowId, 'OneOKRate', ((FilmNum - NotOKFileNum) / FilmNum * 100).toFixed(2) + "%");
+                    } else {
+                        me.updateCellValue(rowId, 'OneOKRate', (""));
+                    }
+                }
+                 updateSummary();
+            }
+            if (columnId === 'TotalFilmNum' || columnId === 'TotalNotOKFileNum') {
+                var TotalFilmNum = me.getCellValue(rowId, 'TotalFilmNum');
+                var TotalNotOKFileNum = me.getCellValue(rowId, 'TotalNotOKFileNum');
+                if (TotalFilmNum.toString() != "" && TotalNotOKFileNum.toString() != "") {
+                    if (TotalFilmNum !== "0") {
+                        me.updateCellValue(rowId, 'TotalOneOKRate', ((TotalFilmNum - TotalNotOKFileNum) / TotalFilmNum * 100).toFixed(2) + "%");
+                    } else {
+                        me.updateCellValue(rowId, 'TotalOneOKRate', (""));
+                    }
+                }
+                 updateSummary();
+            }
+            if (columnId === 'ThisPersonNum' || columnId === 'ThisOKPersonNum') {
+                var ThisPersonNum = me.getCellValue(rowId, 'ThisPersonNum');
+                var ThisOKPersonNum = me.getCellValue(rowId, 'ThisOKPersonNum');
+                if (ThisPersonNum.toString() != "" && ThisOKPersonNum.toString() != "") {
+                    if (ThisPersonNum !== "0") {
+                        me.updateCellValue(rowId, 'ThisOKRate', (ThisOKPersonNum / ThisPersonNum * 100).toFixed(2) + "%");
+                    } else {
+                        me.updateCellValue(rowId, 'ThisOKRate', (""));
+                    }
+                }
+                updateSummary();
+            }
+
+            if (columnId === 'TotalPersonNum' || columnId === 'TotalOKPersonNum') {
+                var TotalPersonNum = me.getCellValue(rowId, 'TotalPersonNum');
+                var TotalOKPersonNum = me.getCellValue(rowId, 'TotalOKPersonNum');
+                if (TotalPersonNum.toString() != "" && TotalOKPersonNum.toString() != "") {
+                    if (TotalPersonNum !== "0") {
+                        me.updateCellValue(rowId, 'TotalOKRate', (TotalOKPersonNum / TotalPersonNum * 100).toFixed(2) + "%");
+                    } else {
+                        me.updateCellValue(rowId, 'TotalOKRate', (""));
+                    }
+                }
+                updateSummary();
+            }
+            if (columnId === 'TotalSpotNum' || columnId === 'TotalSpotOKNum') {
+                var TotalSpotNum = me.getCellValue(rowId, 'TotalSpotNum');
+                var TotalSpotOKNum = me.getCellValue(rowId, 'TotalSpotOKNum');
+                if (TotalSpotNum.toString() != "" && TotalSpotOKNum.toString() != "") {
+                    if (TotalSpotNum !== "0") {
+                        me.updateCellValue(rowId, 'TotalSpotOKRate', ((TotalSpotOKNum) / TotalSpotNum * 100).toFixed(2) + "%");
+                    } else {
+                        me.updateCellValue(rowId, 'TotalSpotOKRate', (""));
+                    }
+                }
+            }
+        }
+
+        function updateSummary() {
+            // 回发到后台更新
+            __doPostBack('', 'UPDATE_SUMMARY');
         }
     </script>
 </body>

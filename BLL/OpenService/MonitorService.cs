@@ -1218,31 +1218,6 @@ namespace BLL
         /// <param name="QuarterCheckId"></param>
         private static void SaveConstructEgItem(string ProjectId, string QuarterCheckId)
         {
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 8,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
             ///获取施工经理
             var ConstructionManager = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ConstructionManager);
             if (ConstructionManager != null)
@@ -1391,6 +1366,19 @@ namespace BLL
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 8,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1436,31 +1424,6 @@ namespace BLL
         /// <param name="QuarterCheckId"></param>
         private static void SaveSecurityEgItem(string ProjectId, string QuarterCheckId)
         {
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 6,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
             ///获取安全经理
             var SecurityManager = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.HSSEManager);
             if (SecurityManager != null)
@@ -1569,6 +1532,19 @@ namespace BLL
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 6,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1635,31 +1611,6 @@ namespace BLL
                     ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
                     QuarterCheckId = QuarterCheckId,
                     UserId = ConstructionManager.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
-            {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
-                {
-                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
-                    QuarterCheckId = QuarterCheckId,
-                    TargetClass1 = "其他工作情况（30%）",
-                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
-                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
-                    SortId = 6,
-                    StandardGrade = 10,
-                };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
-
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
                 };
                 BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
             }
@@ -1748,6 +1699,19 @@ namespace BLL
             var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
             if (SGGLManager != null)
             {
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
+                {
+                    QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
+                    QuarterCheckId = QuarterCheckId,
+                    TargetClass1 = "其他工作情况（30%）",
+                    TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
+                    CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
+                    UserId = SGGLManager.UserId,
+                    SortId = 6,
+                    StandardGrade = 10,
+                };
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
+
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
@@ -1873,37 +1837,24 @@ namespace BLL
                 };
                 BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
             }
-            ///获取项目经理
-            var ProjectUser = BLL.ProjectUserService.GetProjectUserByProjectId(ProjectId, BLL.Const.ProjectManager);
-            if (ProjectUser != null)
+
+            ///获取部室
+            var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
+            if (SGGLManager != null)
             {
-                Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
+                Model.Person_QuarterCheckItem item0 = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),
                     QuarterCheckId = QuarterCheckId,
                     TargetClass1 = "其他工作情况（30%）",
                     TargetClass2 = " 工作态度<br />遵守纪律<br />工作协调<br />团队精神",
                     CheckContent = "1.工作主动性、责任心；<br />2.遵守公司的考勤制度；<br />3.协调工作范围内的业主、监理、分包商关系；<br />4.团结一致，积极有效开展工作。",
-                    UserId = ProjectUser.UserId,
+                    UserId = SGGLManager.UserId,
                     SortId = 5,
                     StandardGrade = 10,
                 };
-                BLL.Person_QuarterCheckItemService.AddCheckItem(item);
+                BLL.Person_QuarterCheckItemService.AddCheckItem(item0);
 
-                Model.Person_QuarterCheckApprove approve = new Model.Person_QuarterCheckApprove
-                {
-                    ApproveId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckApprove)),
-                    QuarterCheckId = QuarterCheckId,
-                    UserId = ProjectUser.UserId
-                };
-                BLL.Person_QuarterCheckApproveService.AddCheckApprove(approve);
-            }
-
-
-            ///获取部室
-            var SGGLManager = BLL.UserService.GetUserByUserId(BLL.Const.SGGLB);
-            if (SGGLManager != null)
-            {
                 Model.Person_QuarterCheckItem item = new Model.Person_QuarterCheckItem
                 {
                     QuarterCheckItemId = SQLHelper.GetNewID(typeof(Model.Person_QuarterCheckItem)),

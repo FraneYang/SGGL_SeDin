@@ -139,6 +139,15 @@ namespace FineUIPro.Web.Person {
         protected global::FineUIPro.Button btnOut;
         
         /// <summary>
+        /// btnOut2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnOut2;
+        
+        /// <summary>
         /// labNumber 控件。
         /// </summary>
         /// <remarks>
@@ -148,13 +157,22 @@ namespace FineUIPro.Web.Person {
         protected global::System.Web.UI.WebControls.Label labNumber;
         
         /// <summary>
-        /// lbtnPro 控件。
+        /// lbState 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lbtnPro;
+        protected global::System.Web.UI.WebControls.Label lbState;
+        
+        /// <summary>
+        /// lbGrade 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lbGrade;
         
         /// <summary>
         /// ToolbarSeparator1 控件。

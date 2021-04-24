@@ -112,13 +112,13 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// hdNDEID 控件。
+        /// hdTrustBatchId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.HiddenField hdNDEID;
+        protected global::FineUIPro.HiddenField hdTrustBatchId;
         
         /// <summary>
         /// ToolbarFill1 控件。
@@ -148,13 +148,13 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// txtTrustBatchCode 控件。
+        /// txtNDECode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label txtTrustBatchCode;
+        protected global::FineUIPro.Label txtNDECode;
         
         /// <summary>
         /// txtUnitName 控件。
@@ -164,24 +164,6 @@ namespace FineUIPro.Web.HJGL.NDT {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label txtUnitName;
-        
-        /// <summary>
-        /// txtNDEDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtNDEDate;
-        
-        /// <summary>
-        /// txtUnitWork 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label txtUnitWork;
         
         /// <summary>
         /// txtCheckUnit 控件。
@@ -200,6 +182,24 @@ namespace FineUIPro.Web.HJGL.NDT {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label txtDetectionTypeCode;
+        
+        /// <summary>
+        /// txtIsCheck 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtIsCheck;
+        
+        /// <summary>
+        /// txtNDEDate 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label txtNDEDate;
         
         /// <summary>
         /// Grid1 控件。
@@ -308,6 +308,15 @@ namespace FineUIPro.Web.HJGL.NDT {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.MenuButton btnAudit;
+        
+        /// <summary>
+        /// btnView 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.MenuButton btnView;
         
         /// <summary>
         /// btnDelete 控件。

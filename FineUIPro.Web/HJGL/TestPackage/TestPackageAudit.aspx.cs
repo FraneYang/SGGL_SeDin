@@ -223,53 +223,71 @@ namespace FineUIPro.Web.HJGL.TestPackage
         /// </summary>
         private void ShowGridItem()
         {
+            this.TbPipeline.Hidden = true;
+            this.TbNotPipeline.Hidden = true;
             Count = 0;
             int Count1 = 0, Count2 = 0, Count3 = 0, Count4 = 0;
             int rowsCount = this.Grid1.Rows.Count;
             var batchTrustItems = from x in Funs.DB.HJGL_Batch_BatchTrustItem select x;
             var NDEs = from x in Funs.DB.HJGL_Batch_NDE where x.ProjectId == this.CurrUser.LoginProjectId select x;
             var NDEItems = from x in Funs.DB.HJGL_Batch_NDEItem select x;
-            for (int i = 0; i < rowsCount; i++)
+            Model.Project_Sys_Set batch = BLL.Project_SysSetService.GetSysSetBySetId("5", this.CurrUser.LoginProjectId);
+            if (batch != null)
             {
-                int IsoInfoCount = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString()); //总焊口
-                int IsoInfoCountT = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[4].ToString()); //完成总焊口
-                int CountS = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[5].ToString()); //合格数
-                int CountU = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString());  //不合格数
-                decimal Rate = 0;
-                bool convertible = decimal.TryParse(this.Grid1.Rows[i].Values[9].ToString(), out Rate); //应检测比例
-                decimal Ratio = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[10].ToString()); //实际检测比例
-                //不合格口
-                bool allNDEItemOK = true;  //返修口检测单是否合格
-                string pipelineId = this.Grid1.Rows[i].DataKeys[1].ToString();
-                var lastRepairRecord = (from x in Funs.DB.HJGL_RepairRecord
-                                        join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                        where x.ProjectId == this.CurrUser.LoginProjectId && y.PipelineId == pipelineId
-                                        orderby x.NoticeDate descending
-                                        select x).FirstOrDefault();
-                if (lastRepairRecord == null)   //不存在返修口
+                if (batch.SetValue.Contains("6"))  //按管线组批
                 {
-
-                }
-                else  //存在返修口
-                {
-                    //返修委托明细
-                    var batchTrustItem = batchTrustItems.FirstOrDefault(x => x.RepairRecordId == lastRepairRecord.RepairRecordId);
-                    if (batchTrustItem != null)
+                    this.TbPipeline.Hidden = false;
+                    for (int i = 0; i < rowsCount; i++)
                     {
-                        //检测单
-                        var lastNDE = NDEs.FirstOrDefault(x => x.TrustBatchId == batchTrustItem.TrustBatchId);
-                        if (lastNDE != null)
+                        int IsoInfoCount = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[3].ToString()); //总焊口
+                        int IsoInfoCountT = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[4].ToString()); //完成总焊口
+                        int CountS = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[5].ToString()); //合格数
+                        int CountU = Funs.GetNewIntOrZero(this.Grid1.Rows[i].Values[6].ToString());  //不合格数
+                        decimal Rate = 0;
+                        bool convertible = decimal.TryParse(this.Grid1.Rows[i].Values[9].ToString(), out Rate); //应检测比例
+                        decimal Ratio = Funs.GetNewDecimalOrZero(this.Grid1.Rows[i].Values[10].ToString()); //实际检测比例
+                                                                                                            //不合格口
+                        bool allNDEItemOK = true;  //返修口检测单是否合格
+                        string pipelineId = this.Grid1.Rows[i].DataKeys[1].ToString();
+                        var lastRepairRecord = (from x in Funs.DB.HJGL_RepairRecord
+                                                join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
+                                                where x.ProjectId == this.CurrUser.LoginProjectId && y.PipelineId == pipelineId
+                                                orderby x.NoticeDate descending
+                                                select x).FirstOrDefault();
+                        if (lastRepairRecord == null)   //不存在返修口
                         {
-                            var lastNDEItems = NDEItems.Where(x => x.NDEID == lastNDE.NDEID);
-                            if (lastNDEItems.Count() > 0)
+
+                        }
+                        else  //存在返修口
+                        {
+                            //返修委托明细
+                            var batchTrustItem = batchTrustItems.FirstOrDefault(x => x.RepairRecordId == lastRepairRecord.RepairRecordId);
+                            if (batchTrustItem != null)
                             {
-                                foreach (var lastNDEItem in lastNDEItems)
+                                //检测单
+                                var lastNDE = NDEs.FirstOrDefault(x => x.TrustBatchId == batchTrustItem.TrustBatchId);
+                                if (lastNDE != null)
                                 {
-                                    if (lastNDEItem.TotalFilm != null && lastNDEItem.PassFilm != null && lastNDEItem.TotalFilm != lastNDEItem.PassFilm)
+                                    var lastNDEItems = NDEItems.Where(x => x.NDEID == lastNDE.NDEID);
+                                    if (lastNDEItems.Count() > 0)
+                                    {
+                                        foreach (var lastNDEItem in lastNDEItems)
+                                        {
+                                            if (lastNDEItem.TotalFilm != null && lastNDEItem.PassFilm != null && lastNDEItem.TotalFilm != lastNDEItem.PassFilm)
+                                            {
+                                                allNDEItemOK = false;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    else
                                     {
                                         allNDEItemOK = false;
-                                        break;
                                     }
+                                }
+                                else
+                                {
+                                    allNDEItemOK = false;
                                 }
                             }
                             else
@@ -277,44 +295,108 @@ namespace FineUIPro.Web.HJGL.TestPackage
                                 allNDEItemOK = false;
                             }
                         }
+
+                        if (IsoInfoCount > IsoInfoCountT) //未焊完
+                        {
+                            Count1 += 1;
+                            this.Grid1.Rows[i].RowCssClass = "Cyan";
+                        }
+                        else if (Rate > Ratio) //已焊完，未达检测比例
+                        {
+                            Count2 += 1;
+                            this.Grid1.Rows[i].RowCssClass = "Yellow";
+                        }
+                        else if (!allNDEItemOK) //已焊完，已达检测比例，但有不合格
+                        {
+                            Count3 += 1;
+                            this.Grid1.Rows[i].RowCssClass = "Purple";
+                        }
                         else
                         {
-                            allNDEItemOK = false;
+                            Count4 += 1;
+                            this.Grid1.Rows[i].RowCssClass = "Green";
+                        }
+                    }
+                    Count = Count1 + Count2 + Count3;
+                    this.lab1.Text = Count1.ToString();
+                    this.lab2.Text = Count2.ToString();
+                    this.lab3.Text = Count3.ToString();
+                    this.lab4.Text = Count4.ToString();
+                }
+                else  //不按管线组批时，本单位工程检测比例为20%的管线全部焊完，且涉及的所有批关闭，点口（包括点口和扩透）数量和检测报告合格口数量相等，可以进行试压
+                {
+
+                    this.TbNotPipeline.Hidden = false;
+                    Model.SGGLDB db = Funs.DB;
+                    var pipelineItem = db.PTP_PipelineList.FirstOrDefault(x => x.PTP_ID == this.PTP_ID);
+                    var pipeline = db.HJGL_Pipeline.FirstOrDefault(x => x.PipelineId == pipelineItem.PipelineId);
+                    var totalJoint = from x in db.HJGL_WeldJoint
+                                     join y in db.HJGL_Pipeline on x.PipelineId equals y.PipelineId
+                                     where y.UnitWorkId == pipeline.UnitWorkId && y.DetectionRateId == pipeline.DetectionRateId && y.DetectionType.Contains(pipeline.DetectionType)
+                                     select x;
+                    string rateStr = string.Empty;
+                    var rate = Funs.DB.Base_DetectionRate.FirstOrDefault(x => x.DetectionRateId == pipeline.DetectionRateId);
+                    if (rate != null)
+                    {
+                        rateStr = rate.DetectionRateValue + "%";
+                    }
+                    this.lab12.Label = "本单位工程检测比例为" + rateStr + "的管线未焊接焊口数";
+                    int totalJointNum = totalJoint.Count();   //总焊口
+                    int totalWeldingJointNum = totalJoint.Count(x => x.WeldingDailyId != null);   //已焊总焊口
+                    int notCloseBatch = (from x in db.HJGL_Batch_PointBatch
+                                         where x.UnitWorkId == pipeline.UnitWorkId && x.DetectionRateId == pipeline.DetectionRateId
+                                         && x.DetectionTypeId == pipeline.DetectionType && x.EndDate == null
+                                         select x).Count();   //未关闭批
+                    int allPointJointNum = (from x in db.HJGL_Batch_PointBatchItem
+                                            join y in db.HJGL_Batch_PointBatch on x.PointBatchId equals y.PointBatchId
+                                            where y.UnitWorkId == pipeline.UnitWorkId && y.DetectionRateId == pipeline.DetectionRateId
+                                            && y.DetectionTypeId == pipeline.DetectionType && x.PointState != null
+                                            select x).Count();   //全部点口（含扩透）
+                    int allOKCheckNum = (from x in db.HJGL_Batch_NDEItem
+                                         join y in db.HJGL_Batch_NDE on x.NDEID equals y.NDEID
+                                         join z in db.HJGL_Batch_BatchTrust on y.TrustBatchId equals z.TrustBatchId
+                                         where z.UnitWorkId == pipeline.UnitWorkId && z.DetectionRateId == pipeline.DetectionRateId
+                                         && z.DetectionTypeId == pipeline.DetectionType && x.CheckResult == "1"
+                                         select x).Count();   //全部检测合格口
+                    if (totalJointNum > totalWeldingJointNum)  //未全部焊完
+                    {
+                        Count1 = totalJointNum - totalWeldingJointNum;
+                        for (int i = 0; i < rowsCount; i++)
+                        {
+                            this.Grid1.Rows[i].RowCssClass = "Cyan";
+                        }
+                    }
+                    else if (notCloseBatch > 0)   //批未全部关闭
+                    {
+                        Count2 = notCloseBatch;
+                        for (int i = 0; i < rowsCount; i++)
+                        {
+                            this.Grid1.Rows[i].RowCssClass = "Yellow";
+                        }
+                    }
+                    else if (allPointJointNum > allOKCheckNum)   //检测有不合格或未全部检测完成
+                    {
+                        Count3 = allPointJointNum - allOKCheckNum;
+                        for (int i = 0; i < rowsCount; i++)
+                        {
+                            this.Grid1.Rows[i].RowCssClass = "Purple";
                         }
                     }
                     else
                     {
-                        allNDEItemOK = false;
+                        Count4 = this.Grid1.Rows.Count;
+                        for (int i = 0; i < rowsCount; i++)
+                        {
+                            this.Grid1.Rows[i].RowCssClass = "Green";
+                        }
                     }
-                }
-
-                if (IsoInfoCount > IsoInfoCountT) //未焊完
-                {
-                    Count1 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Cyan";
-                }
-                else if (Rate > Ratio) //已焊完，未达检测比例
-                {
-                    Count2 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Yellow";
-                }
-                else if (!allNDEItemOK) //已焊完，已达检测比例，但有不合格
-                {
-                    Count3 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Green";
-                }
-                else
-                {
-                    Count4 += 1;
-                    this.Grid1.Rows[i].RowCssClass = "Purple";
+                    Count = Count1 + Count2 + Count3;
+                    this.lab12.Text = Count1.ToString();
+                    this.lab22.Text = Count2.ToString();
+                    this.lab32.Text = Count3.ToString();
+                    this.lab42.Text = Count4.ToString();
                 }
             }
-
-            Count = Count1 + Count2 + Count2;
-            this.lab1.Text = Count1.ToString();
-            this.lab2.Text = Count2.ToString();
-            this.lab3.Text = Count3.ToString();
-            this.lab4.Text = Count4.ToString();
         }
         #region 加载页面输入保存信息
         /// <summary>
@@ -336,34 +418,44 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 if (!string.IsNullOrEmpty(testPackageManage.Check2))
                 {
                     drpPressureTest.SelectedValue = testPackageManage.Check2;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check3))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check3))
                 {
                     drpWorkRecord.SelectedValue = testPackageManage.Check3;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check4))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check4))
                 {
                     drpNDTConform.SelectedValue = testPackageManage.Check4;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check5))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check5))
                 {
                     drpHotConform.SelectedValue = testPackageManage.Check5;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check6))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check6))
                 {
                     drpInstallationCorrectness.SelectedValue = testPackageManage.Check6;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check7))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check7))
                 {
                     drpMarkClearly.SelectedValue = testPackageManage.Check7;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check8))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check8))
                 {
                     drpIsolationOpening.SelectedValue = testPackageManage.Check8;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check9))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check9))
                 {
                     drpConstructionPlanAsk.SelectedValue = testPackageManage.Check9;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check10))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check10))
                 {
                     drpCover.SelectedValue = testPackageManage.Check10;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check11))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check11))
                 {
                     drpMeetRequirements.SelectedValue = testPackageManage.Check11;
-                }                if (!string.IsNullOrEmpty(testPackageManage.Check12))
+                }
+                if (!string.IsNullOrEmpty(testPackageManage.Check12))
                 {
                     drpStainlessTestWater.SelectedValue = testPackageManage.Check12;
                 }
@@ -521,7 +613,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             this.InitTreeMenu();
             this.BindGrid();
         }
-        #endregion        
+        #endregion
 
         #region  试压包打印
         /// <summary>

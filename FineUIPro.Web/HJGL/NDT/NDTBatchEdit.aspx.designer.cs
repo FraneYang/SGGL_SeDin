@@ -85,6 +85,15 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
         
         /// <summary>
+        /// hdDetectionType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HiddenField hdDetectionType;
+        
+        /// <summary>
         /// btnSave 控件。
         /// </summary>
         /// <remarks>
@@ -112,67 +121,49 @@ namespace FineUIPro.Web.HJGL.NDT {
         protected global::FineUIPro.TextBox txtNDECode;
         
         /// <summary>
-        /// drpUnit 控件。
+        /// txtUnit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpUnit;
+        protected global::FineUIPro.TextBox txtUnit;
         
         /// <summary>
-        /// drpUnitWork 控件。
+        /// txtUnitWork 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpUnitWork;
+        protected global::FineUIPro.TextBox txtUnitWork;
         
         /// <summary>
-        /// txtNDEDate 控件。
+        /// txtNDEUnit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtNDEDate;
+        protected global::FineUIPro.TextBox txtNDEUnit;
         
         /// <summary>
-        /// drpNDEUnit 控件。
+        /// txtDetectionType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpNDEUnit;
+        protected global::FineUIPro.TextBox txtDetectionType;
         
         /// <summary>
-        /// drpDetectionType 控件。
+        /// txtTrustCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpDetectionType;
-        
-        /// <summary>
-        /// txtPipelineCode 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtPipelineCode;
-        
-        /// <summary>
-        /// drpBatchTrust 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.DropDownList drpBatchTrust;
+        protected global::FineUIPro.TextBox txtTrustCode;
         
         /// <summary>
         /// Grid1 控件。

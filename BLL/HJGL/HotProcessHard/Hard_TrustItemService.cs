@@ -21,6 +21,16 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据热处理委托明细主键获取硬度明细
+        /// </summary>
+        /// <param name="hardTrustItemId"></param>
+        /// <returns></returns>
+        public static Model.HJGL_Hard_TrustItem GetHardTrustItemByHotProessTrustItemId(string hotProessTrustItemId)
+        {
+            return Funs.DB.HJGL_Hard_TrustItem.FirstOrDefault(e => e.HotProessTrustItemId == hotProessTrustItemId);
+        }
+
+        /// <summary>
         /// 根据硬度Id获取相关明细信息
         /// </summary>
         /// <param name="hardTrustId"></param>
@@ -60,6 +70,21 @@ namespace BLL
             {
                 newHardTrustItem.IsPass = hardTrustItem.IsPass;
                 newHardTrustItem.IsTrust = hardTrustItem.IsTrust;
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
+        /// 根据硬度委托明细主键删除对应明细信息
+        /// </summary>
+        /// <param name="hardTrustId"></param>
+        public static void DeleteHardTrustItemByHardTrustItemID(string hardTrustItemID)
+        {
+            Model.SGGLDB db = Funs.DB;
+            var hardTrustItem = (from x in db.HJGL_Hard_TrustItem where x.HardTrustItemID == hardTrustItemID select x).FirstOrDefault();
+            if (hardTrustItem != null)
+            {
+                db.HJGL_Hard_TrustItem.DeleteOnSubmit(hardTrustItem);
                 db.SubmitChanges();
             }
         }

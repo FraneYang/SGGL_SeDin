@@ -103,6 +103,42 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::FineUIPro.Grid GridRectify;
         
         /// <summary>
+        /// txtThisRectifyNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThisRectifyNum;
+        
+        /// <summary>
+        /// txtThisOKRectifyNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThisOKRectifyNum;
+        
+        /// <summary>
+        /// txtTotalRectifyNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalRectifyNum;
+        
+        /// <summary>
+        /// txtTotalOKRectifyNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalOKRectifyNum;
+        
+        /// <summary>
         /// ContentPanel4 控件。
         /// </summary>
         /// <remarks>
@@ -121,6 +157,60 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::FineUIPro.Grid GridNDTCheck;
         
         /// <summary>
+        /// Label2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
+        
+        /// <summary>
+        /// txtFilmNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtFilmNum;
+        
+        /// <summary>
+        /// txtNotOKFileNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtNotOKFileNum;
+        
+        /// <summary>
+        /// txtRepairFileNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtRepairFileNum;
+        
+        /// <summary>
+        /// txtTotalFilmNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalFilmNum;
+        
+        /// <summary>
+        /// txtTotalNotOKFileNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalNotOKFileNum;
+        
+        /// <summary>
         /// ContentPanel5 控件。
         /// </summary>
         /// <remarks>
@@ -137,6 +227,51 @@ namespace FineUIPro.Web.CQMS.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Grid GridWelder;
+        
+        /// <summary>
+        /// Label4 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label4;
+        
+        /// <summary>
+        /// txtThisPersonNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThisPersonNum;
+        
+        /// <summary>
+        /// txtThisOKPersonNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThisOKPersonNum;
+        
+        /// <summary>
+        /// txtTotalPersonNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalPersonNum;
+        
+        /// <summary>
+        /// txtTotalOKPersonNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalOKPersonNum;
         
         /// <summary>
         /// ContentPanel6 控件。
@@ -166,22 +301,22 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
-        /// MonthOk 控件。
+        /// txtMonthOk 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label MonthOk;
+        protected global::FineUIPro.TextBox txtMonthOk;
         
         /// <summary>
-        /// AllOk 控件。
+        /// txtAllOk 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label AllOk;
+        protected global::FineUIPro.TextBox txtAllOk;
         
         /// <summary>
         /// lblPageIndex 控件。
@@ -191,6 +326,33 @@ namespace FineUIPro.Web.CQMS.Check {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
+        
+        /// <summary>
+        /// txtTotalSpotNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalSpotNum;
+        
+        /// <summary>
+        /// txtThisSpotOKNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtThisSpotOKNum;
+        
+        /// <summary>
+        /// txtTotalSpotOKNum 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtTotalSpotOKNum;
         
         /// <summary>
         /// ContentPanel7 控件。
@@ -274,6 +436,24 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::FineUIPro.Grid GridDesign;
         
         /// <summary>
+        /// Toolbar3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar3;
+        
+        /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnNew;
+        
+        /// <summary>
         /// Label1 控件。
         /// </summary>
         /// <remarks>
@@ -283,13 +463,49 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::System.Web.UI.WebControls.Label Label1;
         
         /// <summary>
-        /// Label3 控件。
+        /// txtDesignCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label3;
+        protected global::FineUIPro.TextBox txtDesignCode;
+        
+        /// <summary>
+        /// drpMainItemId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpMainItemId;
+        
+        /// <summary>
+        /// drpDesignProfessionalId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpDesignProfessionalId;
+        
+        /// <summary>
+        /// drpState 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList drpState;
+        
+        /// <summary>
+        /// txtRemark 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtRemark;
         
         /// <summary>
         /// ContentPanel11 控件。
@@ -301,22 +517,22 @@ namespace FineUIPro.Web.CQMS.Check {
         protected global::FineUIPro.ContentPanel ContentPanel11;
         
         /// <summary>
-        /// MonthDataOk 控件。
+        /// txtMonthDataOk 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label MonthDataOk;
+        protected global::FineUIPro.TextBox txtMonthDataOk;
         
         /// <summary>
-        /// AllDataOk 控件。
+        /// txtAllDataOk 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label AllDataOk;
+        protected global::FineUIPro.TextBox txtAllDataOk;
         
         /// <summary>
         /// txtConstructionData 控件。

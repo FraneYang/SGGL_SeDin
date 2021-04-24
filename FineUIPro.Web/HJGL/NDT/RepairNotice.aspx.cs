@@ -63,33 +63,34 @@ namespace FineUIPro.Web.HJGL.NDT
             if (repair == null)
             {
                 newItem.RepairRecordId = SQLHelper.GetNewID(typeof(Model.HJGL_RepairRecord));
-                string code = q.TrustBatchCode;
-                if (code.Substring(code.Length - 2, 1) == "R")
-                {
-                    string first = code.Substring(0, code.Length - 1);
-                    string last = code.Substring(code.Length - 1);
-                    int n = Convert.ToInt32(last) + 1;
-                    newItem.RepairRecordCode = first + n.ToString();
-                }
-                else
-                {
-                    string repairCode = code + "A";
-                    // 当一个委托单有多个返修时会暂时解决返修单重复问题
-                    if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
-                    {
-                        repairCode = code + "-01A";
-                        if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
-                        {
-                            repairCode = code + "-02A";
-                            if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
-                            {
-                                repairCode = code + "-03A";
-                            }
-                        }
-                       
-                    }
-                    newItem.RepairRecordCode = repairCode;
-                }
+                newItem.RepairRecordCode = q.TrustBatchCode.Replace("-WT-","-FXWT-");
+                //string code = q.TrustBatchCode;
+                //if (code.Substring(code.Length - 2, 1) == "R")
+                //{
+                //    string first = code.Substring(0, code.Length - 1);
+                //    string last = code.Substring(code.Length - 1);
+                //    int n = Convert.ToInt32(last) + 1;
+                //    newItem.RepairRecordCode = first + n.ToString();
+                //}
+                //else
+                //{
+                //    string repairCode = code + "A";
+                //    // 当一个委托单有多个返修时会暂时解决返修单重复问题
+                //    if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                //    {
+                //        repairCode = code + "-01A";
+                //        if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                //        {
+                //            repairCode = code + "-02A";
+                //            if (BLL.RepairRecordService.IsCoverRecordCode(repairCode))
+                //            {
+                //                repairCode = code + "-03A";
+                //            }
+                //        }
+
+                //    }
+                //    newItem.RepairRecordCode = repairCode;
+                //}
                 newItem.ProjectId = q.ProjectId;
                 newItem.UnitId = q.UnitId;
                 newItem.UnitWorkId = q.UnitWorkId;

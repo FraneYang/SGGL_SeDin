@@ -159,5 +159,14 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+        public static void DeleteSubcontractAgreementBycontractId(string contractId)
+        {
+            Model.PHTGL_SubcontractAgreement contract = Funs.DB.PHTGL_SubcontractAgreement.FirstOrDefault(e => e.ContractId == contractId);
+            if (contract != null)
+            {
+                Funs.DB.PHTGL_SubcontractAgreement.DeleteOnSubmit(contract);
+                Funs.DB.SubmitChanges();
+            }
+        }
     }
 }

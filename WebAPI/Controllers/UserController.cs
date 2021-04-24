@@ -431,5 +431,29 @@ namespace WebAPI.Controllers
             return responeData;
         }
         #endregion
+
+        #region 根据人员ID获取下一步办理人
+        /// <summary>
+        /// 根据人员ID获取下一步办理人
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="userIds"></param>
+        /// <param name="strParam"></param>
+        /// <returns></returns>
+        public Model.ResponeData getUserByProjectIdUserIdsQuery(string projectId, string userIds, string strParam)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APIUserService.getUserByProjectIdUserIdsQuery(projectId, userIds, strParam);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+            return responeData;
+        }
+        #endregion
     }
 }

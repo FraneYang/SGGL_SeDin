@@ -21,7 +21,7 @@ namespace FineUIPro.Web.HJGL.PointTrust
             }
         }
 
-        #region 加载树项目-月份
+        #region 加载树
         /// <summary>
         /// 加载树
         /// </summary>
@@ -80,8 +80,8 @@ namespace FineUIPro.Web.HJGL.PointTrust
                     tn1.NodeID = q.UnitWorkId;
                     tn1.Text = q.UnitWorkName;
                     tn1.ToolTip = "施工单位：" + u.UnitName;
-                    tn1.EnableExpandEvent = true;
                     tn1.CommandName = "单位工程";
+                    tn1.EnableExpandEvent = true;
                     rootNode1.Nodes.Add(tn1);
                     BindNodes(tn1);
                 }
@@ -103,19 +103,17 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 }
             }
         }
-        #endregion
-
-        #region 绑定树节点
         /// <summary>
         ///  绑定树节点
         /// </summary>
         /// <param name="node"></param>
         private void BindNodes(TreeNode node)
         {
-            var p = from x in Funs.DB.HJGL_Batch_BatchTrust
-                    where x.UnitWorkId == node.NodeID && x.TrustType == null
-                         && x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
-                         && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
+
+            var p = from x in Funs.DB.HJGL_Batch_PointBatch
+                    where x.UnitWorkId == node.NodeID
+                    && x.StartDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
+                    && x.StartDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
                     select x;
             if (p.Count() > 0)
             {
@@ -126,10 +124,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
             }
 
         }
+        #endregion
+
+        #region 绑定树节点
         protected void tvControlItem_TreeNodeExpanded(object sender, TreeNodeEventArgs e)
         {
             e.Node.Nodes.Clear();
-            e.Node.Expanded = true;
             if (e.Node.CommandName == "单位工程")
             {
                 var detectionTypes = from x in Funs.DB.Base_DetectionType
@@ -137,9 +137,9 @@ namespace FineUIPro.Web.HJGL.PointTrust
                                      select new { x.DetectionTypeId, x.DetectionTypeCode, x.DetectionTypeName };
                 foreach (var item in detectionTypes)
                 {
-                    var pointManages = from x in Funs.DB.View_Batch_BatchTrust
+                    var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
                                        where x.ProjectId == this.CurrUser.LoginProjectId
-                                       && x.UnitWorkId == e.Node.NodeID && x.TrustType == null
+                                       && x.UnitWorkId == e.Node.NodeID
                                        && x.DetectionTypeId == item.DetectionTypeId
                                        select x;
 
@@ -156,8 +156,8 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
                     TreeNode tn1 = new TreeNode
                     {
-                        Text = "委托单号",
-                        NodeID = "委托单号",
+                        Text = "检测比例",
+                        NodeID = "检测比例",
                     };
                     newNode.Nodes.Add(tn1);
                 }
@@ -165,35 +165,85 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
             if (e.Node.CommandName == "探伤类型")
             {
-                ///单号
-                var trusts = from x in Funs.DB.HJGL_Batch_BatchTrust
-                             where x.TrustDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
-                             && x.TrustDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01") && x.TrustType == null
-                             && x.ProjectId == this.CurrUser.LoginProjectId && x.TrustBatchCode.Contains(this.txtSearchCode.Text.Trim())
-                             && x.UnitWorkId == e.Node.ParentNode.NodeID
-                             && x.DetectionTypeId == e.NodeID.Split('|')[0]
-                             orderby x.TrustBatchCode descending
-                             select x;
-                foreach (var trust in trusts)
+                var detectionRates = from x in Funs.DB.Base_DetectionRate
+                                     orderby x.DetectionRateCode
+                                     select new { x.DetectionRateId, x.DetectionRateCode, x.DetectionRateValue };
+                foreach (var item in detectionRates)
                 {
-                    TreeNode newNode = new TreeNode();
+                    var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
+                                       where x.ProjectId == this.CurrUser.LoginProjectId
+                                       && x.UnitWorkId == e.Node.ParentNode.NodeID
+                                       && x.DetectionTypeId == e.Node.NodeID.Split('|')[0]
+                                       && x.DetectionRateId == item.DetectionRateId
+                                       && x.StartDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
+                                       && x.StartDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
+                                       select x;
+                    if (item.DetectionRateValue > 0)   //探伤比例为0的批不显示
+                    {
+                        TreeNode newNode = new TreeNode();
+                        if (pointManages.Count() > 0)
+                        {
+                            newNode.Text = item.DetectionRateValue.ToString() + "%";
+                            newNode.NodeID = item.DetectionRateId + "|" + e.Node.NodeID;
+                            newNode.EnableExpandEvent = true;
+                            newNode.ToolTip = item.DetectionRateCode;
+                            newNode.CommandName = "检测比例";
 
-                    if (string.Format("{0:yyyy-MM-dd}", trust.TrustDate) == string.Format("{0:yyyy-MM-dd}", System.DateTime.Now))
-                    {
-                        newNode.Text = "<font color='#EE0000'>" + trust.TrustBatchCode + "</font>";
-                        newNode.ToolTip = "当天委托单";
+                            e.Node.Nodes.Add(newNode);
+                        }
+
+                        TreeNode tn1 = new TreeNode
+                        {
+                            Text = "检测批",
+                            NodeID = "检测批",
+                        };
+                        newNode.Nodes.Add(tn1);
                     }
-                    else
-                    {
-                        newNode.Text = trust.TrustBatchCode;
-                        newNode.ToolTip = "非当天委托单";
-                    }
-                    newNode.NodeID = trust.TrustBatchId;
-                    newNode.EnableClickEvent = true;
-                    e.Node.Nodes.Add(newNode);
                 }
             }
 
+            if (e.Node.CommandName == "检测比例")
+            {
+                var pointManages = from x in Funs.DB.View_HJGL_Batch_PointBatch
+                                   where x.ProjectId == this.CurrUser.LoginProjectId
+                                   && x.DetectionRateId == e.NodeID.Split('|')[0]
+                                   && x.DetectionTypeId == e.Node.ParentNode.NodeID.Split('|')[0]
+                                   && x.UnitWorkId == e.Node.ParentNode.ParentNode.NodeID
+                                   && x.StartDate < Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01").AddMonths(1)
+                                   && x.StartDate >= Convert.ToDateTime(this.txtTrustDateMonth.Text.Trim() + "-01")
+                                   select x;
+
+                if (!string.IsNullOrEmpty(this.txtWelderCode.Text))
+                {
+                    pointManages = pointManages.Where(x => x.WelderCode.Contains(this.txtWelderCode.Text.Trim()));
+                }
+
+
+
+                foreach (var item in pointManages)
+                {
+
+                    TreeNode newNode = new TreeNode
+                    {
+                        NodeID = item.PointBatchId,
+                        ToolTip = "批",
+                        EnableClickEvent = true,
+                    };
+                    string code = "DK-" + item.PointBatchCode.Substring(item.PointBatchCode.Length - 4);
+                    // 未委托批次红色显示
+                    if (BLL.Batch_BatchTrustService.GetBatchTrustViewByPointBatchId(item.PointBatchId) == null)
+                    {
+                        newNode.Text = "<font color='#EE0000'>" + code + "</font>";
+                        newNode.ToolTip = "未委托";
+                    }
+                    else
+                    {
+                        newNode.Text = code;
+                    }
+                    e.Node.Nodes.Add(newNode);
+
+                }
+            }
         }
         #endregion
 
@@ -212,53 +262,85 @@ namespace FineUIPro.Web.HJGL.PointTrust
 
         private void PageInfo()
         {
-            Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewById(this.tvControlItem.SelectedNodeID);
+            this.txtTrustBatchCode.Text = string.Empty;
+            this.txtTrustDate.Text = string.Empty;
+            this.txtDetectionTypeCode.Text = string.Empty;
+            this.lbNDEUnit.Text = string.Empty;
+            Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewByPointBatchId(this.tvControlItem.SelectedNodeID);
+            Model.HJGL_Batch_PointBatch batch = BLL.PointBatchService.GetPointBatchById(this.tvControlItem.SelectedNodeID);
             if (trust != null)
             {
-                this.txtTrustBatchCode.Text = trust.TrustBatchCode;
-                if (trust.TrustDate != null)
+                if (batch.IsClosed == true)
                 {
-                    this.txtTrustDate.Text = string.Format("{0:yyyy-MM-dd}", trust.TrustDate);
-                }
-                this.txtDetectionTypeCode.Text = trust.DetectionTypeCode;
-                if (trust.IsCheck == true)
-                {
-                    lbIsCheck.Text = "已检测";
+                    lbIsTrust.Text = "无需委托";
                 }
                 else
                 {
-                    lbIsCheck.Text = "未检测";
-                }
-
-                if (trust.IsAudit == true)
-                {
-                    lbIsAudit.Text = "已审核";
-                }
-                else
-                {
-                    lbIsAudit.Text = "未审核";
-                }
-                if (!string.IsNullOrEmpty(trust.NDEUuit))
-                {
-                    var unit = BLL.UnitService.GetUnitByUnitId(trust.NDEUuit);
-                    if (unit != null)
+                    this.txtTrustBatchCode.Text = trust.TrustBatchCode;
+                    if (trust.TrustDate != null)
                     {
-                        lbNDEUnit.Text = unit.UnitName;
+                        this.txtTrustDate.Text = string.Format("{0:yyyy-MM-dd}", trust.TrustDate);
                     }
+                    this.txtDetectionTypeCode.Text = trust.DetectionTypeCode;
+                    lbIsTrust.Text = "已委托";
+                    if (trust.IsAudit == true)
+                    {
+                        lbIsAudit.Text = "已审核";
+                    }
+                    else
+                    {
+                        lbIsAudit.Text = "未审核";
+                    }
+                    if (!string.IsNullOrEmpty(trust.NDEUnit))
+                    {
+                        var unit = BLL.UnitService.GetUnitByUnitId(trust.NDEUnit);
+                        if (unit != null)
+                        {
+                            lbNDEUnit.Text = unit.UnitName;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (batch != null)
+                {
+                    lbIsTrust.Text = "未委托";
                 }
             }
         }
 
         /// <summary>
-        /// 手动点口关闭
+        /// 生成委托单
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void btnPointAudit_Click(object sender, EventArgs e)
         {
-            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_PointBatchMenuId, Const.BtnPointAudit))
+            if (CommonService.GetAllButtonPowerList(this.CurrUser.LoginProjectId, this.CurrUser.UserId, Const.HJGL_TrustBatchMenuId, Const.BtnGenerate))
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PointAudit.aspx", "点口审核 - ")));
+                //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PointAudit.aspx", "委托 - ")));
+                Model.HJGL_Batch_PointBatch pointBatch = BLL.PointBatchService.GetPointBatchById(this.tvControlItem.SelectedNodeID);
+                if (pointBatch != null)
+                {
+                    if (pointBatch.IsClosed == true)
+                    {
+                        ShowNotify("该检验批无需委托！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewByPointBatchId(this.tvControlItem.SelectedNodeID);
+                    if (trust != null)
+                    {
+                        ShowNotify("该检验批已生成委托！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("PointTrust.aspx?PointBatchId=" + this.tvControlItem.SelectedNodeID, "委托 - ")));
+                }
+                else
+                {
+                    ShowNotify("请选择检验批！", MessageBoxIcon.Warning);
+                    return;
+                }
             }
             else
             {
@@ -275,22 +357,45 @@ namespace FineUIPro.Web.HJGL.PointTrust
         {
             if (this.tvControlItem.SelectedNode != null)
             {
-                string strSql = @"SELECT * FROM dbo.View_Batch_BatchTrustItem d WHERE TrustBatchId=@TrustBatchId ";
-                List<SqlParameter> listStr = new List<SqlParameter>
+                Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewByPointBatchId(this.tvControlItem.SelectedNodeID);
+                if (trust == null)  //为生成委托
                 {
+                    string strSql = @"SELECT * FROM dbo.View_GenerateTrustItem d WHERE PointBatchId=@PointBatchId ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
+                    {
 
-                };
-                listStr.Add(new SqlParameter("@TrustBatchId", this.tvControlItem.SelectedNodeID));
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                    };
+                    listStr.Add(new SqlParameter("@PointBatchId", this.tvControlItem.SelectedNodeID));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
 
-                // 2.获取当前分页数据
-                //var table = this.GetPagedDataTable(Grid1, tb1);
-                Grid1.RecordCount = tb.Rows.Count;
-                tb = GetFilteredTable(Grid1.FilteredData, tb);
-                var table = this.GetPagedDataTable(Grid1, tb);
-                Grid1.DataSource = table;
-                Grid1.DataBind();
+                    // 2.获取当前分页数据
+                    //var table = this.GetPagedDataTable(Grid1, tb1);
+                    Grid1.RecordCount = tb.Rows.Count;
+                    tb = GetFilteredTable(Grid1.FilteredData, tb);
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+                }
+                else
+                {
+                    string strSql = @"SELECT * FROM dbo.View_Batch_BatchTrustItem d WHERE TrustBatchId=@TrustBatchId ";
+                    List<SqlParameter> listStr = new List<SqlParameter>
+                    {
+
+                    };
+                    listStr.Add(new SqlParameter("@TrustBatchId", trust.TrustBatchId));
+                    SqlParameter[] parameter = listStr.ToArray();
+                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+
+                    // 2.获取当前分页数据
+                    //var table = this.GetPagedDataTable(Grid1, tb1);
+                    Grid1.RecordCount = tb.Rows.Count;
+                    tb = GetFilteredTable(Grid1.FilteredData, tb);
+                    var table = this.GetPagedDataTable(Grid1, tb);
+                    Grid1.DataSource = table;
+                    Grid1.DataBind();
+                }
             }
         }
         #endregion
@@ -451,9 +556,9 @@ namespace FineUIPro.Web.HJGL.PointTrust
                 if (!string.IsNullOrEmpty(this.tvControlItem.SelectedNodeID))
                 {
                     string varValue = string.Empty;
-                    string trustBatchId = this.tvControlItem.SelectedNodeID;
+                    string pointBatchId = this.tvControlItem.SelectedNodeID;
 
-                    Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewById(trustBatchId);
+                    Model.View_Batch_BatchTrust trust = BLL.Batch_BatchTrustService.GetBatchTrustViewByPointBatchId(pointBatchId);
                     if (trust != null)
                     {
                         varValue = trust.TrustBatchCode + "|" + trust.TrustDate.Value.Date + "|";
@@ -468,7 +573,12 @@ namespace FineUIPro.Web.HJGL.PointTrust
                             varValue = HttpUtility.UrlEncodeUnicode(varValue);
                         }
 
-                        //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", BLL.Const.CheckTrustReport, trustBatchId, varValue)));
+                        //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../../Common/ReportPrint/ExReportPrint.aspx?ispop=1&reportId={0}&replaceParameter={1}&varValue={2}&projectId=0", BLL.Const.CheckTrustReport, trust.TrustBatchId, varValue)));
+                    }
+                    else
+                    {
+                        ShowNotify("尚未生成委托，无法打印！", MessageBoxIcon.Warning);
+                        return;
                     }
                 }
             }

@@ -1,15 +1,11 @@
 ﻿using BLL;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class ContractAgreementEdit : PageBase
     {
+        #region 加载
         /// <summary>
         /// 加载
         /// </summary>
@@ -81,7 +77,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
         }
+        #endregion
 
+        #region 保存
+        /// <summary>
+        /// 保存
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnSave_Click(object sender, EventArgs e)
         {
             Model.PHTGL_SubcontractAgreement newSub = new Model.PHTGL_SubcontractAgreement();
@@ -156,5 +159,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             ShowNotify("保存成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
+        #endregion
     }
 }

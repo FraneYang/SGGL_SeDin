@@ -87,7 +87,7 @@ namespace BLL
         /// <param name="dropName"></param>
         /// <param name="projectId"></param>
         /// <param name="isShowPlease"></param>
-        public static void InitDesignProfessional(FineUIPro.DropDownList dropName, string projectId, bool isShowPlease)
+        public static void InitDesignProfessional(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "Text";
             dropName.DataTextField = "Text";

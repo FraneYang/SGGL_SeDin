@@ -56,8 +56,14 @@
                 <Toolbars>
                     <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
                         <Items>  
+                            <f:Label ID="txtPointBatchCode" Label="批次编号" runat="server" LabelAlign="Right" LabelWidth="110px">
+                                    </f:Label>
+                            <f:ToolbarFill runat="server"></f:ToolbarFill>
                             <f:Button ID="btnAutoPoint" Text="自动点口" ToolTip="生成" Icon="cmy" runat="server"
                                 OnClick="btnAutoPoint_Click">
+                            </f:Button>
+                            <f:Button ID="btnClose" Text="强制关闭批" ToolTip="强制关闭批" Icon="BinClosed" runat="server"
+                                OnClick="btnClose_Click">
                             </f:Button>
                             <f:Button ID="btnbtnOpenResetPoint" Text="点口调整" ToolTip="点口调整" Icon="ArrowUndo"
                                 runat="server" OnClick="btnbtnOpenResetPoint_Click">
@@ -75,7 +81,32 @@
                             </f:Button>
                         </Items>
                     </f:Toolbar>
-                  
+                    <f:Toolbar ID="TbPipeline" Position="Top" runat="server" ToolbarAlign="Left" Hidden="true">
+                        <Items>  
+                            <f:Label ID="lbPipelineCode" Label="管线号" runat="server" LabelAlign="Right" LabelWidth="100px">
+                                    </f:Label>
+                            <f:Label ID="lbRate" Label="检测比例" runat="server" LabelAlign="Right" LabelWidth="100px">
+                                    </f:Label>
+                            <f:Label ID="lbNeedJointNum" Label="应检测焊口数" runat="server" LabelAlign="Right" LabelWidth="120px">
+                                    </f:Label>
+                            <f:Label ID="lbPointJointNum" Label="已检测焊口数" runat="server" LabelAlign="Right" LabelWidth="120px">
+                                    </f:Label>
+                            <f:Label ID="lbLastJointNum" Label="尚需检测焊口数" runat="server" LabelAlign="Right" LabelWidth="130px">
+                                    </f:Label>
+                        </Items>
+                    </f:Toolbar>
+                    <f:Toolbar ID="TbNotPipeline" Position="Top" runat="server" ToolbarAlign="Left" Hidden="true">
+                        <Items>  
+                            <f:Label ID="lbTotalJointNum" Label="本单位工程检测比例为20%的焊口总数" runat="server" LabelAlign="Right" LabelWidth="290px">
+                                    </f:Label>
+                            <f:Label ID="lbNeedJointNum2" Label="应检测焊口数" runat="server" LabelAlign="Right" LabelWidth="120px">
+                                    </f:Label>
+                            <f:Label ID="lbPointJointNum2" Label="已检测焊口数" runat="server" LabelAlign="Right" LabelWidth="120px">
+                                    </f:Label>
+                            <f:Label ID="lbLastJointNum2" Label="尚需检测焊口数" runat="server" LabelAlign="Right" LabelWidth="130px">
+                                    </f:Label>
+                        </Items>
+                    </f:Toolbar>
                 </Toolbars>
                 <Items>
                     <f:Form ID="SimpleForm1" ShowBorder="true" ShowHeader="false" AutoScroll="true" BodyPadding="2px"
@@ -83,11 +114,14 @@
                         <Rows>
                             <f:FormRow>
                                 <Items>
+                                    
                                     <f:Label ID="txtStartDate" Label="批次开始时间" runat="server" LabelAlign="Right" LabelWidth="110px">
                                     </f:Label>
                                     <f:Label ID="txtEndDate" Label="批次关闭日期" runat="server" LabelAlign="Right" LabelWidth="110px">
                                     </f:Label>
                                     <f:Label ID="txtState" Label="关闭状态" runat="server" LabelAlign="Right" LabelWidth="110px">
+                                    </f:Label>
+                                    <f:Label ID="txtPointState" Label="点口状态" runat="server" LabelAlign="Right" LabelWidth="110px">
                                     </f:Label>
                                 </Items>
                             </f:FormRow>
@@ -145,7 +179,7 @@
                                 SortField="IsWelderFirst" FieldType="String" HeaderTextAlign="Center" TextAlign="Left"
                                 Width="80px">
                             </f:RenderField>
-                             <f:RenderField HeaderText="是否委托" ColumnID="IsBuildTrust" DataField="IsBuildTrust"
+                             <f:RenderField HeaderText="是否委托" ColumnID="IsBuildTrust" DataField="IsBuildTrust" Hidden="true"
                                  FieldType="String" HeaderTextAlign="Center" TextAlign="Center"
                                 Width="90px">
                             </f:RenderField>

@@ -446,7 +446,7 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                     {
                         var jointsB = joints.Where(x => x.WeldTypeCode == "B").OrderByDescending(x => x.WeldJointCode);
                         Model.Project_Sys_Set jointB = BLL.Project_SysSetService.GetSysSetBySetId("6", this.CurrUser.LoginProjectId);
-                        if (jointB != null && jointB.IsAuto==true) //加B前缀
+                        if (jointB != null && jointB.IsAuto == true) //加B前缀
                         {
                             if (jointsB.Count() > 0)
                             {

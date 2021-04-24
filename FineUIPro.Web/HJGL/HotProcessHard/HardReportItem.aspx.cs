@@ -85,6 +85,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                             }
                         }
                     }
+                    var batch = (from x in Funs.DB.HJGL_Batch_PointBatch
+                                 join y in Funs.DB.HJGL_Batch_PointBatchItem
+                                 on x.PointBatchId equals y.PointBatchId
+                                 where y.WeldJointId == hardFeedback.WeldJointId
+                                 select x).FirstOrDefault();
+                    if (batch != null && batch.EndDate != null)
+                    {
+                        this.drpIsPass.Enabled = false;
+                    }
                 }
                 // 绑定表格
                 this.BindGrid();
@@ -239,6 +248,15 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 ShowNotify("请选择检测结果！", MessageBoxIcon.Warning);
                 return;
             }
+            HardReportList = GetDetails();
+            if (drpIsPass.SelectedValue == "1")
+            {
+                if (HardReportList.Count == 0)
+                {
+                    ShowNotify("请添加硬度报告数据后，再点击保存完成！", MessageBoxIcon.Warning);
+                    return;
+                }
+            }
             string hardTrustItemId = Request.Params["HardTrustItemID"];
             var hardFeedback = BLL.Hard_TrustItemService.GetHardTrustItemById(hardTrustItemId);
             if (hardFeedback != null)
@@ -272,7 +290,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 BLL.Hard_TrustItemService.UpdateHardTrustItem(hardFeedback);
                 ///保存硬度检测报告
                 Hard_ReportService.DeleteHard_ReportsByHardTrustItemID(hardTrustItemId);
-                HardReportList = GetDetails();
+              
                 var num = 1;
                 foreach (var item in HardReportList)
                 {

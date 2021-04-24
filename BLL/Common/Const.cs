@@ -373,9 +373,34 @@ namespace BLL
 
         #region 内置项目角色定义
         /// <summary>
+        /// 董事长
+        /// </summary>
+        public const string Chairman = "6C07BF63-F91A-4D31-8A21-53CBF440D99C";
+        /// <summary>
         /// 项目经理
         /// </summary>
         public const string ProjectManager = "1184835B-73AF-47FB-9F83-20740CE2FAD7";
+        /// <summary>
+        /// 财务经理
+        /// </summary>
+        public const string FinancialManager = "68D9DD49-5DAF-4A56-9E2C-4412B46DE70F";
+        /// <summary>
+        /// 法律合规部合同评审人员
+        /// </summary>
+        public static string Countersign_Law = "EA112606-02E0-48D8-9E18-1CA148DDECE2";
+        /// <summary>
+        /// 法律事务部主任
+        /// </summary>
+        public static string dropApproval_Law = "E36E680D-26B8-4C38-BCEA-4A7AB45B2AE4";
+
+        /// <summary>
+        /// 施工管理部部长
+        /// </summary>
+        public const string ConstructionMinister = "f865f0b2-21e0-4ab5-8aea-abc4c3c90f2f";
+        /// <summary>
+        /// 施工管理部副部长
+        /// </summary>
+        public const string ConstructionViceMinister = "4607ea62-37d3-4b80-b3b5-a72f454d6fc9";
         /// <summary>
         /// 项目副经理
         /// </summary>
@@ -388,6 +413,19 @@ namespace BLL
         /// 施工经理（总包）
         /// </summary>
         public const string ConstructionManager = "22F78A47-F59C-4FE8-9C43-2DD304CB2108";
+        /// <summary>
+        /// 分管副总经理
+        /// </summary>
+        public const string DeputyGeneralManager = "673646A0-E22E-4EAA-9DA6-3DF752CA7A51";
+        /// <summary>
+        /// 总会计师
+        /// </summary>
+        public const string GeneralAccountant = "67284CC4-1313-4EC0-9F69-7CA7582A7FDB";
+        /// <summary>
+        /// 总经理
+        /// </summary>
+        public const string GeneralManager = "7D4CD245-081C-44CB-9289-A18EB29D4CF9";
+
         /// <summary>
         /// 项目经理(施工单位)
         /// </summary>
@@ -2596,6 +2634,21 @@ namespace BLL
         /// 合同协议书
         /// </summary>
         public const string ContractAgreementMenuId = "C5560FF5-8181-4BA2-8326-D2B49E45660C";
+
+        /// <summary>
+        /// 专用条款
+        /// </summary>
+        public const string SpecialTermsConditionsMenuId = "98367C43-9C85-467E-9144-288D80101E41";
+
+        /// <summary>
+        /// 合同审批
+        /// </summary>
+        public const string ContractReview = "E50F243C-CE5A-4174-B473-15CD565A7796";
+
+        /// <summary>
+        /// 合同编制
+        /// </summary>
+        public const string ContractFormation = "C609FEA5-0904-4F59-A920-22B6459F1A94";
         #endregion
 
         #region 模版文件原始的虚拟路径
@@ -3709,6 +3762,85 @@ namespace BLL
         /// </summary>
         public const string HJGL_PurgingCleaningReportId = "114";
         #endregion
+        #endregion
+
+        #region 合同附件Id
+        /// <summary>
+        /// 附件1
+        /// </summary>
+        public const string AttachUrlId1 = "F8CDA988-04E2-44A0-838A-E5273AA9268A";
+        /// <summary>
+        /// 附件2
+        /// </summary>
+        public const string AttachUrlId2 = "34675D31-4CC8-4027-B8B8-914994B256C7";
+        /// <summary>
+        /// 附件3
+        /// </summary>
+        public const string AttachUrlId3 = "ACCD6A0D-BA42-41AE-8F46-1787A54C5A5D";
+        /// <summary>
+        /// 附件4
+        /// </summary>
+        public const string AttachUrlId4 = "8DAB2A5C-6B3C-4BA9-9B3A-2060AD9D0A9D";
+        /// <summary>
+        /// 附件5
+        /// </summary>
+        public const string AttachUrlId5 = "C95D84D9-39DD-49E3-A1A6-72188A8F4BA6";
+        /// <summary>
+        /// 附件6
+        /// </summary>
+        public const string AttachUrlId6 = "1FF9C120-5356-48E3-AFFD-1BB6EB25B42B";
+        /// <summary>
+        /// 附件7
+        /// </summary>
+        public const string AttachUrlId7 = "5D679633-3286-4DA8-9612-24E43F8C4889";
+        /// <summary>
+        /// 附件8
+        /// </summary>
+        public const string AttachUrlId8 = "C7B0545B-5081-416E-8AE9-C5DB64D70D0C";
+        /// <summary>
+        /// 附件9
+        /// </summary>
+        public const string AttachUrlId9 = "6F87B9E0-2A97-48A4-8ECD-3DAF732F6BA1";
+        /// <summary>
+        /// 附件10
+        /// </summary>
+        public const string AttachUrlId10 = "FD97A337-BA60-425A-A740-AE8A2A20A739";
+        /// <summary>
+        /// 附件11
+        /// </summary>
+        public const string AttachUrlId11 = "780627B2-DAD9-41EA-BA39-1AFA12A97021";
+        /// <summary>
+        /// 附件12
+        /// </summary>
+        public const string AttachUrlId12 = "4359AC59-B2E7-4E5B-BF9F-1635FB57EBF5";
+        /// <summary>
+        /// 附件13
+        /// </summary>
+        public const string AttachUrlId13 = "F5AFECD9-1012-483D-8E89-F48DF06AA465";
+        /// <summary>
+        /// 附件14
+        /// </summary>
+        public const string AttachUrlId14 = "7155C6F9-4EDC-4021-A79F-C03D2177FF9D";
+        /// <summary>
+        /// 附件15
+        /// </summary>
+        public const string AttachUrlId15 = "B212F5BC-341F-407D-B08C-56EC8C609493";
+        /// <summary>
+        /// 附件16
+        /// </summary>
+        public const string AttachUrlId16 = "F0D574A5-2BB9-4AA1-B272-3BC931CAB0CB";
+        /// <summary>
+        /// 附件17
+        /// </summary>
+        public const string AttachUrlId17 = "2BD9AF57-FB25-481A-81F9-3EF73C4FCD99";
+        /// <summary>
+        /// 附件18
+        /// </summary>
+        public const string AttachUrlId18 = "18C6C3AC-C096-4096-9CDB-E4E361CBFFB2";
+        /// <summary>
+        /// 附件19
+        /// </summary>
+        public const string AttachUrlId19 = "0273D1C5-6094-4BC8-804D-9F996FB77950";
         #endregion
     }
 }

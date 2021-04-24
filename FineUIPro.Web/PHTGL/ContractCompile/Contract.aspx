@@ -96,7 +96,7 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true" 
             Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="1000px" Height="420px">
         </f:Window>

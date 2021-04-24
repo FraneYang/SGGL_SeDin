@@ -9,7 +9,7 @@ namespace BLL
     /// 无损委托
     /// </summary>
     public static class Batch_BatchTrustService
-    {        
+    {
         /// <summary>
         /// 根据主键获取无损委托
         /// </summary>
@@ -19,6 +19,17 @@ namespace BLL
         {
             Model.SGGLDB db = Funs.DB;
             return db.HJGL_Batch_BatchTrust.FirstOrDefault(e => e.TrustBatchId == trustBatchId);
+        }
+
+        /// <summary>
+        /// 根据批次主键获取无损委托
+        /// </summary>
+        /// <param name="pointBatchId"></param>
+        /// <returns></returns>
+        public static Model.View_Batch_BatchTrust GetBatchTrustViewByPointBatchId(string pointBatchId)
+        {
+            Model.SGGLDB db = Funs.DB;
+            return db.View_Batch_BatchTrust.FirstOrDefault(e => e.PointBatchId == pointBatchId);
         }
 
         /// <summary>
@@ -66,13 +77,14 @@ namespace BLL
                 UnitId = batchTrust.UnitId,
                 UnitWorkId = batchTrust.UnitWorkId,
                 DetectionRateId = batchTrust.DetectionRateId,
-                NDEUuit=batchTrust.NDEUuit,
+                NDEUnit = batchTrust.NDEUnit,
                 TrustType = batchTrust.TrustType,
                 DetectionTypeId = batchTrust.DetectionTypeId,
                 IsCheck = batchTrust.IsCheck,
                 TopointBatch = batchTrust.TopointBatch,
+                PointBatchId = batchTrust.PointBatchId,
                 IsAudit = true
-        };
+            };
 
             db.HJGL_Batch_BatchTrust.InsertOnSubmit(newBatchTrust);
             db.SubmitChanges();
@@ -94,7 +106,7 @@ namespace BLL
                 newBatchTrust.UnitId = batchTrust.UnitId;
                 newBatchTrust.UnitWorkId = batchTrust.UnitWorkId;
                 newBatchTrust.DetectionRateId = batchTrust.DetectionRateId;
-                newBatchTrust.NDEUuit = batchTrust.NDEUuit;
+                newBatchTrust.NDEUnit = batchTrust.NDEUnit;
                 newBatchTrust.TrustType = batchTrust.TrustType;
                 newBatchTrust.DetectionTypeId = batchTrust.DetectionTypeId;
                 newBatchTrust.IsCheck = batchTrust.IsCheck;
@@ -161,7 +173,7 @@ namespace BLL
             dropName.DataTextField = "TrustBatchCode";
 
             var q = from x in Funs.DB.View_Batch_BatchTrust
-                    where x.UnitId == unitId  && x.DetectionTypeId == detectionTypeId
+                    where x.UnitId == unitId && x.DetectionTypeId == detectionTypeId
                           && x.CheckTrustBatchId == null
                     select x;       // 管线TODO
 

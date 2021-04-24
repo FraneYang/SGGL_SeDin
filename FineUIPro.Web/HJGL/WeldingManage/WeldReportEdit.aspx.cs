@@ -212,7 +212,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
             //               select x;
             //    dt = this.LINQToDataTable(task);
             //}
-            var list = from x in Funs.DB.View_HJGL_WeldingTask select x;
+            var list = from x in Funs.DB.View_HJGL_WeldingTask where x.ProjectId == this.CurrUser.LoginProjectId select x;
             if (weldingDailyItem != null)
             {
                 var task = new List<Model.View_HJGL_WeldingTask>();
@@ -235,7 +235,7 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                     select x.WeldJointId).Distinct().ToList();
                 foreach (var weldJointId in weldJointIds)
                 {
-                    task.Add(list.FirstOrDefault(x => x.WeldJointId == weldJointId));
+                    task.Add(list.FirstOrDefault(x => x.WeldJointId == weldJointId && x.CoverWelderId != null));
                 }
                 dt = this.LINQToDataTable(task);
             }
@@ -751,8 +751,10 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
         {
             string errlog = string.Empty;
             string[] condition = batchCondition.Split('|');
+            var project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
             var newWeldJoint = BLL.WeldJointService.GetWeldJointByWeldJointId(weldJointId);
             var pipeline = BLL.PipelineService.GetPipelineByPipelineId(newWeldJoint.PipelineId);
+            var unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(pipeline.UnitWorkId);
             var unit = BLL.UnitService.GetUnitByUnitId(pipeline.UnitId);
             var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(newWeldJoint.DetectionTypeId);
             var ndtr = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(pipeline.DetectionRateId);
@@ -868,8 +870,8 @@ namespace FineUIPro.Web.WeldingProcess.WeldingManage
                                 Model.HJGL_Batch_PointBatch batch = new Model.HJGL_Batch_PointBatch();
                                 batch.PointBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_PointBatch));
                                 batchId = batch.PointBatchId;
-                                string perfix = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + ndtr.DetectionRateValue.ToString() + "-";
-                                batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix);
+                                string perfix = project.ProjectCode + "-" + unitWork.UnitWorkCode + "-GD-DK-" + ndt.DetectionTypeCode + "-" + ndtr.DetectionRateValue.ToString() + "%-";
+                                batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode4ByProjectId", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix);
 
                                 batch.ProjectId = CurrUser.LoginProjectId;
                                 batch.UnitWorkId = pipeline.UnitWorkId;

@@ -304,8 +304,7 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                         }
                         else
                         {
-                            var hotReort = (from x in Funs.DB.HJGL_HotProess_Report where x.HotProessTrustItemId == item.HotProessTrustItemId select x).ToList();
-                            if (hotReort.Count() > 0)
+                            if (item.OldIsCompleted != null)
                             {
                                 ShowNotify("已生成热处理报告，不能删除！", MessageBoxIcon.Warning);
                                 return;

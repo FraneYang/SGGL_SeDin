@@ -142,11 +142,14 @@ namespace FineUIPro.Web.CQMS.Check
                         var CheckMonth = BLL.MonthSpotCheckDetailService.GetMonthSpotCheckDetailsByCheckMonthId(rowID);
                         if (CheckMonth != null)
                         {
-
+                            BLL.MonthRectifyService.DeleteMonthRectifysByCheckMonthId(rowID);
+                            BLL.MonthNDTCheckService.DeleteMonthNDTChecksByCheckMonthId(rowID);
+                            BLL.MonthWelderService.DeleteMonthWeldersByCheckMonthId(rowID);
                             BLL.MonthSpotCheckDetailService.DeleteMonthSpotCheckDetailsByCheckMonthId(rowID);
-
+                            BLL.SpecialEquipmentDetailService.DeleteSpecialEquipmentDetailsByCheckMonthId(rowID);
+                            BLL.MonthDesignService.DeleteMonthDesignsByCheckMonthId(rowID);
                         }
-                        BLL.SpecialEquipmentDetailService.DeleteSpecialEquipmentDetailsByCheckMonthId(rowID);
+                    
                         BLL.CheckMonthService.DeleteCheckMonth(rowID);
 
                     }

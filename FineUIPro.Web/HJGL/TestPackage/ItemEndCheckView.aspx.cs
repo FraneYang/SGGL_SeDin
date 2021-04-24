@@ -75,9 +75,9 @@ namespace FineUIPro.Web.HJGL.TestPackage
         public void BindGrid1()
         {
             string strSql = @"select ApproveId, ItemEndCheckListId, ApproveDate, Opinion, ApproveMan, ApproveType ,U.UserName from [dbo].[PTP_TestPackageApprove] P 
-                              Left Join Sys_User U on p.ApproveMan=U.UserId";
+                              Left Join Sys_User U on p.ApproveMan=U.UserId where ApproveDate is not null";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " where ItemEndCheckListId= @ItemEndCheckListId";
+            strSql += " and ItemEndCheckListId= @ItemEndCheckListId";
             listStr.Add(new SqlParameter("@ItemEndCheckListId", ItemEndCheckListId));
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -127,7 +127,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
                 }
                 else if (Type.ToString() == Const.TestPackage_ReAudit2)//选否
                 {
-                    return "施工分包商重新整改";
+                    return "施工分包商继续整改";
                 }
                 else if (Type.ToString() == Const.TestPackage_Complete)
                 {

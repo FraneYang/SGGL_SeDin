@@ -240,14 +240,19 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                 List<Model.HJGL_Hard_TrustItem> GetHardTrustItem = this.SaveGrid();
                 string errlog = string.Empty;
                 //BLL.Hard_TrustItemService.DeleteHardTrustItemById(this.HardTrustID);
+                var hardTrustItems = from x in Funs.DB.HJGL_Hard_TrustItem select x;
                 foreach (var item in GetHardTrustItem)
                 {
-                    Model.HJGL_Hard_TrustItem trustItem = new Model.HJGL_Hard_TrustItem();
-                    trustItem.HardTrustItemID = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_TrustItem));
-                    trustItem.HardTrustID = this.HardTrustID;
-                    trustItem.HotProessTrustItemId = item.HotProessTrustItemId;
-                    trustItem.WeldJointId = item.WeldJointId;
-                    BLL.Hard_TrustItemService.AddHardTrustItem(trustItem);
+                    var oldHardTrustItem = hardTrustItems.FirstOrDefault(x=>x.WeldJointId == item.WeldJointId);
+                    if (oldHardTrustItem == null)
+                    {
+                        Model.HJGL_Hard_TrustItem trustItem = new Model.HJGL_Hard_TrustItem();
+                        trustItem.HardTrustItemID = SQLHelper.GetNewID(typeof(Model.HJGL_Hard_TrustItem));
+                        trustItem.HardTrustID = this.HardTrustID;
+                        trustItem.HotProessTrustItemId = item.HotProessTrustItemId;
+                        trustItem.WeldJointId = item.WeldJointId;
+                        BLL.Hard_TrustItemService.AddHardTrustItem(trustItem);
+                    }
                     //更新热处理委托明细的口已做硬度委托
                     Model.HJGL_HotProess_TrustItem hotProessTrustItem = BLL.HotProessTrustItemService.GetHotProessTrustItemById(item.HotProessTrustItemId);
                     if (hotProessTrustItem != null)
@@ -350,7 +355,23 @@ namespace FineUIPro.Web.HJGL.HotProcessHard
                     var item = GetHardTrustItem.FirstOrDefault(x => x.WeldJointId == rowID);
                     if (item != null)
                     {
-                        GetHardTrustItem.Remove(item);
+                        if (item.IsPass != null)
+                        {
+                            ShowNotify("已生成硬度报告，不能删除！", MessageBoxIcon.Warning);
+                            return;
+                        }
+                        else
+                        {
+                            GetHardTrustItem.Remove(item);
+                            //更新热处理委托明细的口已做硬度委托
+                            Model.HJGL_HotProess_TrustItem hotProessTrustItem = BLL.HotProessTrustItemService.GetHotProessTrustItemById(item.HotProessTrustItemId);
+                            if (hotProessTrustItem != null)
+                            {
+                                hotProessTrustItem.IsTrust = null;
+                                BLL.HotProessTrustItemService.UpdateHotProessTrustItem(hotProessTrustItem);
+                            }
+                            BLL.Hard_TrustItemService.DeleteHardTrustItemByHardTrustItemID(item.HardTrustItemID);
+                        }
                     }
                 }
 

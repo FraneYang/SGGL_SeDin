@@ -30,6 +30,7 @@
                             </f:HiddenField>
                             <f:ToolbarFill ID="ToolbarFill1" runat="server">
                             </f:ToolbarFill>
+                            <f:HiddenField runat="server" ID="hdDetectionType"></f:HiddenField>
                             <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSave" runat="server"
                                 OnClick="btnSave_Click">
                             </f:Button>
@@ -42,42 +43,28 @@
                         <Rows>
                             <f:FormRow>
                                 <Items>
-                                    <f:TextBox ID="txtNDECode" Label="检测流水号" ShowRedStar="true"
-                                        Required="true" runat="server" LabelWidth="130px" FocusOnPageLoad="true">
+                                    <f:TextBox ID="txtNDECode" Label="检测流水号" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
                                     </f:TextBox>
-                                    <f:DropDownList ID="drpUnit" Label="单位名称" runat="server"
-                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="130px" AutoPostBack="true"
-                                        OnSelectedIndexChanged="drpUnit_SelectedIndexChanged">
-                                    </f:DropDownList>
-                                    <f:DropDownList ID="drpUnitWork" runat="server" Label="单位工程名称"
-                                        LabelAlign="Right" EnableEdit="true" ShowRedStar="true" Required="true" AutoPostBack="true"
-                                        OnSelectedIndexChanged="drpInstallation_SelectedIndexChanged" LabelWidth="140px">
-                                    </f:DropDownList>
+                                    <f:TextBox ID="txtUnit" Label="单位名称" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
+                                    </f:TextBox>
+                                    <f:TextBox ID="txtUnitWork" Label="单位工程名称" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
+                                    </f:TextBox>
                                 </Items>
                             </f:FormRow>
                             <f:FormRow>
                                 <Items>
-                                    <f:DatePicker ID="txtNDEDate" Label="检测日期" runat="server"
-                                        DateFormatString="yyyy-MM-dd" ShowRedStar="true" Required="true" LabelWidth="130px">
-                                    </f:DatePicker>
-                                    <f:DropDownList ID="drpNDEUnit" Label="检测单位" runat="server"
-                                        ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="130px">
-                                    </f:DropDownList>
-                                    <f:DropDownList ID="drpDetectionType" Label="检测方法" runat="server"
-                                        EnableEdit="true" LabelWidth="140px" ShowRedStar="true" Required="true" AutoPostBack="true"
-                                        OnSelectedIndexChanged="drpDetectionType_SelectedIndexChanged">
-                                    </f:DropDownList>
-                                </Items>
-                            </f:FormRow>
-                            <f:FormRow ColumnWidths="66% 34%">
-                                <Items>
-                                    <f:TextBox ID="txtPipelineCode" Label="管线号" runat="server"
-                                        LabelWidth="130px" AutoPostBack="true" OnTextChanged="txtPipelineCode_TextChanged">
+                                    <f:TextBox ID="txtNDEUnit" Label="检测单位" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
                                     </f:TextBox>
-                                    <f:DropDownList ID="drpBatchTrust" Label="委托单号"
-                                        runat="server" ShowRedStar="true" Required="true" EnableEdit="true" LabelWidth="140px"
-                                        AutoPostBack="true" OnSelectedIndexChanged="drpBatchTrust_SelectedIndexChanged">
-                                    </f:DropDownList>
+                                    <f:TextBox ID="txtDetectionType" Label="检测方法" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
+                                    </f:TextBox>
+                                    <f:TextBox ID="txtTrustCode" Label="委托单号" 
+                                        runat="server" LabelWidth="130px" Readonly="true">
+                                    </f:TextBox>
                                 </Items>
                             </f:FormRow>
                         </Rows>
@@ -193,7 +180,7 @@
                                     </f:TextBox>
                                 </Editor>
                             </f:RenderField>
-                            <f:RenderField HeaderText="探伤报告编号" ColumnID="NDEReportNo"
+                            <f:RenderField HeaderText="探伤报告编号" ColumnID="NDEReportNo" Hidden="true"
                                 DataField="NDEReportNo"  FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="200px">
                                 <Editor>
