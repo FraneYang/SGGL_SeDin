@@ -28,6 +28,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 ViewState["myDictionary"] = value;
             }
         }
+        /// <summary>
+        /// 合同基本信息主键
+        /// </summary>
         public string ContractId
         {
             get
@@ -39,6 +42,35 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 ViewState["ContractId"] = value;
             }
         }
+        /// <summary>
+        /// 合同协议书主键
+        /// </summary>
+        public string SubcontractAgreementId
+        {
+            get
+            {
+                return (string)ViewState["SubcontractAgreementId"];
+            }
+            set
+            {
+                ViewState["SubcontractAgreementId"] = value;
+            }
+        }
+        /// <summary>
+        /// 专用协议主键
+        /// </summary>
+        public string SpecialTermsConditionsId
+        {
+            get
+            {
+                return (string)ViewState["SpecialTermsConditionsId"];
+            }
+            set
+            {
+                ViewState["SpecialTermsConditionsId"] = value;
+            }
+        }
+        
         public bool IsCreate
         {
             get
@@ -280,8 +312,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
                 else
                 {
-                    string subcontractAgreementId = "合同协议书模板";
-                    sub = BLL.SubcontractAgreementService.GetSubcontractAgreementById(subcontractAgreementId);
+                    sub = BLL.SubcontractAgreementService.GetSubcontractAgreementById("合同协议书模板");
                     if (sub != null)
                     {
                         this.tab2_txtGeneralContractor.Text = sub.GeneralContractor;
@@ -341,8 +372,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
             else
             {
-                string subcontractAgreementId = "合同协议书模板";
-                Model.PHTGL_SubcontractAgreement sub = BLL.SubcontractAgreementService.GetSubcontractAgreementById(subcontractAgreementId);
+                 Model.PHTGL_SubcontractAgreement sub = BLL.SubcontractAgreementService.GetSubcontractAgreementById("合同协议书模板");
                 if (sub != null)
                 {
                     this.tab2_txtGeneralContractor.Text = sub.GeneralContractor;
@@ -405,7 +435,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
         protected void btnSave_Tab_2_Click(object sender, EventArgs e)
         {
-            string contractId = Request.Params["ContractId"];
              Model.PHTGL_SubcontractAgreement newSub = new Model.PHTGL_SubcontractAgreement();
             newSub.GeneralContractor = tab2_txtGeneralContractor.Text;
             newSub.SubConstruction = tab2_txtSubConstruction.Text;
@@ -460,14 +489,21 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newSub.Account2 = tab2_txtAccount2.Text;
             if (!IsCreate )  //编辑进来
             {
-                var IsExit_sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(contractId);
+                var IsExit_sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
                 if (IsExit_sub!=null)
                 {
                     newSub.SubcontractAgreementId = IsExit_sub.SubcontractAgreementId;
                     newSub.ContractId = IsExit_sub.ContractId;
                     BLL.SubcontractAgreementService.UpdateSubcontractAgreement(newSub);
                      ShowNotify("保存成功！", MessageBoxIcon.Success);
-                 }
+                }
+                else
+                {
+                    newSub.ContractId = ContractId;
+                    newSub.SubcontractAgreementId = SQLHelper.GetNewID(typeof(Model.PHTGL_SubcontractAgreement));
+                    BLL.SubcontractAgreementService.AddSubcontractAgreement(newSub);
+
+                }
 
             }
             else //新建
@@ -510,41 +546,37 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         #region 专用条款
         void BindingTab4()
         {
-            string SpecialTermsConditionsId = "";
-            PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId="";
-            var list = BLL.AttachUrlService.GetAttachUrlBySpecialTermsConditionsId("专用条款模板");
-
+             deleteLog();
+ 
             if (!IsCreate )
             {    
-                string contractId = Request.Params["ContractId"];
-                var model = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsByContractId(contractId);
+                var model = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsByContractId(ContractId);
                 if (model!=null)
                 {
                     SpecialTermsConditionsId = model.SpecialTermsConditionsId;
                     DataGridAttachUrl(SpecialTermsConditionsId);
+                    RederDatabase(Form_Tab4, SpecialTermsConditionsId); //从数据库读取数据填充
 
                 }
                 else
                 {
-                    SpecialTermsConditionsId = "专用条款模板";
-                    PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId = SQLHelper.GetNewID(typeof(Model.PHTGL_SpecialTermsConditions));
-                    saveAtturl(PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId);
-                    DataGridAttachUrl(PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId);
+                    SpecialTermsConditionsId = SQLHelper.GetNewID(typeof(Model.PHTGL_SpecialTermsConditions));
+                    saveAtturl(SpecialTermsConditionsId);
+                    DataGridAttachUrl(SpecialTermsConditionsId);
+                    RederDatabase(Form_Tab4, "专用条款模板"); //从数据库读取数据填充
+
                 }
 
             }
             else
             {
-                SpecialTermsConditionsId = "专用条款模板";
-                 PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId = SQLHelper.GetNewID(typeof(Model.PHTGL_SpecialTermsConditions));
-                saveAtturl(PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId);
-                DataGridAttachUrl(PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId);
+                 SpecialTermsConditionsId = SQLHelper.GetNewID(typeof(Model.PHTGL_SpecialTermsConditions));
+                 saveAtturl(SpecialTermsConditionsId);
+                 DataGridAttachUrl(SpecialTermsConditionsId);
+                 RederDatabase(Form_Tab4, "专用条款模板"); //从数据库读取数据填充
 
             }
-
-            RederDatabase(Form_Tab4,  SpecialTermsConditionsId); //从数据库读取数据填充
-      
-
+ 
         }
         protected void btnSave_Tab4__Click(object sender, EventArgs e)
         {
@@ -552,11 +584,21 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
            
 
         }
+
+        void deleteLog()
+        {
+            string strsql = @"  delete from  PHTGL_AttachUrl where AttachUrlId in (
+                                                                  SELECT Att.AttachUrlId
+                                                                  FROM SGGLDB_SD.dbo.PHTGL_AttachUrl as Att
+                                                                  left join dbo.PHTGL_SpecialTermsConditions as Sp on att.SpecialTermsConditionsId = sp.SpecialTermsConditionsId
+                                                                  where sp.SpecialTermsConditionsId is null)"  ;
+            DataTable tb = SQLHelper.RunSqlGetTable(strsql);
+        }
+
         void saveAtturl(string SpecialTermsConditionsId)
         {
             var list = BLL.AttachUrlService.GetAttachUrlBySpecialTermsConditionsId("专用条款模板");
-            var table = BLL.AttachUrlService.GetAttachUrlBySpecialTermsConditionsId(SpecialTermsConditionsId);
-         
+          
                 for (int i = 0; i < list.Count; i++)
                 {
                     Model.PHTGL_AttachUrl _AttachUrl = new PHTGL_AttachUrl();
@@ -574,8 +616,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
         void Save(bool IsEnd)
         {
-            string SpecialTermsConditionsId = "";
-            if (!IsCreate )
+             if (!IsCreate )
             {
                 string contractId = Request.Params["ContractId"];
                 var isExit = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsByContractId(contractId);
@@ -587,9 +628,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
             else
             {
-                 SpecialTermsConditionsId = PHTGL_SpecialTermsConditionsService.SpecialTermsConditionsId;
-
-                if (string .IsNullOrEmpty(ContractId))
+                 if (string .IsNullOrEmpty(ContractId))
                 {
                     ShowNotify("请先编制基本信息页，并保存！", MessageBoxIcon.Warning);
                     return;
@@ -989,10 +1028,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
- 
+
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-           // BindGrid();
+            ShowNotify("窗体被关闭了。参数：" + (String.IsNullOrEmpty(e.CloseArgument) ? "无" : e.CloseArgument));
         }
     }
 }

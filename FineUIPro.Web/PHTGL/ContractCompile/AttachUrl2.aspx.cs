@@ -142,7 +142,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             string attachUrlId = Request.Params["AttachUrlId"];
             if (!string.IsNullOrEmpty(attachUrlId))
             {
-                var att = BLL.AttachUrl2Service.GetAttachUrlByAttachUrlId(attachUrlId);
+                Model.PHTGL_AttachUrl2 att = BLL.AttachUrl2Service.GetAttachUrlByAttachUrlId(attachUrlId);
                 if (att != null)
                 {
                     this.hdAttachUrlItemId.Text = att.AttachUrlItemId;
@@ -194,7 +194,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     newAtt.PayWay = HttpUtility.HtmlDecode(this.txtPayWay.Text);
                     if (CheckBoxList1.SelectedItemArray.Length >0 )
                     {
-                        att.PayMethod = string.Join(",", CheckBoxList1.SelectedValueArray);
+                        newAtt.PayMethod = string.Join(",", CheckBoxList1.SelectedValueArray);
                     }
                     
                     BLL.AttachUrl2Service.AddAttachUrl2(newAtt);

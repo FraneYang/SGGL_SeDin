@@ -411,6 +411,10 @@
     <Compile Include="Person\Person_ShuntDetailService.cs" />
     <Compile Include="Person\Person_ShuntService.cs" />
     <Compile Include="Person\Person_TrainingPlanService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormationService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormation_Sch1Service.cs" />
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_HumanInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_MachineInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl11Service.cs" />

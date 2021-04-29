@@ -40,31 +40,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
-        /// Label1 控件。
+        /// Label51 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label1;
-        
-        /// <summary>
-        /// Panel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel Panel1;
-        
-        /// <summary>
-        /// ContentPanel1 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
+        protected global::FineUIPro.Label Label51;
         
         /// <summary>
         /// Labe00 控件。
@@ -85,15 +67,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label lable;
         
         /// <summary>
-        /// Label2 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label2;
-        
-        /// <summary>
         /// TotalPackageContract 控件。
         /// </summary>
         /// <remarks>
@@ -101,15 +74,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox TotalPackageContract;
-        
-        /// <summary>
-        /// Label3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label3;
         
         /// <summary>
         /// OtherSubDocuments 控件。
@@ -121,15 +85,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox OtherSubDocuments;
         
         /// <summary>
-        /// Label4 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label4;
-        
-        /// <summary>
         /// OtherPlaces 控件。
         /// </summary>
         /// <remarks>
@@ -137,15 +92,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox OtherPlaces;
-        
-        /// <summary>
-        /// Label5 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label5;
         
         /// <summary>
         /// NormativeDocument 控件。
@@ -157,22 +103,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox NormativeDocument;
         
         /// <summary>
-        /// Label6 控件。
+        /// Label56 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label6;
-        
-        /// <summary>
-        /// Label7 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label7;
+        protected global::FineUIPro.Label Label56;
         
         /// <summary>
         /// StandardSpecification 控件。
@@ -184,22 +121,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox StandardSpecification;
         
         /// <summary>
-        /// Label8 控件。
+        /// Label58 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label8;
-        
-        /// <summary>
-        /// Label9 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label9;
+        protected global::FineUIPro.Label Label58;
         
         /// <summary>
         /// DrawingPeriod 控件。
@@ -211,15 +139,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox DrawingPeriod;
         
         /// <summary>
-        /// Label10 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label10;
-        
-        /// <summary>
         /// DrawingCount 控件。
         /// </summary>
         /// <remarks>
@@ -227,15 +146,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox DrawingCount;
-        
-        /// <summary>
-        /// Label11 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label11;
         
         /// <summary>
         /// DrawingContents 控件。
@@ -247,22 +157,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox DrawingContents;
         
         /// <summary>
-        /// Label12 控件。
+        /// Label62 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label12;
-        
-        /// <summary>
-        /// Label13 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label13;
+        protected global::FineUIPro.Label Label62;
         
         /// <summary>
         /// DeepeningDesign 控件。
@@ -274,22 +175,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox DeepeningDesign;
         
         /// <summary>
-        /// Label14 控件。
+        /// Label64 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label14;
-        
-        /// <summary>
-        /// Label15 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label15;
+        protected global::FineUIPro.Label Label64;
         
         /// <summary>
         /// ConstructionSubFileCount 控件。
@@ -301,15 +193,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox ConstructionSubFileCount;
         
         /// <summary>
-        /// Label16 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label16;
-        
-        /// <summary>
         /// ConstructionSubFileForm 控件。
         /// </summary>
         /// <remarks>
@@ -319,22 +202,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox ConstructionSubFileForm;
         
         /// <summary>
-        /// Label17 控件。
+        /// Label67 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label17;
-        
-        /// <summary>
-        /// Label18 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label18;
+        protected global::FineUIPro.Label Label67;
         
         /// <summary>
         /// GeneralContractorAddress 控件。
@@ -346,15 +220,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox GeneralContractorAddress;
         
         /// <summary>
-        /// Label19 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label19;
-        
-        /// <summary>
         /// GeneralContractorMan 控件。
         /// </summary>
         /// <remarks>
@@ -362,15 +227,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox GeneralContractorMan;
-        
-        /// <summary>
-        /// Label20 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label20;
         
         /// <summary>
         /// SubAddress 控件。
@@ -382,15 +238,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox SubAddress;
         
         /// <summary>
-        /// Label21 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label21;
-        
-        /// <summary>
         /// SubMan 控件。
         /// </summary>
         /// <remarks>
@@ -400,31 +247,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox SubMan;
         
         /// <summary>
-        /// Label22 控件。
+        /// Label72 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label22;
+        protected global::FineUIPro.Label Label72;
         
         /// <summary>
-        /// Label23 控件。
+        /// Label73 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label23;
-        
-        /// <summary>
-        /// Label24 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label24;
+        protected global::FineUIPro.Label Label73;
         
         /// <summary>
         /// FacilitiesConditions 控件。
@@ -436,22 +274,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox FacilitiesConditions;
         
         /// <summary>
-        /// Label25 控件。
+        /// Label75 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label25;
-        
-        /// <summary>
-        /// Label26 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label26;
+        protected global::FineUIPro.Label Label75;
         
         /// <summary>
         /// ProjectManagerName 控件。
@@ -463,15 +292,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox ProjectManagerName;
         
         /// <summary>
-        /// Label27 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label27;
-        
-        /// <summary>
         /// ProjectManagerTitle 控件。
         /// </summary>
         /// <remarks>
@@ -479,15 +299,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox ProjectManagerTitle;
-        
-        /// <summary>
-        /// Label28 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label28;
         
         /// <summary>
         /// BuilderQualificationLevel 控件。
@@ -499,15 +310,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox BuilderQualificationLevel;
         
         /// <summary>
-        /// Label29 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label29;
-        
-        /// <summary>
         /// BuilderRegistrationCertificate 控件。
         /// </summary>
         /// <remarks>
@@ -515,15 +317,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox BuilderRegistrationCertificate;
-        
-        /// <summary>
-        /// Label30 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label30;
         
         /// <summary>
         /// ProjectManagerTel 控件。
@@ -535,15 +328,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox ProjectManagerTel;
         
         /// <summary>
-        /// Label31 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label31;
-        
-        /// <summary>
         /// ProjectManagerEmail 控件。
         /// </summary>
         /// <remarks>
@@ -551,15 +335,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox ProjectManagerEmail;
-        
-        /// <summary>
-        /// Label32 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label32;
         
         /// <summary>
         /// ProjectManagerAddress 控件。
@@ -580,31 +355,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea ScopeAuthorization;
         
         /// <summary>
-        /// Label34 控件。
+        /// Label83 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label34;
+        protected global::FineUIPro.Label Label83;
         
         /// <summary>
-        /// Label35 控件。
+        /// Label84 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label35;
-        
-        /// <summary>
-        /// Label36 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label36;
+        protected global::FineUIPro.Label Label84;
         
         /// <summary>
         /// PermitsApprovals 控件。
@@ -616,31 +382,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox PermitsApprovals;
         
         /// <summary>
-        /// Label37 控件。
+        /// Label86 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label37;
+        protected global::FineUIPro.Label Label86;
         
         /// <summary>
-        /// Label38 控件。
+        /// Label87 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label38;
-        
-        /// <summary>
-        /// Label39 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label39;
+        protected global::FineUIPro.Label Label87;
         
         /// <summary>
         /// SubProjectManagerName 控件。
@@ -652,15 +409,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox SubProjectManagerName;
         
         /// <summary>
-        /// Label40 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label40;
-        
-        /// <summary>
         /// SubProjectManagerTitle 控件。
         /// </summary>
         /// <remarks>
@@ -668,15 +416,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox SubProjectManagerTitle;
-        
-        /// <summary>
-        /// Label41 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label41;
         
         /// <summary>
         /// SubBuilderQualificationLevel 控件。
@@ -688,15 +427,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox SubBuilderQualificationLevel;
         
         /// <summary>
-        /// Label42 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label42;
-        
-        /// <summary>
         /// SubBuilderRegistrationCertificate 控件。
         /// </summary>
         /// <remarks>
@@ -704,15 +434,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox SubBuilderRegistrationCertificate;
-        
-        /// <summary>
-        /// Label43 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label43;
         
         /// <summary>
         /// SubProjectManagerTel 控件。
@@ -724,15 +445,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox SubProjectManagerTel;
         
         /// <summary>
-        /// Label44 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label44;
-        
-        /// <summary>
         /// SubProjectManagerEmail 控件。
         /// </summary>
         /// <remarks>
@@ -740,15 +452,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox SubProjectManagerEmail;
-        
-        /// <summary>
-        /// Label45 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label45;
         
         /// <summary>
         /// SubProjectManagerAddress 控件。
@@ -769,15 +472,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea SubScopeAuthorization;
         
         /// <summary>
-        /// Label47 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label47;
-        
-        /// <summary>
         /// AttachmentName 控件。
         /// </summary>
         /// <remarks>
@@ -785,15 +479,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox AttachmentName;
-        
-        /// <summary>
-        /// Label48 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label48;
         
         /// <summary>
         /// DaysNum 控件。
@@ -805,13 +490,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox DaysNum;
         
         /// <summary>
-        /// Label33 控件。
+        /// Label97 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label33;
+        protected global::FineUIPro.Label Label97;
         
         /// <summary>
         /// DefaultResponsibility 控件。
@@ -832,13 +517,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea LeaveSiteResponsibility;
         
         /// <summary>
-        /// Label51 控件。
+        /// Label98 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label51;
+        protected global::FineUIPro.Label Label98;
         
         /// <summary>
         /// RefusedChangeResponsibility 控件。
@@ -850,13 +535,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea RefusedChangeResponsibility;
         
         /// <summary>
-        /// Label53 控件。
+        /// Label99 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label53;
+        protected global::FineUIPro.Label Label99;
         
         /// <summary>
         /// WithoutCardMountGuard 控件。
@@ -868,13 +553,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea WithoutCardMountGuard;
         
         /// <summary>
-        /// Label55 控件。
+        /// Label100 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label55;
+        protected global::FineUIPro.Label Label100;
         
         /// <summary>
         /// SubcontractWorks 控件。
@@ -895,22 +580,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea IllegalSubcontracting;
         
         /// <summary>
-        /// Label58 控件。
+        /// Label101 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label58;
-        
-        /// <summary>
-        /// Label59 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label59;
+        protected global::FineUIPro.Label Label101;
         
         /// <summary>
         /// PerformanceWay 控件。
@@ -922,15 +598,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox PerformanceWay;
         
         /// <summary>
-        /// Label60 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label60;
-        
-        /// <summary>
         /// PerformanceMoney 控件。
         /// </summary>
         /// <remarks>
@@ -938,15 +605,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.TextBox PerformanceMoney;
-        
-        /// <summary>
-        /// Label61 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label61;
         
         /// <summary>
         /// PerformanceTimelimit 控件。
@@ -958,519 +616,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox PerformanceTimelimit;
         
         /// <summary>
-        /// Label62 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label62;
-        
-        /// <summary>
-        /// Label63 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label63;
-        
-        /// <summary>
-        /// AssociationAgreementAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AssociationAgreementAttachUrl;
-        
-        /// <summary>
-        /// Label64 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label64;
-        
-        /// <summary>
-        /// Label65 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label65;
-        
-        /// <summary>
-        /// SpecialStandards 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea SpecialStandards;
-        
-        /// <summary>
-        /// Label67 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label67;
-        
-        /// <summary>
-        /// Label68 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label68;
-        
-        /// <summary>
-        /// Label69 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label69;
-        
-        /// <summary>
-        /// ConstructionMeasures 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea ConstructionMeasures;
-        
-        /// <summary>
-        /// SubMeasures 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea SubMeasures;
-        
-        /// <summary>
-        /// Label72 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label72;
-        
-        /// <summary>
-        /// LabourCost 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea LabourCost;
-        
-        /// <summary>
-        /// Label74 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label74;
-        
-        /// <summary>
-        /// Label75 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label75;
-        
-        /// <summary>
-        /// LaborSupervisorName 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LaborSupervisorName;
-        
-        /// <summary>
-        /// Label76 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label76;
-        
-        /// <summary>
-        /// LaborSupervisorTitle 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LaborSupervisorTitle;
-        
-        /// <summary>
-        /// Label77 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label77;
-        
-        /// <summary>
-        /// LaborSupervisorTel 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LaborSupervisorTel;
-        
-        /// <summary>
-        /// Label78 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label78;
-        
-        /// <summary>
-        /// LaborSupervisorEmail 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LaborSupervisorEmail;
-        
-        /// <summary>
-        /// Label79 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label79;
-        
-        /// <summary>
-        /// LaborSupervisorAddress 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LaborSupervisorAddress;
-        
-        /// <summary>
-        /// Label80 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label80;
-        
-        /// <summary>
-        /// Label81 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label81;
-        
-        /// <summary>
-        /// Label82 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label82;
-        
-        /// <summary>
-        /// Label83 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label83;
-        
-        /// <summary>
-        /// OrganizationalDesign 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea OrganizationalDesign;
-        
-        /// <summary>
-        /// Amendments 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea Amendments;
-        
-        /// <summary>
-        /// Label86 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label86;
-        
-        /// <summary>
-        /// Labour 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea Labour;
-        
-        /// <summary>
-        /// Label88 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label88;
-        
-        /// <summary>
-        /// Label89 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label89;
-        
-        /// <summary>
-        /// WithinTimeLimit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea WithinTimeLimit;
-        
-        /// <summary>
-        /// Label91 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label91;
-        
-        /// <summary>
-        /// Label92 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label92;
-        
-        /// <summary>
-        /// AdverseMaterialConditions 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AdverseMaterialConditions;
-        
-        /// <summary>
-        /// Label93 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label93;
-        
-        /// <summary>
-        /// Label94 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label94;
-        
-        /// <summary>
-        /// TextBox96 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox96;
-        
-        /// <summary>
-        /// Label95 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label95;
-        
-        /// <summary>
-        /// Label96 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label96;
-        
-        /// <summary>
-        /// MaterialEquipmentSupplyRange 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox MaterialEquipmentSupplyRange;
-        
-        /// <summary>
-        /// Label97 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label97;
-        
-        /// <summary>
-        /// TextBox99 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox99;
-        
-        /// <summary>
-        /// Label98 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label98;
-        
-        /// <summary>
-        /// UnloadingRateStandard 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox UnloadingRateStandard;
-        
-        /// <summary>
-        /// Label99 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label99;
-        
-        /// <summary>
-        /// SecondaryHandlingCharges 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox SecondaryHandlingCharges;
-        
-        /// <summary>
-        /// Label100 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label100;
-        
-        /// <summary>
-        /// Label101 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label101;
-        
-        /// <summary>
-        /// SampleRequirements 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox SampleRequirements;
-        
-        /// <summary>
-        /// Label102 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label102;
-        
-        /// <summary>
-        /// Label103 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label103;
-        
-        /// <summary>
-        /// AlternativeAgreed 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AlternativeAgreed;
-        
-        /// <summary>
-        /// Label104 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label104;
-        
-        /// <summary>
         /// Label105 控件。
         /// </summary>
         /// <remarks>
@@ -1480,22 +625,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label105;
         
         /// <summary>
-        /// Equipment 控件。
+        /// AssociationAgreementAttachUrl 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox Equipment;
-        
-        /// <summary>
-        /// Label106 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label106;
+        protected global::FineUIPro.TextBox AssociationAgreementAttachUrl;
         
         /// <summary>
         /// Label107 控件。
@@ -1516,13 +652,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label108;
         
         /// <summary>
-        /// OtherCircumstances 控件。
+        /// SpecialStandards 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox OtherCircumstances;
+        protected global::FineUIPro.TextArea SpecialStandards;
         
         /// <summary>
         /// Label109 控件。
@@ -1552,13 +688,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label111;
         
         /// <summary>
-        /// ChangeValuation 控件。
+        /// ConstructionMeasures 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox ChangeValuation;
+        protected global::FineUIPro.TextArea ConstructionMeasures;
+        
+        /// <summary>
+        /// SubMeasures 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea SubMeasures;
         
         /// <summary>
         /// Label112 控件。
@@ -1570,6 +715,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label112;
         
         /// <summary>
+        /// LabourCost 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea LabourCost;
+        
+        /// <summary>
         /// Label113 控件。
         /// </summary>
         /// <remarks>
@@ -1579,76 +733,49 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label113;
         
         /// <summary>
-        /// Reward 控件。
+        /// LaborSupervisorName 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox Reward;
+        protected global::FineUIPro.TextBox LaborSupervisorName;
         
         /// <summary>
-        /// Label114 控件。
+        /// LaborSupervisorTitle 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label114;
+        protected global::FineUIPro.TextBox LaborSupervisorTitle;
         
         /// <summary>
-        /// Label115 控件。
+        /// LaborSupervisorTel 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label115;
+        protected global::FineUIPro.TextBox LaborSupervisorTel;
         
         /// <summary>
-        /// IncreaseDecreasePeriod 控件。
+        /// LaborSupervisorEmail 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox IncreaseDecreasePeriod;
+        protected global::FineUIPro.TextBox LaborSupervisorEmail;
         
         /// <summary>
-        /// Label116 控件。
+        /// LaborSupervisorAddress 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label116;
-        
-        /// <summary>
-        /// Label117 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label117;
-        
-        /// <summary>
-        /// Label118 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label118;
-        
-        /// <summary>
-        /// RiskRange 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox RiskRange;
+        protected global::FineUIPro.TextBox LaborSupervisorAddress;
         
         /// <summary>
         /// Label119 控件。
@@ -1669,15 +796,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label120;
         
         /// <summary>
-        /// AdjustmentMethodA 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AdjustmentMethodA;
-        
-        /// <summary>
         /// Label121 控件。
         /// </summary>
         /// <remarks>
@@ -1685,15 +803,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label Label121;
-        
-        /// <summary>
-        /// AdjustmentMethodB 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AdjustmentMethodB;
         
         /// <summary>
         /// Label122 控件。
@@ -1705,6 +814,24 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label122;
         
         /// <summary>
+        /// OrganizationalDesign 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea OrganizationalDesign;
+        
+        /// <summary>
+        /// Amendments 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea Amendments;
+        
+        /// <summary>
         /// Label123 控件。
         /// </summary>
         /// <remarks>
@@ -1714,13 +841,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label123;
         
         /// <summary>
-        /// TotalPriceRiskRange 控件。
+        /// Labour 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox TotalPriceRiskRange;
+        protected global::FineUIPro.TextArea Labour;
         
         /// <summary>
         /// Label124 控件。
@@ -1741,13 +868,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label125;
         
         /// <summary>
-        /// TotalAdjustmentMethodA 控件。
+        /// WithinTimeLimit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox TotalAdjustmentMethodA;
+        protected global::FineUIPro.TextArea WithinTimeLimit;
         
         /// <summary>
         /// Label126 控件。
@@ -1759,31 +886,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label126;
         
         /// <summary>
-        /// TotalAdjustmentMethodB 控件。
+        /// AdverseMaterialConditions 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox TotalAdjustmentMethodB;
-        
-        /// <summary>
-        /// Label127 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label127;
-        
-        /// <summary>
-        /// OtherPriceForms 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox OtherPriceForms;
+        protected global::FineUIPro.TextBox AdverseMaterialConditions;
         
         /// <summary>
         /// Label128 控件。
@@ -1795,13 +904,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label128;
         
         /// <summary>
-        /// Label129 控件。
+        /// TextBox96 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label129;
+        protected global::FineUIPro.TextBox TextBox96;
         
         /// <summary>
         /// Label130 控件。
@@ -1813,67 +922,40 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label130;
         
         /// <summary>
-        /// MarketPriceRange 控件。
+        /// MaterialEquipmentSupplyRange 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox MarketPriceRange;
+        protected global::FineUIPro.TextBox MaterialEquipmentSupplyRange;
         
         /// <summary>
-        /// Label131 控件。
+        /// Label52 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label131;
+        protected global::FineUIPro.Label Label52;
         
         /// <summary>
-        /// DifferenceRange 控件。
+        /// UnloadingRateStandard 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox DifferenceRange;
+        protected global::FineUIPro.TextBox UnloadingRateStandard;
         
         /// <summary>
-        /// Label132 控件。
+        /// SecondaryHandlingCharges 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label132;
-        
-        /// <summary>
-        /// PricingWay 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox PricingWay;
-        
-        /// <summary>
-        /// Label133 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label133;
-        
-        /// <summary>
-        /// Label134 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label134;
+        protected global::FineUIPro.TextBox SecondaryHandlingCharges;
         
         /// <summary>
         /// Label135 控件。
@@ -1885,15 +967,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label135;
         
         /// <summary>
-        /// QuantityCalculationRules 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox QuantityCalculationRules;
-        
-        /// <summary>
         /// Label136 控件。
         /// </summary>
         /// <remarks>
@@ -1901,6 +974,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label Label136;
+        
+        /// <summary>
+        /// SampleRequirements 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox SampleRequirements;
         
         /// <summary>
         /// Label137 控件。
@@ -1912,22 +994,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label137;
         
         /// <summary>
-        /// Label138 控件。
+        /// AlternativeAgreed 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label138;
-        
-        /// <summary>
-        /// AdvancePayment 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox AdvancePayment;
+        protected global::FineUIPro.TextBox AlternativeAgreed;
         
         /// <summary>
         /// Label139 控件。
@@ -1939,31 +1012,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label139;
         
         /// <summary>
-        /// AdvancePaymentPeriod 控件。
+        /// Equipment 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox AdvancePaymentPeriod;
-        
-        /// <summary>
-        /// Label140 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label140;
-        
-        /// <summary>
-        /// LatePaymentAdvance 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox LatePaymentAdvance;
+        protected global::FineUIPro.TextBox Equipment;
         
         /// <summary>
         /// Label141 控件。
@@ -1984,22 +1039,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label142;
         
         /// <summary>
-        /// Label143 控件。
+        /// OtherCircumstances 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label143;
-        
-        /// <summary>
-        /// ProgressPaymentContents 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox ProgressPaymentContents;
+        protected global::FineUIPro.TextBox OtherCircumstances;
         
         /// <summary>
         /// Label144 控件。
@@ -2011,22 +1057,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label144;
         
         /// <summary>
-        /// TextBox146 控件。
+        /// Label145 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox TextBox146;
+        protected global::FineUIPro.Label Label145;
         
         /// <summary>
-        /// ProgressPaymentConvention 控件。
+        /// ChangeValuation 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea ProgressPaymentConvention;
+        protected global::FineUIPro.TextBox ChangeValuation;
         
         /// <summary>
         /// Label147 控件。
@@ -2038,22 +1084,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label147;
         
         /// <summary>
-        /// Label148 控件。
+        /// Reward 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label148;
-        
-        /// <summary>
-        /// TextBox150 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox TextBox150;
+        protected global::FineUIPro.TextBox Reward;
         
         /// <summary>
         /// Label149 控件。
@@ -2065,22 +1102,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label149;
         
         /// <summary>
-        /// GuaranteedScopeWork 控件。
+        /// IncreaseDecreasePeriod 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox GuaranteedScopeWork;
-        
-        /// <summary>
-        /// Label150 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label150;
+        protected global::FineUIPro.TextBox IncreaseDecreasePeriod;
         
         /// <summary>
         /// Label151 控件。
@@ -2092,15 +1120,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label151;
         
         /// <summary>
-        /// GuaranteedCostStandard 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox GuaranteedCostStandard;
-        
-        /// <summary>
         /// Label152 控件。
         /// </summary>
         /// <remarks>
@@ -2110,13 +1129,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label152;
         
         /// <summary>
-        /// Label153 控件。
+        /// RiskRange 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label153;
+        protected global::FineUIPro.TextBox RiskRange;
         
         /// <summary>
         /// Label154 控件。
@@ -2128,31 +1147,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label154;
         
         /// <summary>
-        /// AcceptanceCondition 控件。
+        /// AdjustmentMethodA 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox AcceptanceCondition;
+        protected global::FineUIPro.TextBox AdjustmentMethodA;
         
         /// <summary>
-        /// Label155 控件。
+        /// AdjustmentMethodB 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label155;
-        
-        /// <summary>
-        /// UnqualifiedResponsibility 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea UnqualifiedResponsibility;
+        protected global::FineUIPro.TextBox AdjustmentMethodB;
         
         /// <summary>
         /// Label157 控件。
@@ -2164,22 +1174,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label157;
         
         /// <summary>
-        /// Label158 控件。
+        /// TotalPriceRiskRange 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label158;
-        
-        /// <summary>
-        /// CleanExitTimeLimit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox CleanExitTimeLimit;
+        protected global::FineUIPro.TextBox TotalPriceRiskRange;
         
         /// <summary>
         /// Label159 控件。
@@ -2191,49 +1192,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label159;
         
         /// <summary>
-        /// Label160 控件。
+        /// TotalAdjustmentMethodA 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label160;
+        protected global::FineUIPro.TextBox TotalAdjustmentMethodA;
         
         /// <summary>
-        /// Label161 控件。
+        /// TotalAdjustmentMethodB 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label161;
+        protected global::FineUIPro.TextBox TotalAdjustmentMethodB;
         
         /// <summary>
-        /// DataTransferTimeLimit 控件。
+        /// OtherPriceForms 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox DataTransferTimeLimit;
-        
-        /// <summary>
-        /// Label162 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label162;
-        
-        /// <summary>
-        /// DataNumContents 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox DataNumContents;
+        protected global::FineUIPro.TextBox OtherPriceForms;
         
         /// <summary>
         /// Label163 控件。
@@ -2254,40 +1237,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label164;
         
         /// <summary>
-        /// DataListing 控件。
+        /// MarketPriceRange 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea DataListing;
+        protected global::FineUIPro.TextBox MarketPriceRange;
         
         /// <summary>
-        /// Label166 控件。
+        /// DifferenceRange 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label166;
+        protected global::FineUIPro.TextBox DifferenceRange;
         
         /// <summary>
-        /// Label167 控件。
+        /// PricingWay 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label167;
-        
-        /// <summary>
-        /// FinalSettlementNum 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox FinalSettlementNum;
+        protected global::FineUIPro.TextBox PricingWay;
         
         /// <summary>
         /// Label168 控件。
@@ -2308,22 +1282,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label169;
         
         /// <summary>
-        /// Label170 控件。
+        /// QuantityCalculationRules 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label170;
-        
-        /// <summary>
-        /// DefectLiabilityDate 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox DefectLiabilityDate;
+        protected global::FineUIPro.TextBox QuantityCalculationRules;
         
         /// <summary>
         /// Label171 控件。
@@ -2335,15 +1300,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label171;
         
         /// <summary>
-        /// DefectLiabilityPeriod 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox DefectLiabilityPeriod;
-        
-        /// <summary>
         /// Label172 控件。
         /// </summary>
         /// <remarks>
@@ -2353,49 +1309,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label172;
         
         /// <summary>
-        /// Label173 控件。
+        /// AdvancePayment 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label173;
+        protected global::FineUIPro.TextBox AdvancePayment;
         
         /// <summary>
-        /// WarrantyPeriodDate 控件。
+        /// AdvancePaymentPeriod 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox WarrantyPeriodDate;
+        protected global::FineUIPro.TextBox AdvancePaymentPeriod;
         
         /// <summary>
-        /// Label174 控件。
+        /// LatePaymentAdvance 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label174;
-        
-        /// <summary>
-        /// WarrantyPeriodPeriod 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox WarrantyPeriodPeriod;
-        
-        /// <summary>
-        /// Label175 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label175;
+        protected global::FineUIPro.TextBox LatePaymentAdvance;
         
         /// <summary>
         /// Label176 控件。
@@ -2407,15 +1345,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label176;
         
         /// <summary>
-        /// MarginDetainWay 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox MarginDetainWay;
-        
-        /// <summary>
         /// Label177 控件。
         /// </summary>
         /// <remarks>
@@ -2425,31 +1354,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label177;
         
         /// <summary>
-        /// Label178 控件。
+        /// ProgressPaymentContents 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label178;
+        protected global::FineUIPro.TextBox ProgressPaymentContents;
         
         /// <summary>
-        /// Label179 控件。
+        /// TextBox146 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label179;
+        protected global::FineUIPro.TextBox TextBox146;
         
         /// <summary>
-        /// DefaultMethod 控件。
+        /// ProgressPaymentConvention 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox DefaultMethod;
+        protected global::FineUIPro.TextArea ProgressPaymentConvention;
         
         /// <summary>
         /// Label180 控件。
@@ -2461,31 +1390,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label180;
         
         /// <summary>
-        /// Label181 控件。
+        /// TextBox150 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label181;
+        protected global::FineUIPro.TextBox TextBox150;
         
         /// <summary>
-        /// TerminationContract 控件。
+        /// GuaranteedScopeWork 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox TerminationContract;
-        
-        /// <summary>
-        /// Label182 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label182;
+        protected global::FineUIPro.TextBox GuaranteedScopeWork;
         
         /// <summary>
         /// Label183 控件。
@@ -2497,13 +1417,49 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label183;
         
         /// <summary>
-        /// DefaultLiability 控件。
+        /// Label184 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea DefaultLiability;
+        protected global::FineUIPro.Label Label184;
+        
+        /// <summary>
+        /// GuaranteedCostStandard 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox GuaranteedCostStandard;
+        
+        /// <summary>
+        /// Label185 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label185;
+        
+        /// <summary>
+        /// Label186 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label186;
+        
+        /// <summary>
+        /// AcceptanceCondition 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox AcceptanceCondition;
         
         /// <summary>
         /// Label188 控件。
@@ -2515,6 +1471,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label188;
         
         /// <summary>
+        /// UnqualifiedResponsibility 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea UnqualifiedResponsibility;
+        
+        /// <summary>
         /// Label189 控件。
         /// </summary>
         /// <remarks>
@@ -2524,22 +1489,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label189;
         
         /// <summary>
-        /// SubDefaultCancelContract 控件。
+        /// CleanExitTimeLimit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox SubDefaultCancelContract;
-        
-        /// <summary>
-        /// Label190 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label190;
+        protected global::FineUIPro.TextBox CleanExitTimeLimit;
         
         /// <summary>
         /// Label191 控件。
@@ -2560,40 +1516,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label192;
         
         /// <summary>
-        /// ForceMajeure 控件。
+        /// DataTransferTimeLimit 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox ForceMajeure;
+        protected global::FineUIPro.TextBox DataTransferTimeLimit;
         
         /// <summary>
-        /// Label193 控件。
+        /// DataNumContents 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label193;
-        
-        /// <summary>
-        /// Label194 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label194;
-        
-        /// <summary>
-        /// NotConsideredForceMajeure 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox NotConsideredForceMajeure;
+        protected global::FineUIPro.TextBox DataNumContents;
         
         /// <summary>
         /// Label195 控件。
@@ -2605,15 +1543,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label195;
         
         /// <summary>
-        /// GeneralContractorShallPay 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox GeneralContractorShallPay;
-        
-        /// <summary>
         /// Label196 控件。
         /// </summary>
         /// <remarks>
@@ -2621,6 +1550,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label Label196;
+        
+        /// <summary>
+        /// DataListing 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea DataListing;
         
         /// <summary>
         /// Label197 控件。
@@ -2632,13 +1570,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label197;
         
         /// <summary>
-        /// Label198 控件。
+        /// FinalSettlementNum 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label198;
+        protected global::FineUIPro.TextBox FinalSettlementNum;
         
         /// <summary>
         /// Label199 控件。
@@ -2659,40 +1597,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label200;
         
         /// <summary>
-        /// LimitIndemnity 控件。
+        /// DefectLiabilityDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox LimitIndemnity;
+        protected global::FineUIPro.TextBox DefectLiabilityDate;
         
         /// <summary>
-        /// Label201 控件。
+        /// DefectLiabilityPeriod 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label201;
-        
-        /// <summary>
-        /// InsuredAmount 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox InsuredAmount;
-        
-        /// <summary>
-        /// Label202 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label202;
+        protected global::FineUIPro.TextBox DefectLiabilityPeriod;
         
         /// <summary>
         /// Label203 控件。
@@ -2704,31 +1624,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label203;
         
         /// <summary>
-        /// CertificateInsurance 控件。
+        /// WarrantyPeriodDate 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox CertificateInsurance;
+        protected global::FineUIPro.TextBox WarrantyPeriodDate;
         
         /// <summary>
-        /// Label204 控件。
+        /// WarrantyPeriodPeriod 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label204;
-        
-        /// <summary>
-        /// Label205 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label205;
+        protected global::FineUIPro.TextBox WarrantyPeriodPeriod;
         
         /// <summary>
         /// Label206 控件。
@@ -2740,31 +1651,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label206;
         
         /// <summary>
-        /// Label207 控件。
+        /// MarginDetainWay 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label207;
-        
-        /// <summary>
-        /// ArbitrationCommission 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox ArbitrationCommission;
-        
-        /// <summary>
-        /// Label209 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Label Label209;
+        protected global::FineUIPro.TextBox MarginDetainWay;
         
         /// <summary>
         /// Label208 控件。
@@ -2776,6 +1669,258 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label208;
         
         /// <summary>
+        /// Label209 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label209;
+        
+        /// <summary>
+        /// DefaultMethod 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox DefaultMethod;
+        
+        /// <summary>
+        /// Label211 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label211;
+        
+        /// <summary>
+        /// TerminationContract 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox TerminationContract;
+        
+        /// <summary>
+        /// Label213 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label213;
+        
+        /// <summary>
+        /// Label214 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label214;
+        
+        /// <summary>
+        /// DefaultLiability 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea DefaultLiability;
+        
+        /// <summary>
+        /// Label215 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label215;
+        
+        /// <summary>
+        /// SubDefaultCancelContract 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox SubDefaultCancelContract;
+        
+        /// <summary>
+        /// Label217 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label217;
+        
+        /// <summary>
+        /// Label218 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label218;
+        
+        /// <summary>
+        /// ForceMajeure 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox ForceMajeure;
+        
+        /// <summary>
+        /// Label220 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label220;
+        
+        /// <summary>
+        /// NotConsideredForceMajeure 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox NotConsideredForceMajeure;
+        
+        /// <summary>
+        /// GeneralContractorShallPay 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox GeneralContractorShallPay;
+        
+        /// <summary>
+        /// Label223 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label223;
+        
+        /// <summary>
+        /// Label224 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label224;
+        
+        /// <summary>
+        /// Label225 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label225;
+        
+        /// <summary>
+        /// Label226 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label226;
+        
+        /// <summary>
+        /// LimitIndemnity 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox LimitIndemnity;
+        
+        /// <summary>
+        /// InsuredAmount 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox InsuredAmount;
+        
+        /// <summary>
+        /// Label229 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label229;
+        
+        /// <summary>
+        /// CertificateInsurance 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox CertificateInsurance;
+        
+        /// <summary>
+        /// Label231 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label231;
+        
+        /// <summary>
+        /// Label232 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label232;
+        
+        /// <summary>
+        /// Label233 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label233;
+        
+        /// <summary>
+        /// ArbitrationCommission 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox ArbitrationCommission;
+        
+        /// <summary>
+        /// Label235 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Label Label235;
+        
+        /// <summary>
         /// PeopleCourt 控件。
         /// </summary>
         /// <remarks>
@@ -2785,13 +1930,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox PeopleCourt;
         
         /// <summary>
-        /// Label210 控件。
+        /// Label237 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Label Label210;
+        protected global::FineUIPro.Label Label237;
         
         /// <summary>
         /// Grid1 控件。

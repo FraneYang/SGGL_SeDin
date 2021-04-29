@@ -190,6 +190,21 @@
             list[4] = new ListItem("租赁合同", "5");
             return list;
         }
+
+        /// <summary>
+        /// 招标方式  招标方式：公开招标 1、邀请招标2、询比价3、竞争性谈判4、单一来源5
+        /// </summary>
+        /// <returns></returns>
+        public static ListItem[] GetBidType()
+        {
+            ListItem[] list = new ListItem[5];
+            list[0] = new ListItem("公开招标", "公开招标");
+            list[1] = new ListItem("邀请招标", "邀请招标");
+            list[2] = new ListItem("询比价 ", "询比价");
+            list[3] = new ListItem("竞争性谈判", "竞争性谈判");
+            list[4] = new ListItem("单一来源", "单一来源");
+            return list;
+        }
         #endregion
     }
 }

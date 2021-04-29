@@ -479,7 +479,7 @@
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" runat="server" Position="Bottom" ToolbarAlign="Right">
                     <Items>
-                        <f:Button ID="btnSave" runat="server" Icon="SystemSave" ToolTip="保存" OnClick="btnSave_Click"></f:Button>
+                        <f:Button ID="btnSave" runat="server" Icon="SystemSave" ToolTip="保存" Text="保存" OnClick="btnSave_Click"></f:Button>
                     </Items>
                 </f:Toolbar>
             </Toolbars>

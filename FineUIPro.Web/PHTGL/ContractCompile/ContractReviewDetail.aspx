@@ -164,8 +164,8 @@
                                          <f:TextArea ID="txtApproveIdea" Height="200px" Required="true" Label="审批意见" ShowRedStar="true" runat="server" Text="">
                                         </f:TextArea>
                                         <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="true" Title="审批记录"
-                                            runat="server" BoxFlex="1" DataKeyNames="AttachUrlItemId" AllowCellEditing="true"
-                                            ClicksToEdit="2" DataIDField="AttachUrlItemId" EnableColumnLines="true" SortField="OrderNumber" Height="300"
+                                            runat="server" BoxFlex="1" DataKeyNames="ApproveId" AllowCellEditing="true"  ForceFit="true"
+                                            ClicksToEdit="2" DataIDField="ApproveId" EnableColumnLines="true" SortField="ApproveType" Height="300"
                                             EnableTextSelection="True" >
 
                                             <Columns>
@@ -176,19 +176,19 @@
                                                     <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                                 </ItemTemplate>
                                              </f:TemplateField>
-                                                <f:RenderField ColumnID="ApproveMan" DataField="OrderNumber" Width="150px" FieldType="String" HeaderText="审批人" TextAlign="Center"
+                                                <f:RenderField ColumnID="ApproveMan" DataField="ApproveMan" Width="150px" FieldType="String" HeaderText="审批人" TextAlign="Center"
                                                     HeaderTextAlign="Center">
  
                                                 </f:RenderField>
-                                                <f:RenderField ColumnID="IsAgree" DataField="Name" Width="150px" FieldType="String" HeaderText="是否同意" TextAlign="Center"
+                                                <f:RenderField ColumnID="IsAgree" DataField="IsAgree" Width="150px" FieldType="String" HeaderText="是否同意" TextAlign="Center"
                                                     HeaderTextAlign="Center">
                             
                                                 </f:RenderField>
-                                                <f:RenderField ColumnID="ApproveIdea" DataField="Spec" Width="320px" FieldType="String" HeaderText="审批意见" TextAlign="Left"
+                                                <f:RenderField ColumnID="ApproveIdea" DataField="ApproveIdea" Width="320px" FieldType="String" HeaderText="审批意见" TextAlign="Left"
                                                     HeaderTextAlign="Center">
                       
                                                 </f:RenderField>
-                                                <f:RenderField ColumnID="ApproveDate" DataField="Spec" Width="320px" FieldType="String" HeaderText="审批时间" TextAlign="Left"
+                                                <f:RenderField ColumnID="ApproveDate" DataField="ApproveDate" Width="320px" FieldType="String" HeaderText="审批时间" TextAlign="Left"
                                                     HeaderTextAlign="Center">
                                                 </f:RenderField>
                               
@@ -274,8 +274,23 @@
                         </f:Tab>
                     </Tabs>
                 </f:TabStrip>
+
             </Items>
+                     <Toolbars>
+                <f:Toolbar ID="Toolbar4" Position="Bottom" ToolbarAlign="Right" runat="server">
+                    <Items>
+                      
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        </f:Button>
+                        <%--   <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件查看" Icon="TableCell" runat="server"
+                        OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
+                    </f:Button>   --%>
+                    </Items>
+
+                </f:Toolbar>
+            </Toolbars>
         </f:Panel>
+
         <f:Window ID="Window1" Title="流程步骤设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true"  
             Width="640px" Height="450px">

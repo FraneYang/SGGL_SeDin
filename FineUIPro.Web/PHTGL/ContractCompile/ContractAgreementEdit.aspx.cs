@@ -5,6 +5,29 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class ContractAgreementEdit : PageBase
     {
+        public string subcontractAgreementId
+        {
+            get
+            {
+                return (string)ViewState["subcontractAgreementId"];
+            }
+            set
+            {
+                ViewState["subcontractAgreementId"] = value;
+            }
+        }
+        public string contractId
+        {
+            get
+            {
+                return (string)ViewState["contractId"];
+            }
+            set
+            {
+                ViewState["contractId"] = value;
+            }
+        }
+
         #region 加载
         /// <summary>
         /// 加载
@@ -15,8 +38,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             if (!IsPostBack)
             {
-                string contractId = Request.Params["ContractId"];
-                string subcontractAgreementId = Request.Params["SubcontractAgreementId"];
+                   contractId = "合同协议书模板";
+                   subcontractAgreementId = "合同协议书模板";
                 if (!string.IsNullOrEmpty(subcontractAgreementId))
                 {
                     Model.PHTGL_SubcontractAgreement sub = BLL.SubcontractAgreementService.GetSubcontractAgreementById(subcontractAgreementId);
@@ -140,9 +163,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newSub.Account1 = txtAccount1.Text;
             newSub.Account2 = txtAccount2.Text;
 
-            string contractId = Request.Params["ContractId"];
-            string subcontractAgreementId = Request.Params["SubcontractAgreementId"];
-            if (!string.IsNullOrEmpty(subcontractAgreementId))
+             if (!string.IsNullOrEmpty(subcontractAgreementId))
             {
                 newSub.SubcontractAgreementId = subcontractAgreementId;
                 BLL.SubcontractAgreementService.UpdateSubcontractAgreement(newSub);

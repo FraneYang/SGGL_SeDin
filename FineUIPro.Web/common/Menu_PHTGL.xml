@@ -1,7 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Tree>
-  <TreeNode id="C609FEA5-0904-4F59-A920-22B6459F1A94" Text="合同编制" NavigateUrl="PHTGL/ContractCompile/ContractFormation.aspx">
-  </TreeNode>
+  <TreeNode id="04DEBC8A-1D09-4DD8-9464-496A4533FE03" Text="招标管理" NavigateUrl="">
+    <TreeNode id="2E57E92E-31BE-46B3-89AF-E08DAE8FC8E7" Text="实施计划编制" NavigateUrl="PHTGL/BiddingManagement/ActionPlanFormation.aspx">
+    </TreeNode>
+<TreeNode id="303B6753-ED3C-438A-A860-F9C5E5489C8F" Text="实施计划审批" NavigateUrl="PHTGL/BiddingManagement/ActionPlanReview.aspx"></TreeNode>
+<TreeNode id="0BB31BB1-469D-41E8-9039-A53A2B1EEB86" Text="招标文件审批" NavigateUrl="PHTGL/BiddingManagement/BidDocumentsReview.aspx"></TreeNode>
+</TreeNode>
+<TreeNode id="C041D799-47A0-4ECA-A6A2-C387857165D6" Text="合同管理" NavigateUrl=""><TreeNode id="C609FEA5-0904-4F59-A920-22B6459F1A94" Text="合同编制" NavigateUrl="PHTGL/ContractCompile/ContractFormation.aspx"></TreeNode>
 <TreeNode id="E50F243C-CE5A-4174-B473-15CD565A7796" Text="合同审批" NavigateUrl="PHTGL/ContractCompile/ContractReview.aspx"></TreeNode>
 <TreeNode id="522ECE81-132E-4704-867B-ABD0DBCFB15D" Text="合同台账" NavigateUrl=""></TreeNode>
+</TreeNode>
 </Tree>

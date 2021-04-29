@@ -2649,6 +2649,11 @@ namespace BLL
         /// 合同编制
         /// </summary>
         public const string ContractFormation = "C609FEA5-0904-4F59-A920-22B6459F1A94";
+
+        /// <summary>
+        /// 招标文件审批
+        /// </summary>
+        public const string BidDocumentsReviewIdMenuid = "0BB31BB1-469D-41E8-9039-A53A2B1EEB86";
         #endregion
 
         #region 模版文件原始的虚拟路径

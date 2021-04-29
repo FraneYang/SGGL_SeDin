@@ -12,17 +12,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class ContractReviewEdit : PageBase
     {
- 
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-                //this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 //总承包合同编号
                 //   BLL.ContractService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
                 // BLL.UserService.InitUserDropDownList(this.drpAgent, this.CurrUser.LoginProjectId, true);
-                 BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Construction, this.CurrUser.LoginProjectId,Const.SGContractManageEngineer,true);
-                 BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Law, this.CurrUser.LoginProjectId,Const.Countersign_Law ,true);
+                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Construction, this.CurrUser.LoginProjectId, Const.SGContractManageEngineer, true);
+                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Law, this.CurrUser.LoginProjectId, Const.Countersign_Law, true);
 
                 dropApproval_Construction.DataValueField = "UserId";
                 dropApproval_Construction.DataTextField = "UserName";
@@ -32,9 +32,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 dropApproval_Construction.DataSource = model3;
                 dropApproval_Construction.DataBind();
                 Funs.FineUIPleaseSelect(dropApproval_Construction);
-                 
 
-                 BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropApproval_Law, this.CurrUser.LoginProjectId,Const.dropApproval_Law,true);
+
+                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropApproval_Law, this.CurrUser.LoginProjectId, Const.dropApproval_Law, true);
 
                 BindGrid();
 
@@ -87,29 +87,35 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
- 
+
 
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            if (string.IsNullOrEmpty( dropCountersign_Construction.SelectedValue))
+            if (drpProjectId.Value ==null)
             {
-                ShowNotify("请选择会签评审中施工管理部人员", MessageBoxIcon.Success);
+                ShowNotify("请选择要审批的合同", MessageBoxIcon.Warning);
                 return;
 
             }
-            if (string.IsNullOrEmpty(dropCountersign_Law.SelectedValue))
+            if ( dropCountersign_Construction.SelectedValue==Const._Null)
             {
-                ShowNotify("请选择会签评审中法律合规部人员", MessageBoxIcon.Success);
+                ShowNotify("请选择会签评审中施工管理部人员", MessageBoxIcon.Warning);
+                return;
+
+            }
+            if ( dropCountersign_Law.SelectedValue == Const._Null)
+            {
+                ShowNotify("请选择会签评审中法律合规部人员", MessageBoxIcon.Warning);
                 return;
             }
-            if (string.IsNullOrEmpty(dropApproval_Law.SelectedValue))
+            if ( dropApproval_Law.SelectedValue == Const._Null)
             {
-                ShowNotify("请选择签订评审中施工管理部人员", MessageBoxIcon.Success);
+                ShowNotify("请选择签订评审中施工管理部人员", MessageBoxIcon.Warning);
                 return;
             }
-            if (string.IsNullOrEmpty(dropApproval_Law.SelectedValue))
+            if ( dropApproval_Law.SelectedValue == Const._Null)
             {
-                ShowNotify("请选择签订评审中法律合规部人员", MessageBoxIcon.Success);
+                ShowNotify("请选择签订评审中法律合规部人员", MessageBoxIcon.Warning);
                 return;
             }
             //1 是会签2 是审批 3是成功 4是失败
@@ -117,30 +123,30 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newmodel.ContractReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ContractReview));
             newmodel.ContractId = drpProjectId.Value;
             newmodel.DocumentNumber = txtContractNum.Text;
-            newmodel.State =1;
+            newmodel.State = 1;
             newmodel.Countersign_Construction = dropCountersign_Construction.SelectedValue;
-            newmodel.Countersign_Law =dropCountersign_Law.SelectedValue ;
-            newmodel.Approval_Construction =dropApproval_Law.SelectedValue ;
-            newmodel.Approval_Law =dropApproval_Law.SelectedValue;
-             BLL.PHTGL_ContractReviewService.AddPHTGL_ContractReview(newmodel);
+            newmodel.Countersign_Law = dropCountersign_Law.SelectedValue;
+            newmodel.Approval_Construction = dropApproval_Law.SelectedValue;
+            newmodel.Approval_Law = dropApproval_Law.SelectedValue;
+            BLL.PHTGL_ContractReviewService.AddPHTGL_ContractReview(newmodel);
 
             //创建会签人员信息
             foreach (KeyValuePair<int, string> kvp in PHTGL_ContractReviewService.Countersigner)
             {
-                 Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
+                Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-                _Approve.ContractId = drpProjectId.Value; 
+                _Approve.ContractId = drpProjectId.Value;
                 _Approve.ApproveMan = BLL.ProjectService.GetRoleID(this.drpProjectId.Value, kvp.Value);
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
                 _Approve.ApproveIdea = "";
-                _Approve.ApproveType = kvp.Key.ToString ();
+                _Approve.ApproveType = kvp.Key.ToString();
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
             }
             var _Att = BLL.ContractService.GetContractById(drpProjectId.Value);
-            if (_Att!=null)
+            if (_Att != null)
             {
                 _Att.ApproveState = 2;
                 ContractService.UpdateContract(_Att);
@@ -185,8 +191,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 //分管副总经理
                 this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.DeputyGeneralManager);
 
-                txtContractNum.Text= BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
-                 
+                txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
+
 
             }
             else

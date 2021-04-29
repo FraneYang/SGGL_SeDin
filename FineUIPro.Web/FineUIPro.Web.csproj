@@ -907,6 +907,14 @@
     <Content Include="Person\ShuntEdit.aspx" />
     <Content Include="Person\ShuntList.aspx" />
     <Content Include="Person\ShuntView.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ActionPlanFormation.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ActionPlanFormationEdit.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ActionPlanReview.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ActionPlanReviewDetail.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ActionPlanReviewEdit.aspx" />
+    <Content Include="PHTGL\BiddingManagement\BidDocumentsReview.aspx" />
+    <Content Include="PHTGL\BiddingManagement\BidDocumentsReviewDetail.aspx" />
+    <Content Include="PHTGL\BiddingManagement\BidDocumentsReviewEdit.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl1.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl10.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl11.aspx" />
@@ -9761,6 +9769,62 @@
     </Compile>
     <Compile Include="Person\ShuntView.aspx.designer.cs">
       <DependentUpon>ShuntView.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormation.aspx.cs">
+      <DependentUpon>ActionPlanFormation.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormation.aspx.designer.cs">
+      <DependentUpon>ActionPlanFormation.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormationEdit.aspx.cs">
+      <DependentUpon>ActionPlanFormationEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanFormationEdit.aspx.designer.cs">
+      <DependentUpon>ActionPlanFormationEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReview.aspx.cs">
+      <DependentUpon>ActionPlanReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReview.aspx.designer.cs">
+      <DependentUpon>ActionPlanReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewDetail.aspx.cs">
+      <DependentUpon>ActionPlanReviewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewDetail.aspx.designer.cs">
+      <DependentUpon>ActionPlanReviewDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewEdit.aspx.cs">
+      <DependentUpon>ActionPlanReviewEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewEdit.aspx.designer.cs">
+      <DependentUpon>ActionPlanReviewEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReview.aspx.cs">
+      <DependentUpon>BidDocumentsReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReview.aspx.designer.cs">
+      <DependentUpon>BidDocumentsReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewDetail.aspx.cs">
+      <DependentUpon>BidDocumentsReviewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewDetail.aspx.designer.cs">
+      <DependentUpon>BidDocumentsReviewDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewEdit.aspx.cs">
+      <DependentUpon>BidDocumentsReviewEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewEdit.aspx.designer.cs">
+      <DependentUpon>BidDocumentsReviewEdit.aspx</DependentUpon>
     </Compile>
     <Compile Include="PHTGL\ContractCompile\AttachUrl1.aspx.cs">
       <DependentUpon>AttachUrl1.aspx</DependentUpon>

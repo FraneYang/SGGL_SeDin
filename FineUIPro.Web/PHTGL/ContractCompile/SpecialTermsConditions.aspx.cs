@@ -38,6 +38,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             myDictionary.Clear();
             myDictionary.Add("SpecialTermsConditionsId", SpecialTermsConditionsId);
+            myDictionary.Add("ContractId", "模板");
+
 
             SaveTextEmpty(SimpleForm1);  //得到键值对
 

@@ -105,9 +105,9 @@
                 <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                     OnClick="btnMenuEdit_Click">
                 </f:MenuButton>
-                <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+               <%-- <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDelete_Click">
-                </f:MenuButton>
+                </f:MenuButton>--%>
             </Items>
         </f:Menu>
     </form>

@@ -649,52 +649,52 @@
                                 <tr>
                                     <td>本月</td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SafetyMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SafetyMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="LaborMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="LaborMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ProgressMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ProgressMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="EducationMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="EducationMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SumMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SumMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ContractMonth" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ContractMonth" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td>年度累计</td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SafetyYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SafetyYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="LaborYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="LaborYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ProgressYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ProgressYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="EducationYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="EducationYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SumYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SumYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ContractYear" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ContractYear" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td>项目累计</td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SafetyTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SafetyTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="LaborTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="LaborTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ProgressTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ProgressTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="EducationTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="EducationTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="SumTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="SumTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                     <td>
-                                        <input type="text" runat="server" class="input" id="ContractTotal" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" runat="server" class="input" id="ContractTotal" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">工程造价占比</td>
                                     <td colspan="4">
-                                        <input type="text" style="text-align: left" runat="server" class="input" id="ConstructionCost" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" /></td>
+                                        <input type="text" style="text-align: left" runat="server" class="input" id="ConstructionCost" maxlength="10" οninput="value=value.replace(/\D|^0/g,'')" /></td>
                                 </tr>
                             </table>
                         </f:ContentPanel>

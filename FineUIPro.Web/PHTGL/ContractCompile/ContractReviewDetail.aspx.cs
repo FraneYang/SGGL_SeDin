@@ -63,7 +63,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             if (!IsPostBack)
             {
-                Dic_ApproveMan.Clear();
+                this.btnClose.OnClientClick = ActiveWindow.GetHideRefreshReference();
+
                 contractId = Request.Params["ContractId"];
                 EndApproveType = 13;
 
@@ -141,11 +142,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 this.Tab2_txtContractAmount.Text = _Contract.ContractAmount.HasValue ? _Contract.ContractAmount.ToString() : "";
                 if (!string.IsNullOrEmpty(_Contract.DepartId))
                 {
-                    this.Tab2_txtDepartId.Text = _Contract.DepartId;
+                   
+                    this.Tab2_txtDepartId.Text = DepartService.getDepartNameById(_Contract.DepartId);
                 }
                 if (!string.IsNullOrEmpty(_Contract.Agent))
                 {
-                    this.Tab2_txtAgent.Text = _Contract.Agent;
+                   
+                    this.Tab2_txtAgent.Text = UserService.GetUserNameByUserId(_Contract.Agent);
                 }
                 if (!string.IsNullOrEmpty(_Contract.ContractType))
                 {
@@ -156,7 +159,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                        App.ApproveDate,
                                       (CASE App.IsAgree WHEN '1' THEN '不同意'
                                         WHEN '2' THEN '同意' END) AS IsAgree,
-                                        App.ApproveIdea
+                                        App.ApproveIdea,
+                                        App.ApproveId,
+                                        App.ApproveType
                                        from PHTGL_Approve as App"
                               + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -196,11 +201,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 this.txtContractAmount.Text = _Contract.ContractAmount.HasValue ? _Contract.ContractAmount.ToString() : "";
                 if (!string.IsNullOrEmpty(_Contract.DepartId))
                 {
-                    this.txtDepartId.Text = _Contract.DepartId;
+                    this.txtDepartId.Text = DepartService.getDepartNameById(_Contract.DepartId);
                 }
                 if (!string.IsNullOrEmpty(_Contract.Agent))
                 {
-                    this.txtAgent.Text = _Contract.Agent;
+                    this.txtAgent.Text = UserService.GetUserNameByUserId(_Contract.Agent);
                 }
                 if (!string.IsNullOrEmpty(_Contract.ContractType))
                 {
@@ -279,11 +284,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 this.Tab3_txtContractAmount.Text = _Contract.ContractAmount.HasValue ? _Contract.ContractAmount.ToString() : "";
                 if (!string.IsNullOrEmpty(_Contract.DepartId))
                 {
-                    this.Tab3_txtDepartId.Text = _Contract.DepartId;
+                    this.Tab3_txtDepartId.Text = DepartService.getDepartNameById(_Contract.DepartId);
                 }
                 if (!string.IsNullOrEmpty(_Contract.Agent))
                 {
-                    this.Tab3_txtAgent.Text = _Contract.Agent;
+                    this.Tab3_txtAgent.Text = UserService.GetUserNameByUserId(_Contract.Agent);
                 }
                 if (!string.IsNullOrEmpty(_Contract.ContractType))
                 {
