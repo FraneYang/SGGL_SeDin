@@ -43,6 +43,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     this.ProjectId = Request.Params["projectId"];
                 }
+
+                this.drpStates.DataValueField = "Value";
+                drpStates.DataTextField = "Text";
+                drpStates.DataSource = BLL.DropListService.GetState();
+                drpStates.DataBind();
+                Funs.FineUIPleaseSelect(drpStates);
+               
                 BindGrid();
    
             }
@@ -92,6 +99,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
                 strSql += " AND Con.ContractName LIKE @ContractName";
                 listStr.Add(new SqlParameter("@ContractName", "%" + this.txtContractName.Text.Trim() + "%"));
+            }
+            if (drpStates.SelectedValue!=Const._Null)
+            {
+                strSql += " AND Con.ApproveState LIKE @ApproveState";
+                listStr.Add(new SqlParameter("@ApproveState", drpStates.SelectedValue));
+
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);

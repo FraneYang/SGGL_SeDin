@@ -46,6 +46,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                      WHEN '3' THEN '施工劳务分包合同'
                                      WHEN '4' THEN '试车服务合同'
                                      WHEN '5' THEN 'ds' END) AS ContractType,
+                                    ( CASE Rev.State WHEN   '1' THEN '会签中'
+                                    WHEN   '2' THEN '审批中'
+                                    WHEN   '3' THEN '审批成功'
+                                    WHEN   '4' THEN '审批被拒'   END) AS State ,
                                     Con.Remarks,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,

@@ -26,6 +26,12 @@ namespace BLL
             return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId);
         }
 
+        public static Model.PHTGL_Approve GetPHTGL_ApproveByContractIdAndType(string contractId,string approveType)
+
+        {
+            return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId&&e.ApproveType==approveType);
+        }
+
         public static Model.PHTGL_Approve GetPHTGL_ApproveByUserId(string contractId,string approveMan)
 
         {

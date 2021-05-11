@@ -48,6 +48,9 @@
                         <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="180px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
+                        <f:RenderField ColumnID="State" DataField="State" Width="180px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
                         <f:RenderField ColumnID="ContractName" DataField="ContractName" Width="180px" FieldType="String" HeaderText="合同名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>

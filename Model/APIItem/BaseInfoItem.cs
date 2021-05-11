@@ -35,7 +35,17 @@ namespace Model
             get;
             set;
         }
-    
+
+        /// <summary>
+        /// 开始时间
+        /// </summary>
+        /// 何丽梅添加
+        public DateTime? NDEDate
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 图片/附件
         /// </summary>

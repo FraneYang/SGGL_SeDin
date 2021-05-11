@@ -17,7 +17,7 @@ namespace BLL
         /// <param name="detectionRateId"></param>
         /// <param name="pointBatchCode"></param>
         /// <returns></returns>
-        public static List<Model.NDETrustItem> getAutoPointBatchCode(string unitWorkId,string detectionTypeId,string detectionRateId, string pointBatchCode)
+        public static List<Model.NDETrustItem> getAutoPointBatchCode(string unitWorkId, string detectionTypeId, string detectionRateId, string pointBatchCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -208,7 +208,7 @@ namespace BLL
         /// </summary>
         /// <param name="oldJointId">原来点的焊口</param>
         /// <param name="newJointId">调为新的焊口</param>
-        public static void RePointSave(string oldJointId,string newJointId)
+        public static void RePointSave(string oldJointId, string newJointId)
         {
             var oldPoint = BLL.PointBatchDetailService.GetBatchDetailByJotId(oldJointId);
             if (oldPoint != null)
@@ -359,7 +359,7 @@ namespace BLL
         /// <param name="isAudit"></param>
         /// <param name="pointBatchCode"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit ,string trustBatchCode)
+        public static List<Model.BaseInfoItem> getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, string startDate, string trustBatchCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -376,13 +376,11 @@ namespace BLL
                     dataList = dataList.Where(e => e.DetectionRateId == detectionRateId);
                 }
 
-                if (isAudit == true)
+                if (!string.IsNullOrEmpty(startDate))
                 {
-                    dataList = dataList.Where(e => e.IsAudit == true);
-                }
-                else
-                {
-                    dataList = dataList.Where(e => e.IsAudit == null || e.IsAudit == false);
+                    DateTime t = Convert.ToDateTime(startDate + "-01");
+                    DateTime mt = t.AddMonths(1);
+                    dataList = dataList.Where(e => e.TrustDate >= t && e.TrustDate < mt);
                 }
 
                 if (!string.IsNullOrEmpty(trustBatchCode))
@@ -395,7 +393,7 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.TrustBatchId,
-                                        BaseInfoCode = x.TrustBatchCode,
+                                        BaseInfoCode = (x.TrustType == "R"?("FXWT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4)) :("WT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4))),
                                     }).ToList();
                 return getDataLists;
             }
@@ -448,7 +446,7 @@ namespace BLL
         /// <param name="detectionTypeId"></param>
         /// <param name="ndeCode"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getBatchNdeCode(string unitWorkId, string detectionTypeId, string ndeCode)
+        public static List<Model.BaseInfoItem> getBatchNdeCode(string unitWorkId, string startDate, string detectionTypeId, string ndeCode)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -458,10 +456,16 @@ namespace BLL
                                select new Model.BaseInfoItem
                                {
                                    BaseInfoId = x.NDEID,
+                                   NDEDate = y.TrustDate,
                                    BaseInfoCode = x.NDECode,
                                    BaseInfoName = y.DetectionTypeId
                                };
-
+                if (!string.IsNullOrEmpty(startDate))
+                {
+                    DateTime t = Convert.ToDateTime(startDate + "-01");
+                    DateTime mt = t.AddMonths(1);
+                    dataList = dataList.Where(e => e.NDEDate >= t && e.NDEDate < mt);
+                }
                 if (!string.IsNullOrEmpty(detectionTypeId))
                 {
                     dataList = dataList.Where(e => e.BaseInfoName == detectionTypeId);
@@ -477,7 +481,7 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.BaseInfoId,
-                                        BaseInfoCode = x.BaseInfoCode,
+                                        BaseInfoCode = x.BaseInfoCode
                                     }).ToList();
                 return getDataLists;
             }
@@ -546,7 +550,8 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.RepairRecordId,
-                                        BaseInfoCode = x.RepairRecordCode
+                                        BaseInfoCode = x.RepairRecordCode,
+                                        BaseInfoName = x.WeldJointId
                                     }).ToList();
                 return getDataLists;
             }
@@ -644,7 +649,7 @@ namespace BLL
                                     select new Model.NDETrustItem
                                     {
                                         PointBatchItemId = x.PointBatchItemId,
-                                        PointState=x.PointState,
+                                        PointState = x.PointState,
                                         WeldJointCode = x.WeldJointCode,
                                         PipelineCode = x.PipelineCode,
                                         JointArea = x.JointArea
@@ -672,6 +677,7 @@ namespace BLL
                 {
                     repair.PBackingWelderId = repairWelder;
                     repair.PCoverWelderId = repairWelder;
+                    repair.AuditDate = DateTime.Now;
                     repair.RepairDate = Convert.ToDateTime(repairDate);
                     if (isCut)
                     {
@@ -770,6 +776,8 @@ namespace BLL
                         newRepairTrust.UnitId = repairRecord.UnitId;
                         newRepairTrust.UnitWorkId = repairRecord.UnitWorkId;
                         newRepairTrust.DetectionTypeId = repairRecord.DetectionTypeId;
+                        var oldTrust = (from x in Funs.DB.HJGL_Batch_BatchTrust                                        join y in Funs.DB.HJGL_Batch_BatchTrustItem on x.TrustBatchId equals y.TrustBatchId                                        join z in Funs.DB.HJGL_Batch_NDEItem on y.TrustBatchItemId equals z.TrustBatchItemId                                        where z.NDEItemID == repairRecord.NDEItemID                                        select x).FirstOrDefault();                        newRepairTrust.DetectionRateId = oldTrust.DetectionRateId;
+                        newRepairTrust.TrustType = "R";
 
                         BLL.Batch_BatchTrustService.AddBatchTrust(newRepairTrust);  // 新增返修委托单
 
@@ -779,6 +787,7 @@ namespace BLL
                         newRepairTrustItem.RepairRecordId = repairRecordId;
                         newRepairTrustItem.WeldJointId = repairRecord.WeldJointId;
                         newRepairTrustItem.CreateDate = DateTime.Now;
+
                         Batch_BatchTrustItemService.AddBatchTrustItem(newRepairTrustItem);
 
                         // 扩透委托
@@ -850,7 +859,7 @@ namespace BLL
         #endregion
 
         //////////////////////////////////////////// NDE预警//////////////////////////////////////
-        
+
         #region NDE预警
         /// <summary>
         /// 无损检测不合格焊口信息
@@ -916,8 +925,8 @@ namespace BLL
                              select new Model.BaseInfoItem
                              {
                                  BaseInfoId = x.WeldJointId,
-                                 BaseInfoCode ="批号：" + y.PointBatchCode,
-                                 BaseInfoName =  "未委托焊口：" + z.WeldJointCode,
+                                 BaseInfoCode = "批号：" + y.PointBatchCode,
+                                 BaseInfoName = "未委托焊口：" + z.WeldJointCode,
                              }).ToList();
 
                 var repair = (from x in db.HJGL_RepairRecord
@@ -954,7 +963,7 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.WeldJointId,
-                                        BaseInfoCode ="委托单号：" + y.TrustBatchCode,
+                                        BaseInfoCode = "委托单号：" + y.TrustBatchCode,
                                         BaseInfoName = "焊口：" + z.WeldJointCode,
                                     }).ToList();
 

@@ -19,23 +19,23 @@
                                         <f:FormRow>
                                             <Items>
 
-                                                <f:TextBox ID="txtProjectName" Label="项目名称" Margin="0 5 0 0" ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="txtProjectName" Label="项目名称" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
-                                                <f:TextBox ID="txtProjectCode" Label="项目编号" Margin="0 5 0 0" ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="txtProjectCode" Label="项目编号" Margin="0 5 0 0"  Readonly="true" ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
 
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtCreateUser" Label="经办人" ShowRedStar="true" runat="server">
+                                                <f:TextBox ID="txtCreateUser" Label="经办人"  Readonly="true"  runat="server">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
 
-                                                <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" Readonly="true" ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
                                                 <f:CheckBoxList ID="CBIsAgree" Label="是否同意" runat="server" ColumnWidth="50%">
                                                     <Items>

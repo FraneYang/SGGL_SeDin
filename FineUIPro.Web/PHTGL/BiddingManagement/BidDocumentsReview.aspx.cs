@@ -245,7 +245,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 return;
             }
-            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ContractAgreementMenuId);
+            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.BidDocumentsReviewIdMenuid);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(Const.BtnAdd))

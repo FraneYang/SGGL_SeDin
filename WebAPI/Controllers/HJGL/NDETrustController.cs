@@ -223,12 +223,12 @@ namespace WebAPI.Controllers
         /// <param name="isAudit"></param>
         /// <param name="trustBatchCode"></param>
         /// <returns></returns>
-        public Model.ResponeData getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, bool? isAudit, string trustBatchCode)
+        public Model.ResponeData getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, string startDate, string trustBatchCode)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APINDETrustService.getBatchTrustCode(unitWorkId, detectionTypeId, detectionRateId, isAudit, trustBatchCode);
+                responeData.data = APINDETrustService.getBatchTrustCode(unitWorkId, detectionTypeId, detectionRateId, startDate, trustBatchCode);
             }
             catch (Exception ex)
             {
@@ -291,12 +291,12 @@ namespace WebAPI.Controllers
         /// <param name="detectionTypeId"></param>
         /// <param name="ndeCode"></param>
         /// <returns></returns>
-        public Model.ResponeData getBatchNdeCode(string unitWorkId, string detectionTypeId, string ndeCode)
+        public Model.ResponeData getBatchNdeCode(string unitWorkId, string startDate, string detectionTypeId, string ndeCode)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APINDETrustService.getBatchNdeCode(unitWorkId, detectionTypeId, ndeCode);
+                responeData.data = APINDETrustService.getBatchNdeCode(unitWorkId, startDate, detectionTypeId, ndeCode);
             }
             catch (Exception ex)
             {

@@ -32,10 +32,20 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ActionPlanID = Request.Params["ActionPlanID"];
                 BLL.ProjectService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
                 this.drpProjectId.SelectedValue = this.CurrUser.LoginProjectId;
-                 drpProjectId_SelectedIndexChanged(null, null);
+                drpProjectId_SelectedIndexChanged(null, null);
 
                 BindGrid();
                 Bind();
+                var newmodel = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
+                if (newmodel!=null)
+                {
+                    if (newmodel.State == 1)
+                    {
+                        this.btnSave.Hidden = true;
+                        this.btnSubmit.Hidden = true;
+                    }
+
+                }
 
             }
         }
@@ -132,9 +142,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
 
             Model.PHTGL_ActionPlanFormation model = new Model.PHTGL_ActionPlanFormation();
-           // model.ActionPlanID = ActionPlanID;
             model.CreateTime = DateTime.Now;
             model.CreatUser = this.CurrUser.UserId;
+            model.State = 0;
             model.ProjectID = "";
             model.ProjectName = txtProject.Text;
             model.Unit = txtUnit.Text;
@@ -206,6 +216,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
           
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            Save();
+            var newmodel=  PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
+            newmodel.State = 1;
+            PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(newmodel);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+        }
+        
 
     }
 }

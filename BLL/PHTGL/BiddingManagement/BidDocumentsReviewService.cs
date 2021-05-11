@@ -93,6 +93,24 @@ namespace BLL
             Dic_Approveman.Add(4, table.Approval_Construction);
             return Dic_Approveman;
         }
+        /// <summary>
+        /// 招标方式下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="RoleId">角色id</param>
+        /// <param name="unitId">单位id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitGetBidTypeDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "Text";
+            dropName.DataTextField = "Value";
+            dropName.DataSource = BLL.DropListService.GetBidType();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
 
     }
 }

@@ -23,6 +23,15 @@ namespace BLL
         {
             Model.PHTGL_ActionPlanFormation table = new Model.PHTGL_ActionPlanFormation();
             table.ActionPlanID = newtable.ActionPlanID;
+            table.CreateTime = newtable.CreateTime;
+            table.CreatUser = newtable.CreatUser;
+            table.State = newtable.State;
+            table.ProjectID = newtable.ProjectID;
+            table.ProjectName = newtable.ProjectName;
+            table.Unit = newtable.Unit;
+            table.ConstructionSite = newtable.ConstructionSite;
+            table.BiddingProjectScope = newtable.BiddingProjectScope;
+            table.BiddingProjectContent = newtable.BiddingProjectContent;
             table.TimeRequirements = newtable.TimeRequirements;
             table.QualityRequirement = newtable.QualityRequirement;
             table.HSERequirement = newtable.HSERequirement;
@@ -33,20 +42,12 @@ namespace BLL
             table.ContractingMode_Select = newtable.ContractingMode_Select;
             table.PriceMode_Select = newtable.PriceMode_Select;
             table.MaterialsDifferentiate = newtable.MaterialsDifferentiate;
-            table.CreateTime = newtable.CreateTime;
             table.ImportExplain = newtable.ImportExplain;
             table.ShortNameList = newtable.ShortNameList;
             table.EvaluationMethods = newtable.EvaluationMethods;
             table.EvaluationPlan = newtable.EvaluationPlan;
             table.BiddingMethods_Select = newtable.BiddingMethods_Select;
             table.SchedulePlan = newtable.SchedulePlan;
-            table.CreatUser = newtable.CreatUser;
-            table.ProjectID = newtable.ProjectID;
-            table.ProjectName = newtable.ProjectName;
-            table.Unit = newtable.Unit;
-            table.ConstructionSite = newtable.ConstructionSite;
-            table.BiddingProjectScope = newtable.BiddingProjectScope;
-            table.BiddingProjectContent = newtable.BiddingProjectContent;
             Funs.DB.PHTGL_ActionPlanFormation.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -60,6 +61,15 @@ namespace BLL
             if (table != null)
             {
                 table.ActionPlanID = newtable.ActionPlanID;
+                table.CreateTime = newtable.CreateTime;
+                table.CreatUser = newtable.CreatUser;
+                table.State = newtable.State;
+                table.ProjectID = newtable.ProjectID;
+                table.ProjectName = newtable.ProjectName;
+                table.Unit = newtable.Unit;
+                table.ConstructionSite = newtable.ConstructionSite;
+                table.BiddingProjectScope = newtable.BiddingProjectScope;
+                table.BiddingProjectContent = newtable.BiddingProjectContent;
                 table.TimeRequirements = newtable.TimeRequirements;
                 table.QualityRequirement = newtable.QualityRequirement;
                 table.HSERequirement = newtable.HSERequirement;
@@ -70,20 +80,12 @@ namespace BLL
                 table.ContractingMode_Select = newtable.ContractingMode_Select;
                 table.PriceMode_Select = newtable.PriceMode_Select;
                 table.MaterialsDifferentiate = newtable.MaterialsDifferentiate;
-                table.CreateTime = newtable.CreateTime;
                 table.ImportExplain = newtable.ImportExplain;
                 table.ShortNameList = newtable.ShortNameList;
                 table.EvaluationMethods = newtable.EvaluationMethods;
                 table.EvaluationPlan = newtable.EvaluationPlan;
                 table.BiddingMethods_Select = newtable.BiddingMethods_Select;
                 table.SchedulePlan = newtable.SchedulePlan;
-                table.CreatUser = newtable.CreatUser;
-                table.ProjectID = newtable.ProjectID;
-                table.ProjectName = newtable.ProjectName;
-                table.Unit = newtable.Unit;
-                table.ConstructionSite = newtable.ConstructionSite;
-                table.BiddingProjectScope = newtable.BiddingProjectScope;
-                table.BiddingProjectContent = newtable.BiddingProjectContent;
                 Funs.DB.SubmitChanges();
             }
 

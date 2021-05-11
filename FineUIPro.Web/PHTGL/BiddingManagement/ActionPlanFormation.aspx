@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>合同协议书</title>
+    <title>实施计划编制</title>
 </head>
 <body>
     <form id="form1" runat="server">
@@ -13,7 +13,7 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="合同协议书" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="实施计划编制" EnableCollapse="true"
                     runat="server" BoxFlex="1" DataKeyNames="ActionPlanID" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ActionPlanID" AllowSorting="true" SortField="CreateTime" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
@@ -46,6 +46,9 @@
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                        <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                          <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="建设项目" TextAlign="Center"

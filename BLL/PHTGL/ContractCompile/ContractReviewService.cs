@@ -47,17 +47,18 @@ namespace BLL
             Dictionary<int, string> Dic_Approveman = new Dictionary<int, string>();
 
              Model.PHTGL_ContractReview table= GetPHTGL_ContractReviewByContractId(ContractId);
-           
+            string UnitID = BLL.ProjectService.GetProjectByProjectId(projectid).UnitId;
+            
             Dic_Approveman.Add(7, BLL.ProjectService.GetRoleID (projectid, BLL.Const.SubProjectManager));
             Dic_Approveman.Add(8,   table.Countersign_Construction  );
             Dic_Approveman.Add(9,   table.Countersign_Law );
             Dic_Approveman.Add(10,  table.Approval_Construction );
             Dic_Approveman.Add(11,  table.Approval_Law );
             Dic_Approveman.Add(12, BLL.ProjectService.GetRoleID(projectid,BLL.Const.ProjectManager));
-            Dic_Approveman.Add(13, BLL.ProjectService.GetRoleID(projectid,BLL.Const.DeputyGeneralManager));
-            Dic_Approveman.Add(14, BLL.ProjectService.GetRoleID(projectid,BLL.Const.GeneralAccountant));
-            Dic_Approveman.Add(15, BLL.ProjectService.GetRoleID(projectid,BLL.Const.GeneralManager));
-            Dic_Approveman.Add(16, BLL.ProjectService.GetRoleID(projectid, BLL.Const.Chairman));
+            Dic_Approveman.Add(13, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.DeputyGeneralManager));
+            Dic_Approveman.Add(14, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.GeneralAccountant));
+            Dic_Approveman.Add(15, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.GeneralManager));
+            Dic_Approveman.Add(16, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.Chairman));
             return Dic_Approveman;
         }
 

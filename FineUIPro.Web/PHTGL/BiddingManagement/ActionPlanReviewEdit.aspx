@@ -57,17 +57,17 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
-                                            </Items>
-                                        </f:FormRow>
-                                                                                <f:FormRow>
-                                            <Items>
-                                                <f:DropDownList ID="Approval_Construction" runat="server" Label="施工管理部" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
+                                                <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="Approval_Construction" runat="server" Label="施工管理部" LabelAlign="Right" LabelWidth="120px"  ></f:DropDownList>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -75,11 +75,6 @@
                                                 <f:TextBox ID="txtDeputyGeneralManager" runat="server" Label="分管副总经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
-                                        
-
-
-
-
                                     </Rows>
 
                                 </f:Form>

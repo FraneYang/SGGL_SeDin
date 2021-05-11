@@ -79,11 +79,12 @@ namespace BLL
             Dictionary<int, string> Dic_Approveman = new Dictionary<int, string>();
 
             Model.PHTGL_ActionPlanReview table = GetPHTGL_ActionPlanReviewById(ContractId);
+            string UnitID = BLL.ProjectService.GetProjectByProjectId(projectid).UnitId;
 
             Dic_Approveman.Add(1, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ConstructionManager));
               Dic_Approveman.Add(2, table.Approval_Construction);
-             Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
-            Dic_Approveman.Add(4, BLL.ProjectService.GetRoleID(projectid, BLL.Const.DeputyGeneralManager));
+              Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
+              Dic_Approveman.Add(4, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.DeputyGeneralManager));
  
             return Dic_Approveman;
         }

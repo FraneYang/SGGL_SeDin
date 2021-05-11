@@ -31,15 +31,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             if (!IsPostBack)
             {
-                //this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                //总承包合同编号
-                //   BLL.ContractService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
-                // BLL.UserService.InitUserDropDownList(this.drpAgent, this.CurrUser.LoginProjectId, true);
-                //获取审批人字典
-                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
-                var model1 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionMinister);
-                var model2 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionViceMinister);
+                this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
+                ///绑定施工管理部正副主任
+                Approval_Construction.DataValueField = "UserId";
+                Approval_Construction.DataTextField = "UserName";
+                //var model1 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionMinister);
+                //var model2 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionViceMinister);
+                var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionMinister);
+                var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionViceMinister);
                 var model3 = model1.Concat(model2).ToList();
                 Approval_Construction.DataSource = model3;
                 Approval_Construction.DataBind();
@@ -69,7 +69,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                   ,Act.ConstructionSite "
                           + @" FROM PHTGL_ActionPlanFormation  AS Act "
                           + @" LEFT JOIN Sys_User AS U ON U.UserId = Act.CreatUser  "
-                          + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
+                          + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1 and Act.State=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
 
             if (!(this.CurrUser.UserId == Const.sysglyId))
@@ -143,6 +143,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (this.drpProjectId.Value != BLL.Const._Null)
             {
                 Model.PHTGL_ActionPlanFormation table = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(this.drpProjectId.Value);
+                string UnitId = ProjectService.GetProjectByProjectId(table.ProjectID).UnitId;
+
                 //施工经理
                 this.txtConstructionManager.Text = BLL.ProjectService.GetRoleName(table.ProjectID, BLL.Const.ConstructionManager);
    
@@ -150,9 +152,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 this.txtProjectManager.Text = BLL.ProjectService.GetRoleName(table.ProjectID, BLL.Const.ProjectManager);
  
                 //分管副总经理
-                this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetRoleName(table.ProjectID, BLL.Const.DeputyGeneralManager);
+                this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.DeputyGeneralManager);
 
- 
+
             }
             else
             {

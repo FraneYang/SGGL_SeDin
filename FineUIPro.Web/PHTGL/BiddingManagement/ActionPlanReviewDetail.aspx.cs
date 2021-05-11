@@ -57,10 +57,19 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ViewState["Dic_ApproveMan"] = value;
             }
         }
+        public Model.PHTGL_Approve pHTGL_Approve
+        {
+            get
+            {
+                return (Model.PHTGL_Approve)Session["pHTGL_Approve"];
+            }
+            set
+            {
+                Session["pHTGL_Approve"] = value;
+            }
+        }
         #endregion
-
-        Model.PHTGL_Approve pHTGL_Approve;
-
+ 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -85,9 +94,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 {
                     txtApproveType.Text = pHTGL_Approve.ApproveType;
                     BindGrid();
-
+                    if (pHTGL_Approve.State == 1)
+                    {
+                        btnSave.Hidden = true;
+                    }
                 }
-                else if (this.CurrUser.UserId == Const.sysglyId)
+                else if (this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId ==Const.hfnbdId)
                 {
                     txtApproveType.Text = "管理员";
                     BindGrid();
@@ -412,7 +424,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (CBIsAgree.SelectedValueArray.Length > 0)
             {
                 pHTGL_Approve.State = 1;
-                pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray);
+                pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray[0]);
                 pHTGL_Approve.ApproveIdea = txtApproveIdea.Text;
                 BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(pHTGL_Approve);
 
@@ -420,10 +432,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
                 if (Convert.ToInt32(pHTGL_Approve.ApproveType) < EndApproveType) //判断当前审批节点是否结束
                 {
-                    if (Convert.ToInt32(CBIsAgree.SelectedValueArray) == 2)  //同意时
+                    if (Convert.ToInt32(CBIsAgree.SelectedValueArray[0]) == 2)  //同意时
                     {
                         Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
-                        _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
+                      //  _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                         _Approve.ContractId = pHTGL_Approve.ContractId;
                         _Approve.ApproveMan = Dic_ApproveMan[nextApproveType];
                         _Approve.ApproveDate = "";
@@ -432,7 +444,19 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = nextApproveType.ToString();
 
-                        BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
+                        var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
+                        if (IsExitmodel == null)
+                        {
+                            _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
+                            BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
+
+                        }
+                        else
+                        {
+                            _Approve.ApproveId = IsExitmodel.ApproveId;
+                            BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(_Approve);
+
+                        }
                         ChangeState(0);
                     }
                     else
@@ -446,6 +470,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     ChangeState(1);
                 }
 
+                ShowNotify("保存成功！", MessageBoxIcon.Success);
+                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
 
             }
             else
@@ -454,9 +480,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             }
 
-            ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
-
+   
         }
 
         /// <summary>

@@ -215,13 +215,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     string rowID = Grid1.DataKeys[rowIndex][0].ToString();
                     if (this.judgementDelete(rowID, isShow))
                     {
-                        var p = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(rowID);
+                        var p = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(rowID);
                         if (p != null)
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, p.ProjectName, p.ActionPlanID, BLL.Const.ContractMenuId, BLL.Const.BtnDelete);
-                            BLL.PHTGL_ActionPlanFormationService.DeletePHTGL_ActionPlanFormationById(rowID);
-                            BLL.PHTGL_ActionPlanFormation_Sch1Service.DeletePHTGL_ActionPlanFormation_Sch1ById(rowID);
-                        }
+                            BLL.LogService.AddSys_Log(this.CurrUser, p.CreateUser, p.ActionPlanID, BLL.Const.BidDocumentsReviewIdMenuid, BLL.Const.BtnDelete);
+                            BLL.PHTGL_ActionPlanReviewService.DeletePHTGL_ActionPlanReviewById(rowID);
+                         }
                     }
                 }
                 BindGrid();
@@ -264,7 +263,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 return;
             }
-            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ContractAgreementMenuId);
+            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ActionPlanReview);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(Const.BtnAdd))

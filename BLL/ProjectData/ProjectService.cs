@@ -520,5 +520,46 @@
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+
+        /// <summary>
+        /// 获取该单位本部角色名称
+        /// </summary>
+        /// <param name="UnitId"></param>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public static string GetOfficeRoleName(string UnitId, string RoleId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string name = string.Empty;
+                if (UnitId != null)
+                {
+                    name = (from x in db.Sys_User
+                            where x.UnitId == UnitId && x.RoleId.Contains(RoleId)
+                            select x.UserName).FirstOrDefault();
+                }
+                return name;
+            }
+        }
+        /// <summary>
+        /// 获取该单位本部角色ID
+        /// </summary>
+        /// <param name="UnitId"></param>
+        /// <param name="RoleId"></param>
+        /// <returns></returns>
+        public static string GetOfficeRoleID(string UnitId, string RoleId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string UserId = string.Empty;
+                if (UnitId != null)
+                {
+                    UserId = (from x in db.Sys_User
+                              where x.UnitId == UnitId && x.RoleId.Contains(RoleId)
+                              select x.UserId).FirstOrDefault();
+                }
+                return UserId;
+            }
+        }
     }
 }

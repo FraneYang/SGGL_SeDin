@@ -525,5 +525,24 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             }
         }
         #endregion
+        #region PDMS导入
+        /// <summary>
+        /// 导入按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnPDMSImport_Click(object sender, EventArgs e)
+        {
+            Model.WBS_UnitWork unitWork = BLL.UnitWorkService.GetUnitWorkByUnitWorkId(this.tvControlItem.SelectedNodeID);
+            if (unitWork != null)
+            {
+                PageContext.RegisterStartupScript(Window2.GetShowReference(String.Format("PipelineListPDMSIn.aspx?UnitWorkId={0}", this.tvControlItem.SelectedNodeID, "导入 - ")));
+            }
+            else
+            {
+                ShowNotify("请先选择单位工程！", MessageBoxIcon.Warning);
+            }
+        }
+        #endregion
     }
 }

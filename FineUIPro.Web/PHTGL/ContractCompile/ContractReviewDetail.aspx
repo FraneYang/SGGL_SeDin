@@ -107,29 +107,29 @@
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">
                                     <Items>
-                                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ValidateForms="SimpleForm1"
+                                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ValidateForms="SimpleForm1" ToolTip="保存" Text="保存"
                                             OnClick="btnSave_Click">
                                         </f:Button>
                                     </Items>
                                 </f:Toolbar>
                             </Toolbars>
                             <Items>
-                                <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" AutoScroll="true" Title="分包合同协议书"
+                                <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" AutoScroll="true" Title="审批流程"
                                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                     <Items>
                                         <f:Panel ID="Panel4" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
-                                                <f:TextBox ID="Tab2_txtContractName" Label="合同名称" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtContractName" Label="合同名称" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
-                                                <f:TextBox ID="Tab2_txtContractNum" Label="合同编号" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtContractNum" Label="合同编号" Margin="0 5 0 0"   Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
                                             </Items>
                                         </f:Panel>
                                         <f:Panel ID="Panel5" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
-                                                <f:TextBox ID="Tab2_txtParties" Label="签约方" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtParties" Label="签约方" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
-                                                <f:TextBox ID="Tab2_txtContractAmount" Label="（预计）合同金额" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtContractAmount" Label="（预计）合同金额" Margin="0 5 0 0"   Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
                                             </Items>
                                         </f:Panel>
@@ -138,15 +138,15 @@
                                         </f:CheckBoxList>
                                         <f:Panel ID="Panel6" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
-                                                <f:TextBox ID="Tab2_txtDepartId" Label="主办部门" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtDepartId" Label="主办部门" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
-                                                <f:TextBox ID="Tab2_txtAgent" Label="经办人" Margin="0 5 0 0"  ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="Tab2_txtAgent" Label="经办人" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
                                             </Items>
                                         </f:Panel>
                                         <f:Panel ID="Panel7" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
-                                                <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" ShowRedStar="true" ColumnWidth="50%" runat="server">
+                                                <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" Readonly="true"  ColumnWidth="50%" runat="server">
                                                 </f:TextBox>
                                                 <f:CheckBoxList ID="CBIsAgree" Label="是否同意" runat="server"  ColumnWidth="50%">
                                                     <Items>
@@ -165,7 +165,7 @@
                                         </f:TextArea>
                                         <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="true" Title="审批记录"
                                             runat="server" BoxFlex="1" DataKeyNames="ApproveId" AllowCellEditing="true"  ForceFit="true"
-                                            ClicksToEdit="2" DataIDField="ApproveId" EnableColumnLines="true" SortField="ApproveType" Height="300"
+                                            ClicksToEdit="2" DataIDField="ApproveId" EnableColumnLines="true" SortField="ApproveDate" Height="300"
                                             EnableTextSelection="True" >
 
                                             <Columns>
@@ -280,7 +280,7 @@
                 <f:Toolbar ID="Toolbar4" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
                       
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose">
                         </f:Button>
                         <%--   <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件查看" Icon="TableCell" runat="server"
                         OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">

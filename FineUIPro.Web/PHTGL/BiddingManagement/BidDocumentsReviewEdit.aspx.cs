@@ -44,29 +44,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             if (!IsPostBack)
             {
+                BidDocumentsReviewId = Request.Params["BidDocumentsReviewId"];
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 //总承包合同编号
                 BLL.ProjectService.InitAllProjectCodeDropDownList(this.DropProjectId, true);
-
                 //招标方式
-                this.txtBidType.DataTextField = "Text";
-                this.txtBidType.DataValueField = "Value";
-                this.txtBidType.DataSource = BLL.DropListService.GetBidType();
-                this.txtBidType.DataBind();
-                Funs.FineUIPleaseSelect(this.txtBidType);
-
-                BidDocumentsReviewId = Request.Params["BidDocumentsReviewId"];
-
+                BLL.PHTGL_BidDocumentsReviewService.InitGetBidTypeDropDownList(this.txtBidType,true);
                 this.DropProjectId.SelectedValue = this.CurrUser.LoginProjectId;
                 drpProjectId_SelectedIndexChanged(null, null);
-
-                var model1 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionMinister);
-                var model2 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionViceMinister);
-                var model3 = model1.Concat(model2).ToList();
-                Approval_Construction.DataSource = model3;
-                Approval_Construction.DataBind();
-                Funs.FineUIPleaseSelect(Approval_Construction);
-
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(Approval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, true);
                 Bind();
 
             }
@@ -92,6 +78,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     txtBidDocumentsCode.Text = Bid.BidDocumentsCode.ToString();
                     Bidding_SendTime.SelectedDate = Bid.Bidding_SendTime;
                     Bidding_StartTime.SelectedDate = Bid.Bidding_StartTime;
+                    Approval_Construction.SelectedValue = Bid.Approval_Construction;
                  }
              
             }
@@ -122,7 +109,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 this.txtProjectManager.Text = BLL.ProjectService.GetRoleName(this.DropProjectId.SelectedValue, BLL.Const.ProjectManager);
 
                 //控制经理
-                this.txtControlManager.Text = BLL.ProjectService.GetRoleName(this.DropProjectId.SelectedValue, BLL.Const.DeputyGeneralManager);
+                this.txtControlManager.Text = BLL.ProjectService.GetRoleName(this.DropProjectId.SelectedValue, BLL.Const.ControlManager);
 
             }
             else

@@ -65,6 +65,8 @@
                                 </f:Button>
                                 <f:Button ID="btnUpdateImport" Text="更新导入" ToolTip="更新导入" Icon="PackageIn" runat="server" OnClick="btnUpdateImport_Click">
                                 </f:Button>
+                                <f:Button ID="btnPDMSImport" Text="PDMS导入" ToolTip="PDMS导入" Icon="PackageIn" runat="server" OnClick="btnPDMSImport_Click">
+                                </f:Button>
                             </Items>
                         </f:Toolbar>
                     </Toolbars>

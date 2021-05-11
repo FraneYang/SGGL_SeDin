@@ -589,7 +589,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             string strsql = @"  delete from  PHTGL_AttachUrl where AttachUrlId in (
                                                                   SELECT Att.AttachUrlId
-                                                                  FROM SGGLDB_SD.dbo.PHTGL_AttachUrl as Att
+                                                                  FROM dbo.PHTGL_AttachUrl as Att
                                                                   left join dbo.PHTGL_SpecialTermsConditions as Sp on att.SpecialTermsConditionsId = sp.SpecialTermsConditionsId
                                                                   where sp.SpecialTermsConditionsId is null)"  ;
             DataTable tb = SQLHelper.RunSqlGetTable(strsql);
@@ -1031,7 +1031,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
         protected void Window1_Close(object sender, WindowCloseEventArgs e)
         {
-            ShowNotify("窗体被关闭了。参数：" + (String.IsNullOrEmpty(e.CloseArgument) ? "无" : e.CloseArgument));
+          //  ShowNotify("窗体被关闭了。参数：" + (String.IsNullOrEmpty(e.CloseArgument) ? "无" : e.CloseArgument));
         }
     }
 }

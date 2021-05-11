@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>合同协议书</title>
+    <title>招标文件审批</title>
 </head>
 <body>
     <form id="form1" runat="server">

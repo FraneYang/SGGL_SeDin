@@ -440,6 +440,7 @@
     <Content Include="HJGL\WeldingManage\PipelineEdit.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineList.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineListIn.aspx" />
+    <Content Include="HJGL\WeldingManage\PipelineListPDMSIn.aspx" />
     <Content Include="HJGL\WeldingManage\PipelineListUpdateIn.aspx" />
     <Content Include="HJGL\WeldingManage\PreWeldReportAudit.aspx" />
     <Content Include="HJGL\WeldingManage\SelectDailyWeldJoint.aspx" />
@@ -6794,6 +6795,13 @@
     </Compile>
     <Compile Include="HJGL\WeldingManage\PipelineListIn.aspx.designer.cs">
       <DependentUpon>PipelineListIn.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListPDMSIn.aspx.cs">
+      <DependentUpon>PipelineListPDMSIn.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HJGL\WeldingManage\PipelineListPDMSIn.aspx.designer.cs">
+      <DependentUpon>PipelineListPDMSIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="HJGL\WeldingManage\PipelineListUpdateIn.aspx.cs">
       <DependentUpon>PipelineListUpdateIn.aspx</DependentUpon>

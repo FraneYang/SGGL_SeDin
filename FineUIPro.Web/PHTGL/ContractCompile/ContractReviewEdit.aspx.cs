@@ -18,24 +18,28 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             if (!IsPostBack)
             {
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                //总承包合同编号
-                //   BLL.ContractService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
-                // BLL.UserService.InitUserDropDownList(this.drpAgent, this.CurrUser.LoginProjectId, true);
-                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Construction, this.CurrUser.LoginProjectId, Const.SGContractManageEngineer, true);
-                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Law, this.CurrUser.LoginProjectId, Const.Countersign_Law, true);
+                #region 会签下拉框
+                //BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Construction, this.CurrUser.LoginProjectId, Const.SGContractManageEngineer, true);
+                //BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropCountersign_Law, this.CurrUser.LoginProjectId, Const.Countersign_Law, true);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(this.dropCountersign_Construction, this.CurrUser.UnitId, Const.SGContractManageEngineer, true);  ///施工管理部合同评审人员
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(this.dropCountersign_Law, this.CurrUser.UnitId, Const.Countersign_Law, true);    ///法律合规部合同评审人员
 
+                #endregion
+                #region 签订评审下拉框
+                ///绑定施工管理部正副主任
                 dropApproval_Construction.DataValueField = "UserId";
                 dropApproval_Construction.DataTextField = "UserName";
-                var model1 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionMinister);
-                var model2 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionViceMinister);
+                var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionMinister);
+                var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionViceMinister);
                 var model3 = model1.Concat(model2).ToList();
                 dropApproval_Construction.DataSource = model3;
                 dropApproval_Construction.DataBind();
-                Funs.FineUIPleaseSelect(dropApproval_Construction);
+                Funs.FineUIPleaseSelect(dropApproval_Construction);   
+                ///法律合规部主任
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(this.dropApproval_Law, this.CurrUser.UnitId, Const.dropApproval_Law, true);
+                //  BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropApproval_Law, this.CurrUser.LoginProjectId, Const.dropApproval_Law, true);
 
-
-                BLL.UserService.InitUserProjectIdRoleIdDropDownList(this.dropApproval_Law, this.CurrUser.LoginProjectId, Const.dropApproval_Law, true);
-
+                #endregion
                 BindGrid();
 
             }
@@ -108,7 +112,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 ShowNotify("请选择会签评审中法律合规部人员", MessageBoxIcon.Warning);
                 return;
             }
-            if ( dropApproval_Law.SelectedValue == Const._Null)
+            if (dropApproval_Construction.SelectedValue == Const._Null)
             {
                 ShowNotify("请选择签订评审中施工管理部人员", MessageBoxIcon.Warning);
                 return;
@@ -126,9 +130,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newmodel.State = 1;
             newmodel.Countersign_Construction = dropCountersign_Construction.SelectedValue;
             newmodel.Countersign_Law = dropCountersign_Law.SelectedValue;
-            newmodel.Approval_Construction = dropApproval_Law.SelectedValue;
+            newmodel.Approval_Construction = dropApproval_Construction.SelectedValue;
             newmodel.Approval_Law = dropApproval_Law.SelectedValue;
             BLL.PHTGL_ContractReviewService.AddPHTGL_ContractReview(newmodel);
+
+            Model.PHTGL_Contract table = BLL.ContractService.GetContractById(this.drpProjectId.Value);
 
             //创建会签人员信息
             foreach (KeyValuePair<int, string> kvp in PHTGL_ContractReviewService.Countersigner)
@@ -136,7 +142,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                 _Approve.ContractId = drpProjectId.Value;
-                _Approve.ApproveMan = BLL.ProjectService.GetRoleID(this.drpProjectId.Value, kvp.Value);
+                _Approve.ApproveMan = BLL.ProjectService.GetRoleID(table.ProjectId, kvp.Value);
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
@@ -168,6 +174,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             if (this.drpProjectId.Value != BLL.Const._Null)
             {
                 Model.PHTGL_Contract table = BLL.ContractService.GetContractById(this.drpProjectId.Value);
+                txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
+                string UnitId = ProjectService.GetProjectByProjectId(table.ProjectId).UnitId;
+                #region 项目角色
                 //施工经理
                 this.txtConstructionManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.ConstructionManager);
                 //安全经理（HSE）
@@ -182,16 +191,20 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 this.txtFinancialManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.FinancialManager);
                 //项目经理
                 this.txtProjectManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.ProjectManager);
-                //总会计师
-                this.txtGeneralAccountant.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.GeneralAccountant);
-                //董事长
-                this.txtChairman.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.Chairman);
-                //总经理
-                this.txtGeneralManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.GeneralManager);
-                //分管副总经理
-                this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetRoleName(table.ProjectId, BLL.Const.DeputyGeneralManager);
 
-                txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
+                #endregion
+                #region 本部角色
+                //总会计师
+                this.txtGeneralAccountant.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.GeneralAccountant);
+                //董事长
+                this.txtChairman.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.Chairman);
+                //总经理
+                this.txtGeneralManager.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.GeneralManager);
+                //分管副总经理
+                this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.DeputyGeneralManager);
+                #endregion
+
+
 
 
             }

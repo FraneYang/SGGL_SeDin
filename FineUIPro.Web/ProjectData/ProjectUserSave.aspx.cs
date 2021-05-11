@@ -89,7 +89,7 @@ namespace FineUIPro.Web.ProjectData
                 }
             }
         }
-       
+
         /// <summary>
         /// 保存数据
         /// </summary>
@@ -100,11 +100,11 @@ namespace FineUIPro.Web.ProjectData
             var newProjectUser = BLL.ProjectUserService.GetProjectUserById(this.ProjectUserId);
             if (newProjectUser != null)
             {
-                if (this.drpRole.SelectedValue != BLL.Const._Null)
-                {
-                    newProjectUser.RoleId = this.drpRole.SelectedValue;
-                    //newProjectUser.RoleName = this.drpRole.SelectedText;
-                }
+                //if (this.drpRole.SelectedValue != BLL.Const._Null)
+                //{
+                //    newProjectUser.RoleId = this.drpRole.SelectedValue;
+                //    //newProjectUser.RoleName = this.drpRole.SelectedText;
+                //}
                 ///角色
                 string roleIds = string.Empty;
                 foreach (var item in this.drpRole.SelectedValueArray)
@@ -112,23 +112,24 @@ namespace FineUIPro.Web.ProjectData
                     var role = BLL.RoleService.GetRoleByRoleId(item);
                     if (role != null)
                     {
-                        if (string.IsNullOrEmpty(newProjectUser.RoleId))
+                        if (string.IsNullOrEmpty(roleIds))
                         {
-                            newProjectUser.RoleId = role.RoleId;
+                            roleIds = role.RoleId;
                         }
                         else
                         {
-                            newProjectUser.RoleId += "," + role.RoleId;
+                            roleIds += "," + role.RoleId;
                         }
                     }
                 }
+                newProjectUser.RoleId = roleIds;
                 if (!string.IsNullOrWhiteSpace(String.Join(",", this.txtUnitWork.Values)))
                 {
                     newProjectUser.WorkAreaId = string.Join(",", txtUnitWork.Values);
                 }
                 newProjectUser.IsPost = Convert.ToBoolean(this.drpIsPost.SelectedValue);
                 BLL.ProjectUserService.UpdateProjectUser(newProjectUser);
-                Model.Sys_RoleItem roleItem = BLL.RoleItemService.GeRoleItemByUserIdAndProjectId(newProjectUser.UserId,newProjectUser.ProjectId);
+                Model.Sys_RoleItem roleItem = BLL.RoleItemService.GeRoleItemByUserIdAndProjectId(newProjectUser.UserId, newProjectUser.ProjectId);
                 if (roleItem != null)
                 {
                     roleItem.RoleId = newProjectUser.RoleId;

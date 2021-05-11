@@ -2770,6 +2770,10 @@ namespace BLL
         /// </summary>
         public const string PipelineTemplateUrl = "File\\Excel\\DataIn\\管线信息导入模板.xls";
         /// <summary>
+        /// PDMS输出（设计）数据导入模板
+        /// </summary>
+        public const string PDMSPipelineTemplateUrl = "File\\Excel\\DataIn\\PDMS输出（设计）数据模板.xls";
+        /// <summary>
         /// 施工计划模板
         /// </summary>
         public const string ConstructionPlanTemplateUrl = "File\\Word\\ZHGL\\施工计划模板.doc";
@@ -3847,5 +3851,14 @@ namespace BLL
         /// </summary>
         public const string AttachUrlId19 = "0273D1C5-6094-4BC8-804D-9F996FB77950";
         #endregion
+
+        /// <summary>
+        /// 实施计划编制
+        /// </summary>
+        public const string ActionPlanFormation = "2E57E92E-31BE-46B3-89AF-E08DAE8FC8E7";
+        /// <summary>
+        /// 实施计划审批
+        /// </summary>
+        public const string ActionPlanReview = "303B6753-ED3C-438A-A860-F9C5E5489C8F";
     }
 }

@@ -205,6 +205,17 @@
             list[4] = new ListItem("单一来源", "单一来源");
             return list;
         }
+
+        public static ListItem[] GetState()
+        {
+            ListItem[] list = new ListItem[5];
+            list[0] = new ListItem("编制中", "0");
+            list[1] = new ListItem("编制完成", "1");
+            list[2] = new ListItem("审批中 ", "2");
+            list[3] = new ListItem("审批完成", "3");
+            list[4] = new ListItem("审批被拒", "4");
+            return list;
+        }
         #endregion
     }
 }

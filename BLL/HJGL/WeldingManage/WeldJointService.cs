@@ -86,6 +86,7 @@ namespace BLL
                 IsHotProess = weldJoint.IsHotProess,
                 WeldingWire = weldJoint.WeldingWire,
                 WeldingRod = weldJoint.WeldingRod,
+                DesignIsHotProess= weldJoint.DesignIsHotProess,
                 GrooveTypeId = weldJoint.GrooveTypeId,
                 Specification = weldJoint.Specification,
                 WPQId = weldJoint.WPQId,
@@ -128,6 +129,7 @@ namespace BLL
                 newWeldJoint.IsHotProess = weldJoint.IsHotProess;
                 newWeldJoint.WeldingLocationId = weldJoint.WeldingLocationId;
                 newWeldJoint.JointAttribute = weldJoint.JointAttribute;
+                newWeldJoint.DesignIsHotProess = weldJoint.DesignIsHotProess;
                 newWeldJoint.WeldingWire = weldJoint.WeldingWire;
                 newWeldJoint.WeldingRod = weldJoint.WeldingRod;
                 newWeldJoint.GrooveTypeId = weldJoint.GrooveTypeId;

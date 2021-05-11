@@ -23,7 +23,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
 
-                btnNew.OnClientClick = Window1.GetShowReference("ActionPlanFormationEdit.aspx", "施工招标计划") + "return false;";
+                btnNew.OnClientClick = Window1.GetShowReference("ActionPlanFormationEdit.aspx", "实施计划编制") + "return false;";
                 GetButtonPower();
                 BindGrid();
             }
@@ -40,6 +40,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             string strSql = @"SELECT  Act.ActionPlanID
                                   ,Pro.ProjectName as Name
                                   ,Pro.ProjectCode
+                                  ,(CASE Act.State when '0' then '编制中'
+                                                   when ''  then '编制中'
+                                                   when '1' then '编制完成' END) as State
                                   ,U.UserName as CreatUser
                                   ,Act.CreateTime
                                   ,Act.ProjectID
@@ -229,7 +232,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 return;
             }
-            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ContractAgreementMenuId);
+            var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ActionPlanFormation);
             if (buttonList.Count() > 0)
             {
                 if (buttonList.Contains(Const.BtnAdd))

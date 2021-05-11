@@ -1510,5 +1510,85 @@ namespace BLL
         {
             return Funs.DB.Sys_User.FirstOrDefault(e => e.UserName == userName);
         }
+
+        /// <summary>
+        /// 根据角色id和单位Id获取本部用户下拉选项 
+        /// </summary>
+        /// <param name="projectId"></param>
+        /// <param name="unitId"></param>
+        /// <returns></returns>
+        public static List<Model.Sys_User> GetUserListByRoleIDAndUnitId(string unitId, string RoleId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                List<Model.Sys_User> list = new List<Model.Sys_User>();
+                if (!string.IsNullOrEmpty(RoleId))
+                {
+                    if (!string.IsNullOrEmpty(unitId))
+                    {
+                        list = (from x in db.Sys_User
+                                where x.RoleId == RoleId && x.UnitId == unitId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+                    else
+                    {
+                        list = (from x in db.Sys_User
+                                where x.RoleId == RoleId
+                                orderby x.UserName
+                                select x).ToList();
+                    }
+
+                }
+                else
+                {
+                    list = (from x in db.Sys_User
+                            where x.UnitId == unitId
+                            orderby x.UserName
+                            select x).ToList();
+                }
+                return list;
+            }
+        }
+
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="RoleId">角色id</param>
+        /// <param name="unitId">单位id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserRoleIdUnitIdDropDownList(FineUIPro.DropDownList dropName, string unitId, string RoleId, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            dropName.DataSource = BLL.UserService.GetUserListByRoleIDAndUnitId(unitId, RoleId);
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        /// <summary>
+        /// 用户下拉框
+        /// </summary>
+        /// <param name="dropName">下拉框名字</param>
+        /// <param name="RoleId">角色id</param>
+        /// <param name="unitId">单位id</param>
+        /// <param name="isShowPlease">是否显示请选择</param>
+        public static void InitUserRoleIdUnitIdDropDownList(FineUIPro.DropDownList dropName, string unitId, string RoleId1, string RoleId2, bool isShowPlease)
+        {
+            dropName.DataValueField = "UserId";
+            dropName.DataTextField = "UserName";
+            var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(unitId, RoleId1);
+            var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(unitId, RoleId2);
+            var model3 = model1.Concat(model2).ToList();
+            dropName.DataSource = model3;
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
     }
 }

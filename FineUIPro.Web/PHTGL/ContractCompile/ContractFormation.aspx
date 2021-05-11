@@ -26,6 +26,9 @@
                                 <f:TextBox runat="server" Label="合同名称" ID="txtContractName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
                                     LabelAlign="right">
                                 </f:TextBox>
+                                <f:DropDownList ID="drpStates" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="btnSearch_Click"
+                                    LabelWidth="70px" LabelAlign="Right" Width="170px">
+                                </f:DropDownList>
                                 <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
                                 </f:Button>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
