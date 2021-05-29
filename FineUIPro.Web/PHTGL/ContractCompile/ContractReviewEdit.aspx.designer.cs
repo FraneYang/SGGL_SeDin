@@ -85,67 +85,67 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox txtContractNum;
         
         /// <summary>
-        /// txtConstructionManager 控件。
+        /// DropConstructionManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtConstructionManager;
+        protected global::FineUIPro.DropDownList DropConstructionManager;
         
         /// <summary>
-        /// txtPurchasingManager 控件。
+        /// DropPurchasingManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtPurchasingManager;
+        protected global::FineUIPro.DropDownList DropPurchasingManager;
         
         /// <summary>
-        /// txtHSSEManager 控件。
+        /// DropHSSEManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtHSSEManager;
+        protected global::FineUIPro.DropDownList DropHSSEManager;
         
         /// <summary>
-        /// txtControlManager 控件。
+        /// DropControlManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtControlManager;
+        protected global::FineUIPro.DropDownList DropControlManager;
         
         /// <summary>
-        /// txtQAManager 控件。
+        /// DropQAManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtQAManager;
+        protected global::FineUIPro.DropDownList DropQAManager;
         
         /// <summary>
-        /// txtFinancialManager 控件。
+        /// DropFinancialManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtFinancialManager;
+        protected global::FineUIPro.DropDownList DropFinancialManager;
         
         /// <summary>
-        /// txtProjectManager 控件。
+        /// DropProjectManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectManager;
+        protected global::FineUIPro.DropDownList DropProjectManager;
         
         /// <summary>
         /// dropCountersign_Construction 控件。
@@ -157,13 +157,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.DropDownList dropCountersign_Construction;
         
         /// <summary>
-        /// dropCountersign_Law 控件。
+        /// DropCountersign_Law 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList dropCountersign_Law;
+        protected global::FineUIPro.DropDownList DropCountersign_Law;
         
         /// <summary>
         /// ContentPanel2 控件。
@@ -193,13 +193,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.DropDownList dropApproval_Construction;
         
         /// <summary>
-        /// txtGeneralAccountant 控件。
+        /// DropGeneralAccountant 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtGeneralAccountant;
+        protected global::FineUIPro.DropDownList DropGeneralAccountant;
         
         /// <summary>
         /// dropApproval_Law 控件。
@@ -211,31 +211,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.DropDownList dropApproval_Law;
         
         /// <summary>
-        /// txtGeneralManager 控件。
+        /// DropGeneralManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtGeneralManager;
+        protected global::FineUIPro.DropDownList DropGeneralManager;
         
         /// <summary>
-        /// txtDeputyGeneralManager 控件。
+        /// DropDeputyGeneralManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtDeputyGeneralManager;
+        protected global::FineUIPro.DropDownList DropDeputyGeneralManager;
         
         /// <summary>
-        /// txtChairman 控件。
+        /// DropChairman 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtChairman;
+        protected global::FineUIPro.DropDownList DropChairman;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -254,6 +254,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.ToolbarFill ToolbarFill1;
+        
+        /// <summary>
+        /// btnSubmit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSubmit;
         
         /// <summary>
         /// btnSave 控件。

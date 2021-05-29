@@ -13,23 +13,31 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true"   ShowHeader="false" Title="招标文件审批" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="招标文件审批" EnableCollapse="true"
                     runat="server" BoxFlex="1" DataKeyNames="BidDocumentsReviewId" AllowCellEditing="true"
-                    ClicksToEdit="2" DataIDField="BidDocumentsReviewId" AllowSorting="true"   OnSort="Grid1_Sort"
+                    ClicksToEdit="2" DataIDField="BidDocumentsReviewId" AllowSorting="true" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <%--<f:TextBox runat="server" Label="合同名称" ID="txtContractName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
-                                    LabelAlign="right">
-                                </f:TextBox>--%>
-                                <%--<f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
-                                </f:Button>--%>
+                                <f:TextBox runat="server" Label="招标文件编号" ID="txtBidDocumentsCode" EmptyText="输入查询条件" Width="300px" LabelWidth="140px"
+                                    LabelAlign="left">
+                                </f:TextBox>
+                                <f:TextBox runat="server" Label="招标文件名称" ID="txtBidDocumentsName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
+                                    LabelAlign="left">
+                                </f:TextBox>
+
+                                <f:DropDownList runat="server" ID="DropState" Label="审批状态"></f:DropDownList>
+
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text ="新增"  EnablePostBack="false" runat="server"
+                                <f:Button ID="btnQuery" OnClick="btnSearch_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">
+                                </f:Button>
+                                <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server">
+                                </f:Button>
+                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text="新增" EnablePostBack="false" runat="server"
                                     Hidden="true">
                                 </f:Button>
                             </Items>
@@ -37,40 +45,40 @@
                     </Toolbars>
                     <Columns>
                         <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
-                            EnableLock="true" Locked="False" >
+                            EnableLock="true" Locked="False">
                             <ItemTemplate>
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
+                        <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                        <f:RenderField ColumnID="BidDocumentsName" DataField="BidDocumentsName" Width="120px" FieldType="String" HeaderText="招标文件名称" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
                         <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                        <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="BidDocumentsName" DataField="BidDocumentsName" Width="120px" FieldType="String" HeaderText="招标文件名称" TextAlign="Center"
+                        <f:RenderField ColumnID="Bidding_SendTime" DataField="Bidding_SendTime" Width="120px" FieldType="String" HeaderText="计划发标时间" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
+                        <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="计划开标时间" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="Bidding_SendTime" DataField="Bidding_SendTime" Width="120px" FieldType="String" HeaderText="计划发标时间" TextAlign="Center"
+                        <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="计划开标时间" TextAlign="Center"
-                            HeaderTextAlign="Center">
-                        </f:RenderField>
-                         <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
-                            HeaderTextAlign="Center">
-                        </f:RenderField>
-                        <f:RenderField Width="120px" ColumnID="CreateTime" DataField="CreateTime" FieldType="Date"
+                        <f:RenderField Width="120px" ColumnID="CreatTime" DataField="CreatTime" FieldType="Date"
                             Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="创建日期">
                         </f:RenderField>
- 
-                     </Columns>
+                        <f:LinkButtonField HeaderText="查看" ColumnID="LooK" Width="60px" Icon="Zoom" CommandName="LooK" />
+                    </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                     </Listeners>
@@ -91,7 +99,7 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-           <f:Window ID="Window1" Title="招标实施计划" Hidden="true" EnableIFrame="true" EnableMaximize="true"  Maximized="true"
+        <f:Window ID="Window1" Title="招标文件审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="1000px" Height="420px">
         </f:Window>
@@ -103,7 +111,7 @@
                 <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDelete_Click">
                 </f:MenuButton>
-                 <%--<f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
+                <%--<f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
                 Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
             </f:MenuButton>--%>
             </Items>

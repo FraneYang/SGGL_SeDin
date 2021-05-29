@@ -46,13 +46,26 @@
         {
             get
             {
-                return (string)ViewState["ProjectId"];
+                return (string)Session["ProjectId"];
             }
             set
             {
-                ViewState["ProjectId"] = value;
+                Session["ProjectId"] = value;
             }
         }
+
+        public string PHTUrl
+        {
+            get
+            {
+                return (string)Session["PHTUrl"];
+            }
+            set
+            {
+                Session["PHTUrl"] = value;
+            }
+        }
+
         #endregion
 
         #region 页面加载
@@ -65,6 +78,10 @@
         {
             if (!IsPostBack)
             {
+                Session.Remove("PHTUrl");
+                Session.Remove("ProjectId");
+                PHTUrl = Request.Params["PHTUrl"];
+                ProjectId = Request.Params["ProjectId"];
             }
         }
         #endregion
@@ -98,7 +115,11 @@
                     //url = "indexProject.aspx?menuType=" + this.CurrUser.LastMenuType + "&projectId=" + this.CurrUser.LastProjectId;
                     url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
                 }
+                if (PHTUrl != null && PHTUrl != "")
+                {
+                    url = "indexProject.aspx?projectId=" + ProjectId + "&PHTUrl=" + PHTUrl;
 
+                }
                 LogService.AddSys_Log(this.CurrUser, this.CurrUser.UserName, this.CurrUser.UserId, Const.UserMenuId, Const.BtnLogin);
             }
 

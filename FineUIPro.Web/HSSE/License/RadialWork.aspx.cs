@@ -812,7 +812,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                var getF3 = getFlows.FirstOrDefault(x => x.SortIndex == 3);
+                var getF3 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 1 && x.OrderNum == 1);
                 if (getF3 != null)
                 {
                     var getUser = UserService.GetUserByUserId(getF3.OperaterId);
@@ -865,7 +865,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                var getF4 = getFlows.FirstOrDefault(x => x.SortIndex == 4);
+                var getF4 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 1 && x.OrderNum == 2);
                 if (getF4 != null)
                 {
                     var getUser = UserService.GetUserByUserId(getF4.OperaterId);
@@ -918,7 +918,7 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                var getF5 = getFlows.FirstOrDefault(x => x.SortIndex == 5);
+                var getF5 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 2 && x.OrderNum == 1);
                 if (getF5 != null)
                 {
                     var getUser = UserService.GetUserByUserId(getF5.OperaterId);
@@ -971,15 +971,13 @@ namespace FineUIPro.Web.HSSE.License
                         }
                     }
                 }
-                var getF6 = getFlows.FirstOrDefault(x => x.SortIndex == 6);
+                var getF6 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 2 && x.OrderNum == 2);
                 if (getF6 != null)
                 {
                     var getUser = UserService.GetUserByUserId(getF6.OperaterId);
                     Bookmark bookmarkOpinion6 = doc.Range.Bookmarks["Opinion6"];
                     if (bookmarkOpinion6 != null)
                     {
-
-
                         if (getUser != null)
                         {
                             if (getF6.IsAgree == true)
@@ -991,8 +989,6 @@ namespace FineUIPro.Web.HSSE.License
                                 bookmarkOpinion6.Text = "不同意:   " + getF6.Opinion;
                             }
                         }
-
-
                     }
                     Bookmark bookmarkOperaterMan6 = doc.Range.Bookmarks["OperaterMan6"];
                     if (bookmarkOperaterMan6 != null)

@@ -39,7 +39,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 var newmodel = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
                 if (newmodel!=null)
                 {
-                    if (newmodel.State == 1)
+                    if (newmodel.State >= Const.ContractCreat_Complete)
                     {
                         this.btnSave.Hidden = true;
                         this.btnSubmit.Hidden = true;
@@ -90,6 +90,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!string.IsNullOrEmpty(ActionPlanID))
             {
                 var model=BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
+                txtActionPlanCode.Text = model.ActionPlanCode.ToString();
                 txtProject.Text = model.ProjectName.ToString();
                 txtUnit.Text = model.Unit.ToString();
                 txtConstructionSite.Text = model.ConstructionSite.ToString();
@@ -129,10 +130,16 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (this.drpProjectId.SelectedValue != BLL.Const._Null)
             {
                 this.txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(this.drpProjectId.SelectedValue);
+                if (string.IsNullOrEmpty(ActionPlanID))
+                {
+                    this.txtActionPlanCode.Text = this.drpProjectId.SelectedText + ".000.C01.92-";
+
+                }
             }
             else
             {
                 this.txtProjectName.Text = string.Empty;
+                this.txtActionPlanCode.Text = string.Empty;
             }
         }
         #endregion
@@ -144,7 +151,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Model.PHTGL_ActionPlanFormation model = new Model.PHTGL_ActionPlanFormation();
             model.CreateTime = DateTime.Now;
             model.CreatUser = this.CurrUser.UserId;
-            model.State = 0;
+            model.State = Const.ContractCreating;
             model.ProjectID = "";
             model.ProjectName = txtProject.Text;
             model.Unit = txtUnit.Text;
@@ -178,14 +185,31 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
                 return;
             }
+            var IsExitCodemodel = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationByCode(this.txtActionPlanCode.Text.Trim().ToString());
+
             if (string.IsNullOrEmpty(ActionPlanID))
             {
+                if (IsExitCodemodel != null)
+                {
+                    ShowNotify("编号已经重复,请修改！", MessageBoxIcon.Warning);
+
+                    return;
+                }
+
                 ActionPlanID = Guid.NewGuid().ToString();
                 model.ActionPlanID = ActionPlanID;
+                model.ActionPlanCode = this.txtActionPlanCode.Text.Trim().ToString();
                 BLL.PHTGL_ActionPlanFormationService.AddPHTGL_ActionPlanFormation(model);
             }
             else
             {
+                if (IsExitCodemodel != null&& IsExitCodemodel.ActionPlanID!=ActionPlanID)
+                {
+                    ShowNotify("编号已经重复,请修改！", MessageBoxIcon.Warning);
+
+                    return;
+                }
+                model.ActionPlanCode = this.txtActionPlanCode.Text.Trim().ToString();
                 model.ActionPlanID = ActionPlanID;
                 BLL.PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model);
             }
@@ -220,7 +244,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             Save();
             var newmodel=  PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
-            newmodel.State = 1;
+            newmodel.State = Const.ContractCreat_Complete;
             PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(newmodel);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }

@@ -17,17 +17,22 @@
                     runat="server" BoxFlex="1" DataKeyNames="ActionPlanReviewId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ActionPlanReviewId" AllowSorting="true" SortField="CreateTime" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
                         <f:Toolbar ID="Toolbar2" Position="Top" runat="server" ToolbarAlign="Left">
                             <Items>
-                                <%--<f:TextBox runat="server" Label="合同名称" ID="txtContractName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
-                                    LabelAlign="right">
-                                </f:TextBox>--%>
-                                <%--<f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
-                                </f:Button>--%>
+                                <f:TextBox runat="server" Label="实施计划编号" ID="txtActionPlanCode" EmptyText="输入查询条件" Width="300px" LabelWidth="140px"
+                                    LabelAlign="left">
+                                </f:TextBox>
+                                <f:DropDownList runat="server" ID="DropState" Label="审批状态"></f:DropDownList>
+
+                                <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                 <f:Button ID="btnQuery" OnClick="btnSearch_Click" ToolTip="查询"  Icon="SystemSearch" EnablePostBack="true" runat="server" >
+                                </f:Button>
+                                    <f:Button ID="btnRset"  OnClick="btnRset_Click" ToolTip="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server" >
+                                </f:Button>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text ="新增"  EnablePostBack="false" runat="server"
                                     Hidden="true">
@@ -42,6 +47,9 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
+                        <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
                         <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -57,7 +65,9 @@
                         <f:RenderField Width="120px" ColumnID="CreateTime" DataField="CreateTime" FieldType="Date"
                             Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="创建日期">
                         </f:RenderField>
- 
+                        <f:LinkButtonField HeaderText="查看" ColumnID="LooK" Width="60px" Icon="Zoom" CommandName="LooK" />
+
+<%--                        <f:LinkButtonField ColumnID="export" HeaderText="导出" Width="60px" Icon="ArrowUp" CommandName="export" />--%>
                      </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -79,7 +89,7 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="招标实施计划" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
+        <f:Window ID="Window1" Title="实施计划审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="1200px" Height="650px">
         </f:Window>

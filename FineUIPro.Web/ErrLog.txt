@@ -1,1 +1,1415 @@
 ﻿
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:29:22
+出错时间:05/17/2021 15:29:23
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:29:23
+出错时间:05/17/2021 15:29:23
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 15:31:09
+出错时间:05/17/2021 15:31:09
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 491
+出错时间:05/17/2021 15:31:30
+出错时间:05/17/2021 15:31:30
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 491
+出错时间:05/17/2021 15:31:30
+出错时间:05/17/2021 15:31:30
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 491
+出错时间:05/17/2021 15:31:30
+出错时间:05/17/2021 15:31:30
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 491
+出错时间:05/17/2021 15:31:30
+出错时间:05/17/2021 15:31:30
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 415
+出错时间:05/17/2021 16:46:53
+出错时间:05/17/2021 16:46:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:41
+出错时间:05/21/2021 16:56:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:41
+出错时间:05/21/2021 16:56:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:41
+出错时间:05/21/2021 16:56:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:41
+出错时间:05/21/2021 16:56:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:41
+出错时间:05/21/2021 16:56:41
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:42
+出错时间:05/21/2021 16:56:42
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 16:56:43
+出错时间:05/21/2021 16:56:43
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:00:28
+出错时间:05/21/2021 17:00:28
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:00:28
+出错时间:05/21/2021 17:00:28
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:04
+出错时间:05/21/2021 17:01:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:04
+出错时间:05/21/2021 17:01:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:04
+出错时间:05/21/2021 17:01:05
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:05
+出错时间:05/21/2021 17:01:05
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:58
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:01:59
+出错时间:05/21/2021 17:01:59
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:00
+出错时间:05/21/2021 17:02:00
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:01
+出错时间:05/21/2021 17:02:01
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:02:01
+出错时间:05/21/2021 17:02:01
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:03:48
+出错时间:05/21/2021 17:03:48
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:03:48
+出错时间:05/21/2021 17:03:48
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:02
+出错时间:05/21/2021 17:14:02
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:02
+出错时间:05/21/2021 17:14:02
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:02
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:03
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:03
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:14:04
+出错时间:05/21/2021 17:14:04
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:53
+出错时间:05/21/2021 17:17:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:53
+出错时间:05/21/2021 17:17:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:53
+出错时间:05/21/2021 17:17:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:53
+出错时间:05/21/2021 17:17:53
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:54
+出错时间:05/21/2021 17:17:54
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:55
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:输入字符串的格式不正确。
+错误堆栈:
+   在 System.Number.StringToNumber(String str, NumberStyles options, NumberBuffer& number, NumberFormatInfo info, Boolean parseDecimal)
+   在 System.Number.ParseInt32(String s, NumberStyles style, NumberFormatInfo info)
+   在 System.Int32.Parse(String s)
+   在 BLL.Funs.GetNewInt(String value) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 419
+出错时间:05/21/2021 17:17:55
+出错时间:05/21/2021 17:17:56
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:09
+出错时间:05/21/2021 17:18:10
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:10
+出错时间:05/21/2021 17:18:11
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:12
+出错时间:05/21/2021 17:18:12
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:13
+出错时间:05/21/2021 17:18:13
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:14
+出错时间:05/21/2021 17:18:14
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:14
+出错时间:05/21/2021 17:18:15
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:15
+出错时间:05/21/2021 17:18:16
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:17
+出错时间:05/21/2021 17:18:17
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:18
+出错时间:05/21/2021 17:18:18
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:18:18
+出错时间:05/21/2021 17:18:18
+
+
+错误信息开始=====>
+错误类型:FormatException
+错误信息:该字符串未被识别为有效的 DateTime。有一个未知单词(从索引 5 处开始)。
+错误堆栈:
+   在 System.DateTimeParse.Parse(String s, DateTimeFormatInfo dtfi, DateTimeStyles styles)
+   在 System.DateTime.Parse(String s)
+   在 BLL.Funs.GetNewDateTime(String time) 位置 E:\工作\赛鼎施工平台\NEW\SGGL_SeDin\BLL\Common\Funs.cs:行号 493
+出错时间:05/21/2021 17:20:25
+出错时间:05/21/2021 17:20:26
+

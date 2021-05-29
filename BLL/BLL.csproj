@@ -382,6 +382,7 @@
     <Compile Include="HSSE\Technique\SpecialSchemeService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemDetailService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemSetService.cs" />
+    <Compile Include="HTGL\APIHTGLPersonService.cs" />
     <Compile Include="Notice\NoticeService.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -414,7 +415,12 @@
     <Compile Include="PHTGL\BiddingManagement\ActionPlanFormationService.cs" />
     <Compile Include="PHTGL\BiddingManagement\ActionPlanFormation_Sch1Service.cs" />
     <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\BidApproveUserReviewService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\BidApproveUserReview_Sch1Service.cs" />
     <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewService.cs" />
+    <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch1Service.cs" />
+    <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch2Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_HumanInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_MachineInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl11Service.cs" />
@@ -445,6 +451,7 @@
     <Compile Include="PHTGL\ContractCompile\PHTGL_ApproveService.cs" />
     <Compile Include="PHTGL\ContractCompile\PHTGL_SpecialTermsConditionsService.cs" />
     <Compile Include="PHTGL\ContractCompile\SubcontractAgreementService.cs" />
+    <Compile Include="PHTGL\OAWebSevice.cs" />
     <Compile Include="ProjectData\MainItemService.cs" />
     <Compile Include="ProjectData\ProjectData_CodeTemplateRuleService.cs" />
     <Compile Include="ProjectData\ProjectSateService.cs" />
@@ -471,6 +478,11 @@
     <Compile Include="PZHGL\InformationProject\WorkHandoverService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectMapService.cs" />
     <Compile Include="PZHGL\ProjectData\ProjectPageDataService.cs" />
+    <Compile Include="Service References\OAWebService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="SQLHelper.cs" />
     <Compile Include="Common\Const.cs" />
     <Compile Include="ErrLogInfo.cs" />
@@ -530,6 +542,10 @@
     <None Include="packages.config" />
     <None Include="Scripts\jquery-3.5.1.min.map" />
     <None Include="Scripts\jquery-3.5.1.slim.min.map" />
+    <None Include="Service References\OAWebService\BLL.OAWebService.anyType2anyTypeMap.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\OAWebService\OfsTodoDataWebService.wsdl" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="obj\Debug\BLL.csproj.FileListAbsolute.txt" />
@@ -547,8 +563,16 @@
     <Content Include="Scripts\jquery-3.5.1.min.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.js" />
     <Content Include="Scripts\jquery-3.5.1.slim.min.js" />
+    <None Include="Service References\OAWebService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+    <None Include="Service References\OAWebService\configuration.svcinfo" />
+    <None Include="Service References\OAWebService\configuration91.svcinfo" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\OAWebService\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

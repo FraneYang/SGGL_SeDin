@@ -91,8 +91,20 @@ namespace BLL
                 {
                     dataList = dataList.Where(e => e.PointBatchCode.Contains(pointBatchCode));
                 }
-
-                var getDataLists = (from x in dataList
+                List<Model.HJGL_Batch_PointBatch> list = new List<Model.HJGL_Batch_PointBatch>();
+                foreach (var item in dataList)
+                {
+                    var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                                     join y in Funs.DB.HJGL_Batch_PointBatchItem on x.PointBatchItemId equals y.PointBatchItemId
+                                     where y.PointBatchId == item.PointBatchId
+                                     select x).FirstOrDefault();
+                    if (trustItem == null && item.IsClosed != true)
+                    {
+                        list.Add(item);
+                    }
+                }
+                list = list.Distinct().ToList();
+                var getDataLists = (from x in list
                                     orderby x.PointBatchCode
                                     select new Model.NDETrustItem
                                     {
@@ -146,6 +158,7 @@ namespace BLL
                 var getDataLists = (from x in db.HJGL_Batch_PointBatchItem
                                     join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
                                     where x.IsBuildTrust == null && x.PointBatchId == pointBatchId && x.PointState == "1"
+                                    orderby y.WeldJointCode
                                     select new Model.NDETrustItem
                                     {
                                         WeldJointId = x.WeldJointId,
@@ -175,13 +188,16 @@ namespace BLL
 
                 var getDataLists = (from x in Funs.DB.HJGL_Batch_PointBatchItem
                                     join y in Funs.DB.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                    where x.PointBatchId == pointBatchId && x.PointState == null
-                                          && y.JointAttribute == jot.JointAttribute
+                                    where x.PointBatchId == pointBatchId
+                                    //&& x.PointState == null
+                                    //&& y.JointAttribute == jot.JointAttribute
+                                    orderby y.WeldJointCode
                                     select new Model.NDETrustItem
                                     {
                                         WeldJointId = x.WeldJointId,
                                         WeldJointCode = y.WeldJointCode,
                                         PipelineCode = y.PipelineCode,
+                                        PointBatchItemId = x.PointBatchItemId,
                                         JointArea = y.JointArea,
                                         AttachUrl = y.AttachUrl
                                     }).ToList();
@@ -393,7 +409,7 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.TrustBatchId,
-                                        BaseInfoCode = (x.TrustType == "R"?("FXWT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4)) :("WT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4))),
+                                        BaseInfoCode = (x.TrustType == "R" ? ("FXWT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4)) : ("WT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4))),
                                     }).ToList();
                 return getDataLists;
             }
@@ -496,22 +512,29 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getDataLists = (from x in db.HJGL_Batch_NDEItem
-                                    join y in db.HJGL_Batch_BatchTrustItem on x.TrustBatchItemId equals y.TrustBatchItemId
-                                    join z in db.HJGL_WeldJoint on y.WeldJointId equals z.WeldJointId
+                var getDataLists = (from x in db.View_Batch_NDEItem
                                     where x.NDEID == ndeId
-                                    orderby z.WeldJointCode
+                                    orderby x.WeldJointCode
                                     select new Model.NDETrustItem
                                     {
-                                        WeldJointCode = z.WeldJointCode,
-                                        PipelineCode = z.PipelineCode,
-                                        JointArea = z.JointArea,
-                                        CheckResult = x.CheckResult == "1" ? "合格" : "不合格"
+                                        WeldJointCode = x.WeldJointCode,
+                                        PipelineCode = x.PipelineCode,
+                                        WelderCode = x.WelderCode,
+                                        FilmDate = x.FilmDate,
+                                        ReportDate = x.ReportDate,
+                                        TotalFilm = x.TotalFilm,
+                                        PassFilm = x.PassFilm,
+                                        CheckResult = x.CheckResult == "1" ? "合格" : "不合格",
+                                        JudgeGrade = x.JudgeGrade,
+                                        CheckDefects = BLL.Base_DefectService.GetDefectNameStrByDefectIdStr(x.CheckDefects),
+                                        RepairLocation = x.RepairLocation
                                     }).ToList();
 
                 return getDataLists;
             }
         }
+
+
         #endregion
 
         //////////////////////////////////////返修/扩透/////////////////////////////////////
@@ -592,7 +615,7 @@ namespace BLL
         /// <param name="mat">同材质</param>
         /// <param name="spec">同规格</param>
         /// <returns></returns>
-        public static List<Model.NDETrustItem> GetRepairExpDetail(string repairRecordId, bool welder, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
+        public static List<Model.NDETrustItem> GetRepairExpDetail(string repairRecordId, bool welder, bool batch, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -606,12 +629,14 @@ namespace BLL
                                 join d in db.HJGL_WeldingDaily on y.WeldingDailyId equals d.WeldingDailyId
                                 where z.DetectionTypeId == record.DetectionTypeId
                                  && !x.PointDate.HasValue || (x.PointDate.HasValue && x.RepairRecordId == repairRecordId)
+                                 orderby y.WeldJointCode
                                 select new
                                 {
                                     x.PointBatchItemId,
                                     x.PointState,
                                     y.WeldJointCode,
                                     y.PipelineId,
+                                    x.PointBatchId,
                                     y.PipelineCode,
                                     y.JointArea,
                                     y.BackingWelderId,
@@ -623,6 +648,10 @@ namespace BLL
                 if (welder)
                 {
                     repairExp = repairExp.Where(x => x.BackingWelderId == jot.BackingWelderId);
+                }
+                if (batch)
+                {
+                    repairExp = repairExp.Where(x => x.PointBatchId == jot.PointBatchId);
                 }
                 if (pipeLine)
                 {
@@ -852,6 +881,53 @@ namespace BLL
                 int[] r = Funs.GetRandomNum(2, 0, num - 1);
                 strNum = r[0].ToString() + "," + r[1].ToString();
             }
+
+
+            //int num = Grid1.Rows.Count;
+            //if (mark == "A")
+            //{
+            //    if (pointState != "2")   //非扩透口
+            //    {
+            //        if (num > 0 && num <= 2)
+            //        {
+            //            if (num == 1)
+            //            {
+            //                Grid1.SelectedRowIndexArray = new int[] { 0 };
+            //            }
+            //            else
+            //            {
+            //                Grid1.SelectedRowIndexArray = new int[] { 0, 1 };
+            //            }
+            //        }
+            //        else
+            //        {
+            //            int[] r = Funs.GetRandomNum(2, 0, num - 1);
+            //            Grid1.SelectedRowIndexArray = r;
+            //        }
+            //    }
+            //    else   //扩透口
+            //    {
+            //        int[] groupNum = new int[num];
+            //        for (int i = 0; i < num; i++)
+            //        {
+            //            groupNum[i] = i;
+            //        }
+
+            //        Grid1.SelectedRowIndexArray = groupNum;
+            //    }
+            //}
+            //else
+            //{
+            //    int[] groupNum = new int[num];
+            //    for (int i = 0; i < num; i++)
+            //    {
+            //        groupNum[i] = i;
+            //    }
+
+            //    Grid1.SelectedRowIndexArray = groupNum;
+            //}
+
+
 
             return strNum;
 

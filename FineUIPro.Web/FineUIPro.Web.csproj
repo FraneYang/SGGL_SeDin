@@ -913,9 +913,16 @@
     <Content Include="PHTGL\BiddingManagement\ActionPlanReview.aspx" />
     <Content Include="PHTGL\BiddingManagement\ActionPlanReviewDetail.aspx" />
     <Content Include="PHTGL\BiddingManagement\ActionPlanReviewEdit.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ApproveUserReview.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ApproveUserReviewDetail.aspx" />
+    <Content Include="PHTGL\BiddingManagement\ApproveUserReviewEdit.aspx" />
     <Content Include="PHTGL\BiddingManagement\BidDocumentsReview.aspx" />
     <Content Include="PHTGL\BiddingManagement\BidDocumentsReviewDetail.aspx" />
     <Content Include="PHTGL\BiddingManagement\BidDocumentsReviewEdit.aspx" />
+    <Content Include="PHTGL\BiddingManagement\SetSubReview.aspx" />
+    <Content Include="PHTGL\BiddingManagement\SetSubReviewDetail.aspx" />
+    <Content Include="PHTGL\BiddingManagement\SetSubReviewEdit.aspx" />
+    <Content Include="PHTGL\BiddingManagement\SetSubReviewEdit2.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl1.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl10.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl11.aspx" />
@@ -944,6 +951,7 @@
     <Content Include="PHTGL\ContractCompile\ContractReview.aspx" />
     <Content Include="PHTGL\ContractCompile\ContractReviewDetail.aspx" />
     <Content Include="PHTGL\ContractCompile\ContractReviewEdit.aspx" />
+    <Content Include="PHTGL\ContractCompile\ContractStandingBook.aspx" />
     <Content Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx" />
     <Content Include="PHTGL\ContractCompile\SpecialTermsConditions.aspx" />
     <Content Include="PHTGL\ContractCompile\test1.aspx" />
@@ -9813,6 +9821,27 @@
     <Compile Include="PHTGL\BiddingManagement\ActionPlanReviewEdit.aspx.designer.cs">
       <DependentUpon>ActionPlanReviewEdit.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReview.aspx.cs">
+      <DependentUpon>ApproveUserReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReview.aspx.designer.cs">
+      <DependentUpon>ApproveUserReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReviewDetail.aspx.cs">
+      <DependentUpon>ApproveUserReviewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReviewDetail.aspx.designer.cs">
+      <DependentUpon>ApproveUserReviewDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReviewEdit.aspx.cs">
+      <DependentUpon>ApproveUserReviewEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\ApproveUserReviewEdit.aspx.designer.cs">
+      <DependentUpon>ApproveUserReviewEdit.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PHTGL\BiddingManagement\BidDocumentsReview.aspx.cs">
       <DependentUpon>BidDocumentsReview.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -9833,6 +9862,34 @@
     </Compile>
     <Compile Include="PHTGL\BiddingManagement\BidDocumentsReviewEdit.aspx.designer.cs">
       <DependentUpon>BidDocumentsReviewEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReview.aspx.cs">
+      <DependentUpon>SetSubReview.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReview.aspx.designer.cs">
+      <DependentUpon>SetSubReview.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewDetail.aspx.cs">
+      <DependentUpon>SetSubReviewDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewDetail.aspx.designer.cs">
+      <DependentUpon>SetSubReviewDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewEdit.aspx.cs">
+      <DependentUpon>SetSubReviewEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewEdit.aspx.designer.cs">
+      <DependentUpon>SetSubReviewEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewEdit2.aspx.cs">
+      <DependentUpon>SetSubReviewEdit2.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\BiddingManagement\SetSubReviewEdit2.aspx.designer.cs">
+      <DependentUpon>SetSubReviewEdit2.aspx</DependentUpon>
     </Compile>
     <Compile Include="PHTGL\ContractCompile\AttachUrl1.aspx.cs">
       <DependentUpon>AttachUrl1.aspx</DependentUpon>
@@ -10029,6 +10086,13 @@
     </Compile>
     <Compile Include="PHTGL\ContractCompile\ContractReviewEdit.aspx.designer.cs">
       <DependentUpon>ContractReviewEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractStandingBook.aspx.cs">
+      <DependentUpon>ContractStandingBook.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\ContractStandingBook.aspx.designer.cs">
+      <DependentUpon>ContractStandingBook.aspx</DependentUpon>
     </Compile>
     <Compile Include="PHTGL\ContractCompile\GeneralTermsConditions.aspx.cs">
       <DependentUpon>GeneralTermsConditions.aspx</DependentUpon>

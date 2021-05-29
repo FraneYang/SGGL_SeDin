@@ -58,13 +58,40 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Form Form2;
         
         /// <summary>
-        /// DropProjectId 控件。
+        /// drpProjectId 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList DropProjectId;
+        protected global::FineUIPro.DropDownBox drpProjectId;
+        
+        /// <summary>
+        /// Grid1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Grid Grid1;
+        
+        /// <summary>
+        /// lblPageIndex 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPageIndex;
+        
+        /// <summary>
+        /// txtProjectCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtProjectCode;
         
         /// <summary>
         /// txtProjectName 控件。
@@ -130,31 +157,40 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.DatePicker Bidding_StartTime;
         
         /// <summary>
-        /// txtConstructionManager 控件。
+        /// DropConstructionManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtConstructionManager;
+        protected global::FineUIPro.DropDownList DropConstructionManager;
         
         /// <summary>
-        /// txtControlManager 控件。
+        /// DropControlManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtControlManager;
+        protected global::FineUIPro.DropDownList DropControlManager;
         
         /// <summary>
-        /// txtProjectManager 控件。
+        /// DropProjectManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectManager;
+        protected global::FineUIPro.DropDownList DropProjectManager;
+        
+        /// <summary>
+        /// DropPreliminaryMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropPreliminaryMan;
         
         /// <summary>
         /// Approval_Construction 控件。

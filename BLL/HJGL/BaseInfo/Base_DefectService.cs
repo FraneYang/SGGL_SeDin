@@ -70,19 +70,22 @@ namespace BLL
         public static string GetDefectNameStrByDefectIdStr(string defectIdStr)
         {
             string defectNameStr = string.Empty;
-            var defects = from x in Funs.DB.Base_Defect select x;
-            string[] strs = defectIdStr.Split(',');
-            foreach (var str in strs)
+            if (!string.IsNullOrEmpty(defectIdStr))
             {
-                var d = defects.FirstOrDefault(x => x.DefectId.ToString() == str);
-                if (d != null)
+                var defects = from x in Funs.DB.Base_Defect select x;
+                string[] strs = defectIdStr.Split(',');
+                foreach (var str in strs)
                 {
-                    defectNameStr += d.DefectName.ToString() + ",";
+                    var d = defects.FirstOrDefault(x => x.DefectId.ToString() == str);
+                    if (d != null)
+                    {
+                        defectNameStr += d.DefectName.ToString() + ",";
+                    }
                 }
-            }
-            if (!string.IsNullOrEmpty(defectNameStr))
-            {
-                defectNameStr = defectNameStr.Substring(0, defectNameStr.LastIndexOf(","));
+                if (!string.IsNullOrEmpty(defectNameStr))
+                {
+                    defectNameStr = defectNameStr.Substring(0, defectNameStr.LastIndexOf(","));
+                }
             }
             return defectNameStr;
         }

@@ -1590,5 +1590,15 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+
+        /// <summary>
+        /// 根据身份证号获取用户信息
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public static Model.Sys_User GetUserByIdentityCard(string IdentityCard)
+        {
+            return Funs.DB.Sys_User.FirstOrDefault(e => e.IdentityCard == IdentityCard);
+        }
     }
 }

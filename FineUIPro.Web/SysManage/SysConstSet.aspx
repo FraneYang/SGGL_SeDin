@@ -219,10 +219,10 @@
                                                         HeaderText="步骤"  HeaderTextAlign="Center" TextAlign="Center">
                                                     </f:RenderField>
                                                      <f:RenderField Width="100px" ColumnID="GroupNum" DataField="GroupNum" FieldType="Int"
-                                                        HeaderText="组号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                        HeaderText="组号"  HeaderTextAlign="Center" TextAlign="Center" >
                                                     </f:RenderField>
                                                      <f:RenderField Width="100px" ColumnID="OrderNum" DataField="OrderNum" FieldType="Int"
-                                                        HeaderText="组内序号"  HeaderTextAlign="Center" TextAlign="Center" Hidden="true">
+                                                        HeaderText="组内序号"  HeaderTextAlign="Center" TextAlign="Center">
                                                     </f:RenderField>
                                                     <f:RenderField Width="250px" ColumnID="AuditFlowName" DataField="AuditFlowName"  FieldType="String" HeaderText="名称"  HeaderTextAlign="Center" TextAlign="Left">
                                                     </f:RenderField>

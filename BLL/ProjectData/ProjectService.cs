@@ -561,5 +561,10 @@
                 return UserId;
             }
         }
+
+        public static Model.Base_Project GetProjectByProjectCode(string projectCode)
+        {
+            return Funs.DB.Base_Project.FirstOrDefault(e => e.ProjectCode == projectCode);
+        }
     }
 }

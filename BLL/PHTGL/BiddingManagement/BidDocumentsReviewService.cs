@@ -10,12 +10,9 @@ namespace BLL
     public static class PHTGL_BidDocumentsReviewService
     {
 
-        public static Model.PHTGL_BidDocumentsReview GetPHTGL_BidDocumentsReviewById(string BidDocumentsReviewId
-)
-
+        public static Model.PHTGL_BidDocumentsReview GetPHTGL_BidDocumentsReviewById(string BidDocumentsReviewId)
         {
-            return Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == BidDocumentsReviewId
-);
+            return Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == BidDocumentsReviewId);
         }
 
 
@@ -23,10 +20,16 @@ namespace BLL
         {
             Model.PHTGL_BidDocumentsReview table = new Model.PHTGL_BidDocumentsReview();
             table.BidDocumentsReviewId = newtable.BidDocumentsReviewId;
+            table.ActionPlanReviewId = newtable.ActionPlanReviewId;
+            table.ActionPlanID = newtable.ActionPlanID;
             table.Bidding_StartTime = newtable.Bidding_StartTime;
             table.Url = newtable.Url;
             table.CreateUser = newtable.CreateUser;
             table.CreatTime = newtable.CreatTime;
+            table.ConstructionManager = newtable.ConstructionManager;
+            table.ControlManager = newtable.ControlManager;
+            table.PreliminaryMan = newtable.PreliminaryMan;
+            table.ProjectManager = newtable.ProjectManager;
             table.ProjectId = newtable.ProjectId;
             table.Approval_Construction = newtable.Approval_Construction;
             table.State = newtable.State;
@@ -42,16 +45,21 @@ namespace BLL
 
         public static void UpdatePHTGL_BidDocumentsReview(Model.PHTGL_BidDocumentsReview newtable)
         {
-            Model.PHTGL_BidDocumentsReview table = Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == newtable.BidDocumentsReviewId
-);
+            Model.PHTGL_BidDocumentsReview table = Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == newtable.BidDocumentsReviewId);
 
             if (table != null)
             {
                 table.BidDocumentsReviewId = newtable.BidDocumentsReviewId;
+                table.ActionPlanReviewId = newtable.ActionPlanReviewId;
+                table.ActionPlanID = newtable.ActionPlanID;
                 table.Bidding_StartTime = newtable.Bidding_StartTime;
                 table.Url = newtable.Url;
                 table.CreateUser = newtable.CreateUser;
                 table.CreatTime = newtable.CreatTime;
+                table.ConstructionManager = newtable.ConstructionManager;
+                table.ControlManager = newtable.ControlManager;
+                table.PreliminaryMan = newtable.PreliminaryMan;
+                table.ProjectManager = newtable.ProjectManager;
                 table.ProjectId = newtable.ProjectId;
                 table.Approval_Construction = newtable.Approval_Construction;
                 table.State = newtable.State;
@@ -64,11 +72,9 @@ namespace BLL
             }
 
         }
-        public static void DeletePHTGL_BidDocumentsReviewById(string BidDocumentsReviewId
-)
+        public static void DeletePHTGL_BidDocumentsReviewById(string BidDocumentsReviewId)
         {
-            Model.PHTGL_BidDocumentsReview table = Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == BidDocumentsReviewId
-);
+            Model.PHTGL_BidDocumentsReview table = Funs.DB.PHTGL_BidDocumentsReview.FirstOrDefault(e => e.BidDocumentsReviewId == BidDocumentsReviewId);
             if (table != null)
             {
                 Funs.DB.PHTGL_BidDocumentsReview.DeleteOnSubmit(table);
@@ -87,10 +93,16 @@ namespace BLL
 
             Model.PHTGL_BidDocumentsReview table = GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
 
-            Dic_Approveman.Add(1, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ConstructionManager));
-            Dic_Approveman.Add(2, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ControlManager));
-            Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
-            Dic_Approveman.Add(4, table.Approval_Construction);
+            Dic_Approveman.Add(1, table.ConstructionManager);
+            Dic_Approveman.Add(2,table.ControlManager);
+            Dic_Approveman.Add(3, table.ProjectManager);
+            Dic_Approveman.Add(4,table.PreliminaryMan );
+            Dic_Approveman.Add(5, table.Approval_Construction);
+
+            //Dic_Approveman.Add(1, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ConstructionManager));
+            //Dic_Approveman.Add(2, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ControlManager));
+            //Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
+            //Dic_Approveman.Add(4, table.Approval_Construction);
             return Dic_Approveman;
         }
         /// <summary>
@@ -111,6 +123,32 @@ namespace BLL
                 Funs.FineUIPleaseSelect(dropName);
             }
         }
+        /// <summary>
+        /// 获取审批完成的招标文件审批
+        /// </summary>
+        /// <param name="dropName"></param>
+        /// <param name="isShowPlease"></param>
+        public static void InitGetBidCompleteDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "BidDocumentsReviewId";
+            dropName.DataTextField = "BidDocumentsCode";
+            dropName.DataSource = GetCompleteBidDocument();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+
+        public  static  List<Model.PHTGL_BidDocumentsReview> GetCompleteBidDocument()
+        { 
+                var list = (from x in Funs.DB.PHTGL_BidDocumentsReview
+                            where  x.State ==Const.ContractReview_Complete
+                            select x).ToList();
+                return list;
+        }
+
+
 
     }
 }

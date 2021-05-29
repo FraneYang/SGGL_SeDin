@@ -14,7 +14,8 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="项目HSE数据汇总表" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="项目HSE数据汇总表" EnableCollapse="true" 
+                    EnableCollapseEvent="true" EnableExpandEvent="true" OnCollapse="Grid1_Collapse" OnExpand="Grid1_Collapse" 
                     runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectItemId"  
                     DataParentIDField="ParentId"  EnableTree="true" TreeColumn="HSEContent"                  
                     DataIDField="HSEDataCollectItemId" AllowSorting="true" SortField="IntS" SortDirection="ASC"
@@ -87,7 +88,8 @@
                 </f:Grid>
             </Items>
             <Items>
-                <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="项目HSE月报提交情况" EnableCollapse="true" Collapsed="true"
+                <f:Grid ID="Grid2" ShowBorder="true" ShowHeader="true" Title="项目HSE月报提交情况" 
+                    EnableCollapse="true" Collapsed="true" EnableCollapseEvent="true" EnableExpandEvent="true" OnCollapse="Grid2_Collapse" OnExpand="Grid2_Collapse"
                     runat="server" BoxFlex="1" EnableColumnLines="true" DataKeyNames="HSEDataCollectSubmissionId" ForceFit="true"
                     DataIDField="HSEDataCollectSubmissionId" AllowSorting="true" SortField="ProjectCode" SortDirection="ASC"
                     AllowPaging="false" IsDatabasePaging="true" PageSize="50"  EnableTextSelection="True" OnRowCommand="Grid2_RowCommand">

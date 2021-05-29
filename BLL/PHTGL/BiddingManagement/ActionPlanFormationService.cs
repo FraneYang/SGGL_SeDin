@@ -9,20 +9,37 @@ namespace BLL
 
     public static class PHTGL_ActionPlanFormationService
     {
-
-        public static Model.PHTGL_ActionPlanFormation GetPHTGL_ActionPlanFormationById(string ActionPlanID
-)
-
+        /// <summary>
+        /// 根据主键查询
+        /// </summary>
+        /// <param name="ActionPlanID"></param>
+        /// <returns></returns>
+        public static Model.PHTGL_ActionPlanFormation GetPHTGL_ActionPlanFormationById(string ActionPlanID)
         {
-            return Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanID == ActionPlanID
-);
+            return Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanID == ActionPlanID);
+        }
+
+        /// <summary>
+        /// 根据编号查询
+        /// </summary>
+        /// <param name="actionPlanCode"></param>
+        /// <returns></returns>
+        public static Model.PHTGL_ActionPlanFormation GetPHTGL_ActionPlanFormationByCode(string actionPlanCode)
+        {
+            return Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanCode == actionPlanCode);
         }
 
 
+
+        /// <summary>
+        /// 添加
+        /// </summary>
+        /// <param name="newtable"></param>
         public static void AddPHTGL_ActionPlanFormation(Model.PHTGL_ActionPlanFormation newtable)
         {
             Model.PHTGL_ActionPlanFormation table = new Model.PHTGL_ActionPlanFormation();
             table.ActionPlanID = newtable.ActionPlanID;
+            table.ActionPlanCode = newtable.ActionPlanCode;
             table.CreateTime = newtable.CreateTime;
             table.CreatUser = newtable.CreatUser;
             table.State = newtable.State;
@@ -52,7 +69,10 @@ namespace BLL
             Funs.DB.SubmitChanges();
         }
 
-
+        /// <summary>
+        /// 修改
+        /// </summary>
+        /// <param name="newtable"></param>
         public static void UpdatePHTGL_ActionPlanFormation(Model.PHTGL_ActionPlanFormation newtable)
         {
             Model.PHTGL_ActionPlanFormation table = Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanID == newtable.ActionPlanID
@@ -61,6 +81,7 @@ namespace BLL
             if (table != null)
             {
                 table.ActionPlanID = newtable.ActionPlanID;
+                table.ActionPlanCode = newtable.ActionPlanCode;
                 table.CreateTime = newtable.CreateTime;
                 table.CreatUser = newtable.CreatUser;
                 table.State = newtable.State;
@@ -90,6 +111,7 @@ namespace BLL
             }
 
         }
+
         public static void DeletePHTGL_ActionPlanFormationById(string ActionPlanID
 )
         {

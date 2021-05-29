@@ -149,7 +149,7 @@ using BLL;using Newtonsoft.Json.Linq;namespace FineUIPro.Web.HJGL.TestPackage
                                            where x.PTP_ID == item.PTP_ID && x.AOKState == null
                                            select x;
 
-                    if (list.Count() > 0 && notCompleteAlist.Count() == 0)   //不存在流程未闭合记录
+                    if (list.Count() > 0 && notCompleteAlist.Count() == 0)   //不存在A类尾项未整改完成记录
                     {
                         TreeNode newNode = new TreeNode();
                         if (!string.IsNullOrEmpty(item.TestPackageNo))

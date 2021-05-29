@@ -446,10 +446,10 @@
                                                             <input type="text" runat="server" class="input" id="txtFormalNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" runat="server" class="input" id="txtForeignNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                            <input type="text" runat="server" class="input" id="txtOutsideNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" runat="server" class="input" id="txtOutsideNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />
+                                                            <input type="text" runat="server" class="input" id="txtForeignNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />
                                                         </td>
                                                         <td>
                                                             <input type="text" runat="server" class="input" id="txtManagerNum" maxlength="10" oninput="value=value.replace(/[^\d]/g,'')" />

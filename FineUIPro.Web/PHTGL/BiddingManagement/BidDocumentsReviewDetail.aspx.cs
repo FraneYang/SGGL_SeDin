@@ -77,7 +77,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!IsPostBack)
             {
                 BidDocumentsReviewId = Request.Params["BidDocumentsReviewId"];
-                EndApproveType = 4;
+                EndApproveType = 5;
                 this.btnClose.OnClientClick = ActiveWindow.GetHideRefreshReference();
 
                 //获取招标实施计划基本信息
@@ -212,7 +212,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray[0]);
                 pHTGL_Approve.ApproveIdea = txtApproveIdea.Text;
                 BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(pHTGL_Approve);
-                ChangeState(1);
+                ChangeState(Const.ContractReviewing);
                 if (Convert.ToInt32(CBIsAgree.SelectedValueArray[0]) == 2)  //同意时
                 {
                     if (IsCountersignerAllAgree())
@@ -226,6 +226,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         _Approve.IsAgree = 0;
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = "3";
+                        _Approve.ApproveForm = Request.Path;
 
                         var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
                         if (IsExitmodel == null)
@@ -241,12 +242,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
                         }
 
-                        ChangeState(1);
+                        ChangeState(Const.ContractReviewing);
                     }
                 }
                 else
                 {
-                    ChangeState(3);
+                    ChangeState(Const.ContractReview_Refuse);
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
@@ -286,6 +287,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         _Approve.IsAgree = 0;
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = nextApproveType.ToString();
+                        _Approve.ApproveForm = Request.Path;
 
                         var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
                         if (IsExitmodel == null)
@@ -300,17 +302,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(_Approve);
 
                         }
-                        ChangeState(1);
+                        ChangeState(Const.ContractReviewing);
                     }
                     else
                     {
-                        ChangeState(3);
+                        ChangeState(Const.ContractReview_Refuse);
                     }
 
                 }
                 else
                 {
-                    ChangeState(2);
+                    ChangeState(Const.ContractReview_Complete);
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

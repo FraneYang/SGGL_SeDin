@@ -79,5 +79,86 @@ namespace BLL
                 db.SubmitChanges();
             }
         }
+
+        /// <summary>
+        /// 获取A项整改状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static string ConvertAState(string ItemEndCheckListId)
+        {
+            string rowID = ItemEndCheckListId.ToString();
+            var items = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(rowID);
+            var aItems = items.Where(x => x.ItemType == "A");
+            var aOKItems = aItems.Where(x => x.Result == "合格");
+            if (aItems.Count() > 0)   //存在A项
+            {
+                if (aItems.Count() == aOKItems.Count())   //A项完成
+                {
+                    return "已完成";
+                }
+                else
+                {
+                    return "未完成";
+                }
+            }
+            else
+            {
+                return "无";
+            }
+        }
+
+        /// <summary>
+        /// 获取B项整改状态
+        /// </summary>
+        /// <param name="state"></param>
+        /// <returns></returns>
+        public static string ConvertBState(string ItemEndCheckListId)
+        {
+            string rowID = ItemEndCheckListId.ToString();
+            var items = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(rowID);
+            var bItems = items.Where(x => x.ItemType == "B");
+            var bOKItems = bItems.Where(x => x.Result == "合格");
+            if (bItems.Count() > 0)   //存在B项
+            {
+                if (bItems.Count() == bOKItems.Count())   //B项完成
+                {
+                    return "已完成";
+                }
+                else
+                {
+                    return "未完成";
+                }
+            }
+            else
+            {
+                return "无";
+            }
+        }
+
+        //<summary>
+        //获取办理人姓名
+        //</summary>
+        //<param name="state"></param>
+        //<returns></returns>
+        public static string ConvertMan(string ItemEndCheckListId)
+        {
+            if (ItemEndCheckListId != null)
+            {
+                var approve = BLL.TestPackageApproveService.GetTestPackageApproveById(ItemEndCheckListId.ToString());
+                if (approve != null)
+                {
+                    if (approve.ApproveMan != null)
+                    {
+                        return BLL.UserService.GetUserByUserId(approve.ApproveMan).UserName;
+                    }
+                }
+                else
+                {
+                    return "";
+                }
+            }
+            return "";
+        }
     }
 }

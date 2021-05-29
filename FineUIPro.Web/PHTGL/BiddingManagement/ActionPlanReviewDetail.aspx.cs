@@ -18,15 +18,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <summary>
         /// 合同ID
         /// </summary>
-        public string ActionPlanID
+        public string ActionPlanReviewId
         {
             get
             {
-                return (string)ViewState["ActionPlanID"];
+                return (string)ViewState["ActionPlanReviewId"];
             }
             set
             {
-                ViewState["ActionPlanID"] = value;
+                ViewState["ActionPlanReviewId"] = value;
             }
         }
         /// <summary>
@@ -74,18 +74,19 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             if (!IsPostBack)
             {
-                ActionPlanID = Request.Params["ActionPlanID"];
-                EndApproveType = 4;
+                ActionPlanReviewId = Request.Params["ActionPlanReviewId"];
+                EndApproveType = 5;
                 this.btnClose.OnClientClick = ActiveWindow.GetHideRefreshReference();
 
                 //获取招标实施计划基本信息
-                var _ActionPlanFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
-                var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(ActionPlanID);
+                var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+                var _ActionPlanFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(_ActionPlanReview.ActionPlanID);
+
 
                 //获取审批人字典
-                Dic_ApproveMan = PHTGL_ActionPlanReviewService.Get_DicApproveman(_ActionPlanFormation.ProjectID, _ActionPlanReview.ActionPlanReviewId);
+                Dic_ApproveMan = PHTGL_ActionPlanReviewService.Get_DicApproveman(_ActionPlanFormation.ProjectID, ActionPlanReviewId);
                 //获取当前登录人审批信息
-                pHTGL_Approve = BLL.PHTGL_ApproveService.GetPHTGL_ApproveByUserId(ActionPlanID, this.CurrUser.UserId);
+                pHTGL_Approve = BLL.PHTGL_ApproveService.GetPHTGL_ApproveByUserId(ActionPlanReviewId, this.CurrUser.UserId);
 
                 this.txtProjectCode.Text = BLL.ProjectService.GetProjectCodeByProjectId(_ActionPlanFormation.ProjectID);
                 this.txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(_ActionPlanFormation.ProjectID);
@@ -135,7 +136,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                        from PHTGL_Approve as App"
                              + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@ContractId", ActionPlanID));
+            listStr.Add(new SqlParameter("@ContractId", ActionPlanReviewId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -144,10 +145,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
+
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            Print(ActionPlanID);
-         }
+            Print(ActionPlanReviewId);
+        }
+        protected void btnLooK_Click(object sender, EventArgs e)
+        {
+             
+            var Act = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", Act.ActionPlanID, "编辑 - ")));
+        }
         public void Print(string Id)
         {
             string rootPath = Server.MapPath("~/");
@@ -160,8 +168,11 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             newUrl = uploadfilepath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".docx");
             filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
             File.Copy(uploadfilepath, newUrl);
+
+            var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+            var _ActionPlanFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(_ActionPlanReview.ActionPlanID);
             ///更新书签
-            var getFireWork = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Id);
+            var getFireWork = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(_ActionPlanReview.ActionPlanID);
             Document doc = new Aspose.Words.Document(newUrl);
 
             Bookmark txtProjectName = doc.Range.Bookmarks["txtProjectName"];
@@ -443,6 +454,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         _Approve.IsAgree = 0;
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = nextApproveType.ToString();
+                        _Approve.ApproveForm = Request.Path;
 
                         var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
                         if (IsExitmodel == null)
@@ -457,17 +469,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(_Approve);
 
                         }
-                        ChangeState(0);
+                        ChangeState(Const.ContractReviewing);
                     }
                     else
                     {
-                        ChangeState(2);
+                        ChangeState(Const.ContractReview_Refuse);
                     }
 
                 }
                 else
                 {
-                    ChangeState(1);
+                    ChangeState(Const.ContractReview_Complete);
                 }
 
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
@@ -489,7 +501,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="state"></param>
         private void ChangeState(int state)
         {
-            var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(ActionPlanID);
+            var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
             _ActionPlanReview.State = state;
             PHTGL_ActionPlanReviewService.UpdatePHTGL_ActionPlanReview(_ActionPlanReview);
         }

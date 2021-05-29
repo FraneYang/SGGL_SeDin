@@ -35,6 +35,10 @@ namespace BLL
             table.State = newtable.State;
             table.Approval_Construction = newtable.Approval_Construction;
             table.CreateUser = newtable.CreateUser;
+            table.ConstructionManager = newtable.ConstructionManager;
+            table.PreliminaryMan = newtable.PreliminaryMan;
+            table.ProjectManager = newtable.ProjectManager;
+            table.DeputyGeneralManager = newtable.DeputyGeneralManager;
             Funs.DB.PHTGL_ActionPlanReview.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -52,6 +56,10 @@ namespace BLL
                 table.State = newtable.State;
                 table.Approval_Construction = newtable.Approval_Construction;
                 table.CreateUser = newtable.CreateUser;
+                table.ConstructionManager = newtable.ConstructionManager;
+                table.PreliminaryMan = newtable.PreliminaryMan;
+                table.ProjectManager = newtable.ProjectManager;
+                table.DeputyGeneralManager = newtable.DeputyGeneralManager;
                 Funs.DB.SubmitChanges();
             }
 
@@ -80,11 +88,11 @@ namespace BLL
 
             Model.PHTGL_ActionPlanReview table = GetPHTGL_ActionPlanReviewById(ContractId);
             string UnitID = BLL.ProjectService.GetProjectByProjectId(projectid).UnitId;
-
-            Dic_Approveman.Add(1, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ConstructionManager));
-              Dic_Approveman.Add(2, table.Approval_Construction);
-              Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
-              Dic_Approveman.Add(4, BLL.ProjectService.GetOfficeRoleID(UnitID, BLL.Const.DeputyGeneralManager));
+            Dic_Approveman.Add(1,table.ConstructionManager);
+            Dic_Approveman.Add(2,table.PreliminaryMan);
+            Dic_Approveman.Add(3,table.Approval_Construction);
+            Dic_Approveman.Add(4,table.ProjectManager);
+            Dic_Approveman.Add(5,table.DeputyGeneralManager);
  
             return Dic_Approveman;
         }

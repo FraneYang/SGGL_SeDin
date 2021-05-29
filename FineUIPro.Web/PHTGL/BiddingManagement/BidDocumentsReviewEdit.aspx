@@ -24,21 +24,59 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
-                                                 <f:DropDownList ID="DropProjectId" runat="server" Label="项目编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="120px"></f:DropDownList>
-                                                 <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
-                                                <f:TextBox ID="txtBidContent" runat="server" Label="招标内容" LabelAlign="Right" MaxLength="30" LabelWidth="140px"  Required="true"  ShowRedStar="true"></f:TextBox>
+                                                <f:DropDownBox runat="server" ID="drpProjectId" EmptyText="实施计划编号" MatchFieldWidth="false"
+                                                    AutoPostBack="true" OnTextChanged="DropDownBox1_TextChanged" EnableMultiSelect="false">
+                                                    <PopPanel>
+                                                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" runat="server" DataIDField="ActionPlanReviewId" DataTextField="ActionPlanCode"
+                                                            DataKeyNames="ActionPlanReviewId" Hidden="true" Width="550px" Height="300px" EnableMultiSelect="false">
+                                                            <Columns>
+                                                                <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
+                                                                    EnableLock="true" Locked="False">
+                                                                    <ItemTemplate>
+                                                                        <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
+                                                                    </ItemTemplate>
+                                                                </f:TemplateField>
+                                                                <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
+                                                                    HeaderTextAlign="Center">
+                                                                </f:RenderField>
+                                                                <f:RenderField ColumnID="Name" DataField="Name" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                                                                    HeaderTextAlign="Center">
+                                                                </f:RenderField>
+                                                                <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+                                                                    HeaderTextAlign="Center">
+                                                                </f:RenderField>
+                                                                <f:RenderField ColumnID="CreatUser" DataField="Unit" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
+                                                                    HeaderTextAlign="Center">
+                                                                </f:RenderField>
+                                                                <f:RenderField Width="120px" ColumnID="CreateTime" DataField="CreateTime" FieldType="Date"
+                                                                    Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="创建日期">
+                                                                </f:RenderField>
 
-                                                <f:DropDownList ID="txtBidType" runat="server" Label="招标方式" LabelAlign="Right" LabelWidth="120px"  Required="true"  ShowRedStar="true"></f:DropDownList>
+                                                            </Columns>
+                                                        </f:Grid>
+                                                    </PopPanel>
+                                                </f:DropDownBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtBidDocumentsName" runat="server" Label="招标文件名称" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Required="true"   ShowRedStar="true"></f:TextBox>
-                                                <f:TextBox ID="txtBidDocumentsCode" runat="server" Label="招标文件编号" LabelAlign="Right" MaxLength="30" LabelWidth="140px" Required="true"    ShowRedStar="true"></f:TextBox>
+                                                <f:TextBox ID="txtProjectCode" runat="server" Label="项目编号" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
+
+                                                <%-- <f:DropDownList ID="DropProjectId" runat="server" Label="项目编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="120px"></f:DropDownList>--%>
+                                                <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtBidContent" runat="server" Label="招标内容" LabelAlign="Right" MaxLength="30" LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
+
+                                                <f:DropDownList ID="txtBidType" runat="server" Label="招标方式" LabelAlign="Right" LabelWidth="120px" Required="true" ShowRedStar="true"></f:DropDownList>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:TextBox ID="txtBidDocumentsName" runat="server" Label="招标文件名称" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Required="true" ShowRedStar="true"></f:TextBox>
+                                                <f:TextBox ID="txtBidDocumentsCode" runat="server" Label="招标文件编号" LabelAlign="Right" MaxLength="30" LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -51,19 +89,30 @@
                                                 </f:DatePicker>
                                             </Items>
                                         </f:FormRow>
-                                         <f:FormRow>
+                                        <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
-                                            </Items>
-                                        </f:FormRow>
-                                         <f:FormRow>
-                                            <Items>
-                                                <f:TextBox ID="txtControlManager" runat="server" Label="控制经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="DropConstructionManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%-- <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="DropControlManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="控制经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%--   <f:TextBox ID="txtControlManager" runat="server" Label="控制经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropProjectManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="项目经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%--<f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>--%>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropPreliminaryMan" runat="server" AutoPostBack="true" EnableEdit="true" Label="预审人员" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -104,9 +153,9 @@
             </Toolbars>
         </f:Form>
         <f:Window ID="WindowAtt" Title="弹出窗体" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-        Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
-        Height="500px">
-    </f:Window>
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
+            Height="500px">
+        </f:Window>
     </form>
 </body>
 </html>

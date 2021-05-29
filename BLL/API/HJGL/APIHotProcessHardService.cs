@@ -122,6 +122,7 @@ namespace BLL
                                         WeldJointCode = x.WeldJointCode,
                                         Specification = x.Specification,
                                         Material = x.MaterialCode,
+                                        TrustDate= x.HardTrustDate,
                                         IsPass = x.IsPass == true ? "是" : "否"
                                     }
                                 ).ToList();

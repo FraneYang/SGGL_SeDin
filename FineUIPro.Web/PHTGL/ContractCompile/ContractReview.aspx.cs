@@ -46,21 +46,29 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                      WHEN '3' THEN '施工劳务分包合同'
                                      WHEN '4' THEN '试车服务合同'
                                      WHEN '5' THEN 'ds' END) AS ContractType,
-                                    ( CASE Rev.State WHEN   '1' THEN '会签中'
-                                    WHEN   '2' THEN '审批中'
-                                    WHEN   '3' THEN '审批成功'
-                                    WHEN   '4' THEN '审批被拒'   END) AS State ,
+                                    ( CASE Rev.State
+                                    WHEN  @ContractCreating     THEN '编制中'
+                                    WHEN  @Contract_countersign     THEN '会签中'
+                                    WHEN  @ContractReviewing        THEN '审批中'
+                                    WHEN  @ContractReview_Complete  THEN '审批成功'
+                                    WHEN  @ContractReview_Refuse    THEN '审批被拒'   END) AS State ,
                                     Con.Remarks,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @" from PHTGL_ContractReview AS Rev"
-                            + @" LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
-                            + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
-                            + @" LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
-                            + @" LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
+                            + @"  LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
+                            + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
+                            + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
+                            + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString ()));
+            listStr.Add(new SqlParameter("@Contract_countersign", Const.Contract_countersign));
+            listStr.Add(new SqlParameter("@ContractReviewing", Const.ContractReviewing));
+            listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
+            listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
+
             if (!(this.CurrUser.UserId == Const.sysglyId))
             {
                 strSql += " and Con.ProjectId =@ProjectId";
@@ -138,7 +146,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         }
         #endregion
 
-        #region 编辑
+        #region 双击事件
         /// <summary>
         /// 双击事件
         /// </summary>
@@ -146,7 +154,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         /// <param name="e"></param>
         protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
         {
-            this.EditData();
+            this.ApproveData();
         }
 
         /// <summary>
@@ -154,12 +162,21 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnMenuEdit_Click(object sender, EventArgs e)
+        protected void btnMenuSubmit_Click(object sender, EventArgs e)
         {
             this.SubmitAgain();
         }
 
-         
+        /// <summary>
+        /// 编辑事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuEdit_Click(object sender, EventArgs e)
+        {
+            EditData();
+        }
+
         private void SubmitAgain()
         {
 
@@ -179,22 +196,23 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
 
 
-            _ContractReview.State = 1;
+            _ContractReview.State = Const.Contract_countersign;
             BLL.PHTGL_ContractReviewService.UpdatePHTGL_ContractReview(_ContractReview);
 
-            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(_ContractReview.ContractId);  //先删除
+            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);  //先删除
 
-            foreach (KeyValuePair<int, string> kvp in PHTGL_ContractReviewService.Countersigner)
+            foreach (KeyValuePair<int, string> kvp in PHTGL_ContractReviewService.Get_Countersigner(id))
             {
                  Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-                _Approve.ContractId = _ContractReview.ContractId;
+                _Approve.ContractId = id;
                 _Approve.ApproveMan = BLL.ProjectService.GetRoleID(_Contract.ProjectId, kvp.Value);
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
                 _Approve.ApproveIdea = "";
                 _Approve.ApproveType = kvp.Key.ToString();
+                _Approve.ApproveForm = Request.Path;
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
             }
@@ -210,9 +228,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         }
 
         /// <summary>
-        /// 编辑数据方法
+        /// 审批  
         /// </summary>
-        private void EditData()
+        private void ApproveData()
         {
             if (Grid1.SelectedRowIndexArray.Length == 0)
             {
@@ -225,6 +243,20 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractReviewDetail.aspx?ContractId={0}", contract.ContractId, "编辑 - ")));
             }
+        }
+
+        private void EditData()
+        {
+
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+        
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractReviewEdit.aspx?ContractReviewId={0}", id, "编辑 - ")));
+        
         }
         #endregion 
 

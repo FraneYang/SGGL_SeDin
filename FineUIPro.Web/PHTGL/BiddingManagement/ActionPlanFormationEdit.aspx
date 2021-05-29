@@ -5,7 +5,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>编辑附件</title>
+    <title>施工招标实施计划</title>
     <style>
         .widthBlod {
             font-weight: bold;
@@ -27,6 +27,11 @@
                     <Items>
                         <f:DropDownList ID="drpProjectId" runat="server" Label="总承包合同编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="120px"></f:DropDownList>
                         <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:TextBox ID="txtActionPlanCode" runat="server" Label="编号" LabelAlign="Right"  LabelWidth="140px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>

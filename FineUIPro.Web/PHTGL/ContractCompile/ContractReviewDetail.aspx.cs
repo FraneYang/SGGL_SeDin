@@ -27,6 +27,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 ViewState["contractId"] = value;
             }
         }
+        public string ContractReviewId
+        {
+            get
+            {
+                return (string)ViewState["ContractReviewId"];
+            }
+            set
+            {
+                ViewState["ContractReviewId"] = value;
+            }
+        }
         /// <summary>
         /// 最末的审批节点
         /// </summary>
@@ -81,10 +92,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                  //获取合同基本信息
                 Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(contractId);
                 Model.PHTGL_ContractReview _ContractReview = PHTGL_ContractReviewService.GetPHTGL_ContractReviewByContractId(contractId);
-
+                ContractReviewId = _ContractReview.ContractReviewId;
                 //获取审批人字典
-                 Dic_ApproveMan = PHTGL_ContractReviewService.Get_DicApproveman(_Contract.ProjectId,contractId);
-                  pHTGL_Approve = BLL.PHTGL_ApproveService.GetPHTGL_ApproveByUserId(contractId, this.CurrUser.UserId);
+                 Dic_ApproveMan = PHTGL_ContractReviewService.Get_DicApproveman(ContractReviewId);
+                  pHTGL_Approve = BLL.PHTGL_ApproveService.GetPHTGL_ApproveByUserId(ContractReviewId, this.CurrUser.UserId);
 
                 GetEndApproveType();
                 Tab1.Hidden = true;
@@ -104,7 +115,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     {
                         Tab1.Hidden = false;
                         BindCountersignFrom();
-                        if (_ContractReview.State == 3)
+                        if (_ContractReview.State == Const.ContractReview_Complete)
                         {
                             Tab3.Hidden = false;
                             BindApproveForm();
@@ -179,7 +190,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                        from PHTGL_Approve as App"
                               + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-                 listStr.Add(new SqlParameter("@ContractId", contractId));
+                 listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
      
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -236,7 +247,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                        from PHTGL_Approve as App"
                             + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@ContractId", contractId));
+            listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -332,7 +343,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                        from PHTGL_Approve as App"
                             + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@ContractId", contractId));
+            listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -409,7 +420,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray[0]);
                 pHTGL_Approve.ApproveIdea = txtApproveIdea.Text;
                 BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(pHTGL_Approve);
-                ChangeState(1);
+                ChangeState(Const.Contract_countersign);
                 if (Convert.ToInt32(CBIsAgree.SelectedValueArray[0]) == 2)  //同意时
                 {
                     if (IsCountersignerAllAgree())
@@ -422,6 +433,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         _Approve.IsAgree = 0;
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = "7";
+                        _Approve.ApproveForm = Request.Path;
+
                         var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
                         if (IsExitmodel == null)
                         {
@@ -436,12 +449,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
  
                         }
 
-                        ChangeState(2);
+                        ChangeState(Const.ContractReviewing);
                     }
                 }
                 else
                 {
-                    ChangeState(4);
+                    ChangeState(Const.ContractReview_Refuse);
                 }
                 ShowNotify("审批成功！", MessageBoxIcon.Success);
 
@@ -482,6 +495,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         _Approve.IsAgree = 0;
                         _Approve.ApproveIdea = "";
                         _Approve.ApproveType = nextApproveType.ToString();
+                        _Approve.ApproveForm = Request.Path;
 
                         var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
                         if (IsExitmodel == null)
@@ -497,17 +511,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
                         }
 
-                        ChangeState(2);
+                        ChangeState(Const.ContractReviewing);
                     }
                     else
                     {
-                        ChangeState(4);
+                        ChangeState(Const.ContractReview_Refuse);
                     }
 
                 }
                 else
                 {
-                    ChangeState(3);
+                    ChangeState(Const.ContractReview_Complete);
                 }
                 ShowNotify("审批成功！", MessageBoxIcon.Success);
 
@@ -551,25 +565,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Model.PHTGL_ContractReview _ContractReview = PHTGL_ContractReviewService.GetPHTGL_ContractReviewByContractId(contractId);
             _ContractReview.State = state;
             PHTGL_ContractReviewService.UpdatePHTGL_ContractReview(_ContractReview);
-            if (state ==3)
-            {
-                var _Att = BLL.ContractService.GetContractById(contractId);
-                if (_Att != null)
-                {
-                    _Att.ApproveState = 3;
-                    ContractService.UpdateContract(_Att);
-                }
 
-            }
-            else if(state == 4)
+            var _Att = BLL.ContractService.GetContractById(contractId);
+            if (_Att != null)
             {
-                var _Att = BLL.ContractService.GetContractById(contractId);
-                if (_Att != null)
-                {
-                    _Att.ApproveState = 4;
-                    ContractService.UpdateContract(_Att);
-                }
+                _Att.ApproveState = state;
+                ContractService.UpdateContract(_Att);
             }
+           
         }
 
        /// <summary>

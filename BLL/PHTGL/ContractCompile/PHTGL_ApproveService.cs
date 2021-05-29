@@ -49,6 +49,7 @@ namespace BLL
             table.IsAgree = newtable.IsAgree;
             table.ApproveIdea = newtable.ApproveIdea;
             table.ApproveType = newtable.ApproveType;
+            table.ApproveForm = newtable.ApproveForm;
             Funs.DB.PHTGL_Approve.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -68,6 +69,7 @@ namespace BLL
                 table.IsAgree = newtable.IsAgree;
                 table.ApproveIdea = newtable.ApproveIdea;
                 table.ApproveType = newtable.ApproveType;
+                table.ApproveForm = newtable.ApproveForm;
                 Funs.DB.SubmitChanges();
             }
 

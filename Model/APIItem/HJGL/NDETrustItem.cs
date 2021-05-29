@@ -107,5 +107,77 @@ namespace Model
             get;
             set;
         }
+
+        /// <summary>
+        /// 焊工号
+        /// </summary>
+        public string WelderCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 检测日期
+        /// </summary>
+        public DateTime? FilmDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 报告日期
+        /// </summary>
+        public DateTime? ReportDate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 检测总数
+        /// </summary>
+        public int? TotalFilm
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 合格数
+        /// </summary>
+        public int? PassFilm
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 评定级别
+        /// </summary>
+        public string JudgeGrade
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 缺陷
+        /// </summary>
+        public string CheckDefects
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 返修位置
+        /// </summary>
+        public string RepairLocation
+        {
+            get;
+            set;
+        }
     }
 }

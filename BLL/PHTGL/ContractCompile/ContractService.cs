@@ -76,6 +76,7 @@ namespace BLL
         {
             Model.PHTGL_Contract newContract = new Model.PHTGL_Contract();
             newContract.ContractId = contract.ContractId;
+            newContract.ContractCode = contract.ContractCode;
             newContract.ProjectId = contract.ProjectId;
             newContract.ContractName = contract.ContractName;
             newContract.ContractNum = contract.ContractNum;
@@ -103,6 +104,7 @@ namespace BLL
             if (newContract != null)
             {
                 newContract.ProjectId = contract.ProjectId;
+                newContract.ContractCode = contract.ContractCode;
                 newContract.ContractName = contract.ContractName;
                 newContract.ContractNum = contract.ContractNum;
                 newContract.Parties = contract.Parties;
@@ -124,6 +126,7 @@ namespace BLL
         /// <param name="contractId"></param>
         public static void DeleteContractById(string contractId)
         {
+
             Model.PHTGL_Contract contract = Funs.DB.PHTGL_Contract.FirstOrDefault(e => e.ContractId == contractId);
             if (contract != null)
             {

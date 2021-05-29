@@ -18,9 +18,9 @@
                     <f:NumberBox ID="txtFlowStep" runat="server" Label="步骤" AutoPostBack="true" OnTextChanged="txtFlowStep_TextChanged"
                         Required="true" NoDecimal="true" NoNegative="true"></f:NumberBox>
                      <f:NumberBox ID="txtGroupNum" runat="server" Label="组号" AutoPostBack="true" OnTextChanged="txtGroupNum_TextChanged"
-                        Required="true" NoDecimal="true" NoNegative="true" Hidden="true"></f:NumberBox>
+                        Required="true" NoDecimal="true" NoNegative="true" ></f:NumberBox>
                      <f:NumberBox ID="txtOrderNum" runat="server" Label="组内序号" 
-                        Required="true" NoDecimal="true" NoNegative="true" Hidden="true"></f:NumberBox>
+                        Required="true" NoDecimal="true" NoNegative="true" ></f:NumberBox>
                 </Items>
             </f:FormRow>
             <f:FormRow>
@@ -57,7 +57,7 @@
             </f:FormRow>
             <f:FormRow>
                 <Items>
-                     <f:Label runat="server" ID="lbTemp" Hidden="true"></f:Label>
+                     <f:Label runat="server" ID="lbTemp"></f:Label>
                 </Items>
             </f:FormRow>
         </Rows>

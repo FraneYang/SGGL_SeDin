@@ -175,7 +175,7 @@
                                 DataField="RepairLocation" SortField="RepairLocation" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="100px">
                             </f:RenderField>
-                            <f:RenderField HeaderText="探伤报告编号" ColumnID="NDEReportNo"
+                            <f:RenderField HeaderText="探伤报告编号" ColumnID="NDEReportNo" Hidden="true"
                                 DataField="NDEReportNo" SortField="NDEReportNo" FieldType="String" HeaderTextAlign="Center"
                                 TextAlign="Left" Width="240px">
                             </f:RenderField>

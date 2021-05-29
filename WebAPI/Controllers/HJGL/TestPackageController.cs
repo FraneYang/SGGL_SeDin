@@ -5,7 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
-
+using Model;
 
 namespace WebAPI.Controllers
 {
@@ -84,6 +84,46 @@ namespace WebAPI.Controllers
             return responeData;
         }
 
+        #endregion
+
+        #region 获取尾项检查试压包号
+        /// <summary>
+        /// 获取尾项检查试压包号
+        /// </summary>
+        /// <param name="unitWorkId">单位工程</param>
+        /// <param name="isFinish">是否完成</param>
+        /// <param name="testPackageNo">试压包号</param>
+        /// <returns></returns>
+        public Model.ResponeData getItemEndCheckTestPackageNo(string unitWorkId, string testPackageNo)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APITestPackageService.getItemEndCheckTestPackageNo(unitWorkId, testPackageNo);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
+        #region
+        //
+        // 质量巡检
+        // GET: /Draw/
+        [HttpGet]
+        public ResponseData<List<View_PTP_ItemEndCheckList>> getItemEndCheckList(string itemEndCheckListId, int index, int page)
+        {
+            ResponseData<List<View_PTP_ItemEndCheckList>> res = new ResponseData<List<View_PTP_ItemEndCheckList>>();
+
+            res.successful = true;
+            res.resultValue = BLL.APITestPackageService.getItemEndCheckList(itemEndCheckListId, index, page);
+            return res;
+        }
         #endregion
     }
 }

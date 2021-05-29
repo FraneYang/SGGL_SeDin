@@ -2624,6 +2624,34 @@ namespace BLL
 
         #endregion
 
+        #region 合同审批流程状态定义
+        /// <summary>
+        /// 编制中
+        /// </summary>
+        public const int ContractCreating = 0;
+        /// <summary>
+        /// 编制完成
+        /// </summary>
+        public const int ContractCreat_Complete = 1;
+        /// <summary>
+        /// 会签审批
+        /// </summary>
+        public const int Contract_countersign = 2;
+        /// <summary>
+        /// 审批中
+        /// </summary>
+        public const int ContractReviewing = 3;
+        /// <summary>
+        /// 审批完成
+        /// </summary>
+        public const int ContractReview_Complete = 4;
+        /// <summary>
+        /// 审批被拒
+        /// </summary>
+        public const int ContractReview_Refuse = 5;
+        #endregion
+
+
         #region 合同管理 菜单Id
         /// <summary>
         /// 基本信息
@@ -2639,21 +2667,35 @@ namespace BLL
         /// 专用条款
         /// </summary>
         public const string SpecialTermsConditionsMenuId = "98367C43-9C85-467E-9144-288D80101E41";
-
-        /// <summary>
-        /// 合同审批
-        /// </summary>
-        public const string ContractReview = "E50F243C-CE5A-4174-B473-15CD565A7796";
-
         /// <summary>
         /// 合同编制
         /// </summary>
         public const string ContractFormation = "C609FEA5-0904-4F59-A920-22B6459F1A94";
-
+        /// <summary>
+        /// 合同审批
+        /// </summary>
+        public const string ContractReview = "E50F243C-CE5A-4174-B473-15CD565A7796";
+        /// <summary>
+        /// 实施计划编制
+        /// </summary>
+        public const string ActionPlanFormation = "2E57E92E-31BE-46B3-89AF-E08DAE8FC8E7";
+        /// <summary>
+        /// 实施计划审批
+        /// </summary>
+        public const string ActionPlanReview = "303B6753-ED3C-438A-A860-F9C5E5489C8F";
         /// <summary>
         /// 招标文件审批
         /// </summary>
         public const string BidDocumentsReviewIdMenuid = "0BB31BB1-469D-41E8-9039-A53A2B1EEB86";
+        /// <summary>
+        /// 评标小组名单审批
+        /// </summary>
+        public const string ApproveUserReview = "133C55A1-3744-40F5-9C74-24E85AB1261F";
+        /// <summary>
+        /// 确定分包商审批
+        /// </summary>
+        public const string SetSubReview = "11503AD6-742D-406D-96F1-17BA3B9E7580";
+
         #endregion
 
         #region 模版文件原始的虚拟路径
@@ -3851,14 +3893,5 @@ namespace BLL
         /// </summary>
         public const string AttachUrlId19 = "0273D1C5-6094-4BC8-804D-9F996FB77950";
         #endregion
-
-        /// <summary>
-        /// 实施计划编制
-        /// </summary>
-        public const string ActionPlanFormation = "2E57E92E-31BE-46B3-89AF-E08DAE8FC8E7";
-        /// <summary>
-        /// 实施计划审批
-        /// </summary>
-        public const string ActionPlanReview = "303B6753-ED3C-438A-A860-F9C5E5489C8F";
     }
 }

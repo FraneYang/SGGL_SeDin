@@ -22,6 +22,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!IsPostBack)
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                this.DropState.DataValueField = "Value";
+                DropState.DataTextField = "Text";
+                DropState.DataSource = BLL.DropListService.GetState();
+                DropState.DataBind();
+                Funs.FineUIPleaseSelect(DropState);
+
 
                 btnNew.OnClientClick = Window1.GetShowReference("ActionPlanFormationEdit.aspx", "实施计划编制") + "return false;";
                 GetButtonPower();
@@ -38,11 +44,16 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         private void BindGrid()
         {
             string strSql = @"SELECT  Act.ActionPlanID
+                                  ,Act.ActionPlanCode
                                   ,Pro.ProjectName as Name
                                   ,Pro.ProjectCode
-                                  ,(CASE Act.State when '0' then '编制中'
-                                                   when ''  then '编制中'
-                                                   when '1' then '编制完成' END) as State
+                                  ,(CASE Act.State  
+                                    WHEN  @ContractCreating     THEN '编制中'
+                                    WHEN  @ContractCreat_Complete     THEN '编制完成'
+                                    WHEN  @Contract_countersign     THEN '会签中'
+                                    WHEN  @ContractReviewing        THEN '审批中'
+                                    WHEN  @ContractReview_Complete  THEN '审批成功'
+                                    WHEN  @ContractReview_Refuse    THEN '审批被拒'   END) AS State 
                                   ,U.UserName as CreatUser
                                   ,Act.CreateTime
                                   ,Act.ProjectID
@@ -54,11 +65,42 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
-            //if (!string.IsNullOrEmpty(this.txtContractName.Text.Trim()))
-            //{
-            //    strSql += " AND Con.ContractName LIKE @ContractName";
-            //    listStr.Add(new SqlParameter("@ContractName", "%" + this.txtContractName.Text.Trim() + "%"));
-            //}
+            listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString()));
+            listStr.Add(new SqlParameter("@ContractCreat_Complete", Const.ContractCreat_Complete.ToString()));
+            listStr.Add(new SqlParameter("@Contract_countersign", Const.Contract_countersign));
+            listStr.Add(new SqlParameter("@ContractReviewing", Const.ContractReviewing));
+            listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
+            listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
+
+            if (!(this.CurrUser.UserId == Const.sysglyId))
+            {
+                strSql += " and  Act.ProjectID =@ProjectId";
+
+                listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            }
+            if (!string .IsNullOrEmpty(txtActionPlanCode.Text))
+            {
+                strSql += " and Act.ActionPlanCode like @ActionPlanCode ";
+                listStr.Add(new SqlParameter("@ActionPlanCode", "%"+ txtActionPlanCode.Text + "%"));
+
+            }
+            if (!string.IsNullOrEmpty(txtProjectName.Text))
+            {
+                strSql += " and Act.ProjectName like @ProjectName   ";
+                listStr.Add(new SqlParameter("@ProjectName", "%" + txtProjectName.Text + "%"));
+
+            }
+            if (!string.IsNullOrEmpty(txtUnit.Text))
+            {
+                strSql += " and Act.Unit like @Unit ";
+                listStr.Add(new SqlParameter("@Unit", "%" + txtUnit.Text + "%"));
+
+            }
+            if (DropState.SelectedValue != Const._Null)
+            {
+                strSql += " and Act.State  =@State  ";
+                listStr.Add(new SqlParameter("@State", DropState.SelectedValue));
+            }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             
@@ -100,6 +142,34 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             BindGrid();
         }
+
+
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            object[] keys = Grid1.DataKeys[e.RowIndex];
+            string fileId = string.Empty;
+            if (keys == null)
+            {
+                return;
+            }
+            else
+            {
+                fileId = keys[0].ToString();
+            }
+            if (e.CommandName == "LooK")
+            {
+                 string id = fileId;
+                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", id, "编辑 - ")));
+                 return;
+            }
+
+            if (e.CommandName == "export")
+            {
+                btnPrinter_Click(null, null);
+            //    Print(fileId);
+            }
+
+        }
         #endregion
 
         #region 关闭弹出窗体
@@ -122,6 +192,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="e"></param>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            BindGrid();
+        }
+
+        protected void btnRset_Click(object sender, EventArgs e)
+        {
+            txtActionPlanCode.Text = "";
+            txtProjectName.Text = "";
+            txtUnit.Text = "";
+            DropState.SelectedValue = "null";
             BindGrid();
         }
         #endregion
@@ -186,7 +265,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         var p = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(rowID);
                         if (p != null)
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, p.ProjectName, p.ActionPlanID, BLL.Const.ContractMenuId, BLL.Const.BtnDelete);
+                            BLL.LogService.AddSys_Log(this.CurrUser, p.ProjectName, p.ActionPlanID, BLL.Const.ActionPlanFormation, BLL.Const.BtnDelete);
                             BLL.PHTGL_ActionPlanFormationService.DeletePHTGL_ActionPlanFormationById(rowID);
                             BLL.PHTGL_ActionPlanFormation_Sch1Service.DeletePHTGL_ActionPlanFormation_Sch1ById(rowID);
                         }
@@ -280,6 +359,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             ///更新书签
             var getFireWork = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Id);
             Document doc = new Aspose.Words.Document(newUrl);
+            Bookmark txtActionPlanCode=doc.Range.Bookmarks["ActionPlanCode"];
+            Bookmark txtCreateTime = doc.Range.Bookmarks["CreateTime"];
 
             Bookmark txtProjectName = doc.Range.Bookmarks["txtProjectName"];
             Bookmark txtUnit = doc.Range.Bookmarks["txtUnit"];
@@ -302,6 +383,21 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Bookmark txtEvaluationPlan = doc.Range.Bookmarks["txtEvaluationPlan"];
             Bookmark txtBiddingMethods_Select = doc.Range.Bookmarks["txtBiddingMethods_Select"];
             Bookmark txtSchedulePlan = doc.Range.Bookmarks["txtSchedulePlan"];
+            if (txtActionPlanCode != null)
+            {
+                if (getFireWork != null)
+                {
+                    txtActionPlanCode.Text = getFireWork.ActionPlanCode;
+                }
+            }
+            if (txtCreateTime != null)
+            {
+                if (getFireWork != null)
+                {
+                    
+                    txtCreateTime.Text = string.Format("{0:D}", getFireWork.CreateTime);
+                }
+            }
 
             if (txtProjectName != null)
             {
@@ -510,6 +606,53 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Response.Close();
             File.Delete(newUrl);
             File.Delete(pdfUrl);
+        }
+
+
+        void InsertImg(Document doc,string BookmarksName ,string ManId )
+        {
+            string rootPath = Server.MapPath("~/");
+            Bookmark bookmarkCreateMan= doc.Range.Bookmarks[BookmarksName];
+
+            if (bookmarkCreateMan != null)
+            {
+                var user = UserService.GetUserByUserId(ManId);
+                if (user != null)
+                {
+                    if (!string.IsNullOrEmpty(user.SignatureUrl))
+                    {
+                        var file = user.SignatureUrl;
+                        if (!string.IsNullOrWhiteSpace(file))
+                        {
+                            string url = rootPath + file;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark(BookmarksName);
+                            if (!string.IsNullOrEmpty(url))
+                            {
+                                System.Drawing.Size JpgSize;
+                                float Wpx;
+                                float Hpx;
+                                UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                double i = 1;
+                                i = JpgSize.Width / 50.0;
+                                if (File.Exists(url))
+                                {
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                }
+                                else
+                                {
+                                    bookmarkCreateMan.Text = user.UserName;
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bookmarkCreateMan.Text = user.UserName;
+                    }
+                }
+            }
         }
         #endregion
 

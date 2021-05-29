@@ -148,7 +148,7 @@ namespace FineUIPro.Web.SysManage
         /// </summary>
         private void BindDropDownBox()
         {
-            string strSql = @"SELECT RoleId,RoleName FROM Sys_Role WHERE IsAuditFlow=1 ORDER BY RoleCode";
+            string strSql = @"SELECT RoleId,RoleName FROM Sys_Role ORDER BY RoleCode";
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, null);
             rbRoles.DataSource = tb;
             this.rbRoles.DataTextField = "RoleName";

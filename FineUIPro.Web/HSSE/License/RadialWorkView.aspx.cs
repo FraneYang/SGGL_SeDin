@@ -133,7 +133,7 @@
                         this.txtTime2.Text = string.Format("{0:yyyy-MM-dd HH:mm}", getF2.OperaterTime);
                     }
                 }
-                var getF3 = getFlows.FirstOrDefault(x => x.SortIndex == 3);
+                var getF3 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 1 && x.OrderNum == 1);
                 if (getF3 != null)
                 {
                     this.txtForm3.Title = getF3.AuditFlowName + "：";
@@ -151,7 +151,7 @@
                         this.txtTime3.Text = string.Format("{0:yyyy-MM-dd HH:mm}", getF3.OperaterTime);
                     }
                 }
-                var getF4 = getFlows.FirstOrDefault(x => x.SortIndex == 4);
+                var getF4 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 1 && x.OrderNum == 2);
                 if (getF4 != null)
                 {
                     this.txtForm4.Title = getF4.AuditFlowName + "：";
@@ -169,7 +169,7 @@
                         this.txtTime4.Text = string.Format("{0:yyyy-MM-dd HH:mm}", getF4.OperaterTime);
                     }
                 }
-                var getF5 = getFlows.FirstOrDefault(x => x.SortIndex == 5);
+                var getF5 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 2 && x.OrderNum == 1);
                 if (getF5 != null)
                 {
                     this.txtForm5.Title = getF5.AuditFlowName + "：";
@@ -187,7 +187,7 @@
                         this.txtTime5.Text = string.Format("{0:yyyy-MM-dd HH:mm}", getF5.OperaterTime);
                     }
                 }
-                var getF6 = getFlows.FirstOrDefault(x => x.SortIndex == 6);
+                var getF6 = getFlows.FirstOrDefault(x => x.SortIndex == 3 && x.GroupNum == 2 && x.OrderNum == 2);
                 if (getF6 != null)
                 {
                     this.txtForm6.Title = getF6.AuditFlowName + "：";

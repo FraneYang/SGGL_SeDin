@@ -16,8 +16,41 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getUser = db.View_Sys_User.FirstOrDefault(x => (x.Account == userInfo.Account || x.Telephone == userInfo.Telephone) && x.IsPost == true && x.Password == Funs.EncryptionPassword(userInfo.Password));
-                return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Sys_User, Model.UserItem>().Map(getUser);
+                var getUser = (from x in db.Sys_User
+                               where (x.Account == userInfo.Account || x.Telephone == userInfo.Telephone) && x.IsPost == true && x.Password == Funs.EncryptionPassword(userInfo.Password)
+                               select new Model.UserItem
+                               {
+                                   UserId = x.UserId,
+                                   Account=x.Account,
+                                   UserCode=x.UserCode,
+                                   Password=x.Password,
+                                   UserName=x.UserName,
+                                   RoleId=x.RoleId,
+                                   RoleName= db.Sys_Role.First(y=>y.RoleId==x.RoleId).RoleName,
+                                   UnitId=x.UnitId,
+                                   UnitName= db.Base_Unit.First(y => y.UnitId == x.UnitId).UnitName,
+                                   LoginProjectId= getLoginProjectId(x.UserId),
+                                   IdentityCard=x.IdentityCard,
+                                   Email=x.Email,
+                                   Telephone=x.Telephone,
+                                   IsOffice=x.IsOffice,
+                                   SignatureUrl=x.SignatureUrl,
+                                   UserType=(x.UserId==Const.sedinId?"2":"1"),
+                               }).FirstOrDefault();
+                return getUser;
+                //var getUser = db.View_Sys_User.FirstOrDefault(x => (x.Account == userInfo.Account || x.Telephone == userInfo.Telephone) && x.IsPost == true && x.Password == Funs.EncryptionPassword(userInfo.Password));
+                //return ObjectMapperManager.DefaultInstance.GetMapper<Model.View_Sys_User, Model.UserItem>().Map(getUser);
+            }
+        }
+
+        public static string getLoginProjectId(string userId)
+        {
+            using (Model.SGGLDB db1 = new Model.SGGLDB(Funs.ConnString))
+            {
+                return (from x in db1.Project_ProjectUser
+                        join y in db1.Base_Project on x.ProjectId equals y.ProjectId
+                        where x.UserId == userId && y.ProjectState=="1"
+                        select y.ProjectId).FirstOrDefault();
             }
         }
 

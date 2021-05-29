@@ -85,13 +85,22 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
         
         /// <summary>
-        /// txtConstructionManager 控件。
+        /// DropConstructionManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtConstructionManager;
+        protected global::FineUIPro.DropDownList DropConstructionManager;
+        
+        /// <summary>
+        /// DropPreliminaryMan 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropPreliminaryMan;
         
         /// <summary>
         /// Approval_Construction 控件。
@@ -103,22 +112,22 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.DropDownList Approval_Construction;
         
         /// <summary>
-        /// txtProjectManager 控件。
+        /// DropProjectManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectManager;
+        protected global::FineUIPro.DropDownList DropProjectManager;
         
         /// <summary>
-        /// txtDeputyGeneralManager 控件。
+        /// DropDeputyGeneralManager 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtDeputyGeneralManager;
+        protected global::FineUIPro.DropDownList DropDeputyGeneralManager;
         
         /// <summary>
         /// Toolbar1 控件。

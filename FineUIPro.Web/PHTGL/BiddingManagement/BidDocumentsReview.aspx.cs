@@ -22,6 +22,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!IsPostBack)
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                this.DropState.DataValueField = "Value";
+                DropState.DataTextField = "Text";
+                DropState.DataSource = BLL.DropListService.GetState();
+                DropState.DataBind();
+                Funs.FineUIPleaseSelect(DropState);
+
                 btnNew.OnClientClick = Window1.GetShowReference("BidDocumentsReviewEdit.aspx", "施工计划审批创建") + "return false;";
                 GetButtonPower();
                 BindGrid();
@@ -41,10 +47,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                       ,Pro.ProjectName
                                       ,Pro.ProjectCode
                                       ,(CASE Bid.State 
-                                        WHEN '0' THEN '编制中'
-                                        WHEN '1' THEN '审批中'
-                                        WHEN '2' THEN '审批成功'
-                                        WHEN '3' THEN '审批被拒'END) AS State
+                                        WHEN @ContractCreating THEN '编制中'
+                                        WHEN @ContractReviewing THEN '审批中'
+                                        WHEN @ContractReview_Complete THEN '审批成功'
+                                        WHEN @ContractReview_Refuse THEN '审批被拒'END) AS State
                                       ,Bid.BidContent
                                       ,Bid.BidType
                                       ,Bid.BidDocumentsName
@@ -59,11 +65,34 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Bid.ProjectId WHERE 1=1";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
+
+            listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString ()));
+            listStr.Add(new SqlParameter("@ContractReviewing", Const.ContractReviewing));
+            listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
+            listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
+
             if (!(this.CurrUser.UserId == Const.sysglyId))
             {
                 strSql += " and  Bid.ProjectID =@ProjectId";
 
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            }
+            if (!string.IsNullOrEmpty(txtBidDocumentsCode.Text))
+            {
+                strSql += " and Bid.BidDocumentsCode like @BidDocumentsCode ";
+                listStr.Add(new SqlParameter("@BidDocumentsCode", "%" + txtBidDocumentsCode.Text + "%"));
+
+            }
+            if (!string.IsNullOrEmpty(txtBidDocumentsName.Text))
+            {
+                strSql += " and Bid.BidDocumentsName like @BidDocumentsName ";
+                listStr.Add(new SqlParameter("@BidDocumentsName", "%" + txtBidDocumentsName.Text + "%"));
+
+            }
+            if (DropState.SelectedValue != Const._Null)
+            {
+                strSql += " and Bid.State  =@State  ";
+                listStr.Add(new SqlParameter("@State", DropState.SelectedValue));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -106,6 +135,31 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             BindGrid();
         }
+
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            object[] keys = Grid1.DataKeys[e.RowIndex];
+            string fileId = string.Empty;
+            if (keys == null)
+            {
+                return;
+            }
+            else
+            {
+                fileId = keys[0].ToString();
+            }
+            if (e.CommandName == "LooK")
+            {
+                string id = fileId;
+                var Bid = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(id);
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("BidDocumentsReviewEdit.aspx?BidDocumentsReviewId={0}", Bid.BidDocumentsReviewId, "审批 - ")));
+                return;
+            }
+
+            if (e.CommandName == "export")
+            { }
+
+        }
         #endregion
 
         #region 关闭弹出窗体
@@ -128,6 +182,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="e"></param>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            BindGrid();
+        }
+        protected void btnRset_Click(object sender, EventArgs e)
+        {
+            txtBidDocumentsCode.Text = "";
+            txtBidDocumentsName.Text = "";
+            DropState.SelectedValue = "null";
             BindGrid();
         }
         #endregion
@@ -200,7 +261,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         var p = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(rowID);
                         if (p != null)
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, p.BidDocumentsReviewId, p.ProjectId, BLL.Const.ContractMenuId, BLL.Const.BtnDelete);
+                            BLL.LogService.AddSys_Log(this.CurrUser, p.BidDocumentsReviewId, p.ProjectId, BLL.Const.BidDocumentsReviewIdMenuid, BLL.Const.BtnDelete);
+                            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(rowID);
                             PHTGL_BidDocumentsReviewService.DeletePHTGL_BidDocumentsReviewById(rowID);
                         }
                     }

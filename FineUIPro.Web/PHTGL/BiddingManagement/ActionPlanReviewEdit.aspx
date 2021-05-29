@@ -36,6 +36,9 @@
                                                                         <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                                                                     </ItemTemplate>
                                                                 </f:TemplateField>
+                                                                <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
+                                                                    HeaderTextAlign="Center">
+                                                                </f:RenderField>
                                                                 <f:RenderField ColumnID="Name" DataField="Name" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                                                                     HeaderTextAlign="Center">
                                                                 </f:RenderField>
@@ -57,22 +60,33 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="DropConstructionManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%--<f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:DropDownList ID="Approval_Construction" runat="server" Label="施工管理部" LabelAlign="Right" LabelWidth="120px"  ></f:DropDownList>
+                                                <f:DropDownList ID="DropPreliminaryMan" runat="server" AutoPostBack="true" EnableEdit="true" Label="预审人员" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="Approval_Construction" runat="server" EnableEdit="true" Label="施工管理部" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtDeputyGeneralManager" runat="server" Label="分管副总经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>
+                                                <f:DropDownList ID="DropProjectManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="项目经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%--<f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>--%>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropDeputyGeneralManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="分管副总经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+
+                                                <%--<f:TextBox ID="txtDeputyGeneralManager" runat="server" Label="分管副总经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>

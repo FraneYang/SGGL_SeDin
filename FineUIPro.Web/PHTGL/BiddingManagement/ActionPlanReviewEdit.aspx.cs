@@ -44,8 +44,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 Approval_Construction.DataSource = model3;
                 Approval_Construction.DataBind();
                 Funs.FineUIPleaseSelect(Approval_Construction);
+
+                UserService.InitUserUnitIdDropDownList(DropConstructionManager, Const.UnitId_SEDIN, true);
+                UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, true);
+                UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, true);
+                UserService.InitUserUnitIdDropDownList(DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
  
                 BindGrid();
+
+
 
             }
 
@@ -59,6 +66,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         private void BindGrid()
         {
             string strSql = @"SELECT  Act.ActionPlanID
+                                  ,Act.ActionPlanCode
                                   ,Pro.ProjectName as Name
                                   ,Pro.ProjectCode
                                   ,U.UserName as CreatUser
@@ -69,8 +77,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                   ,Act.ConstructionSite "
                           + @" FROM PHTGL_ActionPlanFormation  AS Act "
                           + @" LEFT JOIN Sys_User AS U ON U.UserId = Act.CreatUser  "
-                          + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1 and Act.State=1";
+                          + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1 and Act.State=@ContractCreat_Complete";
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@ContractCreat_Complete", Const.ContractCreat_Complete));
 
             if (!(this.CurrUser.UserId == Const.sysglyId))
             {
@@ -106,8 +115,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             newmodel.ActionPlanReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ActionPlanReview));
             newmodel.ActionPlanID = drpProjectId.Value;
             newmodel.Approval_Construction= Approval_Construction.SelectedValue;
-            newmodel.State =0;
+            newmodel.State =Const.ContractReviewing;
             newmodel.CreateUser =this.CurrUser.UserId;
+            newmodel.ConstructionManager = DropConstructionManager.SelectedValue;
+            newmodel.PreliminaryMan = DropPreliminaryMan.SelectedValue;
+            newmodel.ProjectManager = DropProjectManager.SelectedValue;
+            newmodel.DeputyGeneralManager = DropDeputyGeneralManager.SelectedValue;
             BLL.PHTGL_ActionPlanReviewService.AddPHTGL_ActionPlanReview(newmodel);
             var _Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(newmodel.ActionPlanID);
 
@@ -117,13 +130,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             //创建第一节点审批信息
             Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
             _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-            _Approve.ContractId = newmodel.ActionPlanID;
+            _Approve.ContractId = newmodel.ActionPlanReviewId;
             _Approve.ApproveMan = Dic_ApproveMan[1];
             _Approve.ApproveDate = "";
             _Approve.State = 0;
             _Approve.IsAgree = 0;
             _Approve.ApproveIdea = "";
             _Approve.ApproveType = "1";
+            _Approve.ApproveForm = Request.Path;
 
             BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
  
@@ -146,24 +160,16 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 string UnitId = ProjectService.GetProjectByProjectId(table.ProjectID).UnitId;
 
                 //施工经理
-                this.txtConstructionManager.Text = BLL.ProjectService.GetRoleName(table.ProjectID, BLL.Const.ConstructionManager);
+                this.DropConstructionManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ConstructionManager);
    
                 //项目经理
-                this.txtProjectManager.Text = BLL.ProjectService.GetRoleName(table.ProjectID, BLL.Const.ProjectManager);
+                this.DropProjectManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ProjectManager);
  
                 //分管副总经理
-                this.txtDeputyGeneralManager.Text = BLL.ProjectService.GetOfficeRoleName(UnitId, BLL.Const.DeputyGeneralManager);
-
-
+                this.DropDeputyGeneralManager.SelectedValue = BLL.ProjectService.GetRoleID(UnitId, BLL.Const.DeputyGeneralManager);
+ 
             }
-            else
-            {
-                this.txtConstructionManager.Text = string.Empty;
-                this.txtProjectManager.Text = string.Empty;
-                this.txtDeputyGeneralManager.Text = string.Empty;
-
-                //  this.txtProjectName.Text = string.Empty;
-            }
+           
         }
         #endregion
     }

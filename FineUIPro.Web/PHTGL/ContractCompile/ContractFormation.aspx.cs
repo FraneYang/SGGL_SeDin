@@ -74,21 +74,30 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                      WHEN '3' THEN '上官红劳务分包合同'
                                      WHEN '4' THEN '试车服务合同'
                                      WHEN '5' THEN '租赁合同' END) AS ContractType,
-                                    (CASE Con.ApproveState WHEN '0' THEN '编制中'
-                                     WHEN '1' THEN '编制完成' 
-                                     WHEN '2' THEN '审批中'
-                                     WHEN '3' THEN '审批完成'
-                                     WHEN '4' THEN '编制被拒'END) AS ApproveState,
+                                    (CASE Con.ApproveState 
+                                      WHEN  @ContractCreating         THEN '编制中'
+                                      WHEN  @ContractCreat_Complete   THEN '编制完成' 
+                                      WHEN  @Contract_countersign     THEN '会签中'
+                                      WHEN  @ContractReviewing        THEN '审批中'
+                                      WHEN  @ContractReview_Complete  THEN '审批成功' 
+                                      WHEN  @ContractReview_Refuse    THEN '审批被拒'END) AS ApproveState,
                                     Con.Remarks,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
-                            + @" FROM PHTGL_Contract AS Con"
-                            + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
-                            + @" LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
-                            + @" LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
+                            + @"  FROM PHTGL_Contract AS Con"
+                            + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
+                            + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
+                            + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString ()));
+            listStr.Add(new SqlParameter("@ContractCreat_Complete", Const.ContractCreat_Complete));
+            listStr.Add(new SqlParameter("@Contract_countersign", Const.Contract_countersign));
+            listStr.Add(new SqlParameter("@ContractReviewing", Const.ContractReviewing));
+            listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
+            listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
+
             if (!(this.CurrUser.UserId==Const.sysglyId))
             {
                 strSql += " and Con.ProjectId =@ProjectId";

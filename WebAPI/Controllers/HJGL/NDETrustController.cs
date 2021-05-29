@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
+using Newtonsoft.Json;
 
 namespace WebAPI.Controllers
 {
@@ -172,15 +173,26 @@ namespace WebAPI.Controllers
         /// <summary>
         /// 点口调整 
         /// </summary>
-        /// <param name="oldJointId"></param>
-        /// <param name="newJointId"></param>
+        /// <param name="items"></param>
         /// <returns></returns>
-        public Model.ResponeData getRePointSave(string oldJointId, string newJointId)
+        public Model.ResponeData getRePointSave(string items)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                APINDETrustService.RePointSave(oldJointId, newJointId);
+                //APINDETrustService.RePointSave(oldJointId, newJointId);
+                var j = JsonConvert.DeserializeObject<dynamic>(items);
+                foreach (var item in j)
+                {
+                    if (item.selected == true)
+                    {
+                        BLL.PointBatchDetailService.UpdatePointBatchDetail(Convert.ToString(item.PointBatchItemId), "1", DateTime.Now);
+                    }
+                    else
+                    {
+                        BLL.PointBatchDetailService.UpdatePointBatchDetail(Convert.ToString(item.PointBatchItemId), null, null);
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -385,12 +397,12 @@ namespace WebAPI.Controllers
         /// <param name="mat">同材质</param>
         /// <param name="spec">同规格</param>
         /// <returns></returns>
-        public Model.ResponeData GetRepairExpDetail(string repairRecordId, bool welder, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
+        public Model.ResponeData GetRepairExpDetail(string repairRecordId, bool welder, bool batch, bool pipeLine, bool daily, bool repairBefore, bool mat, bool spec)
         {
             var responeData = new Model.ResponeData();
             try
             {
-                responeData.data = APINDETrustService.GetRepairExpDetail(repairRecordId, welder, pipeLine, daily, repairBefore, mat, spec);
+                responeData.data = APINDETrustService.GetRepairExpDetail(repairRecordId, welder, batch, pipeLine, daily, repairBefore, mat, spec);
             }
             catch (Exception ex)
             {

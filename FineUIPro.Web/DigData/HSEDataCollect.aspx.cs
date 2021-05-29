@@ -268,7 +268,8 @@ namespace FineUIPro.Web.DigData
             string strSql = @"SELECT HSEDataCollectSubmissionId,HSEDataCollectId,Year,C.ProjectId,P.ProjectCode,P.ProjectName, Month1,Month2,Month3,Month4,Month5,Month6,Month7,Month8,Month9,Month10,Month11,Month12
                                 FROM dbo.DigData_HSEDataCollectSubmission AS C 
                                 LEFT JOIN Base_Project AS P ON C.ProjectId=P.ProjectId
-                                WHERE 1=1 ";
+                                WHERE (Month1 IS NOT NULL OR Month2 IS NOT NULL OR Month3 IS NOT NULL OR Month4 IS NOT NULL OR Month5 IS NOT NULL OR Month6 IS NOT NULL OR Month7 IS NOT NULL OR Month8 IS NOT NULL OR Month9 IS NOT NULL OR Month10 IS NOT NULL OR Month11 IS NOT NULL OR Month12 IS NOT NULL)
+                                    AND  ProjectState ='1'  ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             if (this.drpYear.SelectedValue != BLL.Const._Null)
             {
@@ -348,6 +349,16 @@ namespace FineUIPro.Web.DigData
                 Alert.ShowInParent("当前月报不存在！", MessageBoxIcon.Warning);
                 return;
             }
+        }
+
+        protected void Grid1_Collapse(object sender, EventArgs e)
+        {
+            this.Grid2.Collapsed = !this.Grid1.Collapsed;
+        }
+
+        protected void Grid2_Collapse(object sender, EventArgs e)
+        {
+            this.Grid1.Collapsed = !this.Grid2.Collapsed;
         }
     }
 }

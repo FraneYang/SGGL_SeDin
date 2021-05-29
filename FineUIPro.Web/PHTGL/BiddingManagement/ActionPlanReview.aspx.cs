@@ -22,6 +22,11 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!IsPostBack)
             {
                 ddlPageSize.SelectedValue = Grid1.PageSize.ToString();
+                this.DropState.DataValueField = "Value";
+                DropState.DataTextField = "Text";
+                DropState.DataSource = BLL.DropListService.GetState();
+                DropState.DataBind();
+                Funs.FineUIPleaseSelect(DropState);
 
                 btnNew.OnClientClick = Window1.GetShowReference("ActionPlanReviewEdit.aspx", "施工计划审批") + "return false;";
                 GetButtonPower();
@@ -39,26 +44,43 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             string strSql = @"SELECT       APR.ActionPlanReviewId
                                           ,APR.ActionPlanID
+                                          ,Act.ActionPlanCode
                                           ,Pro.ProjectName
                                           ,Pro.ProjectCode
                                           , (CASE APR.State 
-                                                     WHEN '0' THEN '审批中'
-                                                     WHEN '1' THEN '审批完成'
-                                                     WHEN '2' THEN '审批被拒'END) AS State
+                                                     WHEN  @ContractReviewing THEN '审批中'
+                                                     WHEN  @ContractReview_Complete THEN '审批完成'
+                                                     WHEN  @ContractReview_Refuse THEN '审批被拒'END) AS State
                                           ,APR.Approval_Construction
                                           ,Act.CreateTime
                                           ,U.UserName AS CreateUser "
                             + @" FROM PHTGL_ActionPlanReview  AS APR "
                             + @" LEFT JOIN Sys_User AS U ON U.UserId = APR.CreateUser  "
-                            + @"LEFT JOIN PHTGL_ActionPlanFormation AS Act ON Act.ActionPlanID=APR.ActionPlanID"
+                            + @" LEFT JOIN PHTGL_ActionPlanFormation AS Act ON Act.ActionPlanID=APR.ActionPlanID"
                             + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@ContractReviewing",  Const.ContractReviewing));
+            listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
+            listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
+ 
             if (!(this.CurrUser.UserId == Const.sysglyId))
             {
                 strSql += " and  Act.ProjectID =@ProjectId";
 
                 listStr.Add(new SqlParameter("@ProjectId", this.CurrUser.LoginProjectId));
+            }
+
+            if (!string.IsNullOrEmpty(txtActionPlanCode.Text))
+            {
+                strSql += " and Act.ActionPlanCode like @ActionPlanCode ";
+                listStr.Add(new SqlParameter("@ActionPlanCode", "%" + txtActionPlanCode.Text + "%"));
+
+            }
+            if (DropState.SelectedValue != Const._Null)
+            {
+                strSql += " and APR.State =@State  ";
+                listStr.Add(new SqlParameter("@State", DropState.SelectedValue));
             }
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -101,6 +123,33 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             BindGrid();
         }
+
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            object[] keys = Grid1.DataKeys[e.RowIndex];
+            string fileId = string.Empty;
+            if (keys == null)
+            {
+                return;
+            }
+            else
+            {
+                fileId = keys[0].ToString();
+            }
+            if (e.CommandName == "LooK")
+            {
+                string id = fileId;
+                var Act = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(id);
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", Act.ActionPlanID, "编辑 - ")));
+                return;
+            }
+
+            if (e.CommandName == "export")
+            {
+                Print(fileId);
+            }
+
+        }
         #endregion
 
         #region 关闭弹出窗体
@@ -123,6 +172,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="e"></param>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            BindGrid();
+        }
+
+        protected void btnRset_Click(object sender, EventArgs e)
+        {
+            txtActionPlanCode.Text = "";
+            DropState.SelectedValue = "null";
             BindGrid();
         }
         #endregion
@@ -153,10 +209,18 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             string id = Grid1.SelectedRowID;
 
             var actReview = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(id);
-            actReview.State = 0;
+            actReview.State = Const.ContractReviewing;
+
+            if (actReview.CreateUser!=this.CurrUser.UserId)
+            {
+               string name= UserService.GetUserNameByUserId(actReview.CreateUser);
+                Alert.ShowInTop("！此审批不是您创建，无法重新提交【创建者："+name+"】", MessageBoxIcon.Warning);
+                return;
+
+            }
             BLL.PHTGL_ActionPlanReviewService.UpdatePHTGL_ActionPlanReview(actReview);
         
-            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(actReview.ActionPlanID);
+            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
 
             var _ActFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(actReview.ActionPlanID);
 
@@ -164,13 +228,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             //创建第一节点审批信息
             Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
             _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-            _Approve.ContractId = actReview.ActionPlanID;
+            _Approve.ContractId = actReview.ActionPlanReviewId;
             _Approve.ApproveMan = PHTGL_ActionPlanReviewService.Get_DicApproveman(_ActFormation.ProjectID, actReview.ActionPlanReviewId)[1];
             _Approve.ApproveDate = "";
             _Approve.State = 0;
             _Approve.IsAgree = 0;
             _Approve.ApproveIdea = "";
             _Approve.ApproveType = "1";
+            _Approve.ApproveForm = Request.Path;
 
             BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
             ShowNotify("重新提交成功!", MessageBoxIcon.Success);
@@ -189,8 +254,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 return;
             }
             string id = Grid1.SelectedRowID;
-            var Act = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(id);
-            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanReviewDetail.aspx?ActionPlanID={0}", Act.ActionPlanID, "编辑 - ")));
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanReviewDetail.aspx?ActionPlanReviewId={0}",id, "编辑 - ")));
 
         }
         #endregion
@@ -218,7 +282,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         var p = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(rowID);
                         if (p != null)
                         {
-                            BLL.LogService.AddSys_Log(this.CurrUser, p.CreateUser, p.ActionPlanID, BLL.Const.BidDocumentsReviewIdMenuid, BLL.Const.BtnDelete);
+                            BLL.LogService.AddSys_Log(this.CurrUser, p.CreateUser, p.ActionPlanID, BLL.Const.ActionPlanReview, BLL.Const.BtnDelete);
+                            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(rowID);
                             BLL.PHTGL_ActionPlanReviewService.DeletePHTGL_ActionPlanReviewById(rowID);
                          }
                     }
@@ -292,8 +357,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             }
             string Id = Grid1.SelectedRowID;
 
-            Id = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(Id).ActionPlanID;
+            Print(Id);
+        }
 
+
+        public void Print(string Id)
+        {
             string rootPath = Server.MapPath("~/");
             string initTemplatePath = string.Empty;
             string uploadfilepath = string.Empty;
@@ -305,8 +374,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
             File.Copy(uploadfilepath, newUrl);
             ///更新书签
+            var Act = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(Id);
             var getFireWork = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Id);
+
+
             Document doc = new Aspose.Words.Document(newUrl);
+            Bookmark txtActionPlanCode = doc.Range.Bookmarks["ActionPlanCode"];
+            Bookmark txtCreateTime = doc.Range.Bookmarks["CreateTime"];
 
             Bookmark txtProjectName = doc.Range.Bookmarks["txtProjectName"];
             Bookmark txtUnit = doc.Range.Bookmarks["txtUnit"];
@@ -329,7 +403,28 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Bookmark txtEvaluationPlan = doc.Range.Bookmarks["txtEvaluationPlan"];
             Bookmark txtBiddingMethods_Select = doc.Range.Bookmarks["txtBiddingMethods_Select"];
             Bookmark txtSchedulePlan = doc.Range.Bookmarks["txtSchedulePlan"];
+            if (txtActionPlanCode != null)
+            {
+                if (getFireWork != null)
+                {
+                    txtActionPlanCode.Text = getFireWork.ActionPlanCode;
+                }
+            }
+            if (txtCreateTime != null)
+            {
+                if (getFireWork != null)
+                {
 
+                    txtCreateTime.Text = string.Format("{0:D}", getFireWork.CreateTime);
+                }
+            }
+            if (Act.State==Const.ContractReview_Complete)
+            {
+                InsertImg(doc, "Approval_Construction",Act.Approval_Construction);
+                InsertImg(doc, "ConstructionManager",Act.ConstructionManager);
+                InsertImg(doc, "DeputyGeneralManager",Act.DeputyGeneralManager);
+                InsertImg(doc, "ProjectManager",Act.ProjectManager);
+            }
             if (txtProjectName != null)
             {
                 if (getFireWork != null)
@@ -537,6 +632,53 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Response.Close();
             File.Delete(newUrl);
             File.Delete(pdfUrl);
+        }
+
+
+        void InsertImg(Document doc, string BookmarksName, string ManId)
+        {
+            string rootPath = Server.MapPath("~/");
+            Bookmark bookmarkCreateMan = doc.Range.Bookmarks[BookmarksName];
+
+            if (bookmarkCreateMan != null)
+            {
+                var user = UserService.GetUserByUserId(ManId);
+                if (user != null)
+                {
+                    if (!string.IsNullOrEmpty(user.SignatureUrl))
+                    {
+                        var file = user.SignatureUrl;
+                        if (!string.IsNullOrWhiteSpace(file))
+                        {
+                            string url = rootPath + file;
+                            DocumentBuilder builders = new DocumentBuilder(doc);
+                            builders.MoveToBookmark(BookmarksName);
+                            if (!string.IsNullOrEmpty(url))
+                            {
+                                System.Drawing.Size JpgSize;
+                                float Wpx;
+                                float Hpx;
+                                UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
+                                double i = 1;
+                                i = JpgSize.Width / 50.0;
+                                if (File.Exists(url))
+                                {
+                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                }
+                                else
+                                {
+                                    bookmarkCreateMan.Text = user.UserName;
+                                }
+
+                            }
+                        }
+                    }
+                    else
+                    {
+                        bookmarkCreateMan.Text = user.UserName;
+                    }
+                }
+            }
         }
         #endregion
     }

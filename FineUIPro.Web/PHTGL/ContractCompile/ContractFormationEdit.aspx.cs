@@ -105,7 +105,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 if (!string.IsNullOrEmpty(Request.Params["ContractId"]))
                 {
                     Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(ContractId);
-                    if (_Contract.ApproveState ==1)
+                    if (_Contract.ApproveState >=Const.ContractCreat_Complete)
                     {
                         btnSave_Tab1.Hidden = true;
                         btnSave.Hidden = true;
@@ -224,7 +224,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             else
             {
                 newContract.ContractId = SQLHelper.GetNewID(typeof(Model.PHTGL_Contract));
-                newContract.ApproveState = 0;
+                newContract.ApproveState = Const.ContractCreating;
                 newContract.CreatUser = this.CurrUser.UserId;
                 ContractId = newContract.ContractId;
                 BLL.ContractService.AddContract(newContract);
@@ -1022,7 +1022,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         protected void btnSubmitForm1_Click(object sender, EventArgs e)
         {
             Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(ContractId);
-            _Contract.ApproveState = 1;
+            _Contract.ApproveState = Const.ContractCreat_Complete;
             ContractService.UpdateContract(_Contract);
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

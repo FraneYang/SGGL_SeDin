@@ -241,14 +241,16 @@ namespace FineUIPro.Web.HJGL.WeldingManage
             {
                 string perfix = string.Format("{0:yyyyMMdd}", Convert.ToDateTime(txtWeldingDate.Text)) + "-";
                 string weldingDailyCode = BLL.SQLHelper.RunProcNewId("SpGetThreeNumber", "dbo.HJGL_WeldingDaily", "WeldingDailyCode", this.CurrUser.LoginProjectId, perfix);
-
+                Model.Base_Project project = BLL.ProjectService.GetProjectByProjectId(this.CurrUser.LoginProjectId);
                 Model.HJGL_WeldingDaily newWeldingDaily = new Model.HJGL_WeldingDaily();
+                Model.WBS_UnitWork unitWork = new Model.WBS_UnitWork();
                 newWeldingDaily.WeldingDailyCode = weldingDailyCode;
                 newWeldingDaily.ProjectId = CurrUser.LoginProjectId;
+                
                 if (tvControlItem.SelectedNodeID != BLL.Const._Null)
                 {
                     newWeldingDaily.UnitWorkId = tvControlItem.SelectedNodeID;
-                    var unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
+                    unitWork = BLL.UnitWorkService.getUnitWorkByUnitWorkId(tvControlItem.SelectedNodeID);
                     newWeldingDaily.UnitId = unitWork.UnitId;
                 }
                
@@ -499,8 +501,8 @@ namespace FineUIPro.Web.HJGL.WeldingManage
                                         Model.HJGL_Batch_PointBatch batch = new Model.HJGL_Batch_PointBatch();
                                         batch.PointBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_PointBatch));
                                         batchId = batch.PointBatchId;
-                                        string perfix1 = unit.UnitCode + "-" + ndt.DetectionTypeCode + "-" + ndtr.DetectionRateValue.ToString() + "-";
-                                        batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode5ByProjectId", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix1);
+                                        string perfix1 = project.ProjectCode + "-" + unitWork.UnitWorkCode + "-GD-DK-" + ndt.DetectionTypeCode + "-" + ndtr.DetectionRateValue.ToString() + "%-";
+                                        batch.PointBatchCode = BLL.SQLHelper.RunProcNewIdByProjectId("SpGetNewCode4ByProjectId", "dbo.HJGL_Batch_PointBatch", "PointBatchCode", this.CurrUser.LoginProjectId, perfix1);
 
                                         batch.ProjectId = CurrUser.LoginProjectId;
                                         batch.UnitWorkId = pipeline.UnitWorkId;

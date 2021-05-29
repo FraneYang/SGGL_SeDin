@@ -58,6 +58,51 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Toolbar Toolbar2;
         
         /// <summary>
+        /// txtBidDocumentsCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtBidDocumentsCode;
+        
+        /// <summary>
+        /// txtBidDocumentsName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtBidDocumentsName;
+        
+        /// <summary>
+        /// DropState 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropState;
+        
+        /// <summary>
+        /// btnQuery 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnQuery;
+        
+        /// <summary>
+        /// btnRset 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnRset;
+        
+        /// <summary>
         /// btnNew 控件。
         /// </summary>
         /// <remarks>
