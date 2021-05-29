@@ -113,7 +113,7 @@ namespace WebAPI.Controllers
 
         #region
         //
-        // 质量巡检
+        // 质量巡检 
         // GET: /Draw/
         [HttpGet]
         public ResponseData<List<View_PTP_ItemEndCheckList>> getItemEndCheckList(string itemEndCheckListId, int index, int page)
