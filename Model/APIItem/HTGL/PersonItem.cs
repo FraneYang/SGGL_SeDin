@@ -20,6 +20,11 @@ namespace Model
         /// 身份证号
         /// </summary>
         public string IdentityCard { get; set; }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public string Image { get; set; }
     }
 
     public class Person
@@ -32,6 +37,7 @@ namespace Model
         /// 
         /// </summary>
         public string Message { get; set; }
+    
     }
 
 }

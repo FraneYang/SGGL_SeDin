@@ -54,6 +54,11 @@ namespace BLL
         public const string Password = "123";
 
         /// <summary>
+        /// 默认用户密码
+        /// </summary>
+        public const string MD5pwd = "202CB962AC59075B964B07152D234B70";
+
+        /// <summary>
         /// 入场培训类型ID
         /// </summary>
         public const string EntryTrainTypeId = "8920c9cc-fa92-49b2-9493-775a55da27bb";
