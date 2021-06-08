@@ -29,6 +29,10 @@ namespace FineUIPro.Web.CQMS.Check
                         {
                             this.drpMainItem.SelectedValue = Draw.MainItem;
                         }
+                        else
+                        {
+                            this.drpMainItem.Items.Clear();
+                        }
                         if (!string.IsNullOrEmpty(Draw.DesignCN))
                         {
                             this.drpDesignCN.SelectedValue = Draw.DesignCN;

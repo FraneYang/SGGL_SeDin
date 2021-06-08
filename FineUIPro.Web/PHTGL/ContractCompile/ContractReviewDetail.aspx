@@ -158,6 +158,9 @@
                                                         <f:Listener Event="change" Handler="onCheckBoxListChange" />
                                                     </Listeners>
                                                 </f:CheckBoxList>
+                                                 <f:Button ID="LooK" Icon="Zoom" runat="server" ToolTip="查看" Text="查看文件" ValidateForms="SimpleForm1"
+                                                     OnClick="btnLooK_Click">
+                                                </f:Button>
                                             </Items>
                                         </f:Panel>
                                         
@@ -291,9 +294,9 @@
             </Toolbars>
         </f:Panel>
 
-        <f:Window ID="Window1" Title="流程步骤设置" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true"  
-            Width="640px" Height="450px">
+        <f:Window ID="Window1" Title="查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="false"   EnableDrag="true" EnableMinimize="true"
+            Width="1000px" Height="800px">
         </f:Window>
     </form>
     <script type="text/javascript">      

@@ -26,7 +26,11 @@ namespace BLL
         {
             return Funs.DB.PHTGL_AttachUrl4.FirstOrDefault(e => e.AttachUrlId == AttachUrlId);
         }
-
+        public static List<Model.PHTGL_AttachUrl4> GetListAttachurl4ById(string AttachUrlId)
+        {
+            var q = (from x in Funs.DB.PHTGL_AttachUrl4 orderby x.OrderNumber where x.AttachUrlId == AttachUrlId select x).ToList();
+            return q;
+        }
         /// <summary>
         /// 增加附件1
         /// </summary>
@@ -76,5 +80,16 @@ namespace BLL
                 }
             }
         }
+
+        public static void deletePHTGL_AttachUrl14byAttachUrlId(string AttachUrlId)
+        {
+            var q = (from x in Funs.DB.PHTGL_AttachUrl4 where x.AttachUrlId == AttachUrlId select x).ToList();
+            if (q != null)
+            {
+                Funs.DB.PHTGL_AttachUrl4.DeleteAllOnSubmit(q);
+                Funs.DB.SubmitChanges();
+            }
+        }
+
     }
 }

@@ -28,8 +28,9 @@
                                 </f:FormRow>
                                 <f:FormRow>
                                     <Items>
-                                        <f:TextBox ID="txtCreateUser" Label="经办人"  Readonly="true" runat="server">
+                                        <f:TextBox ID="txtCreateUser" Label="经办人" Readonly="true" runat="server">
                                         </f:TextBox>
+                                       
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
@@ -47,7 +48,9 @@
                                                 <f:Listener Event="change" Handler="onCheckBoxListChange" />
                                             </Listeners>
                                         </f:CheckBoxList>
-
+                                         <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
+                                            OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
+                                        </f:Button>
                                     </Items>
                                 </f:FormRow>
                                 <f:FormRow>
@@ -91,9 +94,7 @@
              <Toolbars>
                  <f:Toolbar ID="Toolbar3" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
-                        <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
-                            OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
-                        </f:Button>
+                    
                         <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
                             OnClick="btnSave_Click">

@@ -82,22 +82,16 @@
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropConstructionManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%-- <f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropApproval_Construction" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工管理部" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%--   <f:TextBox ID="txtControlManager" runat="server" Label="控制经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropProjectManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="项目经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%--<f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -105,25 +99,18 @@
                                                 <f:DropDownList ID="DropDeputyGeneralManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="分管副总经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
-
                                     </Rows>
-
                                 </f:Form>
                             </Items>
-
                         </f:ContentPanel>
                     </Items>
                 </f:FormRow>
-
             </Rows>
             <Toolbars>
                 <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:Label runat="server" ID="lbTemp">
                         </f:Label>
-                        <%--<f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件上传及查看" Icon="TableCell" runat="server"
-                            OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
-                        </f:Button>--%>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
                         <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"

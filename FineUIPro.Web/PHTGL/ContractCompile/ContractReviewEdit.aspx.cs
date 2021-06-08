@@ -67,6 +67,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 #endregion
 
                 BindGrid();
+                BindFrom();
 
             }
 
@@ -117,6 +118,32 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
+        }
+        private void BindFrom()
+        {
+            var newmodel = PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(ContractReviewId);
+          
+
+            drpProjectId.Value = Convert.ToString(newmodel.ContractId);
+             dropCountersign_Construction.SelectedValue = Convert.ToString(newmodel.Countersign_Construction);
+            DropCountersign_Law.SelectedValue = Convert.ToString(newmodel.Countersign_Law);
+            dropApproval_Construction.SelectedValue = Convert.ToString(newmodel.Approval_Construction);
+            dropApproval_Law.SelectedValue = Convert.ToString(newmodel.Approval_Law);
+            DropConstructionManager.SelectedValue = Convert.ToString(newmodel.Countersign_ConstructionManager);
+            DropHSSEManager.SelectedValue = Convert.ToString(newmodel.Countersign_HSSEManager);
+            DropQAManager.SelectedValue = Convert.ToString(newmodel.Countersign_QAManager);
+            DropPurchasingManager.SelectedValue = Convert.ToString(newmodel.Countersign_PurchasingManager);
+            DropControlManager.SelectedValue = Convert.ToString(newmodel.Countersign_ControlManager);
+            DropFinancialManager.SelectedValue = Convert.ToString(newmodel.Countersign_FinancialManager);
+            DropProjectManager.SelectedValue = Convert.ToString(newmodel.Approval_SubProjectManager);
+            DropProjectManager.SelectedValue = Convert.ToString(newmodel.Approval_ProjectManager);
+            DropDeputyGeneralManager.SelectedValue = Convert.ToString(newmodel.Approval_DeputyGeneralManager);
+            DropGeneralAccountant.SelectedValue = Convert.ToString(newmodel.Approval_GeneralAccountant);
+            DropGeneralManager.SelectedValue = Convert.ToString(newmodel.Approval_GeneralManager);
+            DropChairman.SelectedValue = Convert.ToString(newmodel.Approval_Chairman);
+
+            Model.PHTGL_Contract table = BLL.ContractService.GetContractById(this.drpProjectId.Value);
+            txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
         }
         private bool DropIsNull(Control c)
         {

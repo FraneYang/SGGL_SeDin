@@ -25,7 +25,7 @@
                  </f:FormRow>
                 <f:FormRow runat="server">
                     <Items>
-                        <f:DropDownList ID="drpMainItem" runat="server" Label="主项" LabelWidth="110px" LabelAlign="Right" Required="true" ShowRedStar="true" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableEdit="true">
+                        <f:DropDownList ID="drpMainItem" runat="server" Label="主项" LabelWidth="110px" LabelAlign="Right" EmptyText="--请选择--" AutoSelectFirstItem="false" EnableEdit="true">
                         </f:DropDownList>
                         <f:DropDownList ID="drpDesignCN" runat="server" Required="true" ShowRedStar="true" EmptyText="--请选择--" AutoSelectFirstItem="false" Label="设计专业" LabelWidth="110px" LabelAlign="Right" EnableEdit="true">
                         </f:DropDownList>

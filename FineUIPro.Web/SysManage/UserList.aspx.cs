@@ -251,6 +251,10 @@
         private string judgementDelete(string id)
         {
             string content = string.Empty;
+            if (Funs.DB.Person_QuarterCheck.FirstOrDefault(x => x.UserId == id) != null)
+            {
+                content += "已在【员工季度考核评价表】中使用，不能删除！";
+            }
             if (Funs.DB.Project_ProjectUser.FirstOrDefault(x => x.UserId == id) != null)
             {
                 content += "已在【项目用户】中使用，不能删除！";

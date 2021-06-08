@@ -67,6 +67,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox txtContractName;
         
         /// <summary>
+        /// btnNew 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnNew;
+        
+        /// <summary>
         /// btnSearch 控件。
         /// </summary>
         /// <remarks>
@@ -76,13 +85,67 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Button btnSearch;
         
         /// <summary>
-        /// btnNew 控件。
+        /// btnMenuDelete 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnNew;
+        protected global::FineUIPro.Button btnMenuDelete;
+        
+        /// <summary>
+        /// Toolbar1 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// btnSubmitAgain 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnSubmitAgain;
+        
+        /// <summary>
+        /// btnMenuEdit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnMenuEdit;
+        
+        /// <summary>
+        /// btnQueryApprove 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnQueryApprove;
+        
+        /// <summary>
+        /// btnPrinter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnPrinter;
+        
+        /// <summary>
+        /// btnPrinterWord 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnPrinterWord;
         
         /// <summary>
         /// lblPageIndex 控件。
@@ -137,32 +200,5 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Menu Menu1;
-        
-        /// <summary>
-        /// btnMenuEdit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuEdit;
-        
-        /// <summary>
-        /// btnMenuSubmit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuSubmit;
-        
-        /// <summary>
-        /// btnMenuDelete 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDelete;
     }
 }

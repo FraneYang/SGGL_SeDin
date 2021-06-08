@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,38 +13,128 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class AttachUrl5 : PageBase
     {
-        public static DataTable Grid1Table = new DataTable();
-        public static DataTable Grid2Table = new DataTable();
-        private static List<Model.PHTGL_AttachUrl5_DevicePrice> url5_dev = new List<Model.PHTGL_AttachUrl5_DevicePrice>();
-        private static List<Model.PHTGL_AttachUrl5_MaterialsPrice> url5_mat = new List<Model.PHTGL_AttachUrl5_MaterialsPrice>();
-        public static string AttachUrlId = "";
-        protected void Page_Load(object sender, EventArgs e)
+        public string AttachUrlId
+        {
+            get
+            {
+                return (string)ViewState["AttachUrlId"];
+            }
+            set
+            {
+                ViewState["AttachUrlId"] = value;
+            }
+        }
+        public DataTable Grid1Table
+        {
+            get
+            {
+                return (DataTable)ViewState["Grid1Table"];
+            }
+            set
+            {
+                ViewState["Grid1Table"] = value;
+            }
+        }
+        public DataTable Grid2Table
+        {
+            get
+            {
+                return (DataTable)ViewState["Grid2Table"];
+            }
+            set
+            {
+                ViewState["Grid2Table"] = value;
+            }
+        }
+        public List<Model.PHTGL_AttachUrl5_DevicePrice> url5_dev
+        {
+            get
+            {
+                return (List<Model.PHTGL_AttachUrl5_DevicePrice>)Session["url5_dev"];
+            }
+            set
+            {
+                Session["url5_dev"] = value;
+            }
+        }
+        public List<Model.PHTGL_AttachUrl5_MaterialsPrice> url5_mat
+        {
+            get
+            {
+                return (List<Model.PHTGL_AttachUrl5_MaterialsPrice>)Session["url5_mat"];
+            }
+            set
+            {
+                Session["url5_mat"] = value;
+            }
+        }
+          protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 AttachUrlId = Request.Params["AttachUrlId"];
-                url5_dev.Clear();
-                url5_mat.Clear();
-                var att = BLL.AttachUrl5_DevicePriceService.GetAttachurl5ById(AttachUrlId);
-                var att2 = BLL.AttachUrl5_MaterialsPriceService.GetAttachurl5ById(AttachUrlId);
-                if (att == null)
-                {
-                    att = BLL.AttachUrl5_DevicePriceService.GetAttachurl5ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 5).AttachUrlId);
-                }
-                if (att2 == null)
-                {
-                    att2 = BLL.AttachUrl5_MaterialsPriceService.GetAttachurl5ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 5).AttachUrlId);
-                }
-                url5_dev.Add(att);
-                url5_mat.Add(att2);
+                #region Grid1
+                // 删除选中单元格的客户端脚本
+                string deleteScript = GetDeleteScript();
+
+                JObject defaultObj = new JObject();
+                defaultObj.Add("OrderNumber", "");
+                defaultObj.Add("Name", "");
+                defaultObj.Add("Spec", "");
+                defaultObj.Add("Material", "");
+                defaultObj.Add("Company", "");
+                defaultObj.Add("UnitPrice", "");
+                defaultObj.Add("Remarks", "");
+
+                // 在第一行新增一条数据
+                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, false);
+                // 删除选中行按钮
+                btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript;
+                #endregion
+                #region Grid2
+                // 删除选中单元格的客户端脚本
+                string deleteScript2 = GetDeleteScript();
+
+                JObject defaultObj2 = new JObject();
+                defaultObj2.Add("OrderNumber", "");
+                defaultObj2.Add("Name", "");
+                defaultObj2.Add("Company", "");
+                defaultObj2.Add("amount", "");
+                defaultObj2.Add("UnitPrice", "");
+                defaultObj2.Add("Totalprice", "");
+                defaultObj2.Add("Remarks", "");
+
+                // 在第一行新增一条数据
+                btnNew2.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, false);
+                // 删除选中行按钮
+                btnDelete2.OnClientClick = Grid2.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript2;
+                #endregion
+                //url5_dev = new List<Model.PHTGL_AttachUrl5_DevicePrice>();
+                //url5_mat = new List<Model.PHTGL_AttachUrl5_MaterialsPrice>();
+                //var att = BLL.AttachUrl5_DevicePriceService.GetAttachurl5ById(AttachUrlId);
+                //var att2 = BLL.AttachUrl5_MaterialsPriceService.GetAttachurl5ById(AttachUrlId);
+                //if (att == null)
+                //{
+                //    att = BLL.AttachUrl5_DevicePriceService.GetAttachurl5ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 5).AttachUrlId);
+                //}
+                //if (att2 == null)
+                //{
+                //    att2 = BLL.AttachUrl5_MaterialsPriceService.GetAttachurl5ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 5).AttachUrlId);
+                //}
+                //url5_dev.Add(att);
+                //url5_mat.Add(att2);
 
 
 
-                DataGridAttachUrl();
+                //DataGridAttachUrl();
                 btnClose.OnClientClick = ActiveWindow.GetHideReference();
 
             }
 
+        }
+        private string GetDeleteScript()
+        {
+            return Confirm.GetShowReference("确定删除当前数据吗？", String.Empty, MessageBoxIcon.Question, Grid1.GetDeleteSelectedRowsReference(), String.Empty);
         }
         #region 附件
         /// <summary>
@@ -67,8 +158,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                       mat.UnitPrice,
                                       mat.Remarks "
                              + @" from  PHTGL_AttachUrl5_MaterialsPrice as mat"
-                             + @"   where 1=1  order by mat.OrderNumber";
+                             + @"   where 1=1 and  mat.AttachUrlId=@AttachUrlId  order by mat.OrderNumber";
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
@@ -91,10 +183,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                       ,dev.Totalprice
                                       ,dev.Remarks "
                            + @"   FROM  PHTGL_AttachUrl5_DevicePrice as dev"
-                           + @"   where 1=1 order by dev.OrderNumber ";
+                           + @"   where 1=1 and dev.AttachUrlId=@AttachUrlId order by dev.OrderNumber ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-
-            SqlParameter[] parameter = listStr.ToArray();
+            listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid2.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid2, tb);
@@ -137,13 +229,57 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         }
         protected void btnSave_Click(object sender, EventArgs e)
         {
-            Grid1.GetModifiedDict();
-            Grid1Save_material(Grid1);
+            BLL.AttachUrl5_DevicePriceService.DeleteUrl5ByAttachUrlId(AttachUrlId);
+            JArray EditorArr = Grid1.GetMergedData();
+            if (EditorArr.Count > 0)
+            {
+                Model.PHTGL_AttachUrl5_DevicePrice model = null;
+                for (int i = 0; i < EditorArr.Count; i++)
+                {
+                    JObject objects = (JObject)EditorArr[i];
+                    model = new Model.PHTGL_AttachUrl5_DevicePrice();
+                    model.AttachUrlItemId = SQLHelper.GetNewID(typeof(Model.PHTGL_AttachUrl5_DevicePrice));
+                    model.AttachUrlId = AttachUrlId;
+                    model.OrderNumber = objects["values"]["OrderNumber"].ToString();
+                    model.Name = objects["values"]["Name"].ToString();
+                    model.Company = objects["values"]["Company"].ToString();
+                    model.Amount =int.Parse( objects["values"]["amount"].ToString());
+                    model.UnitPrice = int.Parse( objects["values"]["UnitPrice"].ToString());
+                    model.Totalprice = int.Parse( objects["values"]["Totalprice"].ToString());
+                    model.Remarks = objects["values"]["Remarks"].ToString();
+                    BLL.AttachUrl5_DevicePriceService.AddAttachurl5(model);
+                }
+            }
 
-            Grid2.GetModifiedDict();
-            Grid2Save__device(Grid2);
+            AttachUrl5_MaterialsPriceService.DeleteUrl5ByAttachUrlId(AttachUrlId);
+            JArray EditorArr2 = Grid2.GetMergedData();
+            if (EditorArr2.Count > 0)
+            {
+                Model.PHTGL_AttachUrl5_MaterialsPrice model = null;
+                for (int i = 0; i < EditorArr2.Count; i++)
+                {
+                    JObject objects = (JObject)EditorArr2[i];
+                    model = new Model.PHTGL_AttachUrl5_MaterialsPrice();
+                    model.AttachUrlItemId = SQLHelper.GetNewID(typeof(Model.PHTGL_AttachUrl5_MaterialsPrice));
+                    model.AttachUrlId = AttachUrlId;
+                    model.OrderNumber = objects["values"]["OrderNumber"].ToString();
+                    model.Name = objects["values"]["Name"].ToString();
+                    model.Spec = objects["values"]["Spec"].ToString();
+                    model.Material = objects["values"]["Material"].ToString();
+                    model.Company = objects["values"]["Company"].ToString();
+                     model.UnitPrice = int.Parse(objects["values"]["UnitPrice"].ToString());
+                     model.Remarks = objects["values"]["Remarks"].ToString();
+                    BLL.AttachUrl5_MaterialsPriceService.AddAttachurl5(model);
+                }
+            }
+
+            //Grid1.GetModifiedDict();
+            //Grid1Save_material(Grid1);
+
+            //Grid2.GetModifiedDict();
+            //Grid2Save__device(Grid2);
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+          //  PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
 

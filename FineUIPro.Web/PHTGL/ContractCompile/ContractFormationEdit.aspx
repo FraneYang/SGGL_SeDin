@@ -39,6 +39,26 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
+                                                <f:CheckBoxList ID="CBIsPassBid" Label="是否通过招标确定" runat="server" ColumnWidth="50%" LabelWidth="120px"  OnSelectedIndexChanged="CBIsAgree_SelectedIndexChanged">
+                                                    <Items>
+                                                        <f:CheckItem Text="是" Value="1" />
+                                                        <f:CheckItem Text="否" Value="2" />
+                                                    </Items>
+                                                     <Listeners>
+                                                        <f:Listener Event="change" Handler="onCheckBoxListChange" />
+                                                    </Listeners>
+                                                </f:CheckBoxList>
+                                                <f:Label runat="server"> </f:Label>
+                                              </Items>
+                                        </f:FormRow>
+                                         <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropSetSubReviewCode" runat="server" Label="确定中标人审批编号" LabelAlign="Right" AutoPostBack="true"  LabelWidth="140px" Hidden="true"></f:DropDownList>
+                                                <f:DropDownList ID="DropActionPlanCode" runat="server" Label="实施计划编号" LabelAlign="Right" AutoPostBack="true"  LabelWidth="140px" Hidden="true"></f:DropDownList>
+                                            </Items>
+                                        </f:FormRow>
+                                        <f:FormRow>
+                                            <Items>
                                                 <f:DropDownList ID="drpProjectId" runat="server" Label="总承包合同编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="120px"></f:DropDownList>
                                                 <f:TextBox ID="tab1_txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
                                             </Items>
@@ -1273,8 +1293,8 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                 <f:TextBox runat="server" Label="总承包商向施工分包商提供图纸的数量" LabelWidth="300"  ID="DrawingCount" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="right">
+                                                 <f:TextBox runat="server" Label="总承包商向施工分包商提供图纸的数量" LabelWidth="300"  ID="DrawingCount" AutoPostBack="true" OnTextChanged="TextBoxChanged" 
+                                                    Width="120px" LabelAlign="right"  InputType ="number">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -1305,7 +1325,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="施工分包商向总承包商提供施工文件的数量" LabelWidth="300"  ID="ConstructionSubFileCount" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="right">
+                                                    Width="120px" LabelAlign="right" InputType ="number">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -1520,7 +1540,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="3.2.2施工分包商项目经理每月在施工现场时间不得少于" LabelWidth="300"  ID="DaysNum" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="left">
+                                                    Width="120px" LabelAlign="left" InputType ="number">
                                                 </f:TextBox>
                                                 <f:Label runat="server" ID="Label97" Text="  天 "></f:Label>
                                             </Items>
@@ -1597,7 +1617,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="履约担保的金额" LabelWidth="300"  ID="PerformanceMoney" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="right">
+                                                    Width="120px" LabelAlign="right" InputType ="number">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -2238,7 +2258,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="19.3.1分包工程最终结清申请单需要的份数" LabelWidth="300"  ID="FinalSettlementNum" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="left">
+                                                    Width="120px" LabelAlign="left" InputType="number">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -2255,7 +2275,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="20.1.1缺陷责任期的起算日" LabelWidth="300"  ID="DefectLiabilityDate" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="left">
+                                                    Width="120px" LabelAlign="left" InputType="date">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -2274,7 +2294,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="20.2.1保修期的起算日" LabelWidth="300"  ID="WarrantyPeriodDate" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="left">
+                                                    Width="120px" LabelAlign="left" InputType="date">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -2421,7 +2441,7 @@
                                         <f:FormRow>
                                             <Items>
                                                  <f:TextBox runat="server" Label="（3）施工机具保险的保险金额" LabelWidth="300"  ID="InsuredAmount" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                                                    Width="120px" LabelAlign="right">
+                                                    Width="120px" LabelAlign="right" InputType ="number">
                                                 </f:TextBox>
                                             </Items>
                                         </f:FormRow>
@@ -2513,7 +2533,7 @@
                 </f:TabStrip>
                 <f:Panel ID="Panel16" runat="server" CssStyle="text-align: right;" ShowBorder="false" ShowHeader="false">
                     <Items>
-                        <f:Button runat="server" Text="提交" ValidateForms="Form1"
+                        <f:Button  runat="server" Text="提交" ValidateForms="Form1"
                             ID="btnSubmitForm1" OnClick="btnSubmitForm1_Click">
                         </f:Button>
                         <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose">
@@ -2531,6 +2551,20 @@
         function onGridDataLoad(event) {
             this.mergeColumns(['FlowStep', 'GroupNum'], { depends: true });
         }
+          // 同时只能选中一项
+        function onCheckBoxListChange(event, checkbox, isChecked) {
+            var me = this;
+
+            // 当前操作是：选中
+            if (isChecked) {
+                // 仅选中这一项
+                me.setValue(checkbox.getInputValue());
+            }
+
+
+            __doPostBack('', 'CheckBoxList1Change');
+        }
+
     </script>
 </body>
 </html>

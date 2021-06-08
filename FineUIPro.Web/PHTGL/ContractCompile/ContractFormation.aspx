@@ -29,11 +29,17 @@
                                 <f:DropDownList ID="drpStates" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="btnSearch_Click"
                                     LabelWidth="70px" LabelAlign="Right" Width="170px">
                                 </f:DropDownList>
-                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
-                                </f:Button>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
+                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" Text="查询" OnClick="btnSearch_Click">
+                                </f:Button>
+                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" Text="新增" runat="server"
                                     Hidden="true">
+                                </f:Button>
+                                <f:Button ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
+                                    OnClick="btnMenuEdit_Click">
+                                </f:Button>
+                                <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                                    OnClick="btnMenuDelete_Click">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
@@ -108,12 +114,12 @@
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
-                <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
+                <%--<f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                     OnClick="btnMenuEdit_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDelete_Click">
-                </f:MenuButton>
+                </f:MenuButton>--%>
             </Items>
         </f:Menu>
     </form>

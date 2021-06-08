@@ -103,6 +103,51 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Button btnNew;
         
         /// <summary>
+        /// btnMenuDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnMenuDelete;
+        
+        /// <summary>
+        /// Toolbar3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar3;
+        
+        /// <summary>
+        /// btnPrinter 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnPrinter;
+        
+        /// <summary>
+        /// btnMenuEdit 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnMenuEdit;
+        
+        /// <summary>
+        /// btnQueryApprove 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnQueryApprove;
+        
+        /// <summary>
         /// lblPageIndex 控件。
         /// </summary>
         /// <remarks>
@@ -155,23 +200,5 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Menu Menu1;
-        
-        /// <summary>
-        /// btnMenuEdit 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuEdit;
-        
-        /// <summary>
-        /// btnMenuDelete 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.MenuButton btnMenuDelete;
     }
 }

@@ -89,6 +89,8 @@ namespace BLL
             newContract.Remarks = contract.Remarks;
             newContract.ApproveState = contract.ApproveState;
             newContract.CreatUser = contract.CreatUser;
+            newContract.IsPassBid = contract.IsPassBid;
+            newContract.PassBidCode = contract.PassBidCode;
             Funs.DB.PHTGL_Contract.InsertOnSubmit(newContract);
             Funs.DB.SubmitChanges();
         }
@@ -116,6 +118,8 @@ namespace BLL
                 newContract.Remarks = contract.Remarks;
                 newContract.ApproveState = contract.ApproveState;
                 newContract.CreatUser = contract.CreatUser;
+                newContract.IsPassBid = contract.IsPassBid;
+                newContract.PassBidCode = contract.PassBidCode;
                 Funs.DB.SubmitChanges();
             }
         }

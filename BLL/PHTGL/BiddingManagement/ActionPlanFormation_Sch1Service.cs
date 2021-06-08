@@ -79,6 +79,11 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+        public static List<Model.PHTGL_ActionPlanFormation_Sch1> GetListPHTGL_ActionPlanFormation_Sch1ById(string ActionPlanID)
+        {
+            var q = (from x in Funs.DB.PHTGL_ActionPlanFormation_Sch1 orderby x.PlanningContent  where x.ActionPlanID == ActionPlanID select x).ToList();
+            return q;
+        }
 
     }
 }

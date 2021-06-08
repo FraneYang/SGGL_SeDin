@@ -110,6 +110,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         btnSave_Tab1.Hidden = true;
                         btnSave.Hidden = true;
                         btnSave_Tab4.Hidden = true;
+                        btnSubmitForm1.Hidden = true;
                     }
  
                 }
@@ -129,8 +130,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             //总承包合同编号
             BLL.ProjectService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
             this.drpProjectId.SelectedValue = this.CurrUser.LoginProjectId;
-         //   this.drpProjectId.Enabled = false;
+            ///this.drpProjectId.Enabled = false;
              drpProjectId_SelectedIndexChanged(null, null);
+            ///确定中标人审批编号
+            BLL.PHTGL_SetSubReviewService.InitGetSetSubCompleteDropDownList(DropSetSubReviewCode,true);
+            ///实施计划编号
+            BLL.PHTGL_ActionPlanFormationService.InitGetAcpCompleteDropDownList(DropActionPlanCode,true );
             //币种
             this.drpCurrency.DataTextField = "Text";
             this.drpCurrency.DataValueField = "Value";
@@ -155,6 +160,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 Model.PHTGL_Contract contract = BLL.ContractService.GetContractById(contractId);
                 if (contract != null)
                 {
+                    if (!string.IsNullOrEmpty(contract.IsPassBid))
+                    {
+                        string[] aa= { contract.IsPassBid };
+                        this.CBIsPassBid.SelectedValueArray = aa;
+                        CBIsAgree_SelectedIndexChanged(null, null);
+                        DropSetSubReviewCode.SelectedValue = contract.PassBidCode;
+                        DropActionPlanCode.SelectedValue= contract.PassBidCode;
+                    }
                     if (!string.IsNullOrEmpty(contract.ProjectId))
                     {
                         this.drpProjectId.SelectedValue = contract.ProjectId;
@@ -185,14 +198,58 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
 
         }
-        
-
-            protected void btnSave_Tab1_Click(object sender, EventArgs e)
+        protected void CBIsAgree_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (CBIsPassBid.SelectedValueArray[0]=="1")
             {
-             Model.PHTGL_Contract newContract = new Model.PHTGL_Contract();
+                DropSetSubReviewCode.Hidden = false;
+                DropActionPlanCode.Hidden = true;
+
+            }
+            else if (CBIsPassBid.SelectedValueArray[0] == "2")
+            {
+                DropActionPlanCode.Hidden = false;
+                DropSetSubReviewCode.Hidden = true;
+
+            }
+
+        }
+
+
+        protected void btnSave_Tab1_Click(object sender, EventArgs e)
+        {
+            if (CBIsPassBid.SelectedValueArray.Length == 0)
+            {
+                ShowNotify("请选择是否通过招标确定！", MessageBoxIcon.Warning);
+                return;
+            }
+ 
+            Model.PHTGL_Contract newContract = new Model.PHTGL_Contract();
             if (this.drpProjectId.SelectedValue != BLL.Const._Null)
             {
                 newContract.ProjectId = this.drpProjectId.SelectedValue;
+            }
+            switch (CBIsPassBid.SelectedValueArray[0])
+            {
+                case "1":
+                    if (DropSetSubReviewCode.SelectedValue == Const._Null)
+                    {
+                        ShowNotify("请选择确定中标人审批编号！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    newContract.IsPassBid = "1";
+                    newContract.PassBidCode = DropSetSubReviewCode.SelectedValue;
+
+                    break;
+                case "2":
+                    if (DropActionPlanCode.SelectedValue == Const._Null)
+                    {
+                        ShowNotify("请选择实施计划编号！", MessageBoxIcon.Warning);
+                        return;
+                    }
+                    newContract.IsPassBid = "2";
+                    newContract.PassBidCode = DropActionPlanCode.SelectedValue;
+                    break;
             }
             newContract.ContractName = this.tab1_txtContractName.Text.Trim();
             newContract.ContractNum = this.tab1_txtContractNum.Text.Trim();
@@ -260,6 +317,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     this.tab2_txtGeneralContractor.Text = sub.GeneralContractor;
                     this.tab2_txtSubConstruction.Text = sub.SubConstruction;
+                    tab2_txtSub.Text = sub.SubConstruction;
                     this.tab2_txtContents.Text = sub.Contents;
                     this.tab2_txtContractProject.Text = sub.ContractProject;
                     this.tab2_txtContractProjectOwner.Text = sub.ContractProjectOwner;
@@ -289,6 +347,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     this.tab2_txtAgreementNum.Text = sub.AgreementNum.HasValue ? sub.AgreementNum.ToString() : "";
                     this.tab2_txtGeneralContractorNum.Text = sub.GeneralContractorNum.HasValue ? sub.GeneralContractorNum.ToString() : "";
                     this.tab2_txtSubContractorNum.Text = sub.SubContractorNum.HasValue ? sub.SubContractorNum.ToString() : "";
+                    
                     this.tab2_txtSocialCreditCode1.Text = sub.SocialCreditCode1;
                     this.tab2_txtSocialCreditCode2.Text = sub.SocialCreditCode2;
                     this.tab2_txtAddress1.Text = sub.Address1;
@@ -317,6 +376,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     {
                         this.tab2_txtGeneralContractor.Text = sub.GeneralContractor;
                         this.tab2_txtSubConstruction.Text = sub.SubConstruction;
+                        tab2_txtSub.Text = sub.SubConstruction;
                         this.tab2_txtContents.Text = sub.Contents;
                         this.tab2_txtContractProject.Text = sub.ContractProject;
                         this.tab2_txtContractProjectOwner.Text = sub.ContractProjectOwner;
@@ -377,6 +437,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     this.tab2_txtGeneralContractor.Text = sub.GeneralContractor;
                     this.tab2_txtSubConstruction.Text = sub.SubConstruction;
+                    tab2_txtSub.Text= sub.SubConstruction;
                     this.tab2_txtContents.Text = sub.Contents;
                     this.tab2_txtContractProject.Text = sub.ContractProject;
                     this.tab2_txtContractProjectOwner.Text = sub.ContractProjectOwner;
@@ -1024,6 +1085,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(ContractId);
             _Contract.ApproveState = Const.ContractCreat_Complete;
             ContractService.UpdateContract(_Contract);
+
+            var model = PHTGL_ContractReviewService.GetPHTGL_ContractReviewByContractId(ContractId);
+            if (model==null)
+            {
+                Model.PHTGL_ContractReview newmodel = new Model.PHTGL_ContractReview();
+                newmodel.ContractReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ContractReview));
+                newmodel.ContractId = ContractId;
+                newmodel.State = Const.ContractCreat_Complete;
+                BLL.PHTGL_ContractReviewService.AddPHTGL_ContractReview(newmodel);
+            }
+            
             ShowNotify("提交成功！", MessageBoxIcon.Success);
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
@@ -1033,5 +1105,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
           //  ShowNotify("窗体被关闭了。参数：" + (String.IsNullOrEmpty(e.CloseArgument) ? "无" : e.CloseArgument));
         }
+
+ 
     }
 }

@@ -94,7 +94,10 @@ namespace FineUIPro.Web.CQMS.Check
             Draw.DrawCode = this.txtDrawCode.Text.Trim();
             Draw.DrawName = this.txtDrawName.Text.Trim();
             Draw.ProjectId = this.CurrUser.LoginProjectId;
-            Draw.MainItem = this.drpMainItem.SelectedValue;
+            if (!string.IsNullOrEmpty(this.drpMainItem.SelectedValue))
+            {
+                Draw.MainItem = this.drpMainItem.SelectedValue;
+            }
             Draw.DesignCN = this.drpDesignCN.SelectedValue;
             Draw.Edition = this.txtEdition.Text.Trim();
             Draw.AcceptDate = Convert.ToDateTime(this.txtAcceptDate.Text.Trim());
@@ -112,18 +115,21 @@ namespace FineUIPro.Web.CQMS.Check
                 Draw.DrawId = SQLHelper.GetNewID(typeof(Model.WBS_UnitWork));
                 BLL.DrawService.AddCheckDraw(Draw);
                 //推送给对应施工单位人员
-                string ids = Draw.MainItem + "|" + Draw.DesignCN;
-                var unitWork = BLL.UnitWorkService.GetUnitWorkByMainItemAndDesignProfessionalIds(ids);
-                if (unitWork != null)
+                if (!string.IsNullOrEmpty(this.drpMainItem.SelectedValue))
                 {
-                    var seeUsers = BLL.UserService.GetUserListByProjectIdAndUnitId(this.CurrUser.LoginProjectId, unitWork.UnitId);
-                    foreach (var seeUser in seeUsers)
+                    string ids = Draw.MainItem + "|" + Draw.DesignCN;
+                    var unitWork = BLL.UnitWorkService.GetUnitWorkByMainItemAndDesignProfessionalIds(ids);
+                    if (unitWork != null)
                     {
-                        Model.Check_DrawApprove approveS = new Model.Check_DrawApprove();
-                        approveS.DrawId = Draw.DrawId;
-                        approveS.ApproveMan = seeUser.UserId;
-                        approveS.ApproveType = "S";
-                        BLL.DrawApproveService.AddDrawApprove(approveS);
+                        var seeUsers = BLL.UserService.GetUserListByProjectIdAndUnitId(this.CurrUser.LoginProjectId, unitWork.UnitId);
+                        foreach (var seeUser in seeUsers)
+                        {
+                            Model.Check_DrawApprove approveS = new Model.Check_DrawApprove();
+                            approveS.DrawId = Draw.DrawId;
+                            approveS.ApproveMan = seeUser.UserId;
+                            approveS.ApproveType = "S";
+                            BLL.DrawApproveService.AddDrawApprove(approveS);
+                        }
                     }
                 }
             }

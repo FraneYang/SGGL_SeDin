@@ -31,7 +31,7 @@ namespace BLL
         }
 
         /// <summary>
-        /// 修改附件1
+        /// 修改附件3
         /// </summary>
         /// <param name="url1"></param>
         public static void UpdateAttachUrl3(Model.PHTGL_AttachUrl3 url3)

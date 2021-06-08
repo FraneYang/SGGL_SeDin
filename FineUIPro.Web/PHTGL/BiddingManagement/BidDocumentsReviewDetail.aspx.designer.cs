@@ -94,6 +94,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.CheckBoxList CBIsAgree;
         
         /// <summary>
+        /// btnAttachUrl 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttachUrl;
+        
+        /// <summary>
         /// txtApproveIdea 控件。
         /// </summary>
         /// <remarks>
@@ -128,15 +137,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar3;
-        
-        /// <summary>
-        /// btnAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
         
         /// <summary>
         /// ToolbarFill1 控件。

@@ -61,8 +61,11 @@
   <ItemGroup>
     <Compile Include="APIItem\BaseInfoItem.cs" />
     <Compile Include="APIItem\DigData\SafeLawItem.cs" />
+    <Compile Include="APIItem\HJGL\ItemEndCheck.cs" />
+    <Compile Include="APIItem\HJGL\ItemEndCheckList.cs" />
     <Compile Include="APIItem\HJGL\JointCompreInfoItem.cs" />
     <Compile Include="APIItem\HJGL\ReportQueryItem.cs" />
+    <Compile Include="APIItem\HJGL\TestPackageApprove.cs" />
     <Compile Include="APIItem\HJGL\TestPackageItem.cs" />
     <Compile Include="APIItem\HJGL\WelderPerformanceItem.cs" />
     <Compile Include="APIItem\HSSE\ChartAnalysisItem.cs" />

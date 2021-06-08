@@ -28,7 +28,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 DropState.DataBind();
                 Funs.FineUIPleaseSelect(DropState);
 
-                btnNew.OnClientClick = Window1.GetShowReference("ActionPlanReviewEdit.aspx", "施工计划审批") + "return false;";
                 GetButtonPower();
                 BindGrid();
             }
@@ -48,6 +47,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                           ,Pro.ProjectName
                                           ,Pro.ProjectCode
                                           , (CASE APR.State 
+                                                     WHEN  @ContractCreat_Complete THEN '编制完成'
                                                      WHEN  @ContractReviewing THEN '审批中'
                                                      WHEN  @ContractReview_Complete THEN '审批完成'
                                                      WHEN  @ContractReview_Refuse THEN '审批被拒'END) AS State
@@ -60,6 +60,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@ContractCreat_Complete",  Const.ContractCreat_Complete));
             listStr.Add(new SqlParameter("@ContractReviewing",  Const.ContractReviewing));
             listStr.Add(new SqlParameter("@ContractReview_Complete", Const.ContractReview_Complete));
             listStr.Add(new SqlParameter("@ContractReview_Refuse", Const.ContractReview_Refuse));
@@ -143,13 +144,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", Act.ActionPlanID, "编辑 - ")));
                 return;
             }
-
-            if (e.CommandName == "export")
-            {
-                Print(fileId);
-            }
-
-        }
+         }
         #endregion
 
         #region 关闭弹出窗体
@@ -164,7 +159,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         #endregion
 
-        #region 查询
+        #region 查询 重置
         /// <summary>
         /// 查询按钮
         /// </summary>
@@ -181,6 +176,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             DropState.SelectedValue = "null";
             BindGrid();
         }
+        protected void btnQueryApprove_Click(object sender, EventArgs e)
+        {
+            this.EditData();
+        }
         #endregion
 
         #region 编辑
@@ -192,6 +191,23 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
         {
             this.EditData();
+        }
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+             string id = Grid1.SelectedRowID;
+             var actReview = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(id);
+            if (actReview.State==Const.ContractReview_Refuse)
+            {
+                MenuButton1.Hidden = false;
+
+            }
+            else
+            {
+                MenuButton1.Hidden = true;
+
+            }
+
+
         }
 
         /// <summary>
@@ -206,9 +222,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
                 return;
             }
-            string id = Grid1.SelectedRowID;
+             string id = Grid1.SelectedRowID;
 
             var actReview = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(id);
+            if (actReview.State< Const.ContractReviewing)
+            {
+                Alert.ShowInTop("还未创建审批流无法重新提交！", MessageBoxIcon.Warning);
+                return;
+            }
             actReview.State = Const.ContractReviewing;
 
             if (actReview.CreateUser!=this.CurrUser.UserId)
@@ -219,13 +240,16 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             }
             BLL.PHTGL_ActionPlanReviewService.UpdatePHTGL_ActionPlanReview(actReview);
-        
-            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
 
-            var _ActFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(actReview.ActionPlanID);
+            /////改变实施计划表状态
+            //var model = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(actReview.ActionPlanID);
+            //model.State = Const.ContractReviewing;
+            //PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model);
 
-   
-            //创建第一节点审批信息
+              ///删除历史审批记录
+             PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
+             var _ActFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(actReview.ActionPlanID);
+              //创建第一节点审批信息
             Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
             _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
             _Approve.ContractId = actReview.ActionPlanReviewId;
@@ -255,6 +279,20 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             }
             string id = Grid1.SelectedRowID;
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanReviewDetail.aspx?ActionPlanReviewId={0}",id, "编辑 - ")));
+
+        }
+        #endregion
+
+        #region 添加
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanReviewEdit.aspx?ActionPlanReviewId={0}", id, "编辑 - ")));
 
         }
         #endregion
@@ -335,13 +373,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 {
                     btnNew.Hidden = false;
                 }
-                if (buttonList.Contains(Const.BtnModify))
-                {
-                    btnMenuEdit.Hidden = false;
-                }
+                 
                 if (buttonList.Contains(Const.BtnDelete))
                 {
-                    btnMenuDelete.Hidden = false;
+                    btnDelete.Hidden = false;
                 }
             }
         }
@@ -356,330 +391,18 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 return;
             }
             string Id = Grid1.SelectedRowID;
-
-            Print(Id);
-        }
-
-
-        public void Print(string Id)
-        {
-            string rootPath = Server.MapPath("~/");
-            string initTemplatePath = string.Empty;
-            string uploadfilepath = string.Empty;
-            string newUrl = string.Empty;
-            string filePath = string.Empty;
-            initTemplatePath = "File\\Word\\PHTGL\\施工招标实施计划及招标文件审批表.docx";
-            uploadfilepath = rootPath + initTemplatePath;
-            newUrl = uploadfilepath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".docx");
-            filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
-            File.Copy(uploadfilepath, newUrl);
-            ///更新书签
             var Act = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(Id);
-            var getFireWork = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Id);
-
-
-            Document doc = new Aspose.Words.Document(newUrl);
-            Bookmark txtActionPlanCode = doc.Range.Bookmarks["ActionPlanCode"];
-            Bookmark txtCreateTime = doc.Range.Bookmarks["CreateTime"];
-
-            Bookmark txtProjectName = doc.Range.Bookmarks["txtProjectName"];
-            Bookmark txtUnit = doc.Range.Bookmarks["txtUnit"];
-            Bookmark txtConstructionSite = doc.Range.Bookmarks["txtConstructionSite"];
-            Bookmark txtBiddingProjectScope = doc.Range.Bookmarks["txtBiddingProjectScope"];
-            Bookmark txtBiddingProjectContent = doc.Range.Bookmarks["txtBiddingProjectContent"];
-            Bookmark txtTimeRequirements = doc.Range.Bookmarks["txtTimeRequirements"];
-            Bookmark txtQualityRequirement = doc.Range.Bookmarks["txtQualityRequirement"];
-            Bookmark txtHSERequirement = doc.Range.Bookmarks["txtHSERequirement"];
-            Bookmark txtTechnicalRequirement = doc.Range.Bookmarks["txtTechnicalRequirement"];
-            Bookmark txtCurrentRequirement = doc.Range.Bookmarks["txtCurrentRequirement"];
-            Bookmark txtSub_Selection = doc.Range.Bookmarks["txtSub_Selection"];
-            Bookmark txtBid_Selection = doc.Range.Bookmarks["txtBid_Selection"];
-            Bookmark txtContractingMode_Select = doc.Range.Bookmarks["txtContractingMode_Select"];
-            Bookmark txtPriceMode_Select = doc.Range.Bookmarks["txtPriceMode_Select"];
-            Bookmark txtMaterialsDifferentiate = doc.Range.Bookmarks["txtMaterialsDifferentiate"];
-            Bookmark txtImportExplain = doc.Range.Bookmarks["txtImportExplain"];
-            Bookmark txtShortNameList = doc.Range.Bookmarks["txtShortNameList"];
-            Bookmark txtEvaluationMethods = doc.Range.Bookmarks["txtEvaluationMethods"];
-            Bookmark txtEvaluationPlan = doc.Range.Bookmarks["txtEvaluationPlan"];
-            Bookmark txtBiddingMethods_Select = doc.Range.Bookmarks["txtBiddingMethods_Select"];
-            Bookmark txtSchedulePlan = doc.Range.Bookmarks["txtSchedulePlan"];
-            if (txtActionPlanCode != null)
+            if (Act==null)
             {
-                if (getFireWork != null)
-                {
-                    txtActionPlanCode.Text = getFireWork.ActionPlanCode;
-                }
+                Alert.ShowInTop("还未创建审批流无法导出！", MessageBoxIcon.Warning);
+                return;
             }
-            if (txtCreateTime != null)
-            {
-                if (getFireWork != null)
-                {
-
-                    txtCreateTime.Text = string.Format("{0:D}", getFireWork.CreateTime);
-                }
-            }
-            if (Act.State==Const.ContractReview_Complete)
-            {
-                InsertImg(doc, "Approval_Construction",Act.Approval_Construction);
-                InsertImg(doc, "ConstructionManager",Act.ConstructionManager);
-                InsertImg(doc, "DeputyGeneralManager",Act.DeputyGeneralManager);
-                InsertImg(doc, "ProjectManager",Act.ProjectManager);
-            }
-            if (txtProjectName != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtProjectName.Text = getFireWork.ProjectName;
-                }
-            }
-            if (txtUnit != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtUnit.Text = getFireWork.Unit;
-
-                }
-            }
-            if (txtConstructionSite != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtConstructionSite.Text = getFireWork.ConstructionSite;
-
-                }
-            }
-            if (txtBiddingProjectScope != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtBiddingProjectScope.Text = getFireWork.BiddingProjectScope;
-
-                }
-            }
-            if (txtBiddingProjectContent != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtBiddingProjectContent.Text = getFireWork.BiddingProjectContent;
-
-                }
-            }
-            if (txtTimeRequirements != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtTimeRequirements.Text = getFireWork.TimeRequirements;
-
-                }
-
-            }
-            if (txtQualityRequirement != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtQualityRequirement.Text = getFireWork.QualityRequirement;
-
-                }
-
-            }
-            if (txtHSERequirement != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtHSERequirement.Text = getFireWork.HSERequirement;
-
-                }
-
-            }
-            if (txtTechnicalRequirement != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtTechnicalRequirement.Text = getFireWork.TechnicalRequirement;
-
-                }
-
-            }
-            if (txtCurrentRequirement != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtCurrentRequirement.Text = getFireWork.CurrentRequirement;
-
-                }
-
-            }
-            if (txtSub_Selection != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtSub_Selection.Text = getFireWork.Sub_Selection;
-
-                }
-
-            }
-            if (txtBid_Selection != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtBid_Selection.Text = getFireWork.Bid_Selection;
-
-                }
-
-            }
-            if (txtContractingMode_Select != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtContractingMode_Select.Text = getFireWork.ContractingMode_Select;
-
-                }
-
-            }
-            if (txtPriceMode_Select != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtPriceMode_Select.Text = getFireWork.PriceMode_Select;
-
-                }
-
-            }
-            if (txtMaterialsDifferentiate != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtMaterialsDifferentiate.Text = getFireWork.MaterialsDifferentiate;
-
-                }
-
-            }
-            if (txtImportExplain != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtImportExplain.Text = getFireWork.ImportExplain;
-
-                }
-
-            }
-            if (txtShortNameList != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtShortNameList.Text = getFireWork.ShortNameList;
-
-                }
-
-            }
-            if (txtEvaluationMethods != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtEvaluationMethods.Text = getFireWork.EvaluationMethods;
-
-                }
-
-            }
-            if (txtEvaluationPlan != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtEvaluationPlan.Text = getFireWork.EvaluationPlan;
-
-                }
-
-            }
-            if (txtBiddingMethods_Select != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtBiddingMethods_Select.Text = getFireWork.BiddingMethods_Select;
-
-                }
-
-            }
-            if (txtSchedulePlan != null)
-            {
-                if (getFireWork != null)
-                {
-                    txtSchedulePlan.Text = getFireWork.SchedulePlan;
-
-                }
-
-            }
-
-
-
-
-
-            doc.Save(newUrl);
-            //生成PDF文件
-            string pdfUrl = newUrl.Replace(".doc", ".pdf");
-            Document doc1 = new Aspose.Words.Document(newUrl);
-            //验证参数
-            if (doc1 == null) { throw new Exception("Word文件无效"); }
-            doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-            string fileName = Path.GetFileName(filePath);
-            FileInfo info = new FileInfo(pdfUrl);
-            long fileSize = info.Length;
-            Response.Clear();
-            Response.ContentType = "application/x-zip-compressed";
-            Response.AddHeader("Content-Disposition", "attachment;filename=" + System.Web.HttpUtility.UrlEncode(fileName, System.Text.Encoding.UTF8));
-            Response.AddHeader("Content-Length", fileSize.ToString());
-            Response.TransmitFile(pdfUrl, 0, fileSize);
-            Response.Flush();
-            Response.Close();
-            File.Delete(newUrl);
-            File.Delete(pdfUrl);
+            string ActionPlanID = Act.ActionPlanID;
+            ActionPlanFormation actionPlanFormation = new ActionPlanFormation();
+            actionPlanFormation.Print(ActionPlanID);
         }
+         #endregion
 
-
-        void InsertImg(Document doc, string BookmarksName, string ManId)
-        {
-            string rootPath = Server.MapPath("~/");
-            Bookmark bookmarkCreateMan = doc.Range.Bookmarks[BookmarksName];
-
-            if (bookmarkCreateMan != null)
-            {
-                var user = UserService.GetUserByUserId(ManId);
-                if (user != null)
-                {
-                    if (!string.IsNullOrEmpty(user.SignatureUrl))
-                    {
-                        var file = user.SignatureUrl;
-                        if (!string.IsNullOrWhiteSpace(file))
-                        {
-                            string url = rootPath + file;
-                            DocumentBuilder builders = new DocumentBuilder(doc);
-                            builders.MoveToBookmark(BookmarksName);
-                            if (!string.IsNullOrEmpty(url))
-                            {
-                                System.Drawing.Size JpgSize;
-                                float Wpx;
-                                float Hpx;
-                                UploadAttachmentService.getJpgSize(url, out JpgSize, out Wpx, out Hpx);
-                                double i = 1;
-                                i = JpgSize.Width / 50.0;
-                                if (File.Exists(url))
-                                {
-                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
-                                }
-                                else
-                                {
-                                    bookmarkCreateMan.Text = user.UserName;
-                                }
-
-                            }
-                        }
-                    }
-                    else
-                    {
-                        bookmarkCreateMan.Text = user.UserName;
-                    }
-                }
-            }
-        }
-        #endregion
+       
     }
 }

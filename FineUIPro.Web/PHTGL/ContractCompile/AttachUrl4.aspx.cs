@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,25 +13,62 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class AttachUrl4 : PageBase
     {
+        public string AttachUrlId
+        {
+            get
+            {
+                return (string)ViewState["AttachUrlId"];
+            }
+            set
+            {
+                ViewState["AttachUrlId"] = value;
+            }
+        }
+        public DataTable Table
+        {
+            get
+            {
+                return (DataTable)ViewState["Table"];
+            }
+            set
+            {
+                ViewState["Table"] = value;
+            }
+        }
+        public List<Model.PHTGL_AttachUrl4> url4_model
+        {
+            get
+            {
+                return (List<Model.PHTGL_AttachUrl4>)Session["url4_model"];
+            }
+            set
+            {
+                Session["url4_model"] = value;
+            }
+        }
 
-        public static DataTable Table = new DataTable();
-        public static string AttachUrlId = "";
-        private static List<Model.PHTGL_AttachUrl4> url4_model= new List<Model.PHTGL_AttachUrl4>();
         protected void Page_Load(object sender, EventArgs e)
         {
 
             if (!IsPostBack)
             {
                 AttachUrlId = Request.Params["AttachUrlId"];
-                url4_model.Clear();
-                var att = BLL.AttachUrl4Service.GetAttachurl4ById(AttachUrlId);
-                if (att == null)
+                url4_model = new List<Model.PHTGL_AttachUrl4>();
+                var att = BLL.AttachUrl4Service.GetListAttachurl4ById(AttachUrlId);
+                if (att.Count ==0)
                 {
-                    att = BLL.AttachUrl4Service.GetAttachurl4ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 4).AttachUrlId);
+                    DataGridAttachUrl(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 4).AttachUrlId);
+                    url4_model = BLL.AttachUrl4Service.GetListAttachurl4ById(BLL.AttachUrlService.GetAttachUrlByAttachUrlCode("", 4).AttachUrlId);
+
                 }
- 
-                 url4_model.Add(att);
-                 DataGridAttachUrl();
+                else
+                {
+                    DataGridAttachUrl(AttachUrlId);
+                    url4_model = att;
+
+                }
+
+            //    
                 btnClose.OnClientClick= ActiveWindow.GetHideReference();
 
             }
@@ -40,7 +78,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         /// <summary>
         /// Grid绑定
         /// </summary>
-        private void DataGridAttachUrl()
+        private void DataGridAttachUrl(string AttachUrlId)
         {
             string strSql = @"  select 
                                       url4.AttachUrlItemId
@@ -50,57 +88,19 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                       ,url4.Duty_Gen
                                       ,url4.Duty_Sub
                                       ,url4.Remarks"
-                            + @" from PHTGL_AttachUrl4 as url4"
-                            + @"  where 1=1	order by url4.OrderNumber";
+                           + @" from PHTGL_AttachUrl4 as url4"
+                           + @"  where 1=1	 and url4.AttachUrlId =@AttachUrlId order by url4.OrderNumber";
             List<SqlParameter> listStr = new List<SqlParameter>();
+            listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
             Grid1.RecordCount = tb.Rows.Count;
-            var table = this.GetPagedDataTable(Grid1, tb);
-            Table = table;
-            Grid1.DataSource = table;
+             Table = tb;
+            Grid1.DataSource = tb;
             Grid1.DataBind();
         }
-
-        /// <summary>
-        /// grid行绑定前事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_PreRowDataBound(object sender, GridPreRowEventArgs e)
-        {
-            //DataRowView row = e.DataItem as DataRowView;
-            //CheckBoxField cbIsSelected = Grid1.FindColumn("cbIsSelected") as CheckBoxField;
-            //bool isSelected = Convert.ToBoolean(row["IsBuild"]);
-            //if (isSelected == true)
-            //{
-            //    cbIsSelected.Enabled = false;
-            //}
-            //else
-            //{
-            //    cbIsSelected.Enabled = true;
-            //}
-        }
-
-        /// <summary>
-        /// Grid行点击事件
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            //if (e.CommandName == "edit")
-            //{
-            //    CheckBoxField cbIsSelected = Grid1.FindColumn("cbIsSelected") as CheckBoxField;
-            //    if (cbIsSelected.GetCheckedState(e.RowIndex))
-            //    {
-            //        string id = Grid1.SelectedRowID;
-
-            //    }
-            //}
-
-        }
+ 
         void save()
         {
             Grid1.GetModifiedDict();
@@ -121,9 +121,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
             newurl4.AttachUrlItemId = Guid.NewGuid().ToString();
             newurl4.AttachUrlId = AttachUrlId;
+            newurl4.Duty_Gen = false;
+            newurl4.Duty_Sub = false;
             url4_model.Add(newurl4);
+            DataTable table = this.LINQToDataTable(url4_model);
 
-            var table = this.GetPagedDataTable(Grid1, url4_model);
             Table = table;
             Grid1.DataSource = table;
             Grid1.DataBind();
@@ -176,11 +178,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
             Model.PHTGL_AttachUrl4  url4 = new Model.PHTGL_AttachUrl4();
+            BLL.AttachUrl4Service.deletePHTGL_AttachUrl14byAttachUrlId(AttachUrlId);
             for (int i = 0; i < Table.Rows.Count; i++)
             {
 
-                url4.AttachUrlId = Table.Rows[i]["AttachUrlId"].ToString(); 
-                url4.AttachUrlItemId = Table.Rows[i]["AttachUrlItemId"].ToString(); 
+                url4.AttachUrlId = AttachUrlId;
+                url4.AttachUrlItemId = SQLHelper.GetNewID(typeof(Model.PHTGL_AttachUrl4));
                 url4.Describe = Table.Rows[i]["Describe"].ToString(); 
                 url4.Duty_Gen = Convert.ToBoolean( Table.Rows[i]["Duty_Gen"].ToString()); 
                 url4.Duty_Sub = Convert.ToBoolean(Table.Rows[i]["Duty_Sub"].ToString()); 

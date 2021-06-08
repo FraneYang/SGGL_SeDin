@@ -402,32 +402,34 @@ namespace BLL
                 }
                 
 
-                string weldingRate = "0.0%";
-                if (totalJot != "0")
-                {
-                    weldingRate = (Convert.ToInt32(weldedJot) * 100.0 / Convert.ToInt32(totalJot)).ToString() + "%";
-                }
+                //string weldedRate = row["WeldedRate"].ToString();
+                //if (totalJot != "0")
+                //{
+                //    weldingRate = (Convert.ToInt32(weldedJot) * 100.0 / Convert.ToInt32(totalJot)).ToString() + "%";
+                //}
 
-                string weldingOnePassRate = "0.0%";
-                if (oneCheckJotNum != "0")
-                {
-                    weldingOnePassRate=((Convert.ToInt32(oneCheckJotNum)-Convert.ToInt32(oneCheckRepairJotNum))*100.0/ Convert.ToInt32(oneCheckJotNum)).ToString() + "%";
-                }
+                //string oneOKRate = row["OneOKRate"].ToString();
+                //if (oneCheckJotNum != "0")
+                //{
+                //    weldingOnePassRate=((Convert.ToInt32(oneCheckJotNum)-Convert.ToInt32(oneCheckRepairJotNum))*100.0/ Convert.ToInt32(oneCheckJotNum)).ToString() + "%";
+                //}
 
-                string checkCompRate = "0.0%";
-                if (mustCheckJotNum != 0)
-                {
-                    checkCompRate = (Convert.ToInt32(oneCheckJotNum) * 100.0 / mustCheckJotNum).ToString() + "%";
-                }
-       
+                //string checkCompRate = "0.0%";
+                //if (mustCheckJotNum != 0)
+                //{
+                //    checkCompRate = (Convert.ToInt32(oneCheckJotNum) * 100.0 / mustCheckJotNum).ToString() + "%";
+                //}
+
                 report.TotalJotDin = totalJot + "/" + totalDin;
                 report.WeldedJotDin = weldedJot + "/" + weldedDin;
-                report.WeldingRate = weldingRate;
-                report.WeldingOnePassRate = weldingOnePassRate;
-
+                report.WeldedRate = row["WeldedRate"].ToString();
+                report.OneOKRate = row["OneOKRate"].ToString();
+                report.NeedCheckJotNum= row["NeedCheckJotNum"].ToString();
                 report.MustCheckJotNum = mustCheckJotNum.ToString();
-                report.CheckedJotNum = oneCheckJotNum;
-                report.CheckCompRate = checkCompRate;
+                report.CheckedJotNum = row["CheckedJotNum"].ToString();
+                report.CheckedRate = row["CheckedRate"].ToString();
+                //report.CheckCompRate = checkCompRate;
+                report.CheckRepairJotNum = row["CheckRepairJotNum"].ToString();
                 report.RepairJotNum = oneCheckRepairJotNum;
                 report.ExpandJotNum = expandJotNum;
 

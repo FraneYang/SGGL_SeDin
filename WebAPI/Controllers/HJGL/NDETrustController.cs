@@ -171,6 +171,57 @@ namespace WebAPI.Controllers
         }
 
         /// <summary>
+        /// 对所选批次进行强制关闭批
+        /// </summary>
+        /// <param name="pointBatchId"></param>
+        /// <returns></returns>
+        public Model.ResponeData getCloseBatchSave(string pointBatchId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                var batch = BLL.PointBatchService.GetPointBatchById(pointBatchId);
+                if (batch != null)
+                {
+                    if (!batch.EndDate.HasValue)
+                    {
+                        PointBatchService.UpdateBatchIsClosed2(pointBatchId, DateTime.Now);
+                        //生成委托单
+                        Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
+                        var project = BLL.ProjectService.GetProjectByProjectId(batch.ProjectId);
+                        var unit = BLL.UnitService.GetUnitByUnitId(batch.UnitId);
+                        var area = BLL.UnitWorkService.getUnitWorkByUnitWorkId(batch.UnitWorkId);
+                        var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(batch.DetectionTypeId);
+                        var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
+
+                        string perfix = string.Empty;
+
+                        newBatchTrust.TrustBatchCode = batch.PointBatchCode.Replace("-DK-", "-WT-");
+                        string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                        newBatchTrust.TrustBatchId = trustBatchId;
+
+                        newBatchTrust.TrustDate = DateTime.Now;
+                        newBatchTrust.ProjectId = batch.ProjectId;
+                        newBatchTrust.PointBatchId = batch.PointBatchId;
+                        newBatchTrust.UnitId = batch.UnitId;
+                        newBatchTrust.UnitWorkId = batch.UnitWorkId;
+                        newBatchTrust.DetectionTypeId = batch.DetectionTypeId;
+                        newBatchTrust.DetectionRateId = batch.DetectionRateId;
+                        newBatchTrust.PointBatchId = pointBatchId;
+                        BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
         /// 点口调整 
         /// </summary>
         /// <param name="items"></param>

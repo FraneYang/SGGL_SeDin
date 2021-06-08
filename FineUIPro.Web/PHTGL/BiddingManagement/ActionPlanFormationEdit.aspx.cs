@@ -90,28 +90,33 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (!string.IsNullOrEmpty(ActionPlanID))
             {
                 var model=BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
-                txtActionPlanCode.Text = model.ActionPlanCode.ToString();
-                txtProject.Text = model.ProjectName.ToString();
-                txtUnit.Text = model.Unit.ToString();
-                txtConstructionSite.Text = model.ConstructionSite.ToString();
-                txtBiddingProjectScope.Text = model.BiddingProjectScope.ToString();
-                txtBiddingProjectContent.Text = model.BiddingProjectContent.ToString();
-                txtTimeRequirements.Text = model.TimeRequirements.ToString();
-                txtQualityRequirement.Text = model.QualityRequirement.ToString();
-                txtHSERequirement.Text = model.HSERequirement.ToString();
-                txtTechnicalRequirement.Text = model.TechnicalRequirement.ToString();
-                txtCurrentRequirement.Text = model.CurrentRequirement.ToString();
-                txtSub_Selection.Text = model.Sub_Selection.ToString();
-                txtBid_Selection.Text = model.Bid_Selection.ToString();
-                txtContractingMode_Select.Text = model.ContractingMode_Select.ToString();
-                txtPriceMode_Select.Text = model.PriceMode_Select.ToString();
-                txtMaterialsDifferentiate.Text = model.MaterialsDifferentiate.ToString();
-                txtImportExplain.Text = model.ImportExplain.ToString();
-                txtShortNameList.Text = model.ShortNameList.ToString();
-                txtEvaluationMethods.Text = model.EvaluationMethods.ToString();
-                txtEvaluationPlan.Text = model.EvaluationPlan.ToString();
-                txtBiddingMethods_Select.Text = model.BiddingMethods_Select.ToString();
-                txtSchedulePlan.Text = model.SchedulePlan.ToString();
+                txtActionPlanCode.Text = Convert.ToString(model.ActionPlanCode);
+                txtProject.Text = Convert.ToString(model.ProjectName);
+                txtUnit.Text = Convert.ToString(model.Unit);
+                txtConstructionSite.Text = Convert.ToString(model.ConstructionSite);
+                txtBiddingProjectScope.Text = Convert.ToString(model.BiddingProjectScope);
+                txtBiddingProjectContent.Text = Convert.ToString(model.BiddingProjectContent);
+                txtTimeRequirements.Text = Convert.ToString(model.TimeRequirements);
+                txtQualityRequirement.Text = Convert.ToString(model.QualityRequirement);
+                txtHSERequirement.Text = Convert.ToString(model.HSERequirement);
+                txtTechnicalRequirement.Text = Convert.ToString(model.TechnicalRequirement);
+                txtCurrentRequirement.Text = Convert.ToString(model.CurrentRequirement);
+                txtSub_Selection.Text = Convert.ToString(model.Sub_Selection);
+                txtBid_Selection.Text = Convert.ToString(model.Bid_Selection);
+                txtContractingMode_Select.Text = Convert.ToString(model.ContractingMode_Select);
+                txtPriceMode_Select.Text = Convert.ToString(model.PriceMode_Select);
+                txtMaterialsDifferentiate.Text = Convert.ToString(model.MaterialsDifferentiate);
+                txtImportExplain.Text = Convert.ToString(model.ImportExplain);
+                txtShortNameList.Text = Convert.ToString(model.ShortNameList);
+                txtEvaluationMethods.Text = Convert.ToString(model.EvaluationMethods);
+                txtEvaluationPlan.Text = Convert.ToString(model.EvaluationPlan);
+                txtBiddingMethods_Select.Text = Convert.ToString(model.BiddingMethods_Select);
+                txtSchedulePlan.Text = Convert.ToString(model.SchedulePlan);
+                txtBidPrice.Text =   Convert.ToString(model.BidPrice);
+                txtBidProject.Text = Convert.ToString(model.BidProject);
+                txtBidType.Text =    Convert.ToString(model.BidType);
+                txtPriceType.Text =  Convert.ToString(model.PriceType);
+ 
              }
 
         }
@@ -174,6 +179,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             model.EvaluationPlan = txtEvaluationPlan.Text;
             model.BiddingMethods_Select = txtBiddingMethods_Select.Text;
             model.SchedulePlan = txtSchedulePlan.Text;
+            model.BidPrice= txtBidPrice.Text;
+            model.BidProject=txtBidProject.Text;
+            model.BidType= txtBidType.Text;
+            model.PriceType= txtPriceType.Text;
 
             if (this.drpProjectId.SelectedValue != BLL.Const._Null)
             {
@@ -246,6 +255,19 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             var newmodel=  PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(ActionPlanID);
             newmodel.State = Const.ContractCreat_Complete;
             PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(newmodel);
+
+            var model = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(ActionPlanID);
+            if (model==null)
+            {
+                Model.PHTGL_ActionPlanReview _ActionPlanReview = new Model.PHTGL_ActionPlanReview();
+                _ActionPlanReview.ActionPlanReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ActionPlanReview));
+                _ActionPlanReview.ActionPlanID = ActionPlanID;
+                _ActionPlanReview.State = Const.ContractCreat_Complete;
+                _ActionPlanReview.CreateUser = this.CurrUser.UserId;
+                BLL.PHTGL_ActionPlanReviewService.AddPHTGL_ActionPlanReview(_ActionPlanReview);
+            }
+           
+ 
             PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
         

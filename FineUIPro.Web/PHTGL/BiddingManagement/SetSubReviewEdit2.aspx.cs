@@ -141,6 +141,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         #endregion
 
+        #region 下拉列表选择事件
         protected void drpProjectId_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DropBidCode.SelectedValue != Const._Null)
@@ -160,7 +161,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                
 
         }
-    
+        #endregion
+
+        #region 保存提交
         private bool Save(int state)
         {
             if (DropBidCode.SelectedValue == Const._Null)
@@ -297,9 +300,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             }
         }
-        protected void btnAttachUrl_Click(object sender, EventArgs e)
-        {
-        }
+        #endregion
 
+   
     }
 }

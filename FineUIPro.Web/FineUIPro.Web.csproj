@@ -957,6 +957,11 @@
     <Content Include="PHTGL\ContractCompile\test1.aspx" />
     <Content Include="PHTGL\ContractCompile\test2.aspx" />
     <Content Include="PHTGL\ContractCompile\test3.aspx" />
+    <Content Include="PHTGL\Filing\ActionPlanFile.aspx" />
+    <Content Include="PHTGL\Filing\ApproveUserFile.aspx" />
+    <Content Include="PHTGL\Filing\BidDocumentsFile.aspx" />
+    <Content Include="PHTGL\Filing\ContractFile.aspx" />
+    <Content Include="PHTGL\Filing\SetSubFile.aspx" />
     <Content Include="ProjectData\MainItem.aspx" />
     <Content Include="ProjectData\MainItemEdit.aspx" />
     <Content Include="ProjectData\MainItemView.aspx" />
@@ -1079,6 +1084,36 @@
     <Content Include="File\Word\HSSE\安全日志.doc" />
     <Fakes Include="Fakes\Apache.NMS.fakes" />
     <Fakes Include="Fakes\ThoughtWorks.QRCode.fakes" />
+    <Content Include="File\Word\PHTGL\合同评审、审批表.docx" />
+    <Content Include="File\Word\PHTGL\招标文件审批表.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\~%249    施工分包商组织机构人员配置表及关键人员名单.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\施工合同标准文本.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\第三部分 专用合同条款.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\第二部分 通用合同条款.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件1    工作内容及要求.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件10   施工分包商人员机械投入计划一览表.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件11   履约担保格式.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件12   预付款担保格式.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件13   工程质量保修书.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件14   施工安全管理协议书.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件15   施工现场总图管理规定.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件16施工质量奖惩管理规定.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件17保密协议书.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件18落实施工作业人员待遇承诺书.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件19 联合体协议.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件2    合同价格及支付办法.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件3    工程价格清单.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件4    工程设备及材料分交.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件5    暂估价材料.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件6    关键材料框架协议.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件7    合同工期关键里程碑时间节点.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件8    总承包商关键人员一览表.docx" />
+    <Content Include="File\Word\PHTGL\施工分包合同\附件9    施工分包商组织机构人员配置表及关键人员名单.docx" />
+    <Content Include="File\Word\PHTGL\施工招标实施计划及招标文件审批表.docx" />
+    <Content Include="File\Word\PHTGL\施工招标实施计划审批表.docx" />
+    <Content Include="File\Word\PHTGL\施工招标评标小组名单审批表.docx" />
+    <Content Include="File\Word\PHTGL\确定分包商审批表（用于经评审的最低投标报价法）.docx" />
+    <Content Include="File\Word\PHTGL\确定分包商审批表（用于综合评估法）.docx" />
     <None Include="packages.config" />
     <Content Include="ReportPrint\ReportTabFile\分包商上传周报.tab" />
     <Content Include="ReportPrint\ReportTabFile\HSSE日志暨管理数据收集.tab" />
@@ -10128,6 +10163,41 @@
     </Compile>
     <Compile Include="PHTGL\ContractCompile\test3.aspx.designer.cs">
       <DependentUpon>test3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ActionPlanFile.aspx.cs">
+      <DependentUpon>ActionPlanFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ActionPlanFile.aspx.designer.cs">
+      <DependentUpon>ActionPlanFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ApproveUserFile.aspx.cs">
+      <DependentUpon>ApproveUserFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ApproveUserFile.aspx.designer.cs">
+      <DependentUpon>ApproveUserFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\Filing\BidDocumentsFile.aspx.cs">
+      <DependentUpon>BidDocumentsFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\Filing\BidDocumentsFile.aspx.designer.cs">
+      <DependentUpon>BidDocumentsFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ContractFile.aspx.cs">
+      <DependentUpon>ContractFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\Filing\ContractFile.aspx.designer.cs">
+      <DependentUpon>ContractFile.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\Filing\SetSubFile.aspx.cs">
+      <DependentUpon>SetSubFile.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\Filing\SetSubFile.aspx.designer.cs">
+      <DependentUpon>SetSubFile.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectData\MainItem.aspx.cs">
       <DependentUpon>MainItem.aspx</DependentUpon>

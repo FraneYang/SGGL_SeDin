@@ -87,7 +87,7 @@ namespace BLL
             }
         }
 
-        public static void AddProjectUser( string ProjectCode,string UserID)
+        public static void AddProjectUser(string ProjectCode,string UserID)
         {
             Base_Project base_Project = new Base_Project();
             Project_ProjectUser project_ProjectUser = new Project_ProjectUser();

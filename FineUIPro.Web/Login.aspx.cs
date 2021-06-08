@@ -46,26 +46,13 @@
         {
             get
             {
-                return (string)Session["ProjectId"];
+                return (string)ViewState["ProjectId"];
             }
             set
             {
-                Session["ProjectId"] = value;
+                ViewState["ProjectId"] = value;
             }
         }
-
-        public string PHTUrl
-        {
-            get
-            {
-                return (string)Session["PHTUrl"];
-            }
-            set
-            {
-                Session["PHTUrl"] = value;
-            }
-        }
-
         #endregion
 
         #region 页面加载
@@ -77,11 +64,7 @@
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {
-                Session.Remove("PHTUrl");
-                Session.Remove("ProjectId");
-                PHTUrl = Request.Params["PHTUrl"];
-                ProjectId = Request.Params["ProjectId"];
+            {             
             }
         }
         #endregion
@@ -97,29 +80,38 @@
             string url = "";
             if (LoginService.UserLogOn(user, pwd, true, this.Page))
             {
+                //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UpdatePasswordEdit.aspx?userId={0}", this.CurrUser.UserId, "编辑 - ")));
                 if (!this.CurrUser.LastIsOffice.HasValue)
                 {
                     this.CurrUser.LastIsOffice = this.CurrUser.IsOffice;
                 }
-                if (this.CurrUser.LastIsOffice == true)
+                if (this.CurrUser.Password == Const.MD5pwd)
                 {
-                    this.CurrUser.LoginProjectId = null;
-                    ////本部菜单
-                    //   url = "index.aspx?menuType=" + this.CurrUser.LastMenuType;
-                    url = "index.aspx";
+                    if (this.CurrUser.LastIsOffice == true)
+                    {
+                        this.CurrUser.LoginProjectId = null;                      
+                        url = "index.aspx#/SysManage/UpdatePassword.aspx";
+                    }
+                    else
+                    {
+                        this.CurrUser.LoginProjectId = this.CurrUser.LastProjectId;
+                        url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId + "#/SysManage/UpdatePassword.aspx";
+                    }
                 }
                 else
                 {
-                    this.CurrUser.LoginProjectId = this.CurrUser.LastProjectId;
-                    //// 项目菜单
-                    //url = "indexProject.aspx?menuType=" + this.CurrUser.LastMenuType + "&projectId=" + this.CurrUser.LastProjectId;
-                    url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
+                    if (this.CurrUser.LastIsOffice == true)
+                    {
+                        this.CurrUser.LoginProjectId = null;
+                        url = "index.aspx";
+                    }
+                    else
+                    {
+                        this.CurrUser.LoginProjectId = this.CurrUser.LastProjectId;
+                        url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
+                    }
                 }
-                if (PHTUrl != null && PHTUrl != "")
-                {
-                    url = "indexProject.aspx?projectId=" + ProjectId + "&PHTUrl=" + PHTUrl;
 
-                }
                 LogService.AddSys_Log(this.CurrUser, this.CurrUser.UserName, this.CurrUser.UserId, Const.UserMenuId, Const.BtnLogin);
             }
 

@@ -214,9 +214,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
             string id = Grid1.SelectedRowID;
             var contract = BLL.ContractService.GetContractById(id);
-            Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(id);
-            _Contract.ApproveState = 0;
-            ContractService.UpdateContract(_Contract);
+            //Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(id);
+            //_Contract.ApproveState = 0;
+            //ContractService.UpdateContract(_Contract);
              if (contract != null)
             {
                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractFormationEdit.aspx?ContractId={0}", id, "编辑 - ")));

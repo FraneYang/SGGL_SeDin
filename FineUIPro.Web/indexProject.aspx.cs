@@ -289,31 +289,6 @@ namespace FineUIPro.Web
         {
             if (!IsPostBack)
             {
-                //ProjectService.InitAllProjectShortNameDropDownList(this.drpProject, this.CurrUser.UserId, false);
-                //if (!string.IsNullOrEmpty(Request.Params["projectId"]))
-                //{
-                //    this.drpProject.SelectedValue = Request.Params["projectId"];
-                //}
-
-                //if (!string.IsNullOrEmpty(Request.Params["projectName"]))
-                //{
-                //    var getproject = ProjectService.GetProjectByProjectName(Request.Params["projectName"]);
-                //    if (getproject != null)
-                //    {
-                //        this.drpProject.SelectedValue = getproject.ProjectId;
-                //    }
-                //}
-                //if (!string.IsNullOrEmpty(this.CurrUser.LoginProjectId))
-                //{
-                //    this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
-                //}
-
-                //this.MenuSwitchMethod(Request.Params["menuType"]);
-                //this.InitMenuStyleButton();
-                //this.InitMenuModeButton();
-                //this.InitLangMenuButton();
-
-                //GetWeather();
                 ProjectService.InitAllProjectShortNameDropDownList(this.drpProject, this.CurrUser.UserId, false);
                 if (!string.IsNullOrEmpty(Request.Params["projectId"]))
                 {
@@ -333,23 +308,16 @@ namespace FineUIPro.Web
                     this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
                 }
 
-                if (!string.IsNullOrEmpty(Request.Params["PHTUrl"]))
-                {
-                    mainTabStrip.ShowTabHeader = true;
-                    PageContext.RegisterStartupScript("parent.removeActiveTab();");
-                    btnPHTGL_Click(null, null);
-                    PageContext.RegisterStartupScript(mainTabStrip.GetAddTabReference("dynamic_tab4", Request.Params["PHTUrl"], "审批", IconHelper.GetIconUrl(Icon.ApplicationAdd), true));
-                }
-                else
-                {
-                    this.MenuSwitchMethod(Request.Params["menuType"]);
-
-                }
+                this.MenuSwitchMethod(Request.Params["menuType"]);
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();
 
                 GetWeather();
+                if (this.CurrUser.Password == Const.MD5pwd)
+                {
+                    Alert.ShowInTop("当前密码不安全，请尽快更改！", MessageBoxIcon.Warning);
+                }
             }
         }
 

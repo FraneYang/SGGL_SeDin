@@ -103,15 +103,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtProjectName;
         
         /// <summary>
-        /// txtBidContent 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtBidContent;
-        
-        /// <summary>
         /// txtBidType 控件。
         /// </summary>
         /// <remarks>
@@ -119,6 +110,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList txtBidType;
+        
+        /// <summary>
+        /// txtBidDocumentsCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtBidDocumentsCode;
         
         /// <summary>
         /// txtBidDocumentsName 控件。
@@ -130,13 +130,22 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtBidDocumentsName;
         
         /// <summary>
-        /// txtBidDocumentsCode 控件。
+        /// txtBidContent 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtBidDocumentsCode;
+        protected global::FineUIPro.TextBox txtBidContent;
+        
+        /// <summary>
+        /// btnAttachUrl 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttachUrl;
         
         /// <summary>
         /// Bidding_SendTime 控件。
@@ -218,15 +227,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Label lbTemp;
-        
-        /// <summary>
-        /// btnAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
         
         /// <summary>
         /// ToolbarFill1 控件。

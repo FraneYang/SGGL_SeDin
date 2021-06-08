@@ -45,6 +45,9 @@
     <Reference Include="Apache.NMS.ActiveMQ">
       <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
     </Reference>
+    <Reference Include="Aspose.Words">
+      <HintPath>..\..\..\CQMS_New\CQMS_SD_NEW\FineUIPro.Web\bin\Aspose.Words.dll</HintPath>
+    </Reference>
     <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>
     </Reference>
@@ -69,6 +72,7 @@
     <Reference Include="System.DirectoryServices" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Management" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Web" />
@@ -126,6 +130,7 @@
     <Compile Include="API\HSSE\APITrainingPlanService.cs" />
     <Compile Include="API\HSSE\APITrainingTaskService.cs" />
     <Compile Include="API\HSSE\APITrainRecordService.cs" />
+    <Compile Include="API\HTGL\APIHTGLPersonService.cs" />
     <Compile Include="BaseInfo\AccidentTypeService.cs" />
     <Compile Include="BaseInfo\CertificateService.cs" />
     <Compile Include="BaseInfo\CNProfessionalService.cs" />
@@ -421,6 +426,7 @@
     <Compile Include="PHTGL\BiddingManagement\SetSubReviewService.cs" />
     <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch1Service.cs" />
     <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch2Service.cs" />
+    <Compile Include="PHTGL\BiddingManagement\WordHelp.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_HumanInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_MachineInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl11Service.cs" />

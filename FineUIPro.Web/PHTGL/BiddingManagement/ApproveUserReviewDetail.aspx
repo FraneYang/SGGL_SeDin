@@ -28,7 +28,7 @@
                         </f:FormRow>
                         <f:FormRow>
                             <Items>
-                                <f:DropDownList ID="drpProjectId" runat="server" Label="招标项目" LabelAlign="Right" AutoPostBack="true"  LabelWidth="120px"></f:DropDownList>
+                                <f:DropDownList ID="drpProjectId" runat="server" Label="招标项目" LabelAlign="Right" AutoPostBack="true"  LabelWidth="140px"></f:DropDownList>
 
                                 <f:TextBox ID="txtBidDocumentsCode" runat="server" Label="招标文件编号" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
                             </Items>

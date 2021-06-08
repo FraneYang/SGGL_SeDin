@@ -33,7 +33,9 @@
                             <Toolbars>
                                 <f:Toolbar ID="Toolbar2" runat="server">
                                     <Items>
-                                        <f:Button ID="btnNew" Text="新增数据" Icon="Add" EnablePostBack="true" runat="server" OnClick="btnAddMaterial_Click">
+                                       <f:Button ID="btnNew" ToolTip="增加" Icon="Add" EnablePostBack="false" runat="server">
+                                        </f:Button>
+                                        <f:Button ID="btnDelete" ToolTip="删除" Icon="Delete" EnablePostBack="false" runat="server">
                                         </f:Button>
                                     </Items>
                                 </f:Toolbar>
@@ -113,8 +115,10 @@
                                     <Toolbars>
                                         <f:Toolbar ID="Toolbar3" runat="server">
                                             <Items>
-                                                <f:Button ID="Button1" Text="新增数据" Icon="Add" EnablePostBack="true" runat="server" OnClick="btnAddDevice_Click">
-                                                </f:Button>
+                                                 <f:Button ID="btnNew2" ToolTip="增加" Icon="Add" EnablePostBack="false" runat="server">
+                                        </f:Button>
+                                        <f:Button ID="btnDelete2" ToolTip="删除" Icon="Delete" EnablePostBack="false" runat="server">
+                                        </f:Button>
                                             </Items>
                                         </f:Toolbar>
                                     </Toolbars>

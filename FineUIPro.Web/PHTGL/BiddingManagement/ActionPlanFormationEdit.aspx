@@ -25,13 +25,25 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpProjectId" runat="server" Label="总承包合同编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="120px"></f:DropDownList>
+                        <f:DropDownList ID="drpProjectId" runat="server" Label="项目代码" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="140px"></f:DropDownList>
                         <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" Readonly="true" LabelWidth="140px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtActionPlanCode" runat="server" Label="编号" LabelAlign="Right"  LabelWidth="140px"></f:TextBox>
+                        <f:TextBox ID="txtActionPlanCode" runat="server" Label="实施计划编号" ShowRedStar="true" Required="true" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
+                        <f:TextBox ID="txtBidProject" runat="server" Label="招标工程" ShowRedStar="true" Required="true" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:TextBox ID="txtBidType" runat="server" Label="招标方式" ShowRedStar="true"  Required="true" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
+                        <f:TextBox ID="txtPriceType" runat="server" Label="计价方式" ShowRedStar="true" Required="true" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
+                    </Items>
+                </f:FormRow>
+                <f:FormRow>
+                    <Items>
+                        <f:NumberBox ID="txtBidPrice"  Label="招标控制价" runat="server" LabelAlign="Right" LabelWidth="140px" NoNegative="true"></f:NumberBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -44,24 +56,10 @@
                         <f:Grid ID="Grid1" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" Title="" EnableCollapse="false"
                             runat="server" DataKeyNames="ActionPlanItemID" AllowCellEditing="true" ClicksToEdit="1" ForceFit="true"
                             EnableColumnLines="true" DataIDField="ActionPlanItemID" Height="380px">
-                            <%--     <Toolbars>
-                                <f:Toolbar ID="Toolbar2" runat="server" Position="Top" ToolbarAlign="Left">
-                                    <Items>
-                                        <f:ToolbarFill ID="ToolbarFill1" runat="server"></f:ToolbarFill>
-                                        <f:Button ID="btnNew" ToolTip="增加" Icon="Add" EnablePostBack="false" runat="server">
-                                        </f:Button>
-                                        <f:Button ID="btnDelete" ToolTip="删除" Icon="Delete" EnablePostBack="false" runat="server">
-                                        </f:Button>
-                                    </Items>
-                                </f:Toolbar>
-                            </Toolbars>--%>
                             <Columns>
                                 <f:RowNumberField HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center" Width="60px"></f:RowNumberField>
                                 <f:RenderField ColumnID="PlanningContent" DataField="PlanningContent" FieldType="String"
                                     HeaderText="策划内容" HeaderTextAlign="Center">
-                                    <%-- <Editor>
-                                        <f:TextBox ID="txtPlanningContent" runat="server"></f:TextBox>
-                                    </Editor>--%>
                                 </f:RenderField>
                                 <f:RenderField ColumnID="ActionPlan" DataField="ActionPlan" FieldType="String"
                                     HeaderText="实施计划" HeaderTextAlign="Center">

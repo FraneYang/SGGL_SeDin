@@ -116,7 +116,7 @@ namespace BLL
 
         public static void InitGetSetSubCompleteDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
-            dropName.DataValueField = "SetSubReviewID";
+            dropName.DataValueField = "SetSubReviewCode";
             dropName.DataTextField = "SetSubReviewCode";
             dropName.DataSource = GetCompleteSetSubReview();
             dropName.DataBind();

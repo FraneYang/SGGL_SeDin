@@ -65,6 +65,10 @@ namespace BLL
             table.EvaluationPlan = newtable.EvaluationPlan;
             table.BiddingMethods_Select = newtable.BiddingMethods_Select;
             table.SchedulePlan = newtable.SchedulePlan;
+            table.BidProject = newtable.BidProject;
+            table.BidPrice = newtable.BidPrice;
+            table.PriceType = newtable.PriceType;
+            table.BidType = newtable.BidType;
             Funs.DB.PHTGL_ActionPlanFormation.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -107,22 +111,43 @@ namespace BLL
                 table.EvaluationPlan = newtable.EvaluationPlan;
                 table.BiddingMethods_Select = newtable.BiddingMethods_Select;
                 table.SchedulePlan = newtable.SchedulePlan;
+                table.BidProject = newtable.BidProject;
+                table.BidPrice = newtable.BidPrice;
+                table.PriceType = newtable.PriceType;
+                table.BidType = newtable.BidType;
                 Funs.DB.SubmitChanges();
             }
 
         }
 
-        public static void DeletePHTGL_ActionPlanFormationById(string ActionPlanID
-)
+        public static void DeletePHTGL_ActionPlanFormationById(string ActionPlanID)
         {
-            Model.PHTGL_ActionPlanFormation table = Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanID == ActionPlanID
-);
+            Model.PHTGL_ActionPlanFormation table = Funs.DB.PHTGL_ActionPlanFormation.FirstOrDefault(e => e.ActionPlanID == ActionPlanID);
             if (table != null)
             {
                 Funs.DB.PHTGL_ActionPlanFormation.DeleteOnSubmit(table);
                 Funs.DB.SubmitChanges();
             }
 
+        }
+        public static void InitGetAcpCompleteDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
+        {
+            dropName.DataValueField = "ActionPlanCode";
+            dropName.DataTextField = "ActionPlanCode";
+            dropName.DataSource = GetCompleteActionPlanFormat();
+            dropName.DataBind();
+            if (isShowPlease)
+            {
+                Funs.FineUIPleaseSelect(dropName);
+            }
+        }
+        public static object GetCompleteActionPlanFormat()
+        {
+            var list = (from x in Funs.DB.PHTGL_ActionPlanFormation
+                        join y in Funs.DB.PHTGL_ActionPlanReview on x.ActionPlanID equals y.ActionPlanID
+                        where y.State == Const.ContractReview_Complete
+                        select x).ToList();
+            return list;
         }
 
     }

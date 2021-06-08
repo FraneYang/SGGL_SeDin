@@ -298,7 +298,7 @@ namespace FineUIPro.Web.HJGL.TestPackage
             var getItemEndCheck = BLL.AItemEndCheckService.GetItemEndCheckByItemEndCheckListId(this.ItemEndCheckListId);
             if (getItemEndCheck.Count>0)
             {
-                BLL.AItemEndCheckService.DeleteAllItemEndCheckByID(this.PTP_ID);
+                BLL.AItemEndCheckService.DeleteAllItemEndCheckByID(this.ItemEndCheckListId);
                 ItemEndCheckLists = GetDetails();
                 foreach (var item in ItemEndCheckLists)
                 {

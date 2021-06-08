@@ -83,7 +83,7 @@ namespace Model
         /// <summary>
         /// 焊接完成比例
         /// </summary>
-        public string WeldingRate
+        public string WeldedRate
         {
             get;
             set;
@@ -92,7 +92,7 @@ namespace Model
         /// <summary>
         /// 焊接一次合格率
         /// </summary>
-        public string WeldingOnePassRate
+        public string OneOKRate
         {
             get;
             set;
@@ -138,6 +138,33 @@ namespace Model
         /// 扩探焊口数
         /// </summary>
         public string ExpandJotNum
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 应检测焊口数
+        /// </summary>
+        public string NeedCheckJotNum
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 检测完成比例
+        /// </summary>
+        public string CheckedRate
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// 返修焊口数
+        /// </summary>
+        public string CheckRepairJotNum
         {
             get;
             set;

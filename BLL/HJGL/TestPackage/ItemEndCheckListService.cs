@@ -50,6 +50,24 @@ namespace BLL
             db.SubmitChanges();
         }
 
+        public static void AddItemEndCheckListForApi(Model.PTP_ItemEndCheckList ItemEndCheckList)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.PTP_ItemEndCheckList newItemEndCheckList = new Model.PTP_ItemEndCheckList();
+                newItemEndCheckList.ItemEndCheckListId = ItemEndCheckList.ItemEndCheckListId;
+                newItemEndCheckList.PTP_ID = ItemEndCheckList.PTP_ID;
+                newItemEndCheckList.CompileMan = ItemEndCheckList.CompileMan;
+                newItemEndCheckList.CompileDate = ItemEndCheckList.CompileDate;
+                newItemEndCheckList.State = ItemEndCheckList.State;
+                newItemEndCheckList.AIsOK = ItemEndCheckList.AIsOK;
+                newItemEndCheckList.BIsOK = ItemEndCheckList.BIsOK;
+
+                db.PTP_ItemEndCheckList.InsertOnSubmit(newItemEndCheckList);
+                db.SubmitChanges();
+            }
+        }
+
         /// <summary>
         /// 修改尾项信息
         /// </summary>
@@ -63,6 +81,27 @@ namespace BLL
             newItemEndCheckList.BIsOK = ItemEndCheckList.BIsOK;
             newItemEndCheckList.AOKState = ItemEndCheckList.AOKState;
             db.SubmitChanges();
+        }
+
+        /// <summary>
+        /// 修改尾项信息
+        /// </summary>
+        /// <param name="weldReport">试压实体</param>
+        public static void UpdateItemEndCheckListForApi(Model.PTP_ItemEndCheckList ItemEndCheckList)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.PTP_ItemEndCheckList newItemEndCheckList = db.PTP_ItemEndCheckList.First(e => e.ItemEndCheckListId == ItemEndCheckList.ItemEndCheckListId);
+                if (!string.IsNullOrEmpty(ItemEndCheckList.State))
+                    newItemEndCheckList.State = ItemEndCheckList.State;
+                if (ItemEndCheckList.AIsOK != null)
+                    newItemEndCheckList.AIsOK = ItemEndCheckList.AIsOK;
+                if (ItemEndCheckList.BIsOK != null)
+                    newItemEndCheckList.BIsOK = ItemEndCheckList.BIsOK;
+                if (ItemEndCheckList.AOKState != null)
+                    newItemEndCheckList.AOKState = ItemEndCheckList.AOKState;
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>

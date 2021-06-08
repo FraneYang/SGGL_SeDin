@@ -62,7 +62,24 @@ namespace BLL
             db.SubmitChanges();
         }
 
-          /// <summary>
+        public static void AddAItemEndCheckForApi(Model.PTP_ItemEndCheck aItemEndCheck)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.PTP_ItemEndCheck newAItemEndCheck = new Model.PTP_ItemEndCheck();
+                newAItemEndCheck.ItemCheckId = SQLHelper.GetNewID(typeof(Model.PTP_ItemEndCheck));
+                newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
+                newAItemEndCheck.ItemEndCheckListId = aItemEndCheck.ItemEndCheckListId;
+                newAItemEndCheck.Content = aItemEndCheck.Content;
+                newAItemEndCheck.ItemType = aItemEndCheck.ItemType;
+                newAItemEndCheck.Result = aItemEndCheck.Result;
+                newAItemEndCheck.Remark = aItemEndCheck.Remark;
+                db.PTP_ItemEndCheck.InsertOnSubmit(newAItemEndCheck);
+                db.SubmitChanges();
+            }
+        }
+
+        /// <summary>
         /// 修改业务_A项尾工检查表
         /// </summary>
         /// <param name="weldReport">试压实体</param>
@@ -76,6 +93,25 @@ namespace BLL
             newAItemEndCheck.Result = aItemEndCheck.Result;
             newAItemEndCheck.Remark = aItemEndCheck.Remark;
             db.SubmitChanges();
+        }
+
+        public static void UpdateAItemEndCheckForApi(Model.PTP_ItemEndCheck aItemEndCheck)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.PTP_ItemEndCheck newAItemEndCheck = db.PTP_ItemEndCheck.First(e => e.ItemCheckId == aItemEndCheck.ItemCheckId);
+                if (!string.IsNullOrEmpty(aItemEndCheck.PipelineId))
+                    newAItemEndCheck.PipelineId = aItemEndCheck.PipelineId;
+                if (!string.IsNullOrEmpty(aItemEndCheck.ItemEndCheckListId))
+                    newAItemEndCheck.ItemEndCheckListId = aItemEndCheck.ItemEndCheckListId;
+                if (!string.IsNullOrEmpty(aItemEndCheck.ItemType))
+                    newAItemEndCheck.ItemType = aItemEndCheck.ItemType;
+                if (!string.IsNullOrEmpty(aItemEndCheck.Result))
+                    newAItemEndCheck.Result = aItemEndCheck.Result;
+                if (!string.IsNullOrEmpty(aItemEndCheck.Remark))
+                    newAItemEndCheck.Remark = aItemEndCheck.Remark;
+                db.SubmitChanges();
+            }
         }
 
         /// <summary>

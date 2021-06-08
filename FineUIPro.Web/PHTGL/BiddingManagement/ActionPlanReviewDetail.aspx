@@ -47,7 +47,7 @@
                                                         <f:Listener Event="change" Handler="onCheckBoxListChange" />
                                                     </Listeners>
                                                 </f:CheckBoxList>
-                                                <f:Button ID="LooK" Icon="Zoom" runat="server" ToolTip="查看" Text="查看" ValidateForms="SimpleForm1"
+                                                <f:Button ID="LooK" Icon="Zoom" runat="server" ToolTip="查看" Text="查看文件" ValidateForms="SimpleForm1"
                                                      OnClick="btnLooK_Click">
                                                 </f:Button>
                                             </Items>
@@ -117,7 +117,7 @@
 
 
         <f:Window ID="Window1" Title="查看" Hidden="true" EnableIFrame="true" EnableMaximize="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="false"   EnableDrag="true" EnableMinimize="true"
             Width="1000px" Height="800px">
         </f:Window>
     </form>

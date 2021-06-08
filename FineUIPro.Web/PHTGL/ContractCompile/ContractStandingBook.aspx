@@ -4,7 +4,7 @@
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title></title>
 </head>
 <body>
@@ -13,10 +13,10 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true"  ShowHeader="false" Title="台账" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="false" Title="台账" EnableCollapse="true"
                     runat="server" BoxFlex="1" DataKeyNames="ContractId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ContractId" AllowSorting="true" SortField="ContractId" OnSort="Grid1_Sort"
-                    SortDirection="DESC" EnableColumnLines="true"  OnPageIndexChange="Grid1_PageIndexChange"
+                    SortDirection="DESC" EnableColumnLines="true" OnPageIndexChange="Grid1_PageIndexChange"
                     AllowPaging="true" IsDatabasePaging="true" PageSize="10"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
@@ -29,7 +29,7 @@
                                 <f:TextBox runat="server" Label="项目简称" ID="txtShortName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
                                     LabelAlign="left">
                                 </f:TextBox>
-                               <%-- <f:TextBox runat="server" Label="项目代码" ID="txtProjectCode2" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
+                                <%-- <f:TextBox runat="server" Label="项目代码" ID="txtProjectCode2" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
                                     LabelAlign="right">
                                 </f:TextBox>--%>
                                 <f:TextBox runat="server" Label="合同编号" ID="txtContractNum" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
@@ -41,14 +41,17 @@
                                 <f:TextBox runat="server" Label="施工分包商" ID="txtSubConstruction" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
                                     LabelAlign="left">
                                 </f:TextBox>
-                               <%-- <f:DropDownList ID="drpStates" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="btnSearch_Click"
+                                <%-- <f:DropDownList ID="drpStates" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="btnSearch_Click"
                                     LabelWidth="70px" LabelAlign="Right" Width="170px">
                                 </f:DropDownList>--%>
                                 <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
                                 </f:Button>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                
-                                 <f:Button ID="Button1" ToolTip="重置"    Icon="ArrowUndo"  runat="server" OnClick="btnReset_Click">
+
+                                <f:Button ID="Button1" ToolTip="重置" Icon="ArrowUndo" runat="server" OnClick="btnReset_Click">
+                                </f:Button>
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                    EnableAjax="false" DisableControlBeforePostBack="false">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
@@ -93,9 +96,9 @@
                         <f:RenderField ColumnID="Account1" DataField="Account1" Width="150px" FieldType="String" HeaderText="开户行账号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                    
+
                     </Columns>
-                   <%--     <Listeners>
+                    <%--     <Listeners>
                             <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                         </Listeners>--%>
                     <PageItems>
@@ -115,7 +118,7 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true"  Maximized="true"
+        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
             Width="1000px" Height="420px">
         </f:Window>
@@ -138,6 +141,6 @@
             F(menuID).show();  //showAt(event.pageX, event.pageY);
             return false;
         }--%>
-    </script>
+</script>
 </body>
 </html>

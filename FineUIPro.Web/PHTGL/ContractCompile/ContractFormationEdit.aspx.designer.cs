@@ -67,6 +67,33 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
+        /// CBIsPassBid 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.CheckBoxList CBIsPassBid;
+        
+        /// <summary>
+        /// DropSetSubReviewCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropSetSubReviewCode;
+        
+        /// <summary>
+        /// DropActionPlanCode 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropActionPlanCode;
+        
+        /// <summary>
         /// drpProjectId 控件。
         /// </summary>
         /// <remarks>

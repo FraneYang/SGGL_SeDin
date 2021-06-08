@@ -26,19 +26,30 @@
                                 <f:TextBox runat="server" Label="招标文件编号" ID="txtBidDocumentsCode" EmptyText="输入查询条件" Width="300px" LabelWidth="140px"
                                     LabelAlign="left">
                                 </f:TextBox>
-                                <f:TextBox runat="server" Label="招标文件名称" ID="txtBidDocumentsName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
-                                    LabelAlign="left">
-                                </f:TextBox>
-
                                 <f:DropDownList runat="server" ID="DropState" Label="审批状态"></f:DropDownList>
-
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
-                                <f:Button ID="btnQuery" OnClick="btnSearch_Click" ToolTip="查询" Icon="SystemSearch" EnablePostBack="true" runat="server">
+
+                                <f:Button ID="btnQuery" OnClick="btnSearch_Click" ToolTip="查询" Icon="SystemSearch" Text="查询" EnablePostBack="true" runat="server">
                                 </f:Button>
-                                <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server">
+                                <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="重置" Icon="ArrowUndo" Text="重置" EnablePostBack="true" runat="server">
                                 </f:Button>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text="新增" EnablePostBack="false" runat="server"
-                                    Hidden="true">
+                                    Hidden="false">
+                                </f:Button>
+                                 <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                                    OnClick="btnMenuDelete_Click">
+                                </f:Button>
+                            </Items>
+                        </f:Toolbar>
+                        <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
+                            <Items>
+                               <f:Button ID="btnPrinter" EnablePostBack="true" runat="server"
+                                    Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
+                                </f:Button>
+                                <f:Button ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编制审批流" Icon="Pencil"
+                                    OnClick="btnMenuEdit_Click">
+                                </f:Button>
+                                <f:Button ID="btnQueryApprove" OnClick="btnQueryApprove_Click" ToolTip="查询/进行审批" Text="查询/进行审批" Icon="SystemSearch" EnablePostBack="true" runat="server">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
@@ -54,6 +65,9 @@
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="BidDocumentsName" DataField="BidDocumentsName" Width="120px" FieldType="String" HeaderText="招标文件名称" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                         <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
@@ -105,12 +119,12 @@
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
-                <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
+               <%-- <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                     OnClick="btnMenuEdit_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDelete_Click">
-                </f:MenuButton>
+                </f:MenuButton>--%>
                 <%--<f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
                 Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">
             </f:MenuButton>--%>

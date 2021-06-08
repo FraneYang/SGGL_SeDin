@@ -213,6 +213,7 @@ namespace BLL
                 PositionId = user.PositionId,
                 PostTitleId = user.PostTitleId,
                 WorkPostId=user.WorkPostId,
+                DataFrom = user.DataFrom,
             };
             db.Sys_User.InsertOnSubmit(newUser);
             db.SubmitChanges();
@@ -244,6 +245,7 @@ namespace BLL
                 newUser.Telephone = user.Telephone;
                 newUser.SignatureUrl = user.SignatureUrl;
                 newUser.DepartId = user.DepartId;
+                newUser.DataFrom = user.DataFrom;
                 db.SubmitChanges();
             }
         }

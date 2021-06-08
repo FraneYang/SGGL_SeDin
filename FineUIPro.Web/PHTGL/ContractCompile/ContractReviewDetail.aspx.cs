@@ -199,6 +199,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Grid1.DataSource = table;
             Grid1.DataBind();
         }
+        protected void btnLooK_Click(object sender, EventArgs e)
+        {
+             var model = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(ContractReviewId);
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractFormationEdit.aspx?ContractId={0}", model.ContractId, "编辑 - ")));
+        }
 
         /// <summary>
         /// 绑定会签评审单

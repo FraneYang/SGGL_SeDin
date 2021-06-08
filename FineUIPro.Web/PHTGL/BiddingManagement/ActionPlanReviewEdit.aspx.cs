@@ -12,6 +12,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 {
     public partial class ActionPlanReviewEdit : PageBase
     {
+        #region  定义属性
         /// <summary>
         /// 审批人字典
         /// </summary>
@@ -26,18 +27,28 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ViewState["Dic_ApproveMan"] = value;
             }
         }
-
+        public string ActionPlanReviewId
+        {
+            get
+            {
+                return (string)ViewState["ActionPlanReviewId"];
+            }
+            set
+            {
+                ViewState["ActionPlanReviewId"] = value;
+            }
+        }
+        #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
-
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
-                ///绑定施工管理部正副主任
+                ActionPlanReviewId = Request.Params["ActionPlanReviewId"];
+                #region 绑定下拉列表
+                /// 绑定施工管理部正副主任
                 Approval_Construction.DataValueField = "UserId";
                 Approval_Construction.DataTextField = "UserName";
-                //var model1 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionMinister);
-                //var model2 = BLL.UserService.GetUserListByProjectIdAndRoleId(CurrUser.LoginProjectId, Const.ConstructionViceMinister);
                 var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionMinister);
                 var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionViceMinister);
                 var model3 = model1.Concat(model2).ToList();
@@ -49,21 +60,39 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
- 
+                #endregion
                 BindGrid();
+                BindForm();
+                var newmodel = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+                if (newmodel != null)
+                {
+                    if (newmodel.State >= Const.ContractCreat_Complete)
+                    {
+                        this.btnSave.Hidden = true;
+                        this.btnSubmit.Hidden = true;
+                    }
 
+                }
 
 
             }
-
-
-
+ 
         }
 
-        /// <summary>
-        /// 数据绑定
-        /// </summary>
-        private void BindGrid()
+        private void BindForm()
+        {
+            var act = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+            drpProjectId.Value = Convert.ToString(act.ActionPlanID);
+            Approval_Construction.SelectedValue = Convert.ToString(act.Approval_Construction);
+            DropConstructionManager.SelectedValue = Convert.ToString(act.ConstructionManager);
+            DropPreliminaryMan.SelectedValue = Convert.ToString(act.PreliminaryMan);
+            DropProjectManager.SelectedValue = Convert.ToString(act.ProjectManager);
+            DropDeputyGeneralManager.SelectedValue = Convert.ToString(act.DeputyGeneralManager);
+        }
+            /// <summary>
+            /// 数据绑定
+            /// </summary>
+            private void BindGrid()
         {
             string strSql = @"SELECT  Act.ActionPlanID
                                   ,Act.ActionPlanCode
@@ -95,37 +124,43 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Grid1.DataBind();
         }
 
-
-        protected void btnSave_Click(object sender, EventArgs e)
+        private bool Save()
         {
-            if (string.IsNullOrEmpty( drpProjectId.Value))
+            bool isOk = false ;
+
+            if (string.IsNullOrEmpty(drpProjectId.Value))
             {
                 ShowNotify("请选择合同", MessageBoxIcon.Warning);
-                return;
+                return isOk;
             }
-            if (Approval_Construction.SelectedValue==Const._Null)
+            if (Approval_Construction.SelectedValue == Const._Null)
             {
                 ShowNotify("请选择施工管理部人员", MessageBoxIcon.Warning);
-                return;
+                return isOk;
 
             }
- 
+
             //0 是审批中 1是成功 2是失败
             Model.PHTGL_ActionPlanReview newmodel = new Model.PHTGL_ActionPlanReview();
-            newmodel.ActionPlanReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ActionPlanReview));
+            newmodel.ActionPlanReviewId = ActionPlanReviewId;
             newmodel.ActionPlanID = drpProjectId.Value;
-            newmodel.Approval_Construction= Approval_Construction.SelectedValue;
-            newmodel.State =Const.ContractReviewing;
-            newmodel.CreateUser =this.CurrUser.UserId;
+            newmodel.Approval_Construction = Approval_Construction.SelectedValue;
+            newmodel.State = Const.ContractCreat_Complete;
+            newmodel.CreateUser = this.CurrUser.UserId;
             newmodel.ConstructionManager = DropConstructionManager.SelectedValue;
             newmodel.PreliminaryMan = DropPreliminaryMan.SelectedValue;
             newmodel.ProjectManager = DropProjectManager.SelectedValue;
             newmodel.DeputyGeneralManager = DropDeputyGeneralManager.SelectedValue;
-            BLL.PHTGL_ActionPlanReviewService.AddPHTGL_ActionPlanReview(newmodel);
+            BLL.PHTGL_ActionPlanReviewService.UpdatePHTGL_ActionPlanReview(newmodel);
+            isOk = true;
+            return isOk;
+          
+        }
+        private void CreateApprove()
+        {
+            var newmodel = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
             var _Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(newmodel.ActionPlanID);
-
             Dic_ApproveMan = PHTGL_ActionPlanReviewService.Get_DicApproveman(_Act.ProjectID, newmodel.ActionPlanReviewId);
-
 
             //创建第一节点审批信息
             Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
@@ -140,10 +175,34 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             _Approve.ApproveForm = Request.Path;
 
             BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
- 
-            ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+        }
 
+        protected void btnSave_Click(object sender, EventArgs e)
+        {
+            if (Save())
+            {
+                ShowNotify("保存成功！", MessageBoxIcon.Success);
+                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            }
+            
+        }
+
+        protected void btnSubmit_Click(object sender, EventArgs e)
+        {
+            if (Save())
+            {
+                CreateApprove();
+                var model1 = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(ActionPlanReviewId);
+                model1.State = Const.ContractReviewing;
+                PHTGL_ActionPlanReviewService.UpdatePHTGL_ActionPlanReview(model1);
+
+                //var model2 = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(model1.ActionPlanID);
+                //model2.State= Const.ContractReviewing;
+                //PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model2);
+                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+
+
+            }
 
         }
         #region DropDownList下拉选择事件

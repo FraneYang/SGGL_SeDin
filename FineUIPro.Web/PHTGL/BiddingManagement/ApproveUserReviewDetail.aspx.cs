@@ -151,8 +151,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                             + @" LEFT JOIN Sys_User AS U ON U.UserId =APP.ApproveUserName  "
                             + @"where 1=1 AND ApproveUserReviewID = @ApproveUserReviewID ";
             List<SqlParameter> listStr = new List<SqlParameter>();
-            strSql += " AND ApproveUserReviewID = @ApproveUserReviewID";
-            if (string.IsNullOrEmpty(ApproveUserReviewID))
+             if (string.IsNullOrEmpty(ApproveUserReviewID))
             {
                 listStr.Add(new SqlParameter("@ApproveUserReviewID", ""));
 
@@ -249,6 +248,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 }
                 else
                 {
+                    Model.PHTGL_SetSubReview _SetSubReview = new Model.PHTGL_SetSubReview();
+                    _SetSubReview.SetSubReviewID = SQLHelper.GetNewID(typeof(Model.PHTGL_SetSubReview));
+                    var BidUser = BLL.PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(ApproveUserReviewID);
+                    _SetSubReview.ApproveUserReviewID = ApproveUserReviewID;
+                    _SetSubReview.ActionPlanID = BidUser.ActionPlanID;
+                    _SetSubReview.State = Const.ContractCreating;
+                    _SetSubReview.Type = 0;
+                    PHTGL_SetSubReviewService.AddPHTGL_SetSubReview(_SetSubReview);
+
                     ChangeState(Const.ContractReview_Complete);
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);

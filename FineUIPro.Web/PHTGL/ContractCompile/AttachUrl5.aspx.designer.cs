@@ -76,6 +76,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Button btnNew;
         
         /// <summary>
+        /// btnDelete 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDelete;
+        
+        /// <summary>
         /// OrderNumber 控件。
         /// </summary>
         /// <remarks>
@@ -166,13 +175,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Toolbar Toolbar3;
         
         /// <summary>
-        /// Button1 控件。
+        /// btnNew2 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button Button1;
+        protected global::FineUIPro.Button btnNew2;
+        
+        /// <summary>
+        /// btnDelete2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDelete2;
         
         /// <summary>
         /// txtOrderNumber 控件。

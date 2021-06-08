@@ -31,6 +31,32 @@ namespace BLL
             newApprove.ApproveType = approve.ApproveType;
             db.SubmitChanges();
         }
+
+        public static Model.PTP_TestPackageApprove UpdateTestPackageApproveForApi(Model.PTP_TestPackageApprove approve)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.PTP_TestPackageApprove newApprove = db.PTP_TestPackageApprove.FirstOrDefault(e => e.ApproveId == approve.ApproveId);
+                if (newApprove != null)
+                {
+                    if (!string.IsNullOrEmpty(approve.ApproveMan))
+                        newApprove.ApproveMan = approve.ApproveMan;
+                    if (approve.ApproveDate.HasValue)
+                        newApprove.ApproveDate = approve.ApproveDate;
+                    if (!string.IsNullOrEmpty(approve.Opinion))
+                        newApprove.Opinion = approve.Opinion;
+                    if (!string.IsNullOrEmpty(approve.ItemEndCheckListId))
+                        newApprove.ItemEndCheckListId = approve.ItemEndCheckListId;
+                    if (!string.IsNullOrEmpty(approve.ApproveType))
+                        newApprove.ApproveType = approve.ApproveType;
+
+                    db.SubmitChanges();
+                    return newApprove;
+                }
+                return null;
+            };
+
+        }
         /// <summary>
         /// 增加尾项检查审批信息
         /// </summary>
@@ -50,6 +76,29 @@ namespace BLL
             db.SubmitChanges();
 
         }
+
+        /// <summary>
+        /// 增加尾项检查审批信息
+        /// </summary>
+        /// <param name="managerRuleApprove">尾项检查审批实体</param>
+        public static string AddTestPackageApproveForApi(Model.PTP_TestPackageApprove approve)
+        {
+            using (var db = new Model.SGGLDB(Funs.ConnString))
+            {
+                string newKeyID = SQLHelper.GetNewID(typeof(Model.PTP_TestPackageApprove));
+                Model.PTP_TestPackageApprove newApprove = new Model.PTP_TestPackageApprove();
+                newApprove.ApproveId = newKeyID;
+                newApprove.ApproveMan = approve.ApproveMan;
+                newApprove.ApproveDate = approve.ApproveDate;
+                newApprove.Opinion = approve.Opinion;
+                newApprove.ItemEndCheckListId = approve.ItemEndCheckListId;
+                newApprove.ApproveType = approve.ApproveType;
+                db.PTP_TestPackageApprove.InsertOnSubmit(newApprove);
+                db.SubmitChanges();
+                return newKeyID;
+            }
+        }
+
         /// <summary>
         /// 根据试压包主键删除所有办理记录
         /// </summary>

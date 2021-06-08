@@ -40,6 +40,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             }
         }
         #endregion
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -84,10 +85,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             }
 
         }
+
         private string GetDeleteScript()
         {
             return Confirm.GetShowReference("确定删除当前数据吗？", String.Empty, MessageBoxIcon.Question, Grid1.GetDeleteSelectedRowsReference(), String.Empty);
         }
+
         #region 数据绑定
         /// <summary>
         /// 数据绑定
@@ -146,12 +149,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         #endregion
 
-        protected void Grid1_Sort(object sender, GridSortEventArgs e)
-        {
-            //Grid1.SortDirection = e.SortDirection;
-            //Grid1.SortField = e.SortField;
- 
-        }
+        #region 下拉列表选择事件
         protected void drpProjectId_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (DropBidCode.SelectedValue!=Const._Null)
@@ -169,9 +167,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 txtBidContent.Text = BidDocument.BidContent;
                 StartTime.SelectedDate = BidDocument.Bidding_StartTime;
             }
-           
-
         }
+        #endregion
+
+        #region 保存提交
         private bool Save(int state)
         {
             if (DropBidCode.SelectedValue==Const._Null)
@@ -312,9 +311,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             }
         }
-        protected void btnAttachUrl_Click(object sender, EventArgs e)
-        {
-        }
-        
+        #endregion
+
+
     }
 }

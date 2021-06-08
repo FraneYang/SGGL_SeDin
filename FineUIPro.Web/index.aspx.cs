@@ -295,6 +295,11 @@ namespace FineUIPro.Web
                 {
                     this.btnRetweet.Hidden = false;
                 }
+
+                if (this.CurrUser.Password == Const.MD5pwd)
+                {
+                    Alert.ShowInTop("当前密码不安全，请尽快更改！", MessageBoxIcon.Warning);
+                }
             }
         }
 

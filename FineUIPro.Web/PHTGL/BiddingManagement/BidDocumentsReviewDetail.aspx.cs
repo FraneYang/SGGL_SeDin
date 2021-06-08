@@ -312,7 +312,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 }
                 else
                 {
-                    ChangeState(Const.ContractReview_Complete);
+                    var Bid = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
+                    Model.PHTGL_BidApproveUserReview newtable = new Model.PHTGL_BidApproveUserReview();
+                    newtable.ApproveUserReviewID = SQLHelper.GetNewID(typeof(Model.PHTGL_BidApproveUserReview));
+                    newtable.BidDocumentsReviewId = BidDocumentsReviewId;
+                    newtable.ActionPlanID = Bid.ActionPlanID;
+                    newtable.State = Const.ContractCreating;
+                    PHTGL_BidApproveUserReviewService.AddPHTGL_BidApproveUserReview(newtable);
+                     ChangeState(Const.ContractReview_Complete);
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());

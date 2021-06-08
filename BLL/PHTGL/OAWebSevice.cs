@@ -9,19 +9,12 @@ namespace BLL.PHTGL
 {
     class OAWebSevice
     {
-        void get(Model.PHTGL_Approve approve )
+        void sed(OAWebJson webJson)
         {
-            OAWebService.OfsTodoDataWebServicePortTypeClient OAWeb = new OAWebService.OfsTodoDataWebServicePortTypeClient();
-            OAWebJson webJson = new OAWebJson();
-            webJson.syscode = "shigong";
-            webJson.flowid = approve.ApproveId;
-
-            string strjson = JsonConvert.SerializeObject(webJson);
-
-            OAWeb.receiveTodoRequestByJson(strjson);
-
-
-        }
+             OAWebService.OfsTodoDataWebServicePortTypeClient OAWeb = new OAWebService.OfsTodoDataWebServicePortTypeClient();
+             string strjson = JsonConvert.SerializeObject(webJson);
+             var returnjson=  OAWeb.receiveTodoRequestByJson(strjson);
+         }
 
 
     }

@@ -87,22 +87,21 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 var Bid = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
                 if (Bid !=null)
                 {
-                    txtBidContent.Text = Bid.BidContent.ToString();
-                    drpProjectId.Value= Bid.ActionPlanReviewId.ToString();
-                    //this.DropProjectId.SelectedValue = Bid.ActionPlanReviewId.ToString();
+                    txtBidContent.Text = Convert.ToString(Bid.BidContent);
+                    drpProjectId.Value = Convert.ToString(Bid.ActionPlanReviewId);
+                    //this.DropProjectId.SelectedValue = Convert.ToString( Bid.ActionPlanReviewId);
                     // drpProjectId_SelectedIndexChanged(null, null);
-                    txtBidType.SelectedValue = Bid.BidType.ToString();
-                    txtBidDocumentsName.Text = Bid.BidDocumentsName.ToString();
-                    txtBidDocumentsCode.Text = Bid.BidDocumentsCode.ToString();
+                    txtBidType.SelectedValue = Convert.ToString(Bid.BidType);
+                    txtBidDocumentsName.Text = Convert.ToString(Bid.BidDocumentsName);
+                    txtBidDocumentsCode.Text = Convert.ToString(Bid.BidDocumentsCode);
                     Bidding_SendTime.SelectedDate = Bid.Bidding_SendTime;
                     Bidding_StartTime.SelectedDate = Bid.Bidding_StartTime;
                     Approval_Construction.SelectedValue = Bid.Approval_Construction;
-                    DropConstructionManager .SelectedValue= Bid.ConstructionManager;
+                    DropConstructionManager.SelectedValue = Bid.ConstructionManager;
                     DropControlManager.SelectedValue = Bid.ControlManager;
                     DropProjectManager.SelectedValue = Bid.ProjectManager;
                     DropPreliminaryMan.SelectedValue = Bid.PreliminaryMan;
-                   
-                 }
+                }
              
             }
 
@@ -146,35 +145,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
 
         #region DropDownList下拉选择事件
-        ///// <summary>
-        ///// 选择项目Id获取项目名称
-        ///// </summary>
-        ///// <param name="sender"></param>
-        ///// <param name="e"></param>
-        //protected void drpProjectId_SelectedIndexChanged(object sender, EventArgs e)
-        //{
-          
-        //    if (this.DropProjectId.SelectedValue != BLL.Const._Null)
-        //    {
-        //        //项目名称
-        //        this.txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(this.DropProjectId.SelectedValue);
-                 
-        //         //施工经理
-        //        this.DropConstructionManager.SelectedValue = BLL.ProjectService.GetRoleID(this.DropProjectId.SelectedValue, BLL.Const.ConstructionManager);
-
-        //        //项目经理
-        //        this.DropProjectManager.SelectedValue = BLL.ProjectService.GetRoleID(this.DropProjectId.SelectedValue, BLL.Const.ProjectManager);
-
-        //        //控制经理
-        //        this.DropControlManager.SelectedValue = BLL.ProjectService.GetRoleID(this.DropProjectId.SelectedValue, BLL.Const.ControlManager);
-
-        //    }
-        //    else
-        //    {
-        //        this.txtProjectName.Text = string.Empty;
- 
-        //    }
-        //}
+       
         protected void DropDownBox1_TextChanged(object sender, EventArgs e)
         {
             if (this.drpProjectId.Value != null)
@@ -189,14 +160,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
                 this.txtProjectCode.Text = BLL.ProjectService.GetProjectByProjectId(table.ProjectID).ProjectCode;
 
-                //施工经理
-                this.DropConstructionManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ConstructionManager);
+                ////施工经理
+                //this.DropConstructionManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ConstructionManager);
 
-                //项目经理
-                this.DropProjectManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ProjectManager);
+                ////项目经理
+                //this.DropProjectManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ProjectManager);
 
-                //控制经理
-                this.DropControlManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ControlManager);
+                ////控制经理
+                //this.DropControlManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ControlManager);
             }
             else
             {

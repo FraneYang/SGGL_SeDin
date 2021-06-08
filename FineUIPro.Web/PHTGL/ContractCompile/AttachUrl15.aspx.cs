@@ -76,7 +76,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 Sch1_ProjectName.Text = lists[0].ProjectName.ToString();
                 Sch1_ContractId.Text = lists[0].ContractId.ToString();
                 txtAttachUrlContent.Text = lists[0].AttachUrlContent.ToString();
-
+                Sch1_Opinion.Text = lists[0].Opinion.ToString();
             }
             Grid1.DataSource = lists;
             Grid1.DataBind();

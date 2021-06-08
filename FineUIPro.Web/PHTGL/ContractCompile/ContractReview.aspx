@@ -13,11 +13,11 @@
         <f:Panel ID="Panel1" runat="server" Margin="5px" BodyPadding="5px" ShowBorder="false"
             ShowHeader="false" Layout="VBox" BoxConfigAlign="Stretch">
             <Items>
-                <f:Grid ID="Grid1" ShowBorder="true"  ShowHeader="false" Title="基本信息" EnableCollapse="true"
+                <f:Grid ID="Grid1" ShowBorder="true"  ShowHeader="false" Title="基本信息" EnableCollapse="true" 
                     runat="server" BoxFlex="1" DataKeyNames="ContractReviewId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ContractReviewId" AllowSorting="true" SortField="ContractNum" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -26,14 +26,36 @@
                                 <f:TextBox runat="server" Label="合同名称" ID="txtContractName" EmptyText="输入查询条件" Width="300px" LabelWidth="90px"
                                     LabelAlign="right">
                                 </f:TextBox>
-                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
-                                </f:Button>
-                                <f:ToolbarFill runat="server"></f:ToolbarFill>
+                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
                                 <f:Button ID="btnNew" ToolTip="新增" Icon="Add" EnablePostBack="false" runat="server"
                                     Hidden="true">
                                 </f:Button>
+                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
+                                </f:Button>
+                                  <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                                    OnClick="btnMenuDelete_Click">
+                                </f:Button>
                             </Items>
                         </f:Toolbar>
+                        <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="right">
+                            <Items>
+                                 <f:Button ID="btnSubmitAgain" EnablePostBack="true" runat="server" Hidden="false" Text="重新提交" Icon="Pencil"
+                                    OnClick="btnMenuSubmit_Click">
+                                </f:Button>
+                                <f:Button ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑审批流" Icon="Pencil"
+                                    OnClick="btnMenuEdit_Click">
+                                </f:Button>
+                                <f:Button ID="btnQueryApprove" OnClick="btnQueryApprove_Click" ToolTip="查询/进行审批" Text="查询/进行审批" Icon="SystemSearch" EnablePostBack="true" runat="server">
+                                </f:Button>
+                                <f:Button ID="btnPrinter" EnablePostBack="true" runat="server"
+                                    Text="导出评审单" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
+                                </f:Button>
+                                <f:Button ID="btnPrinterWord" EnablePostBack="true" runat="server"
+                                    Text="导出文件" Icon="Printer" OnClick="btnPrinterWord_Click" EnableAjax="false" DisableControlBeforePostBack="true">
+                                </f:Button>
+                            </Items>
+                        </f:Toolbar>
+
                     </Toolbars>
                     <Columns>
                         <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
@@ -105,16 +127,15 @@
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
-                 <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
+                 <%--<f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                     OnClick="btnMenuEdit_Click">
                 </f:MenuButton>
                 <f:MenuButton ID="btnMenuSubmit" EnablePostBack="true" runat="server" Hidden="true" Text="重新提交" Icon="Pencil"
                     OnClick="btnMenuSubmit_Click">
                 </f:MenuButton>
-     
-                <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                 <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                     OnClick="btnMenuDelete_Click">
-                </f:MenuButton>
+                </f:MenuButton>--%>
             </Items>
         </f:Menu>
     </form>

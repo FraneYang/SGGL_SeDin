@@ -76,6 +76,42 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtActionPlanCode;
         
         /// <summary>
+        /// txtBidProject 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtBidProject;
+        
+        /// <summary>
+        /// txtBidType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtBidType;
+        
+        /// <summary>
+        /// txtPriceType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtPriceType;
+        
+        /// <summary>
+        /// txtBidPrice 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.NumberBox txtBidPrice;
+        
+        /// <summary>
         /// Label7 控件。
         /// </summary>
         /// <remarks>

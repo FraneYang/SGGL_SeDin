@@ -87,5 +87,14 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+        public static void DeleteUrl5ByAttachUrlId(string AttachUrlId)
+        {
+            var table = (from x in Funs.DB.PHTGL_AttachUrl5_DevicePrice where x.AttachUrlId == AttachUrlId select x).ToList();
+            if (table != null)
+            {
+                Funs.DB.PHTGL_AttachUrl5_DevicePrice.DeleteAllOnSubmit(table);
+                Funs.DB.SubmitChanges();
+            }
+        }
     }
 }

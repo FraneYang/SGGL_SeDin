@@ -61,8 +61,6 @@
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropConstructionManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%--<f:TextBox ID="txtConstructionManager" runat="server" Label="施工经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -78,15 +76,11 @@
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropProjectManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="项目经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%--<f:TextBox ID="txtProjectManager" runat="server" Label="项目经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px"  Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="DropDeputyGeneralManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="分管副总经理" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-
-                                                <%--<f:TextBox ID="txtDeputyGeneralManager" runat="server" Label="分管副总经理" LabelAlign="Right" MaxLength="200" LabelWidth="120px" Readonly="true"></f:TextBox>--%>
                                             </Items>
                                         </f:FormRow>
                                     </Rows>
@@ -102,10 +96,13 @@
                     <Items>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存"  Text="保存" ValidateForms="SimpleForm1"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnSubmit" Icon="SystemSave" runat="server" ToolTip="提交" Text="提交" ValidateForms="SimpleForm1"
+                            OnClick="btnSubmit_Click">
+                        </f:Button>
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭"  runat="server" Icon="SystemClose">
                         </f:Button>
                     </Items>
                 </f:Toolbar>
