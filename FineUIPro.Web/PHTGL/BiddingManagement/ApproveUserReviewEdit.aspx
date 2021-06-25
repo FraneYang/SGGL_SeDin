@@ -20,12 +20,12 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="DrpProjectName" runat="server" Label="项目名称" LabelAlign="Right" AutoPostBack="true" LabelWidth="140px"></f:DropDownList>
+                        <f:TextBox ID="txtProjectName" runat="server" Label="项目名称" LabelAlign="Right" AutoPostBack="true" LabelWidth="140px"></f:TextBox>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:DropDownList ID="drpBidDocumentCode" runat="server" Label="招标文件编号" LabelAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="140px"></f:DropDownList>
+                        <f:DropDownList ID="drpBidDocumentCode" runat="server" Label="招标文件编号" LabelAlign="Right" Readonly="true" AutoPostBack="true" OnSelectedIndexChanged="drpProjectId_SelectedIndexChanged" LabelWidth="140px"></f:DropDownList>
                         <f:TextBox ID="txtBidProject" runat="server" Label="招标项目" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -55,7 +55,7 @@
                                 <f:RenderField ColumnID="ApproveUserName" DataField="ApproveUserName" FieldType="String" RendererFunction="render_user"
                                     HeaderText="姓名" HeaderTextAlign="Center">
                                     <Editor>
-                                        <f:DropDownList ID="DropUser" runat="server" Required="true" EnableEdit="true"></f:DropDownList>
+                                        <f:DropDownList ID="DropUser" runat="server" Required="true"  ForceSelection="false" EnableEdit="true"></f:DropDownList>
                                     </Editor>
                                 </f:RenderField>
                                 <f:RenderField ColumnID="ApproveUserSpecial" DataField="ApproveUserSpecial" FieldType="String"
@@ -86,22 +86,22 @@
                         <f:DropDownList ID="DropConstructionManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工经理" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
                     </Items>
                 </f:FormRow>
-                <f:FormRow>
+<%--                <f:FormRow>
                     <Items>
                         <f:DropDownList ID="DropProjectManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="项目经理" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
                     </Items>
-                </f:FormRow>
+                </f:FormRow>--%>
                 <f:FormRow>
                     <Items>
                         <f:DropDownList ID="DropApproval_Construction" runat="server" AutoPostBack="true" EnableEdit="true" Label="施工管理部" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
                     </Items>
                 </f:FormRow>
 
-                <f:FormRow>
+ <%--               <f:FormRow>
                     <Items>
                         <f:DropDownList ID="DropDeputyGeneralManager" runat="server" AutoPostBack="true" EnableEdit="true" Label="分管副总经理" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
                     </Items>
-                </f:FormRow>
+                </f:FormRow>--%>
                 <f:FormRow>
                     <Items>
                         <f:Label ID="label12" runat="server" Text="注：“说明”栏填写内容为“技术或技术组小组长”或“商务或商务组小组长”或“评标组长”。"></f:Label>
@@ -109,17 +109,17 @@
                 </f:FormRow>
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnSubmit" Icon="SystemSave" runat="server" ToolTip="提交" Text="提交" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSubmit" Icon="SystemSave" runat="server" ToolTip="提交" Text="提交" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSubmit_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose" Size="Medium">
                         </f:Button>
                     </Items>
                 </f:Toolbar>

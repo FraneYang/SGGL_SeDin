@@ -46,11 +46,22 @@
         {
             get
             {
-                return (string)ViewState["ProjectId"];
+                return (string)Session["ProjectId"];
             }
             set
             {
-                ViewState["ProjectId"] = value;
+                Session["ProjectId"] = value;
+            }
+        }
+        public string PHTUrl
+        {
+            get
+            {
+                return (string)Session["PHTUrl"];
+            }
+            set
+            {
+                Session["PHTUrl"] = value;
             }
         }
         #endregion
@@ -64,7 +75,11 @@
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
-            {             
+            {
+                Session.Remove("PHTUrl");
+                Session.Remove("ProjectId");
+                PHTUrl = Request.Params["PHTUrl"];
+                ProjectId = Request.Params["ProjectId"];
             }
         }
         #endregion
@@ -78,6 +93,8 @@
         private string btnLogin_Click(string user, string pwd)
         {
             string url = "";
+            string PHTUrl = new Login().PHTUrl;
+            string ProjectId = new Login().ProjectId;
             if (LoginService.UserLogOn(user, pwd, true, this.Page))
             {
                 //PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("../SysManage/UpdatePasswordEdit.aspx?userId={0}", this.CurrUser.UserId, "编辑 - ")));
@@ -111,7 +128,11 @@
                         url = "indexProject.aspx?projectId=" + this.CurrUser.LastProjectId;
                     }
                 }
+                if (PHTUrl != null && PHTUrl != "")
+                {
+                    url = "indexProject.aspx?projectId=" + ProjectId + "&PHTUrl=" + PHTUrl;
 
+                }
                 LogService.AddSys_Log(this.CurrUser, this.CurrUser.UserName, this.CurrUser.UserId, Const.UserMenuId, Const.BtnLogin);
             }
 

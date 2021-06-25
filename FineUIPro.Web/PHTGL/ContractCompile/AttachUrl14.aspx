@@ -312,25 +312,33 @@
                             <f:Label runat="server" ID="Label171" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16附则   "></f:Label>                             <br />
                             <f:Label runat="server" ID="Label172" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16.1本协议与主合同分数相同，每份具有同等法律效力。"></f:Label>                             <br />
                             <f:Label runat="server" ID="Label173" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 16.2本协议与主合同同时生效，并作为主合同的组成部分。   "></f:Label>                             <br />
-                            <f:Label runat="server" ID="Label174" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></f:Label>                             <br />
+                            <f:Label runat="server" ID="Label174" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"></f:Label>
+                            <br />
+                            <br />
+                            <f:Label runat="server" ID="Label176" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;总承包商：                                          施工分包商："></f:Label>
+                            <br />
+                            <f:Label runat="server" ID="Label177" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;（公章或合同专用章）                                         （公章或合同专用章）"></f:Label>
+                            <f:Label runat="server" ID="Label178" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;法定代表人或其委托代理人：                                         法定代表人或其委托代理人："></f:Label>
+                            <br />
+                            <br />
+                            <f:Label runat="server" ID="Label179" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;日期：    年    月    日" LabelAlign="Left"></f:Label>
 
 
-
-                            </f:ContentPanel>
+                        </f:ContentPanel>
                     </Items>
    
                 </f:FormRow>
                 
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text ="关闭" runat="server" Icon="SystemClose" Size="Medium">
                         </f:Button>
                     </Items>
                 </f:Toolbar>

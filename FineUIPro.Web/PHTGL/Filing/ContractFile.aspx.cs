@@ -47,20 +47,23 @@ namespace FineUIPro.Web.PHTGL.Filing
                                      WHEN '5' THEN 'ds' END) AS ContractType,
                                     ( CASE Rev.State
                                     WHEN  @ContractCreating     THEN '编制中'
-                                    WHEN  @Contract_countersign     THEN '会签中'
+                                     WHEN  @Contract_countersign     THEN '会签中'
                                     WHEN  @ContractReviewing        THEN '审批中'
                                     WHEN  @ContractReview_Complete  THEN '审批成功'
                                     WHEN  @ContractReview_Refuse    THEN '审批被拒'   END) AS State ,
-                                    Con.Remarks,
+                                      Con.Remarks,
+                                    Con.EPCCode,
+                                    Act.ProjectShortName,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @" from PHTGL_ContractReview AS Rev"
                             + @"  LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
+                            + @"  left join PHTGL_ActionPlanFormation as Act on Act.EPCCode=Con.EPCCode"
                             + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
                             + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
-                            + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1  and Rev.State=@State ";
+                            + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1  and Rev.State=@State";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString()));
             listStr.Add(new SqlParameter("@Contract_countersign", Const.Contract_countersign));
@@ -182,8 +185,18 @@ namespace FineUIPro.Web.PHTGL.Filing
             }
             string Id = Grid1.SelectedRowID;
             var ContractId = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(Id).ContractId;
-            ContractReview contractReview = new ContractReview();
-            contractReview.printContractAgreement(ContractId);
+             var Con = BLL.ContractService.GetContractById(ContractId);
+            if (Con.IsUseStandardtxt == 2)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", ContractId, BLL.Const.ContractFormation)));
+            }
+            else
+            {
+                ContractReview contractReview = new ContractReview();
+                contractReview.printContractAgreement(ContractId);
+            }
+
+           
         }
         #endregion
     }

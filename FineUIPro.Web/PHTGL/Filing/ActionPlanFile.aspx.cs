@@ -41,18 +41,22 @@ namespace FineUIPro.Web.PHTGL.Filing
                                           ,Act.ActionPlanCode
                                           ,Pro.ProjectName
                                           ,Pro.ProjectCode
+                                          ,Act.ProjectShortName as Name
+                                          ,Act.EPCCode
                                           , (CASE APR.State 
                                                      WHEN  @ContractCreat_Complete THEN '编制完成'
                                                      WHEN  @ContractReviewing THEN '审批中'
                                                      WHEN  @ContractReview_Complete THEN '审批完成'
                                                      WHEN  @ContractReview_Refuse THEN '审批被拒'END) AS State
+                                          ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = APR.ActionPlanReviewId and app2 .state =0    for xml path('')), 1, 1, '')
                                           ,APR.Approval_Construction
                                           ,Act.CreateTime
                                           ,U.UserName AS CreateUser "
-                            + @" FROM PHTGL_ActionPlanReview  AS APR "
-                            + @" LEFT JOIN Sys_User AS U ON U.UserId = APR.CreateUser  "
-                            + @" LEFT JOIN PHTGL_ActionPlanFormation AS Act ON Act.ActionPlanID=APR.ActionPlanID"
-                            + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1 and APR.State =@State";
+                                + @" FROM  PHTGL_ActionPlanReview  AS APR "
+                                + @" LEFT JOIN Sys_User AS U ON U.UserId = APR.CreateUser  "
+                                + @" LEFT JOIN PHTGL_ActionPlanFormation AS Act ON Act.ActionPlanID=APR.ActionPlanID"
+                                + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
+
 
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractCreat_Complete", Const.ContractCreat_Complete));

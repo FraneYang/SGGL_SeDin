@@ -31,13 +31,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// SimpleForm1 控件。
+        /// Panel4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form SimpleForm1;
+        protected global::FineUIPro.Panel Panel4;
+        
+        /// <summary>
+        /// Form2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form Form2;
         
         /// <summary>
         /// Label1 控件。
@@ -49,139 +58,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Label Label1;
         
         /// <summary>
-        /// ContentPanel1 控件。
+        /// txtAttachUrlContent 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.ContentPanel ContentPanel1;
-        
-        /// <summary>
-        /// Form3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Form Form3;
-        
-        /// <summary>
-        /// txtProjectManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectManager;
-        
-        /// <summary>
-        /// txtProjectManager_deputy 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectManager_deputy;
-        
-        /// <summary>
-        /// txtSafetyDirector 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtSafetyDirector;
-        
-        /// <summary>
-        /// txtControlManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtControlManager;
-        
-        /// <summary>
-        /// txtDesignManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtDesignManager;
-        
-        /// <summary>
-        /// txtPurchasingManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtPurchasingManager;
-        
-        /// <summary>
-        /// txtConstructionManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtConstructionManager;
-        
-        /// <summary>
-        /// txtConstructionManager_deputy 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtConstructionManager_deputy;
-        
-        /// <summary>
-        /// txtQualityManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtQualityManager;
-        
-        /// <summary>
-        /// txtHSEManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtHSEManager;
-        
-        /// <summary>
-        /// txtDrivingManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtDrivingManager;
-        
-        /// <summary>
-        /// txtFinancialManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtFinancialManager;
-        
-        /// <summary>
-        /// txtOfficeManager 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtOfficeManager;
+        protected global::FineUIPro.HtmlEditor txtAttachUrlContent;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -191,6 +74,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// hdAttachUrlItemId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HiddenField hdAttachUrlItemId;
         
         /// <summary>
         /// btnSave 控件。

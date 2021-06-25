@@ -7,8 +7,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class AttachUrl9 : PageBase
     {
-        private bool AppendToEnd = false;
-
+ 
         #region 加载
         /// <summary>
         /// 加载页面
@@ -53,8 +52,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     defaultObj.Add("Arrivaltime", "");
                     defaultObj.Add("Remarks", "");
 
-                    // 在第一行新增一条数据
-                    btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, AppendToEnd);
+                    // 在末尾新增一条数据
+                    btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
                     // 删除选中行按钮
                     btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript;
                     #endregion
@@ -136,7 +135,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     }
                 }
                 ShowNotify("保存成功！", MessageBoxIcon.Success);
-                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+                PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
             }
         }
         #endregion

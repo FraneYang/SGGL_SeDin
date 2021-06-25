@@ -97,5 +97,21 @@ namespace BLL
             return Dic_Approveman;
         }
 
+        public static List<ApproveManModel> GetApproveManModels(string projectid, string ContractId)
+        {
+ 
+            Model.PHTGL_ActionPlanReview table = GetPHTGL_ActionPlanReviewById(ContractId);
+            string UnitID = BLL.ProjectService.GetProjectByProjectId(projectid).UnitId;
+        
+            List<ApproveManModel> approveManModels = new List<ApproveManModel>();
+            approveManModels.Add(new ApproveManModel { Number = 1, userid = table.ConstructionManager, Rolename = "施工经理" });
+            approveManModels.Add(new ApproveManModel { Number = 2, userid = table.PreliminaryMan, Rolename = "预审人员" });
+            approveManModels.Add(new ApproveManModel { Number = 3, userid = table.Approval_Construction, Rolename = "施工管理部" });
+            approveManModels.Add(new ApproveManModel { Number = 4, userid = table.ProjectManager, Rolename = "项目经理" });
+            approveManModels.Add(new ApproveManModel { Number = 5, userid = table.DeputyGeneralManager, Rolename = "分管副总经理" });
+            return approveManModels;
+        }
+
     }
+
 }

@@ -12,6 +12,24 @@
         <f:PageManager ID="PageManager1" runat="server" AutoSizePanelID="SimpleForm1" />
         <f:Panel ID="Panel4" IsFluid="true" CssClass="blockpanel" BodyPadding="10" Layout="VBox" BoxConfigChildMargin="0 0 5 0" AutoScroll="true"
             EnableCollapse="true" Title="" runat="server">
+              <Toolbars>
+                <f:Toolbar ID="Toolbar3" Position="Top" ToolbarAlign="Right" runat="server">
+                    <Items>
+                         <f:Button ID="btnAgree" Icon="SystemSave" runat="server" ToolTip="同意" Text="同意"  ValidateForms="SimpleForm1" Enabled="false" Size="Medium"
+                             OnClick="btnAgree_Click" ConfirmText="请确认是否同意！">
+                        </f:Button>
+                        <f:Button ID="btnDisgree" Icon="SystemSave" runat="server" ToolTip="不同意" Text="不同意" ValidateForms="SimpleForm1" Enabled="false" Size="Medium"
+                             OnClick="btnDisgree_Click" ConfirmText="请确认是否不同意！">
+                        </f:Button>
+                        <%--<f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1"
+                            OnClick="btnSave_Click">
+                        </f:Button>
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose">
+                        </f:Button>--%>
+                     </Items>
+
+                </f:Toolbar>
+            </Toolbars>
             <Items>
                 <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" Title="审批流程设置"
                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
@@ -28,9 +46,9 @@
                         </f:FormRow>
                         <f:FormRow>
                             <Items>
-                                <f:DropDownList ID="drpProjectId" runat="server" Label="招标项目" LabelAlign="Right" AutoPostBack="true"  LabelWidth="140px"></f:DropDownList>
+                                <f:TextBox ID="txtBidProject" runat="server" Label="招标项目" Readonly="true" LabelAlign="Right" AutoPostBack="true"  LabelWidth="140px"></f:TextBox>
 
-                                <f:TextBox ID="txtBidDocumentsCode" runat="server" Label="招标文件编号" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
+                                <f:TextBox ID="txtBidDocumentsCode" runat="server" Label="招标文件编号" Readonly="true" LabelAlign="Right" LabelWidth="140px"></f:TextBox>
                             </Items>
                         </f:FormRow>
                         <f:FormRow>
@@ -70,7 +88,7 @@
                         <f:FormRow>
                             <Items>
 
-                                <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" Readonly="true" ColumnWidth="50%" runat="server">
+                                <%--<f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" Readonly="true" ColumnWidth="50%" runat="server">
                                 </f:TextBox>
                                 <f:CheckBoxList ID="CBIsAgree" Label="是否同意" runat="server" ColumnWidth="50%">
                                     <Items>
@@ -81,13 +99,13 @@
                                     <Listeners>
                                         <f:Listener Event="change" Handler="onCheckBoxListChange" />
                                     </Listeners>
-                                </f:CheckBoxList>
+                                </f:CheckBoxList>--%>
 
                             </Items>
                         </f:FormRow>
                         <f:FormRow>
                             <Items>
-                                <f:TextArea ID="txtApproveIdea" Height="200px" Required="true" Label="审批意见" ShowRedStar="true" runat="server" Text="">
+                                <f:TextArea ID="txtApproveIdea" Height="100px" Required="true" Label="审批意见" ShowRedStar="true" runat="server" Text="">
                                 </f:TextArea>
                             </Items>
                         </f:FormRow>
@@ -95,7 +113,7 @@
                             <Items>
                                 <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="审批记录"
                                     runat="server" BoxFlex="1" DataKeyNames="ApproveId" AllowCellEditing="true" ForceFit="true"
-                                    ClicksToEdit="2" DataIDField="ApproveId" EnableColumnLines="true" SortField="ApproveType" Height="300"
+                                    ClicksToEdit="2" DataIDField="ApproveId" EnableColumnLines="true"   Height="200"
                                     EnableTextSelection="True">
                                     <Columns>
                                         <f:TemplateField ColumnID="tfPageIndex" Width="55px" HeaderText="序号" HeaderTextAlign="Center" TextAlign="Center"
@@ -129,23 +147,7 @@
 
                 </f:Form>
             </Items>
-
-            <Toolbars>
-                <f:Toolbar ID="Toolbar3" Position="Bottom" ToolbarAlign="Right" runat="server">
-                    <Items>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1"
-                            OnClick="btnSave_Click">
-                        </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose">
-                        </f:Button>
-                        <%--   <f:Button ID="btnAttachUrl" Text="附件" ToolTip="附件查看" Icon="TableCell" runat="server"
-                        OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1" MarginLeft="5px">
-                    </f:Button>   --%>
-                    </Items>
-
-                </f:Toolbar>
-            </Toolbars>
-        </f:Panel>
+         </f:Panel>
 
 
 

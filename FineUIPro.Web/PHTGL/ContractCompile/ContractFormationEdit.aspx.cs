@@ -112,7 +112,16 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         btnSave_Tab4.Hidden = true;
                         btnSubmitForm1.Hidden = true;
                     }
- 
+                    if (_Contract.ApproveState== Const.ContractReview_Refuse&&this.CurrUser.UserId== _Contract.CreatUser)
+                    {
+                        btnSave_Tab1.Hidden = false;
+                        btnSave.Hidden = false;
+                        btnSave_Tab4.Hidden = false;
+                        btnSubmitForm1.Hidden = false;
+
+                    }
+              
+
                 }
             
 
@@ -128,11 +137,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             //  this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
             //总承包合同编号
-            BLL.ProjectService.InitAllProjectCodeDropDownList(this.drpProjectId, true);
-            this.drpProjectId.SelectedValue = this.CurrUser.LoginProjectId;
-            ///this.drpProjectId.Enabled = false;
-             drpProjectId_SelectedIndexChanged(null, null);
-            ///确定中标人审批编号
+              ///this.drpProjectId.Enabled = false;
+             ///确定中标人审批编号
             BLL.PHTGL_SetSubReviewService.InitGetSetSubCompleteDropDownList(DropSetSubReviewCode,true);
             ///实施计划编号
             BLL.PHTGL_ActionPlanFormationService.InitGetAcpCompleteDropDownList(DropActionPlanCode,true );
@@ -146,8 +152,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             BLL.DepartService.InitDepartDropDownList(this.drpDepartId, true);
             this.drpDepartId.SelectedValue = Const.Depart_constructionId;  //默认为施工管理部id
             //经办人
-            BLL.UserService.InitUserDropDownList(this.drpAgent, this.CurrUser.LoginProjectId, true);
-            //合同类型
+             UserService.InitUserUnitIdDropDownList(drpAgent, Const.UnitId_SEDIN, true);
+             //合同类型
             this.drpContractType.DataTextField = "Text";
             this.drpContractType.DataValueField = "Value";
             this.drpContractType.DataSource = BLL.DropListService.GetContractType();
@@ -162,25 +168,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     if (!string.IsNullOrEmpty(contract.IsPassBid))
                     {
-                        string[] aa= { contract.IsPassBid };
+                        string[] aa= { contract.IsPassBid }; ;
                         this.CBIsPassBid.SelectedValueArray = aa;
                         CBIsAgree_SelectedIndexChanged(null, null);
                         DropSetSubReviewCode.SelectedValue = contract.PassBidCode;
                         DropActionPlanCode.SelectedValue= contract.PassBidCode;
+                        if (contract.IsPassBid == "1")
+                        {
+                            DropSetSubReviewCode_SelectedIndexChanged(null, null);
+                        }
+                        else
+                        {
+                            DropActionPlanCode_SelectedIndexChanged(null, null);
+                        }
                     }
-                    if (!string.IsNullOrEmpty(contract.ProjectId))
-                    {
-                        this.drpProjectId.SelectedValue = contract.ProjectId;
-                        this.tab1_txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(contract.ProjectId);
-                    }
-                    this.tab1_txtContractName.Text = contract.ContractName;
+                     this.tab1_txtContractName.Text = contract.ContractName;
                     this.tab1_txtContractNum.Text = contract.ContractNum;
                     this.tab1_txtParties.Text = contract.Parties;
+                    this.tab1_BuildUnit.Text = contract.BuildUnit;
+                    this.IsUseStandardtxt.SelectedValue = Convert.ToString( contract.IsUseStandardtxt);
+                    this.NoUseStandardtxtRemark.Text = contract.NoUseStandardtxtRemark;
                     if (!string.IsNullOrEmpty(contract.Currency))
                     {
                         this.drpCurrency.SelectedValue = contract.Currency;
                     }
-                    this.tab1_txtContractAmount.Text = contract.ContractAmount.HasValue ? contract.ContractAmount.ToString() : "";
+                    this.tab1_txtContractAmount.Text = contract.ContractAmount.ToString();
                     if (!string.IsNullOrEmpty(contract.DepartId))
                     {
                         this.drpDepartId.SelectedValue = contract.DepartId;
@@ -196,8 +208,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     this.tab1_txtRemark.Text = contract.Remarks;
                 }
             }
-
-        }
+         }
         protected void CBIsAgree_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (CBIsPassBid.SelectedValueArray[0]=="1")
@@ -215,6 +226,43 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
         }
 
+        protected void IsUseStandardtxt_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.IsUseStandardtxt.SelectedValue=="2")
+            {
+                this.NoUseStandardtxtRemark.Hidden = false;
+                this.btnAttachUrl.Hidden = false;
+                Tab2.Hidden = true;
+                Tab3.Hidden = true;
+                Tab4.Hidden = true;
+            }
+            else
+            {
+                this.NoUseStandardtxtRemark.Hidden = true;
+                this.btnAttachUrl.Hidden = true;
+                Tab2.Hidden = false;
+                Tab3.Hidden = false;
+                Tab4.Hidden = false;
+            }
+
+        }
+        #region 附件上传
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            if (string.IsNullOrEmpty(ContractId))
+            {
+                ContractId = Guid.NewGuid().ToString();
+
+            }
+
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", this.ContractId, BLL.Const.ContractFormation)));
+        }
+        #endregion
 
         protected void btnSave_Tab1_Click(object sender, EventArgs e)
         {
@@ -225,28 +273,27 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
  
             Model.PHTGL_Contract newContract = new Model.PHTGL_Contract();
-            if (this.drpProjectId.SelectedValue != BLL.Const._Null)
-            {
-                newContract.ProjectId = this.drpProjectId.SelectedValue;
-            }
+
+            newContract.ProjectId = this.CurrUser.LoginProjectId;
+          
             switch (CBIsPassBid.SelectedValueArray[0])
             {
                 case "1":
-                    if (DropSetSubReviewCode.SelectedValue == Const._Null)
-                    {
-                        ShowNotify("请选择确定中标人审批编号！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                    //if (DropSetSubReviewCode.SelectedValue == Const._Null)
+                    //{
+                    //    ShowNotify("请选择确定中标人审批编号！", MessageBoxIcon.Warning);
+                    //    return;
+                    //}
                     newContract.IsPassBid = "1";
                     newContract.PassBidCode = DropSetSubReviewCode.SelectedValue;
 
                     break;
                 case "2":
-                    if (DropActionPlanCode.SelectedValue == Const._Null)
-                    {
-                        ShowNotify("请选择实施计划编号！", MessageBoxIcon.Warning);
-                        return;
-                    }
+                    //if (DropActionPlanCode.SelectedValue == Const._Null)
+                    //{
+                    //    ShowNotify("请选择实施计划编号！", MessageBoxIcon.Warning);
+                    //    return;
+                    //}
                     newContract.IsPassBid = "2";
                     newContract.PassBidCode = DropActionPlanCode.SelectedValue;
                     break;
@@ -254,11 +301,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newContract.ContractName = this.tab1_txtContractName.Text.Trim();
             newContract.ContractNum = this.tab1_txtContractNum.Text.Trim();
             newContract.Parties = this.tab1_txtParties.Text.Trim();
+            newContract.BuildUnit = this.tab1_BuildUnit.Text.Trim();
+            newContract.EPCCode = tab1_txtEPCCode.Text;
+            newContract.IsUseStandardtxt = Convert.ToInt32( this.IsUseStandardtxt.SelectedValue);
+            newContract.NoUseStandardtxtRemark = this.NoUseStandardtxtRemark.Text.ToString();
             if (this.drpCurrency.SelectedValue != BLL.Const._Null)
             {
                 newContract.Currency = this.drpCurrency.SelectedValue;
             }
-            newContract.ContractAmount = Funs.GetNewDecimal(this.tab1_txtContractAmount.Text.Trim());
+             newContract.ContractAmount = Funs.GetNewDecimal( tab1_txtContractAmount.Text.Trim());
             if (this.drpDepartId.SelectedValue != BLL.Const._Null)
             {
                 newContract.DepartId = this.drpDepartId.SelectedValue;
@@ -272,11 +323,27 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 newContract.ContractType = this.drpContractType.SelectedValue;
             }
             newContract.Remarks = this.tab1_txtRemark.Text.Trim();
+            newContract.CreatUser = this.CurrUser.UserId;
+
             if (!string.IsNullOrEmpty(ContractId))
             {
-                newContract.ContractId = ContractId;
-                BLL.ContractService.UpdateContract(newContract);
-                ShowNotify("修改成功！", MessageBoxIcon.Success);
+                var con = ContractService.GetContractById(ContractId);
+                if (con!=null)
+                {
+                    newContract.ContractId = ContractId;
+                    BLL.ContractService.UpdateContract(newContract);
+                    ShowNotify("修改成功！", MessageBoxIcon.Success);
+                }
+                else
+                {
+                    newContract.ContractId = ContractId;
+                    newContract.ApproveState = Const.ContractCreating;
+                    newContract.CreatUser = this.CurrUser.UserId;
+                    ContractId = newContract.ContractId;
+                    BLL.ContractService.AddContract(newContract);
+                    ShowNotify("保存成功！", MessageBoxIcon.Success);
+                }
+                
             }
             else
             {
@@ -290,19 +357,53 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
            // PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
         }
 
- 
-
-        protected void drpProjectId_SelectedIndexChanged(object sender, EventArgs e)
+        protected void DropSetSubReviewCode_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.drpProjectId.SelectedValue != BLL.Const._Null)
+            var Set = BLL.PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewBySetSubReviewCode(DropSetSubReviewCode.SelectedValue);
+            if (Set != null)
             {
-                this.tab1_txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(this.drpProjectId.SelectedValue);
+                var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Set.ActionPlanID);
+                if (Act != null)
+                {
+                    tab1_txtEPCCode.Text = Act.EPCCode;
+                    tab1_txtProjectName.Text = Act.ProjectShortName;
+                    if (string.IsNullOrEmpty(tab1_txtContractNum.Text))
+                    {
+                        tab1_txtContractNum.Text = Act.ProjectCode + ".000.C01.90-";
+                    }
+                }
+                else
+                {
+                    tab1_txtEPCCode.Text = string.Empty;
+                    tab1_txtProjectName.Text = string.Empty;
+                    tab1_txtContractNum.Text = string.Empty;
+                }
+                
+            }
+            
+        }
+
+        protected void DropActionPlanCode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationByCode(DropActionPlanCode.SelectedValue);
+            tab1_txtEPCCode.Text = Act.EPCCode;
+            tab1_txtProjectName.Text = Act.ProjectShortName;
+            if (Act != null)
+            {
+                if (string.IsNullOrEmpty(tab1_txtContractNum.Text))
+                {
+                    tab1_txtContractNum.Text = Act.ProjectCode + ".000.C01.90-";
+                }
             }
             else
             {
-                this.tab1_txtProjectName.Text = string.Empty;
+                tab1_txtEPCCode.Text = string.Empty;
+                tab1_txtProjectName.Text = string.Empty;
+                tab1_txtContractNum.Text = string.Empty;
             }
+            
         }
+
 
         #endregion
 
@@ -893,6 +994,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 T entity = new T();
                 foreach (PropertyInfo p in pArray)
                 {
+                    if (!row.Table.Columns.Contains(p.Name))
+                    {
+                        continue;
+
+                    }
 
                     if (row[p.Name].ToString() == "")
                     {
@@ -994,82 +1100,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         BLL.AttachUrlService.UpdateAttachUrl(att);
                     }
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl{0}.aspx?AttachUrlId={1}", att.SortIndex,id, "编辑 - ")));
-                    //if (id == BLL.Const.AttachUrlId1)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl1.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId2)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl2.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId3)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl3.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId4)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl4.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId5)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl5.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId6)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl6.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId7)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl7.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId8)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl8.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId9)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl9.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId10)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl10.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId11)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl11.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId12)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl12.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId13)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl13.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId14)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl14.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId15)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl15.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId16)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl16.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId17)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl17.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId18)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl18.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
-                    //else if (id == BLL.Const.AttachUrlId19)
-                    //{
-                    //    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl19.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    //}
+                   
                 }
                 else
                 {
@@ -1080,8 +1111,19 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         }
 
         #endregion
+
         protected void btnSubmitForm1_Click(object sender, EventArgs e)
         {
+            if (this.IsUseStandardtxt.SelectedValue=="2")
+            {
+                if (!BLL.AttachFileService.Getfile(ContractId, BLL.Const.ContractFormation))
+                {
+                    ShowNotify("未上传附件，无法提交！", MessageBoxIcon.Warning);
+                    return;
+                }
+            }
+
+
             Model.PHTGL_Contract _Contract = BLL.ContractService.GetContractById(ContractId);
             _Contract.ApproveState = Const.ContractCreat_Complete;
             ContractService.UpdateContract(_Contract);
@@ -1093,6 +1135,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 newmodel.ContractReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_ContractReview));
                 newmodel.ContractId = ContractId;
                 newmodel.State = Const.ContractCreat_Complete;
+                newmodel.CreateUser = _Contract.CreatUser;
                 BLL.PHTGL_ContractReviewService.AddPHTGL_ContractReview(newmodel);
             }
             
@@ -1106,6 +1149,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
           //  ShowNotify("窗体被关闭了。参数：" + (String.IsNullOrEmpty(e.CloseArgument) ? "无" : e.CloseArgument));
         }
 
- 
+
     }
 }

@@ -66,9 +66,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 defaultObj.Add("Skill_ReviewResults", "");
                 defaultObj.Add("Business_ReviewResults", "");
                 defaultObj.Add("Synthesize_ReviewResults", "");
+                defaultObj.Add("Remarks", "");
 
                 // 在第一行新增一条数据
-                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, false);
+                btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
                 // 删除选中行按钮
                 btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript;
                 #endregion
@@ -81,6 +82,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         this.btnSubmit.Hidden = true;
                     }
 
+                }
+                if (Request.Params["State"] == "Again")
+                {
+                    this.btnSave.Hidden = false;
+                    this.btnSubmit.Hidden = false;
+ 
                 }
             }
 
@@ -102,13 +109,21 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 var _SetSubReview = BLL.PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById (SetSubReviewID);
                 var  BidUser= BLL.PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(_SetSubReview.ApproveUserReviewID);
                 var BidDocument = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidUser.BidDocumentsReviewId);
+                var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(BidDocument.ActionPlanID);
                 if (_SetSubReview != null)
                 {
                     txtSetSubReviewCode.Text = _SetSubReview.SetSubReviewCode;
+                    if (string .IsNullOrEmpty( txtSetSubReviewCode.Text))
+                    {
+                        txtSetSubReviewCode.Text= Act.ProjectCode + ".000.C01.93-";
+                    }
                     DropBidCode.SelectedValue = _SetSubReview.ApproveUserReviewID;
-                    txtProjectName.Text =ProjectService.GetProjectNameByProjectId(BidUser.ProjectId);
+                    txtProjectName.Text = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(BidDocument.ActionPlanID).ProjectShortName;
                     txtBidContent.Text = BidDocument.BidContent;
                     StartTime.SelectedDate = BidDocument.Bidding_StartTime;
+                    string [] a = { _SetSubReview.IsOwenerApprove.ToString() };
+                    CBIsOwenerApprove.SelectedValueArray =a;
+
                     this.DropConstructionManager.SelectedValue = _SetSubReview.ConstructionManager;
                     this.DropProjectManager.SelectedValue = _SetSubReview.ProjectManager;
                     this.DropApproval_Construction.SelectedValue = _SetSubReview.Approval_Construction;
@@ -163,7 +178,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     this.txtSetSubReviewCode.Text = projectcode + ".000.C01.93-";
 
                 }
-                txtProjectName.Text = ProjectService.GetProjectNameByProjectId(BidUser.ProjectId);
+                txtProjectName.Text = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(BidDocument.ActionPlanID).ProjectShortName;
                 txtBidContent.Text = BidDocument.BidContent;
                 StartTime.SelectedDate = BidDocument.Bidding_StartTime;
             }
@@ -239,16 +254,47 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             _SetSubReview.ProjectManager = DropProjectManager.SelectedValue;
             _SetSubReview.Approval_Construction = DropApproval_Construction.SelectedValue;
             _SetSubReview.DeputyGeneralManager =DropDeputyGeneralManager.SelectedValue;
+            _SetSubReview.IsOwenerApprove =  Convert.ToInt32( CBIsOwenerApprove.SelectedValueArray[0]);
             if (string .IsNullOrEmpty(SetSubReviewID))
             {
                 _SetSubReview.SetSubReviewID = SQLHelper.GetNewID(typeof(Model.PHTGL_SetSubReview));
                 SetSubReviewID = _SetSubReview.SetSubReviewID;
+                if (CBIsOwenerApprove.SelectedValueArray[0]=="1")
+                {
+                    if (!BLL.AttachFileService.Getfile(SetSubReviewID, BLL.Const.SetSubReview))
+                    {
+                        ShowNotify("未上传业主审批结果，无法保存！", MessageBoxIcon.Warning);
+
+                        return false;
+                    }
+                }
+                if (!BLL.AttachFileService.Getfile(SetSubReviewID+ "report", BLL.Const.SetSubReview))
+                {
+                    ShowNotify("未上评标报告，无法保存！", MessageBoxIcon.Warning);
+
+                    return false;
+                }
                 PHTGL_SetSubReviewService.AddPHTGL_SetSubReview(_SetSubReview);
 
             }
             else
             {
                 _SetSubReview.SetSubReviewID = SetSubReviewID;
+                if (CBIsOwenerApprove.SelectedValueArray[0] == "1")
+                {
+                    if (!BLL.AttachFileService.Getfile(SetSubReviewID, BLL.Const.SetSubReview))
+                    {
+                        ShowNotify("未上传业主审批结果，无法保存！", MessageBoxIcon.Warning);
+
+                        return false;
+                    }
+                }
+                if (!BLL.AttachFileService.Getfile(SetSubReviewID+ "report", BLL.Const.SetSubReview))
+                {
+                    ShowNotify("未上评标报告，无法保存！", MessageBoxIcon.Warning);
+
+                    return false;
+                }
                 PHTGL_SetSubReviewService.UpdatePHTGL_SetSubReview(_SetSubReview);
             }
 
@@ -268,6 +314,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     model.Skill_ReviewResults = objects["values"]["Skill_ReviewResults"].ToString();
                     model.Business_ReviewResults = objects["values"]["Business_ReviewResults"].ToString();
                     model.Synthesize_ReviewResults = objects["values"]["Synthesize_ReviewResults"].ToString();
+                    model.Synthesize_ReviewResults = objects["values"]["Remarks"].ToString();
                     BLL.PHTGL_SetSubReview_Sch2Service.AddPHTGL_SetSubReview_Sch2(model);
                 }
             }
@@ -292,20 +339,24 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 var Bid = PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById(SetSubReviewID);
                 Bid.State = Const.ContractReviewing;
                 PHTGL_SetSubReviewService.UpdatePHTGL_SetSubReview(Bid);
-                Dic_ApproveMan = PHTGL_SetSubReviewService.Get_DicApproveman(SetSubReviewID);
+ 
+                var  ApproveManModels = PHTGL_SetSubReviewService.GetApproveManModels(SetSubReviewID);
+
                 //创建第一节点审批信息
                 Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                 _Approve.ContractId = SetSubReviewID;
-                _Approve.ApproveMan = Dic_ApproveMan[1];
+                _Approve.ApproveMan = ApproveManModels.Find(x => x.Number == 1).userid;
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
                 _Approve.ApproveIdea = "";
-                _Approve.ApproveType = "1";
-                _Approve.ApproveForm = Request.Path;
+                _Approve.ApproveType = ApproveManModels.Find(x => x.Number == 1).Rolename;
+                _Approve.IsPushOa = 0;
+                _Approve.ApproveForm = PHTGL_ApproveService.SetSubReview;
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
+                OAWebSevice.Pushoa();
                 ShowNotify("提交成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
 
@@ -313,6 +364,20 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         #endregion
 
-
+        #region 附件上传
+        /// <summary>
+        /// 上传附件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnAttachUrl_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SetSubReviewAttachUrl&menuId={1}", this.SetSubReviewID, BLL.Const.SetSubReview)));
+        }
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SetSubReviewAttachUrl&menuId={1}", this.SetSubReviewID+"report", BLL.Const.SetSubReview)));
+        }
+        #endregion
     }
 }

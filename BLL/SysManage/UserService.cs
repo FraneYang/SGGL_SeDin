@@ -1602,5 +1602,32 @@ namespace BLL
         {
             return Funs.DB.Sys_User.FirstOrDefault(e => e.IdentityCard == IdentityCard);
         }
+
+        /// <summary>
+        /// 获取用户账号是否存在
+        /// </summary>
+        /// <param name="userId">用户id</param>
+        /// <param name="usercode">工号</param>
+        /// <returns>是否存在</returns>
+        public static bool IsExistUsercode(string userId, string usercode)
+        {
+            bool isExist = false;
+            var role = Funs.DB.Sys_User.FirstOrDefault(x => x.UserCode == usercode && (x.UserId != userId || (userId == null && x.UserId != null)));
+            if (role != null)
+            {
+                isExist = true;
+            }
+            return isExist;
+        }
+
+        /// <summary>
+        /// 根据工号获取用户信息
+        /// </summary>
+        /// <param name="account"></param>
+        /// <returns></returns>
+        public static Model.Sys_User GetUserByUsercode(string Usercode)
+        {
+            return Funs.DB.Sys_User.FirstOrDefault(e => e.UserCode == Usercode);
+        }
     }
 }

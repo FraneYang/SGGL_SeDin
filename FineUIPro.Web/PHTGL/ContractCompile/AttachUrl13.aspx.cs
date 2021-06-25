@@ -24,12 +24,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         txtGeneralContractorName.Text = att.GeneralContractorName;
                         txtSubcontractorsName.Text = att.SubcontractorsName;
                         txtProjectName.Text = att.ProjectName;
-                        txtWarrantyContent.Text = att.WarrantyContent;
-                        txtOtherWarrantyPeriod.Text = att.OtherWarrantyPeriod;
+                         txtOtherWarrantyPeriod.Text = att.OtherWarrantyPeriod;
                         txtWarrantyPeriodDate.Text = att.WarrantyPeriodDate;
                         txtDefectLiabilityDate.Text = att.DefectLiabilityDate;
                         txtDefectLiabilityPeriod.Text = att.DefectLiabilityPeriod;
-                        txtOtherqualityWarranty.Text = att.OtherqualityWarranty;
+                    //    txtOtherqualityWarranty.Text = att.OtherqualityWarranty;
 
                     }
                 }
@@ -55,12 +54,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     attItem.GeneralContractorName = txtGeneralContractorName.Text.Trim();
                     attItem.SubcontractorsName = txtSubcontractorsName.Text.Trim();
                     attItem.ProjectName = txtProjectName.Text.Trim();
-                    attItem.WarrantyContent = txtWarrantyContent.Text.Trim();
+                    attItem.WarrantyContent = "";
                     attItem.OtherWarrantyPeriod = txtOtherWarrantyPeriod.Text.Trim();
                     attItem.WarrantyPeriodDate = txtWarrantyPeriodDate.Text;
                     attItem.DefectLiabilityDate = txtDefectLiabilityDate.Text;
                     attItem.DefectLiabilityPeriod = txtDefectLiabilityPeriod.Text.Trim();
-                    attItem.OtherqualityWarranty = txtOtherqualityWarranty.Text.Trim();
+                    attItem.OtherqualityWarranty = "";
                     BLL.AttachUrl13Service.UpdatePHTGL_AttachUrl13(attItem);
                 }
                 else
@@ -71,12 +70,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     newUrl13.GeneralContractorName = txtGeneralContractorName.Text.Trim();
                     newUrl13.SubcontractorsName = txtSubcontractorsName.Text.Trim();
                     newUrl13.ProjectName = txtProjectName.Text.Trim();
-                    newUrl13.WarrantyContent = txtWarrantyContent.Text.Trim();
+                    newUrl13.WarrantyContent ="";
                     newUrl13.OtherWarrantyPeriod = txtOtherWarrantyPeriod.Text.Trim();
                     newUrl13.WarrantyPeriodDate = txtWarrantyPeriodDate.Text;
                     newUrl13.DefectLiabilityDate = txtDefectLiabilityDate.Text;
                     newUrl13.DefectLiabilityPeriod = txtDefectLiabilityPeriod.Text.Trim();
-                    newUrl13.OtherqualityWarranty = txtOtherqualityWarranty.Text.Trim();
+                    newUrl13.OtherqualityWarranty = "";
 
                     BLL.AttachUrl13Service.AddPHTGL_AttachUrl13(newUrl13);
                 }
@@ -88,7 +87,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
         }
     }
 }

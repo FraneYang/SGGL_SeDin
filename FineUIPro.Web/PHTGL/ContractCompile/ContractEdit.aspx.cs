@@ -57,7 +57,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         {
                             this.drpCurrency.SelectedValue = contract.Currency;
                         }
-                        this.txtContractAmount.Text = contract.ContractAmount.HasValue ? contract.ContractAmount.ToString() : "";
+                        this.txtContractAmount.Text =  contract.ContractAmount.ToString();
                         if (!string.IsNullOrEmpty(contract.DepartId))
                         {
                             this.drpDepartId.SelectedValue = contract.DepartId;

@@ -39,6 +39,8 @@ namespace FineUIPro.Web.PHTGL.Filing
             string strSql = @"SELECT   Bid.ApproveUserReviewID
                                       ,BidDoc.BidDocumentsCode
                                       ,Acp.ActionPlanCode
+                                      ,Acp.ProjectShortName
+                                      ,Acp.EPCCode
                                       ,Bid.ProjectId
 	                                  ,Pro.ProjectName
                                       ,Pro.ProjectCode
@@ -50,16 +52,16 @@ namespace FineUIPro.Web.PHTGL.Filing
                                         WHEN @ContractReviewing THEN '审批中'
                                         WHEN @ContractReview_Complete THEN '审批成功'
                                         WHEN @ContractReview_Refuse THEN '审批被拒'END) AS State
-                                      ,Bid.ConstructionManager
+                                       ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = Bid.ApproveUserReviewID and app2 .state =0    for xml path('')), 1, 1, '')
+                                       ,Bid.ConstructionManager
                                       ,Bid.ProjectManager
                                       ,Bid.Approval_Construction
                                       ,Bid.DeputyGeneralManager"
-                            + @" from  PHTGL_BidApproveUserReview AS Bid "
-                            + @" LEFT JOIN PHTGL_BidDocumentsReview AS BidDoc ON BidDoc.BidDocumentsReviewId =Bid.BidDocumentsReviewId"
-                            + @" LEFT JOIN PHTGL_ActionPlanFormation AS Acp ON Acp.ActionPlanID =Bid.ActionPlanID"
-                            + @" LEFT JOIN Sys_User AS U ON U.UserId =Bid.CreateUser  "
-                            + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Bid.ProjectId WHERE 1=1 and Bid.State   =@State  ";
-
+                              + @" from  PHTGL_BidApproveUserReview AS Bid "
+                              + @" LEFT JOIN PHTGL_BidDocumentsReview AS BidDoc ON BidDoc.BidDocumentsReviewId =Bid.BidDocumentsReviewId"
+                              + @" LEFT JOIN PHTGL_ActionPlanFormation AS Acp ON Acp.ActionPlanID =Bid.ActionPlanID"
+                              + @" LEFT JOIN Sys_User AS U ON U.UserId =Bid.CreateUser  "
+                              + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Bid.ProjectId WHERE 1=1";
             List<SqlParameter> listStr = new List<SqlParameter>();
 
             listStr.Add(new SqlParameter("@ContractCreating", Const.ContractCreating.ToString()));

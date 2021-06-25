@@ -28,7 +28,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 DropState.DataBind();
                 Funs.FineUIPleaseSelect(DropState);
 
-                btnNew.OnClientClick = Window1.GetShowReference("BidDocumentsReviewEdit.aspx", "施工计划审批创建") + "return false;";
                 GetButtonPower();
                 BindGrid();
             }
@@ -47,12 +46,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                       ,Pro.ProjectName
                                       ,Pro.ProjectCode
                                       ,Acp.ActionPlanCode
+                                      ,Acp.ProjectShortName
                                       ,(CASE Bid.State 
                                         WHEN @ContractCreating THEN '编制中'
                                         WHEN @ContractCreat_Complete THEN '编制完成'
                                         WHEN @ContractReviewing THEN '审批中'
                                         WHEN @ContractReview_Complete THEN '审批成功'
                                         WHEN @ContractReview_Refuse THEN '审批被拒'END) AS State
+                                       ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId =  Bid.BidDocumentsReviewId and app2 .state =0    for xml path('')), 1, 1, '')
                                       ,Bid.BidContent
                                       ,Bid.BidType
                                       ,Bid.BidDocumentsName
@@ -178,6 +179,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindGrid();
+            OAWebSevice.Pushoa();
         }
         protected void btnQueryApprove_Click(object sender, EventArgs e)
         {
@@ -234,6 +236,44 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("BidDocumentsReviewDetail.aspx?BidDocumentsReviewId={0}", Bid.BidDocumentsReviewId, "审批 - ")));
 
         }
+        protected void btnNew_Click(object sender, EventArgs e)
+        {
+
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("BidDocumentsReviewEdit.aspx")));
+
+            }
+            else
+            {
+                string id = Grid1.SelectedRowID;
+
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("BidDocumentsReviewEdit.aspx?BidDocumentsReviewId={0}&&State=Edit", id, "审批 - ")));
+            }
+
+ 
+        }
+        protected void btnEditAgain_Click(object sender, EventArgs e)
+        {
+             if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+            var Bid = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(id);
+            if (Bid.CreateUser != this.CurrUser.UserId)
+            {
+                string name = UserService.GetUserNameByUserId(Bid.CreateUser);
+                Alert.ShowInTop("！此审批不是您创建，无法重新提交【创建者：" + name + "】", MessageBoxIcon.Warning);
+                return;
+            }
+ 
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("BidDocumentsReviewEdit.aspx?BidDocumentsReviewId={0}&&State=Again", Bid.BidDocumentsReviewId, "审批 - ")));
+
+        }
+
+
         #endregion
 
         #region 删除
@@ -242,7 +282,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void btnMenuDelete_Click(object sender, EventArgs e)
+        protected void btnDelete_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length > 0)
             {
@@ -261,6 +301,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, p.BidDocumentsReviewId, p.ProjectId, BLL.Const.BidDocumentsReviewIdMenuid, BLL.Const.BtnDelete);
                             PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(rowID);
+                            BLL.AttachFileService.DeleteAttachFile(Funs.RootPath, rowID, BLL.Const.BidDocumentsReviewIdMenuid);
                             PHTGL_BidDocumentsReviewService.DeletePHTGL_BidDocumentsReviewById(rowID);
                         }
                     }
@@ -310,7 +351,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 if (buttonList.Contains(Const.BtnAdd))
                 {
-                  //  btnNew.Hidden = false;
+                    btnNew.Hidden = false;
                 }
                 if (buttonList.Contains(Const.BtnModify))
                 {
@@ -318,9 +359,46 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 }
                 if (buttonList.Contains(Const.BtnDelete))
                 {
-                    btnMenuDelete.Hidden = false;
+                    btnDelete.Hidden = false;
                 }
             }
+        }
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+            string id = Grid1.SelectedRowID;
+            var actReview = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(id);
+            if (actReview==null)
+            {
+                return;
+            }
+            if (actReview.State == Const.ContractReview_Refuse)
+            {
+                btnEditAgain.Hidden = false;
+
+            }
+            else
+            {
+                btnEditAgain.Hidden = true;
+
+            }
+            if (actReview.State >= Const.ContractCreat_Complete)
+            {
+                btnDelete.Hidden = true;
+            }
+            else
+            {
+                var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ActionPlanFormation);
+                if (buttonList.Count() > 0)
+                {
+                    if (buttonList.Contains(Const.BtnDelete))
+                    {
+                        btnDelete.Hidden = false;
+                    }
+                }
+
+            }
+
+
         }
         #endregion
 
@@ -345,16 +423,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             ///更新书签
             var getFireWork = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(Id);
-
+            var Act = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(getFireWork.ActionPlanID);
             var model_ConstructionManager = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Id, getFireWork.ConstructionManager);
             var model_ControlManager = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Id, getFireWork.ControlManager);
             var model_Approval_Construction = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Id, getFireWork.Approval_Construction);
             var model_ProjectManager = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Id, getFireWork.ProjectManager);
 
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+            Dic_File.Add("txtCode", string.Format("{0:yyyyMMdd}", Convert.ToDateTime(getFireWork.CreatTime)));
             Dic_File.Add("txtBidDocumentCode", getFireWork.BidDocumentsCode);
-            Dic_File.Add("txtProjectName", ProjectService.GetProjectNameByProjectId(getFireWork.ProjectId));
-            Dic_File.Add("txtProjectCode", ProjectService.GetProjectCodeByProjectId(getFireWork.ProjectId));
+            Dic_File.Add("txtProjectName", Act.ProjectShortName);
+            Dic_File.Add("txtProjectCode", Act.ProjectCode);
             Dic_File.Add("txtBidContent", getFireWork.BidContent);
             Dic_File.Add("txtBidType", getFireWork.BidType);
             Dic_File.Add("txtBidDocumentsName", getFireWork.BidDocumentsName);
@@ -421,5 +500,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
          }
         #endregion
 
+     
     }
 }

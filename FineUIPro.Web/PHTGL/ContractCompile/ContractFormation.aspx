@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="ContractId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ContractId" AllowSorting="true" SortField="ContractNum" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -38,6 +38,9 @@
                                 <f:Button ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                                     OnClick="btnMenuEdit_Click">
                                 </f:Button>
+                                 <f:Button ID="btnPrinterWord" EnablePostBack="true" runat="server"  
+                                    Text="导出文件" Icon="Printer" OnClick="btnPrinterWord_Click" EnableAjax="false" DisableControlBeforePostBack="true">
+                                </f:Button>
                                 <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
                                     OnClick="btnMenuDelete_Click">
                                 </f:Button>
@@ -51,25 +54,25 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
+                        <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="200px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="ApproveState" DataField="ApproveState" Width="120px" FieldType="String" HeaderText="编制状态" TextAlign="Center"
+                         <f:RenderField ColumnID="ApproveState" DataField="ApproveState" Width="80px" FieldType="String" HeaderText="编制状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="180px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="200px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ContractName" DataField="ContractName" Width="180px" FieldType="String" HeaderText="合同名称" TextAlign="Center"
+                        <f:RenderField ColumnID="ContractName" DataField="ContractName" Width="200px" FieldType="String" HeaderText="合同名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ContractNum" DataField="ContractNum" Width="180px" FieldType="String" HeaderText="合同编号" TextAlign="Center"
+                        <f:RenderField ColumnID="ContractNum" DataField="ContractNum" Width="200px" FieldType="String" HeaderText="合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="Parties" DataField="Parties" Width="120px" FieldType="String" HeaderText="签约方" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Currency" DataField="Currency" Width="100px" FieldType="String" HeaderText="币种" TextAlign="Center"
+                        <f:RenderField ColumnID="Currency" DataField="Currency" Width="80px" FieldType="String" HeaderText="币种" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ContractAmount" DataField="ContractAmount" Width="120px" FieldType="String" HeaderText="合同金额" TextAlign="Center"
@@ -84,9 +87,9 @@
                         <f:RenderField ColumnID="ContractType" DataField="ContractType" Width="150px" FieldType="String" HeaderText="合同类型" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Remarks" DataField="Remarks" Width="220px" FieldType="String" HeaderText="合同摘要" TextAlign="Center"
+                 <%--       <f:RenderField ColumnID="Remarks" DataField="Remarks" Width="220px" FieldType="String" HeaderText="合同摘要" TextAlign="Center"
                             HeaderTextAlign="Center">
-                        </f:RenderField>
+                        </f:RenderField>--%>
                     </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
@@ -108,9 +111,9 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1000px" Height="420px">
+        <f:Window ID="Window1" Title="基本信息" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true" EnableDrag="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="false" OnClose="Window1_Close" ConstrainSize="true" AutoScroll="true"
+            Width="1200px" Height="650px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

@@ -423,6 +423,7 @@ namespace BLL
                 {
                     getTItem.SubjectScore = 0;
                     getTItem.SelectedItem = selectedItem;
+                    getTItem.AnswerTime = DateTime.Now;
                     if (!string.IsNullOrEmpty(selectedItem))
                     {
                         if (getTItem.AnswerItems == selectedItem)

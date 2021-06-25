@@ -8,12 +8,24 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 using System.Web;
 
 namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class ContractReview : PageBase
     {
+        public string ContractId
+        {
+            get
+            {
+                return (string)ViewState["ContractId"];
+            }
+            set
+            {
+                ViewState["ContractId"] = value;
+            }
+        }
         #region 加载
         /// <summary>
         /// 加载页面
@@ -58,13 +70,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                     WHEN  @ContractReviewing        THEN '审批中'
                                     WHEN  @ContractReview_Complete  THEN '审批成功'
                                     WHEN  @ContractReview_Refuse    THEN '审批被拒'   END) AS State ,
-                                    Con.Remarks,
+                                    ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = Rev.ContractReviewId and app2 .state =0    for xml path('')), 1, 1, '') ,
+                                     Con.Remarks,
+                                    Con.EPCCode,
+                                    Act.ProjectShortName,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @" from PHTGL_ContractReview AS Rev"
                             + @"  LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
+                            + @"  left join (select * from PHTGL_ActionPlanFormation as a where  not  exists(select 1 from PHTGL_ActionPlanFormation where a.EPCCode = EPCCode and a.CreateTime< CreateTime )) as Act on Act.EPCCode=Con.EPCCode"
                             + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
                             + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
                             + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
@@ -149,6 +165,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         /// <param name="e"></param>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            OAWebSevice.Pushoa();
             BindGrid();
         }
         #endregion
@@ -230,22 +247,25 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
             PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);  //先删除
 
-            foreach (KeyValuePair<int, string> kvp in PHTGL_ContractReviewService.Get_Countersigner(id))
+            var Countersignermodel = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(id);
+            for (int i = 0; i < Countersignermodel.Count; i++)
             {
-                 Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
+                Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                 _Approve.ContractId = id;
-                _Approve.ApproveMan = BLL.ProjectService.GetRoleID(_Contract.ProjectId, kvp.Value);
+                _Approve.ApproveMan = Countersignermodel[i].userid;
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
                 _Approve.ApproveIdea = "";
-                _Approve.ApproveType = kvp.Key.ToString();
-                _Approve.ApproveForm = Request.Path;
+                _Approve.ApproveType = Countersignermodel[i].Rolename;
+                _Approve.IsPushOa = 0;
+                _Approve.ApproveForm = PHTGL_ApproveService.ContractReview;
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
             }
 
+            OAWebSevice.Pushoa();
             ShowNotify("重新提交成功!", MessageBoxIcon.Success);
 
          }
@@ -264,7 +284,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             var contract = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(id);
             if (contract != null)
             {
-                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractReviewDetail.aspx?ContractId={0}", contract.ContractId, "编辑 - ")));
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractReviewDetail.aspx?ContractReviewId={0}", id, "编辑 - ")));
             }
         }
         protected void btnQueryApprove_Click(object sender, EventArgs e)
@@ -365,10 +385,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(Const.BtnDelete))
-                {
-                    btnMenuDelete.Hidden = false;
-                }
+                //if (buttonList.Contains(Const.BtnDelete))
+                //{
+                //    btnMenuDelete.Hidden = false;
+                //}
             }
         }
         #endregion
@@ -394,13 +414,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             }
             string Id = Grid1.SelectedRowID;
             btnPrinterWord.EnablePress = false;
-            var ContractId = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(Id).ContractId;
-            printContractAgreement(ContractId);
-            btnPrinterWord.EnablePress = true;
+             ContractId = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(Id).ContractId;
+            var Con = BLL.ContractService.GetContractById(ContractId);
+            if (Con.IsUseStandardtxt == 2)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", ContractId, BLL.Const.ContractFormation)));
+            }
+            else
+            {
+                printContractAgreement(ContractId);
+                btnPrinterWord.EnablePress = true;
+            }
+           
 
         }
         /// <summary>
-        /// ContractReviewId
+        /// 合同评审、审批表
         /// </summary>
         /// <param name="contractId"></param>
         public void Print(string ContractReviewId)
@@ -429,6 +458,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             string txtAgent = "";
             string txtRemark = "";
             string TextArea2 = "";
+            string type1 = "□";
+            string type2 = "□";
+            string type3 = "□";
+            string type4 = "□";
+            string type5 = "□";
             string node1Time = "";
             string node2Time = "";
             string node3Time = "";
@@ -445,19 +479,20 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             string node14Time = "";
             string node15Time = "";
             string node16Time = "";
+            string node17Time = "";
 
             #region 评审单
             if (getFireWork != null)
             {
                 if (!string.IsNullOrEmpty(getFireWork.ProjectId))
                 {
-                    txtProjectid = ProjectService.GetProjectCodeByProjectId(getFireWork.ProjectId);
+                    txtProjectid = getFireWork.EPCCode;
                 }
                 txtContractName = getFireWork.ContractName;
                 txtContractNum = getFireWork.ContractNum;
                 txtParties = getFireWork.Parties;
 
-                txtContractAmount = getFireWork.ContractAmount.HasValue ? getFireWork.ContractAmount.ToString() : "";
+                txtContractAmount = getFireWork.ContractAmount.ToString();
                 if (!string.IsNullOrEmpty(getFireWork.DepartId))
                 {
                     txtDepartId = DepartService.getDepartNameById(getFireWork.DepartId);
@@ -470,33 +505,53 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 {
                     txtRemark = getFireWork.Remarks;
                 }
+                switch (getFireWork.ContractType)
+                {
+                    case "1":
+                          type1 = "√";
+                         break;
+                    case "2":
+                        type2 = "√";
+
+                        break;
+                    case "3":
+                        type3= "√";
+
+                        break;
+                    case "4":
+                        type4 = "√";
+
+                        break;
+                    case "5":
+                        type5 = "√";
+                         break;
+                }
                 //if (!string.IsNullOrEmpty(getFireWork.ContractType))
                 //{
                 //    CBContractType.SelectedValueArray = getFireWork.ContractType.Split();
                 //}
             }
 
-            string strSql = @"  select u.UserName as  ApproveMan,
-                                       App.ApproveDate,
-                                      (CASE App.IsAgree WHEN '1' THEN '不同意'
-                                        WHEN '2' THEN '同意' END) AS IsAgree,
-                                        App.ApproveIdea,
-                                        App.ApproveType
-                                       from PHTGL_Approve as App"
-                            + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
+            string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
+                                from PHTGL_Approve a "
+                            + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
             SqlParameter[] parameter = listStr.ToArray();
             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            var ApproveManModels = PHTGL_ContractReviewService.GetApproveManModels(ContractReviewId);
+            var ApproveManModels__Countersigner = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(ContractReviewId);
+            var allApproveMan = ApproveManModels__Countersigner.Concat(ApproveManModels).ToList();
 
             foreach (DataRow dr in tb.Rows)
             {
 
                 string ApproveMan = dr["ApproveMan"].ToString();
-                string ApproveType = dr["ApproveType"].ToString();
+                string ApproveType = allApproveMan.Find(e=>e.Rolename== dr["ApproveType"].ToString()).Number.ToString() ;
                 string ApproveIdea = dr["ApproveIdea"].ToString();
                 string ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+
                 TextArea2 += ApproveIdea;
                 switch (ApproveType)
                 {
@@ -564,6 +619,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         AsposeWordHelper.InsertImg(doc, rootPath, "txtnode16", ApproveMan, ApproveIdea);
                         node16Time = ApproveDate;
                         break;
+                    case "17":
+                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode17", ApproveMan, ApproveIdea);
+                        node17Time = ApproveDate;
+                        break;
                 }
             }
             Dic_File.Add("txtProjectid", txtProjectid);
@@ -575,6 +634,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Dic_File.Add("txtAgent", txtAgent);
             Dic_File.Add("txtRemark", txtRemark);
             Dic_File.Add("TextArea2", TextArea2);
+            Dic_File.Add("type1", type1);
+            Dic_File.Add("type2", type2);
+            Dic_File.Add("type3", type3);
+            Dic_File.Add("type4", type4);
+            Dic_File.Add("type5", type5);
             Dic_File.Add("node1Time", node1Time);
             Dic_File.Add("node2Time", node2Time);
             Dic_File.Add("node3Time", node3Time);
@@ -591,6 +655,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Dic_File.Add("node14Time", node14Time);
             Dic_File.Add("node15Time", node15Time);
             Dic_File.Add("node16Time", node16Time);
+            Dic_File.Add("node17Time", node17Time);
             #endregion
             if (TextArea2=="")
             {
@@ -641,10 +706,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             initTemplatePath = "File\\Word\\PHTGL\\施工分包合同\\施工合同标准文本.docx";
             uploadfilepath = rootPath + initTemplatePath;
             newUrl = uploadfilepath.Replace(".docx", string.Format("{0:yyyy-MM-dd-HH-mm}", DateTime.Now) + ".docx");
-            filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM-dd-HH-mm}", DateTime.Now) + ".pdf");
+            filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM-dd-HH-mm}", DateTime.Now) + ".docx");
             File.Copy(uploadfilepath, newUrl);
             Document doc = new Aspose.Words.Document(newUrl);
             var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
+            var ContractModel= BLL.ContractService.GetContractById(ContractId);
             if (sub==null)
             {
                 Alert.ShowInTop("分包合同协议书未编制，无法导出！", MessageBoxIcon.Warning);
@@ -654,6 +720,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
 
             #region  定义文本域
+            string ContractNum = ContractModel.ContractNum;
+            string BuildUnit = ContractModel.BuildUnit;
             string tab2_txtGeneralContractor = sub.GeneralContractor;
             string tab2_txtSubConstruction = sub.SubConstruction;
             string tab2_txtContents = sub.Contents;
@@ -706,6 +774,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             string tab2_txtBank2 = sub.Bank2;
             string tab2_txtAccount1 = sub.Account1;
             string tab2_txtAccount2 = sub.Account2;
+
+            Dic_File.Add("ContractNum", ContractNum);
+            Dic_File.Add("BuildUnit", BuildUnit);
             Dic_File.Add("tab2_txtGeneralContractor", tab2_txtGeneralContractor);
             Dic_File.Add("tab2_txtSubConstruction", tab2_txtSubConstruction);
             Dic_File.Add("tab2_txtContents", tab2_txtContents);
@@ -854,6 +925,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     case "19":
                         doc.AppendDocument(sch19(AttachUrlId, schNumber), ImportFormatMode.UseDestinationStyles);
                         break;
+                    case "20":
+                        doc.AppendDocument(sch20(AttachUrlId, schNumber), ImportFormatMode.UseDestinationStyles);
+                        break;
 
                 }
  
@@ -862,14 +936,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             doc.UpdateFields();
             doc.Save(newUrl);
 
-            string pdfUrl = newUrl.Replace(".doc", ".pdf");
+            string pdfUrl = newUrl.Replace(".doc", ".doc");
             Document doc1 = new Aspose.Words.Document(newUrl);
             //Document srcDoc = new Document(newUrl);
             //doc1.AppendDocument(srcDoc, ImportFormatMode.UseDestinationStyles);
             //验证参数
             if (doc1 == null) { throw new Exception ("Word文件无效"); }
-            doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-            string fileName = Path.GetFileName(filePath);
+            doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Docx);//还可以改成其它格式
+            string fileName = Path.GetFileName(filePath).Replace("施工合同标准文本", tab2_txtContractProject+ tab2_txtSubProject);
             FileInfo info = new FileInfo(pdfUrl);
             long fileSize = info.Length;
             try
@@ -1073,203 +1147,231 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
                 File.Copy(uploadfilepath, newUrl);
                 Document doc = new Document(newUrl);
-                DocumentBuilder builder = new DocumentBuilder(doc);
-                  Section section = doc.Sections[0];
+                #region 旧
+                //DocumentBuilder builder = new DocumentBuilder(doc);
+                //Section section = doc.Sections[0];
+                //Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+                //Dic_File.Add("schNumber", schnumber.ToString());
+                //var att = BLL.AttachUrl2Service.GetAttachUrlByAttachUrlId(AttachUrlId);
+                //if (att!=null)
+                //{    string aaa = "";
+                //    for (int i = 0; i < section.Body.ChildNodes.Count; i++)
+                //    {
+                //        aaa = aaa + "@" + i + "@" + section.Body.ChildNodes[i].Range.Text + "/r";
+                //    }
+                //    string b = aaa;
+                //    ArrayList arraylist = new ArrayList();
+                //    arraylist.Add("1");
+                //    arraylist.Add("2");
+                //    arraylist.Add("3");
+                //    arraylist.Add("4");
+                //    arraylist.Add("5");
+                //    arraylist.Add("6");
+                //    var aa = att.PayMethod.Split(',');
+                //    foreach (var item in aa)
+                //    {
+                //        arraylist.Remove(item);
+
+                //    }
+                //     for (int i = 0; i < arraylist .Count; i++)
+                //    {
+                //        switch (arraylist[i])
+                //        {
+                //            case "1":
+                //                 builder.MoveToBookmark("text1");
+                //                 Paragraph paragraph = builder.CurrentParagraph;
+                //                 paragraph.Remove();
+
+                //              //  section.Body.ChildNodes[3].Remove();
+
+                //                 break;
+                //            case "2":
+                //                builder.MoveToBookmark("text2");
+                //                Paragraph paragraph2 = builder.CurrentParagraph;
+                //                paragraph2.Remove();
+                //            //    section.Body.ChildNodes[4].Remove();
+
+                //                break;
+                //            case "3":
+                //                builder.MoveToBookmark("text3");
+                //                Paragraph paragraph3 = builder.CurrentParagraph;
+                //                paragraph3.NextSibling.Remove();
+                //                paragraph3.NextSibling.Remove();
+                //                paragraph3.NextSibling.Remove();
+                //                paragraph3.NextSibling.Remove();
+                //                paragraph3.NextSibling.Remove();
+                //                paragraph3.Remove();
+
+                //                //section.Body.ChildNodes[5].Remove();
+                //                //section.Body.ChildNodes[6].Remove();
+                //                //section.Body.ChildNodes[7].Remove();
+                //                //section.Body.ChildNodes[8].Remove();
+                //                //section.Body.ChildNodes[9].Remove();
+                //                //section.Body.ChildNodes[10].Remove();
+
+                //                break;
+                //            case "4":
+                //                builder.MoveToBookmark("text4");
+                //                Paragraph paragraph4 = builder.CurrentParagraph;
+                //                paragraph4.NextSibling.Remove();
+                //                paragraph4.NextSibling.Remove();
+                //                paragraph4.NextSibling.Remove();
+                //                paragraph4.NextSibling.Remove();
+                //                paragraph4.NextSibling.Remove();
+                //                paragraph4.Remove();
+                //                //section.Body.ChildNodes[11].Remove();
+                //                //section.Body.ChildNodes[12].Remove();
+                //                //section.Body.ChildNodes[13].Remove();
+                //                //section.Body.ChildNodes[14].Remove();
+                //                //section.Body.ChildNodes[15].Remove();
+                //                //section.Body.ChildNodes[16].Remove();
+
+                //                break;
+                //            case "5":
+                //                builder.MoveToBookmark("text5");
+                //                Paragraph paragraph5 = builder.CurrentParagraph;
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.NextSibling.Remove();
+                //                paragraph5.Remove();
+
+                //                //section.Body.ChildNodes[17].Remove();
+                //                //section.Body.ChildNodes[18].Remove();
+                //                //section.Body.ChildNodes[19].Remove();
+                //                //section.Body.ChildNodes[20].Remove();
+                //                //section.Body.ChildNodes[21].Remove();
+                //                //section.Body.ChildNodes[22].Remove();
+                //                //section.Body.ChildNodes[23].Remove();
+
+                //                break;
+                //            case "6":
+                //                builder.MoveToBookmark("text6");
+                //                Paragraph paragraph6 = builder.CurrentParagraph;
+                //                paragraph6.NextSibling.Remove();
+                //                paragraph6.NextSibling.Remove();
+                //                paragraph6.NextSibling.Remove();
+                //                paragraph6.NextSibling.Remove();
+                //                paragraph6.Remove();
+
+                //                //section.Body.ChildNodes[23].Remove();
+                //                //section.Body.ChildNodes[24].Remove();
+                //                //section.Body.ChildNodes[25].Remove();
+                //                //section.Body.ChildNodes[26].Remove();
+                //                //section.Body.ChildNodes[27].Remove();
+
+                //                break;
+                //        }
+                //    }
+
+                //    string strSql = @" SELECT  
+                //                 OrderNumber = row_number() over(order by AttachUrlDetaild)
+                //               , AttachUrlDetaild 
+                //              , AttachUrlItemId 
+                //              , DetailType 
+                //              , Specifications 
+                //              , MachineTeamPrice 
+                //              , Remark  "
+                //  + @"  from  PHTGL_AttachUrl2Detail "
+                //  + @"   where 1=1 and  AttachUrlItemId=@AttachUrlItemId  and DetailType=@DetailType order by OrderNumber";
+                //    List<SqlParameter> listStr = new List<SqlParameter>();
+                //    listStr.Add(new SqlParameter("@AttachUrlItemId", att.AttachUrlItemId));
+                //    listStr.Add(new SqlParameter("@DetailType", "1"));
+
+                //    SqlParameter[] parameter = listStr.ToArray();
+                //    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                //    if (tb.Rows.Count ==0)
+                //    {
+                //        DataRow dataRow = tb.NewRow();
+                //        tb.Rows.Add(dataRow);
+                //    }
+                //     tb.TableName = "Table";
+                //    doc.MailMerge.ExecuteWithRegions(tb);
+                //    string aaa2 = "";
+                //    for (int i = 0; i < section.Body.ChildNodes.Count; i++)
+                //    {
+                //        aaa2 = aaa2 + "@" + i + "@" + section.Body.ChildNodes[i].Range.Text + "/r";
+                //    }
+                //    string b2 = aaa2;
+
+                //    string strSql2 = @" SELECT  
+                //                 OrderNumber = row_number() over(order by AttachUrlDetaild)
+                //               , AttachUrlDetaild 
+                //              , AttachUrlItemId 
+                //              , DetailType 
+                //              , Specifications 
+                //              , MachineTeamPrice 
+                //              , Remark  "
+                //   + @" from  PHTGL_AttachUrl2Detail "
+                //   + @"   where 1=1 and  AttachUrlItemId=@AttachUrlItemId  and DetailType=@DetailType order by OrderNumber";
+
+                //    List<SqlParameter> listStr2 = new List<SqlParameter>();
+                //    listStr2.Add(new SqlParameter("@AttachUrlItemId", att.AttachUrlItemId));
+                //    listStr2.Add(new SqlParameter("@DetailType", "2"));
+                //    SqlParameter[] parameter2 = listStr2.ToArray();
+                //    DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
+                //    if (tb2.Rows.Count == 0)
+                //    {
+                //        DataRow dataRow = tb2.NewRow();
+                //        tb2.Rows.Add(dataRow);
+                //    }
+                //    tb2.TableName = "Table2";
+                //    doc.MailMerge.ExecuteWithRegions(tb2);
+
+                //    Dic_File.Add("txtContractPrice", att.ContractPrice);
+                //    Dic_File.Add("txtComprehensiveUnitPrice", att.ComprehensiveUnitPrice);
+                //    Dic_File.Add("txtComprehensiveRate1", att.ComprehensiveRate1);
+                //    Dic_File.Add("txtComprehensiveRate2", att.ComprehensiveRate2);
+                //    Dic_File.Add("txtComprehensiveRate3", att.ComprehensiveRate3);
+                //    Dic_File.Add("txtComprehensiveRate4", att.ComprehensiveRate4);
+                //    Dic_File.Add("txtComprehensiveRate5", att.ComprehensiveRate5);
+                //    Dic_File.Add("txtTotalPriceDown1", att.TotalPriceDown1);
+                //    Dic_File.Add("txtTotalPriceDown2", att.TotalPriceDown2);
+                //    Dic_File.Add("txtTotalPriceDown3", att.TotalPriceDown3);
+                //    Dic_File.Add("txtTotalPriceDown4", att.TotalPriceDown4);
+                //    Dic_File.Add("txtTotalPriceDown5", att.TotalPriceDown5);
+                //    Dic_File.Add("txtTechnicalWork", att.TechnicalWork.HasValue ? att.TechnicalWork.ToString() : "");
+                //    Dic_File.Add("txtPhysicalLaborer", att.PhysicalLaborer.HasValue ? att.PhysicalLaborer.ToString() : "");
+                //    Dic_File.Add("txtTestCar1", att.TestCar1.HasValue ? att.TestCar1.ToString() : "");
+                //    Dic_File.Add("txtTestCar2", att.TestCar2.HasValue ? att.TestCar2.ToString() : "");
+                //    Dic_File.Add("txtPayWay", "");
+                //     var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                //     AsposeWordHelper.HtmlIntoWord(att.PayWay, Path);
+                //     Document doc2 = new Document(Path);
+
+                //    doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                //    doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                //      File.Delete(Path);
+
+                //}
+
+                //foreach (var item in Dic_File)
+                //{
+                //    string[] key = { item.Key };
+                //    object[] value = { item.Value };
+                //    doc.MailMerge.Execute(key, value);
+                //}
+                //doc.Save(newUrl);
+                #endregion
+
+                #region  复制表格版
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
                 Dic_File.Add("schNumber", schnumber.ToString());
                 var att = BLL.AttachUrl2Service.GetAttachUrlByAttachUrlId(AttachUrlId);
-                if (att!=null)
-                {    string aaa = "";
-                    for (int i = 0; i < section.Body.ChildNodes.Count; i++)
-                    {
-                        aaa = aaa + "@" + i + "@" + section.Body.ChildNodes[i].Range.Text + "/r";
-                    }
-                    string b = aaa;
-                    ArrayList arraylist = new ArrayList();
-                    arraylist.Add("1");
-                    arraylist.Add("2");
-                    arraylist.Add("3");
-                    arraylist.Add("4");
-                    arraylist.Add("5");
-                    arraylist.Add("6");
-                    var aa = att.PayMethod.Split(',');
-                    foreach (var item in aa)
-                    {
-                        arraylist.Remove(item);
+                if (att != null)
+                {
+                    var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                    AsposeWordHelper.HtmlIntoWord(att.AttachUrlContent, Path);
+                    Document doc2 = new Document(Path);
 
-                    }
-                     for (int i = 0; i < arraylist .Count; i++)
-                    {
-                        switch (arraylist[i])
-                        {
-                            case "1":
-                                 builder.MoveToBookmark("text1");
-                                 Paragraph paragraph = builder.CurrentParagraph;
-                                 paragraph.Remove();
+                    doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
 
-                              //  section.Body.ChildNodes[3].Remove();
-
-                                 break;
-                            case "2":
-                                builder.MoveToBookmark("text2");
-                                Paragraph paragraph2 = builder.CurrentParagraph;
-                                paragraph2.Remove();
-                            //    section.Body.ChildNodes[4].Remove();
-
-                                break;
-                            case "3":
-                                builder.MoveToBookmark("text3");
-                                Paragraph paragraph3 = builder.CurrentParagraph;
-                                paragraph3.NextSibling.Remove();
-                                paragraph3.NextSibling.Remove();
-                                paragraph3.NextSibling.Remove();
-                                paragraph3.NextSibling.Remove();
-                                paragraph3.NextSibling.Remove();
-                                paragraph3.Remove();
-
-                                //section.Body.ChildNodes[5].Remove();
-                                //section.Body.ChildNodes[6].Remove();
-                                //section.Body.ChildNodes[7].Remove();
-                                //section.Body.ChildNodes[8].Remove();
-                                //section.Body.ChildNodes[9].Remove();
-                                //section.Body.ChildNodes[10].Remove();
-
-                                break;
-                            case "4":
-                                builder.MoveToBookmark("text4");
-                                Paragraph paragraph4 = builder.CurrentParagraph;
-                                paragraph4.NextSibling.Remove();
-                                paragraph4.NextSibling.Remove();
-                                paragraph4.NextSibling.Remove();
-                                paragraph4.NextSibling.Remove();
-                                paragraph4.NextSibling.Remove();
-                                paragraph4.Remove();
-                                //section.Body.ChildNodes[11].Remove();
-                                //section.Body.ChildNodes[12].Remove();
-                                //section.Body.ChildNodes[13].Remove();
-                                //section.Body.ChildNodes[14].Remove();
-                                //section.Body.ChildNodes[15].Remove();
-                                //section.Body.ChildNodes[16].Remove();
-
-                                break;
-                            case "5":
-                                builder.MoveToBookmark("text5");
-                                Paragraph paragraph5 = builder.CurrentParagraph;
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.NextSibling.Remove();
-                                paragraph5.Remove();
-
-                                //section.Body.ChildNodes[17].Remove();
-                                //section.Body.ChildNodes[18].Remove();
-                                //section.Body.ChildNodes[19].Remove();
-                                //section.Body.ChildNodes[20].Remove();
-                                //section.Body.ChildNodes[21].Remove();
-                                //section.Body.ChildNodes[22].Remove();
-                                //section.Body.ChildNodes[23].Remove();
-
-                                break;
-                            case "6":
-                                builder.MoveToBookmark("text6");
-                                Paragraph paragraph6 = builder.CurrentParagraph;
-                                paragraph6.NextSibling.Remove();
-                                paragraph6.NextSibling.Remove();
-                                paragraph6.NextSibling.Remove();
-                                paragraph6.NextSibling.Remove();
-                                paragraph6.Remove();
-                                          
-                                //section.Body.ChildNodes[23].Remove();
-                                //section.Body.ChildNodes[24].Remove();
-                                //section.Body.ChildNodes[25].Remove();
-                                //section.Body.ChildNodes[26].Remove();
-                                //section.Body.ChildNodes[27].Remove();
-
-                                break;
-                        }
-                    }
-
-                    string strSql = @" SELECT  
-                                 OrderNumber = row_number() over(order by AttachUrlDetaild)
-                               , AttachUrlDetaild 
-                              , AttachUrlItemId 
-                              , DetailType 
-                              , Specifications 
-                              , MachineTeamPrice 
-                              , Remark  "
-                  + @"  from  PHTGL_AttachUrl2Detail "
-                  + @"   where 1=1 and  AttachUrlItemId=@AttachUrlItemId  and DetailType=@DetailType order by OrderNumber";
-                    List<SqlParameter> listStr = new List<SqlParameter>();
-                    listStr.Add(new SqlParameter("@AttachUrlItemId", att.AttachUrlItemId));
-                    listStr.Add(new SqlParameter("@DetailType", "1"));
-
-                    SqlParameter[] parameter = listStr.ToArray();
-                    DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-                    if (tb.Rows.Count ==0)
-                    {
-                        DataRow dataRow = tb.NewRow();
-                        tb.Rows.Add(dataRow);
-                    }
-                     tb.TableName = "Table";
-                    doc.MailMerge.ExecuteWithRegions(tb);
-                    string aaa2 = "";
-                    for (int i = 0; i < section.Body.ChildNodes.Count; i++)
-                    {
-                        aaa2 = aaa2 + "@" + i + "@" + section.Body.ChildNodes[i].Range.Text + "/r";
-                    }
-                    string b2 = aaa2;
-
-                    string strSql2 = @" SELECT  
-                                 OrderNumber = row_number() over(order by AttachUrlDetaild)
-                               , AttachUrlDetaild 
-                              , AttachUrlItemId 
-                              , DetailType 
-                              , Specifications 
-                              , MachineTeamPrice 
-                              , Remark  "
-                   + @" from  PHTGL_AttachUrl2Detail "
-                   + @"   where 1=1 and  AttachUrlItemId=@AttachUrlItemId  and DetailType=@DetailType order by OrderNumber";
-
-                    List<SqlParameter> listStr2 = new List<SqlParameter>();
-                    listStr2.Add(new SqlParameter("@AttachUrlItemId", att.AttachUrlItemId));
-                    listStr2.Add(new SqlParameter("@DetailType", "2"));
-                    SqlParameter[] parameter2 = listStr2.ToArray();
-                    DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
-                    if (tb2.Rows.Count == 0)
-                    {
-                        DataRow dataRow = tb2.NewRow();
-                        tb2.Rows.Add(dataRow);
-                    }
-                    tb2.TableName = "Table2";
-                    doc.MailMerge.ExecuteWithRegions(tb2);
-
-                    Dic_File.Add("txtContractPrice", att.ContractPrice);
-                    Dic_File.Add("txtComprehensiveUnitPrice", att.ComprehensiveUnitPrice);
-                    Dic_File.Add("txtComprehensiveRate1", att.ComprehensiveRate1);
-                    Dic_File.Add("txtComprehensiveRate2", att.ComprehensiveRate2);
-                    Dic_File.Add("txtComprehensiveRate3", att.ComprehensiveRate3);
-                    Dic_File.Add("txtComprehensiveRate4", att.ComprehensiveRate4);
-                    Dic_File.Add("txtComprehensiveRate5", att.ComprehensiveRate5);
-                    Dic_File.Add("txtTotalPriceDown1", att.TotalPriceDown1);
-                    Dic_File.Add("txtTotalPriceDown2", att.TotalPriceDown2);
-                    Dic_File.Add("txtTotalPriceDown3", att.TotalPriceDown3);
-                    Dic_File.Add("txtTotalPriceDown4", att.TotalPriceDown4);
-                    Dic_File.Add("txtTotalPriceDown5", att.TotalPriceDown5);
-                    Dic_File.Add("txtTechnicalWork", att.TechnicalWork.HasValue ? att.TechnicalWork.ToString() : "");
-                    Dic_File.Add("txtPhysicalLaborer", att.PhysicalLaborer.HasValue ? att.PhysicalLaborer.ToString() : "");
-                    Dic_File.Add("txtTestCar1", att.TestCar1.HasValue ? att.TestCar1.ToString() : "");
-                    Dic_File.Add("txtTestCar2", att.TestCar2.HasValue ? att.TestCar2.ToString() : "");
-                    Dic_File.Add("txtPayWay", HttpUtility.HtmlDecode(att.PayWay));
-
+                    doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                    File.Delete(Path);
                 }
-                // string aaa = "";
-                //for (int i = 0; i < section.Body.ChildNodes.Count; i++)
-                //{
-                //    aaa = aaa +"@"+ i + "@"+ section.Body.ChildNodes[i].Range.Text+"/r";
-                //}
-                //string b = aaa;
                 foreach (var item in Dic_File)
                 {
                     string[] key = { item.Key };
@@ -1277,8 +1379,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     doc.MailMerge.Execute(key, value);
                 }
                 doc.Save(newUrl);
-            //生成PDF文件
-            Document doc1 = new Aspose.Words.Document(newUrl);
+                #endregion
+                //生成PDF文件
+                Document doc1 = new Aspose.Words.Document(newUrl);
             File.Delete(newUrl);
             return doc1;
             }
@@ -1316,7 +1419,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     Dictionary<string, object> Dic_File = new Dictionary<string, object>();
 
                 if (model == null)
-                    {
+                {
 
                         Dic_File.Add("schNumber", schnumber.ToString());
                         Dic_File.Add("AttachUrlContent", "");
@@ -1335,7 +1438,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
                 }
                     Dic_File.Add("schNumber", schnumber.ToString());
-                    Dic_File.Add("AttachUrlContent", model.AttachUrlContent);
+                   // Dic_File.Add("AttachUrlContent", model.AttachUrlContent);
+                    Dic_File.Add("AttachUrlContent","");
 
                     foreach (var item in Dic_File)
                     {
@@ -1343,8 +1447,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         object[] value = { item.Value };
                         doc.MailMerge.Execute(key, value);
                     }
+                var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                Document doc2 = new Document(Path);
+                doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+                doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                File.Delete(Path);
 
-                    doc.Save(newUrl);
+                doc.Save(newUrl);
                     //生成PDF文件
                     Document doc1 = new Aspose.Words.Document(newUrl);
                     File.Delete(newUrl);
@@ -1380,31 +1490,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
              File.Copy(uploadfilepath, newUrl);
           
              Document doc = new Aspose.Words.Document(newUrl);
-             string strSql = @"  select 
-                                      url4.AttachUrlItemId
-                                      ,url4.AttachUrlId
-                                      ,url4.OrderNumber
-                                      ,url4.Describe
-                                      ,(Case  url4.Duty_Gen
-                                        when '0' Then  ''
-                                        when '1' Then  '√' end) as Duty_Gen
-                                      ,(Case  url4.Duty_Sub
-                                        when '0' Then  ''
-                                        when '1' Then  '√' end ) Duty_Sub
-                                      ,url4.Remarks"
-                           + @" from PHTGL_AttachUrl4 as url4"
-                           + @"  where 1=1 and url4.AttachUrlId =@AttachUrlId	order by url4.OrderNumber";
-             List<SqlParameter> listStr = new List<SqlParameter>();
-             listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
-             SqlParameter[] parameter = listStr.ToArray();
-             DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            if (tb.Rows.Count == 0)
-            {
-                DataRow dataRow = tb.NewRow();
-                tb.Rows.Add(dataRow);
-            }
-              tb.TableName = "Table";
-             doc.MailMerge.ExecuteWithRegions(tb);
+            // string strSql = @"  select 
+            //                          url4.AttachUrlItemId
+            //                          ,url4.AttachUrlId
+            //                          ,url4.OrderNumber
+            //                          ,url4.Describe
+            //                          ,(Case  url4.Duty_Gen
+            //                            when '0' Then  ''
+            //                            when '1' Then  '√' end) as Duty_Gen
+            //                          ,(Case  url4.Duty_Sub
+            //                            when '0' Then  ''
+            //                            when '1' Then  '√' end ) Duty_Sub
+            //                          ,url4.Remarks"
+            //               + @" from PHTGL_AttachUrl4 as url4"
+            //               + @"  where 1=1 and url4.AttachUrlId =@AttachUrlId	order by url4.OrderNumber";
+            // List<SqlParameter> listStr = new List<SqlParameter>();
+            // listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+            // SqlParameter[] parameter = listStr.ToArray();
+            // DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            //if (tb.Rows.Count == 0)
+            //{
+            //    DataRow dataRow = tb.NewRow();
+            //    tb.Rows.Add(dataRow);
+            //}
+            //  tb.TableName = "Table";
+            // doc.MailMerge.ExecuteWithRegions(tb);
 
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
             Dic_File.Add("schNumber", schnumber.ToString());
@@ -1415,8 +1525,20 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 object[] value = { item.Value };
                 doc.MailMerge.Execute(key, value);
             }
+            var model = AttachUrl4Service.GetAttachurl4ById(AttachUrlId);
+            if (model!=null)
+            {
+                var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                Document doc2 = new Document(Path);
 
-            doc.Save(newUrl);
+                doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                File.Delete(Path);
+            }
+               
+                doc.Save(newUrl);
             //生成PDF文件
             Document doc1 = new Aspose.Words.Document(newUrl);
             File.Delete(newUrl);
@@ -1452,53 +1574,53 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
              File.Copy(uploadfilepath, newUrl);
              Document doc = new Aspose.Words.Document(newUrl);
 
-             string strSql = @" select  mat.AttachUrlItemId,
-                                      mat.AttachUrlId,
-                                      mat.OrderNumber,
-                                      mat.Name,
-                                      mat.Spec,
-                                      mat.Material,
-                                      mat.Company,
-                                      mat.UnitPrice,
-                                      mat.Remarks "
-                              + @" from  PHTGL_AttachUrl5_MaterialsPrice as mat"
-                              + @"   where 1=1 and  mat.AttachUrlId=@AttachUrlId  order by mat.OrderNumber";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            if (tb.Rows.Count == 0)
-            {
-                DataRow dataRow = tb.NewRow();
-                tb.Rows.Add(dataRow);
-            }
-            tb.TableName = "Table";
-            doc.MailMerge.ExecuteWithRegions(tb);
+            // string strSql = @" select  mat.AttachUrlItemId,
+            //                          mat.AttachUrlId,
+            //                          mat.OrderNumber,
+            //                          mat.Name,
+            //                          mat.Spec,
+            //                          mat.Material,
+            //                          mat.Company,
+            //                          mat.UnitPrice,
+            //                          mat.Remarks "
+            //                  + @" from  PHTGL_AttachUrl5_MaterialsPrice as mat"
+            //                  + @"   where 1=1 and  mat.AttachUrlId=@AttachUrlId  order by mat.OrderNumber";
+            //List<SqlParameter> listStr = new List<SqlParameter>();
+            //listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+            //SqlParameter[] parameter = listStr.ToArray();
+            //DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            //if (tb.Rows.Count == 0)
+            //{
+            //    DataRow dataRow = tb.NewRow();
+            //    tb.Rows.Add(dataRow);
+            //}
+            //tb.TableName = "Table";
+            //doc.MailMerge.ExecuteWithRegions(tb);
 
 
-            string strSql2 = @" SELECT  dev.AttachUrlItemId
-                                      ,dev.AttachUrlId
-                                      ,dev.OrderNumber
-                                      ,dev.Name
-                                      ,dev.Company
-                                      ,dev.amount
-                                      ,dev.UnitPrice
-                                      ,dev.Totalprice
-                                      ,dev.Remarks "
-                         + @"   FROM  PHTGL_AttachUrl5_DevicePrice as dev"
-                         + @"   where 1=1 and dev.AttachUrlId=@AttachUrlId order by dev.OrderNumber ";
+            //string strSql2 = @" SELECT  dev.AttachUrlItemId
+            //                          ,dev.AttachUrlId
+            //                          ,dev.OrderNumber
+            //                          ,dev.Name
+            //                          ,dev.Company
+            //                          ,dev.amount
+            //                          ,dev.UnitPrice
+            //                          ,dev.Totalprice
+            //                          ,dev.Remarks "
+            //             + @"   FROM  PHTGL_AttachUrl5_DevicePrice as dev"
+            //             + @"   where 1=1 and dev.AttachUrlId=@AttachUrlId order by dev.OrderNumber ";
 
-            List<SqlParameter> listStr2 = new List<SqlParameter>();
-            listStr2.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
-            SqlParameter[] parameter2 = listStr2.ToArray();
-            DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
-            if (tb2.Rows.Count == 0)
-            {
-                DataRow dataRow = tb2.NewRow();
-                tb2.Rows.Add(dataRow);
-            }
-            tb2.TableName = "Table2";
-            doc.MailMerge.ExecuteWithRegions(tb2);
+            //List<SqlParameter> listStr2 = new List<SqlParameter>();
+            //listStr2.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+            //SqlParameter[] parameter2 = listStr2.ToArray();
+            //DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
+            //if (tb2.Rows.Count == 0)
+            //{
+            //    DataRow dataRow = tb2.NewRow();
+            //    tb2.Rows.Add(dataRow);
+            //}
+            //tb2.TableName = "Table2";
+            //doc.MailMerge.ExecuteWithRegions(tb2);
 
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
             Dic_File.Add("schNumber", schnumber.ToString());
@@ -1509,7 +1631,19 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 object[] value = { item.Value };
                 doc.MailMerge.Execute(key, value);
             }
-            doc.Save(newUrl);
+            var model = AttachUrl5Service.GetAttachUrl5ByAttachUrlId(AttachUrlId);
+            if (model != null)
+            {
+                var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                Document doc2 = new Document(Path);
+
+                doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                File.Delete(Path);
+            }
+                doc.Save(newUrl);
             //生成PDF文件
             Document doc1 = new Aspose.Words.Document(newUrl);
             File.Delete(newUrl);
@@ -1731,7 +1865,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     object[] value = { item.Value };
                     doc.MailMerge.Execute(key, value);
                 }
+                if (model != null)
+                {
+                    var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                    AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                    Document doc2 = new Document(Path);
 
+                    doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                    doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                    File.Delete(Path);
+                }
                 doc.Save(newUrl);
                 //生成PDF文件
                 Document doc1 = new Aspose.Words.Document(newUrl);
@@ -1861,51 +2005,51 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
 
-                string strSql = @" SELECT    AttachUrlItemId 
-                                              , AttachUrlId 
-                                              , Subject 
-                                              , WorkType 
-                                              , PersonNumber 
-                                              , LifeTime 
-                                              , Remarks  "
-                                  + @" from  PHTGL_AttachUrl10_HumanInput "
-                                  + @"   where 1=1 and  AttachUrlId=@AttachUrlId  order by Subject";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-                if (tb.Rows.Count == 0)
-                {
-                    DataRow dataRow = tb.NewRow();
-                    tb.Rows.Add(dataRow);
-                }
-                tb.TableName = "Table";
-                doc.MailMerge.ExecuteWithRegions(tb);
+                //string strSql = @" SELECT    AttachUrlItemId 
+                //                              , AttachUrlId 
+                //                              , Subject 
+                //                              , WorkType 
+                //                              , PersonNumber 
+                //                              , LifeTime 
+                //                              , Remarks  "
+                //                  + @" from  PHTGL_AttachUrl10_HumanInput "
+                //                  + @"   where 1=1 and  AttachUrlId=@AttachUrlId  order by Subject";
+                //List<SqlParameter> listStr = new List<SqlParameter>();
+                //listStr.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+                //SqlParameter[] parameter = listStr.ToArray();
+                //DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                //if (tb.Rows.Count == 0)
+                //{
+                //    DataRow dataRow = tb.NewRow();
+                //    tb.Rows.Add(dataRow);
+                //}
+                //tb.TableName = "Table";
+                //doc.MailMerge.ExecuteWithRegions(tb);
 
 
-                string strSql2 = @" SELECT   
-                                        OrderNumber = row_number() over(order by AttachUrlItemId)
-		                              , AttachUrlItemId 
-                                      , AttachUrlId 
-                                      , MachineName 
-                                      , MachineSpec 
-                                      , number 
-                                      , LeasedOrOwned 
-                                      , Remarks  "
-                             + @"   FROM  PHTGL_AttachUrl10_MachineInput  "
-                             + @"   where 1=1 and  AttachUrlId=@AttachUrlId order by OrderNumber ";
+                //string strSql2 = @" SELECT   
+                //                        OrderNumber = row_number() over(order by AttachUrlItemId)
+		              //                , AttachUrlItemId 
+                //                      , AttachUrlId 
+                //                      , MachineName 
+                //                      , MachineSpec 
+                //                      , number 
+                //                      , LeasedOrOwned 
+                //                      , Remarks  "
+                //             + @"   FROM  PHTGL_AttachUrl10_MachineInput  "
+                //             + @"   where 1=1 and  AttachUrlId=@AttachUrlId order by OrderNumber ";
 
-                List<SqlParameter> listStr2 = new List<SqlParameter>();
-                listStr2.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
-                SqlParameter[] parameter2 = listStr2.ToArray();
-                DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
-                if (tb2.Rows.Count == 0)
-                {
-                    DataRow dataRow = tb2.NewRow();
-                    tb2.Rows.Add(dataRow);
-                }
-                tb2.TableName = "Table2";
-                doc.MailMerge.ExecuteWithRegions(tb2);
+                //List<SqlParameter> listStr2 = new List<SqlParameter>();
+                //listStr2.Add(new SqlParameter("@AttachUrlId", AttachUrlId));
+                //SqlParameter[] parameter2 = listStr2.ToArray();
+                //DataTable tb2 = SQLHelper.GetDataTableRunText(strSql2, parameter2);
+                //if (tb2.Rows.Count == 0)
+                //{
+                //    DataRow dataRow = tb2.NewRow();
+                //    tb2.Rows.Add(dataRow);
+                //}
+                //tb2.TableName = "Table2";
+                //doc.MailMerge.ExecuteWithRegions(tb2);
 
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
                 Dic_File.Add("schNumber", schnumber.ToString());
@@ -1915,6 +2059,18 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     string[] key = { item.Key };
                     object[] value = { item.Value };
                     doc.MailMerge.Execute(key, value);
+                }
+                var model = AttachUrl10Service.GetAttachUrl10ByAttachUrlId (AttachUrlId);
+                if (model != null)
+                {
+                    var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                    AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                    Document doc2 = new Document(Path);
+
+                    doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                    doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                    File.Delete(Path);
                 }
                 doc.Save(newUrl);
                 //生成PDF文件
@@ -2081,7 +2237,16 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                  File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+                var SpecialTermsConditionsId = BLL.AttachUrlService.GetAttachUrlById(AttachUrlId).SpecialTermsConditionsId;
+                var ContractId = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsById(SpecialTermsConditionsId).ContractId;
+                var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
+                if (sub!=null)
+                {
+                    Dic_File.Add("GeneralContractor", sub.GeneralContractor);
+                    Dic_File.Add("SubConstruction", sub.SubConstruction);
 
+
+                }
                 var model = BLL.AttachUrl13Service.GetPHTGL_AttachUrl13ById(AttachUrlId);
                 if (model == null)
                 {
@@ -2159,7 +2324,16 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                  File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+                var SpecialTermsConditionsId = BLL.AttachUrlService.GetAttachUrlById(AttachUrlId).SpecialTermsConditionsId;
+                var ContractId = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsById(SpecialTermsConditionsId).ContractId;
+                var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
+                if (sub != null)
+                {
+                    Dic_File.Add("GeneralContractor", sub.GeneralContractor);
+                    Dic_File.Add("SubConstruction", sub.SubConstruction);
 
+
+                }
                 var model = AttachUrl14Service.GetPHTGL_AttachUrl14ById(AttachUrlId);
                 if (model == null)
                 {
@@ -2516,7 +2690,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 Document doc = new Aspose.Words.Document(newUrl);
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
                 Dic_File.Add("schNumber", schnumber.ToString());
-
+                var SpecialTermsConditionsId = BLL.AttachUrlService.GetAttachUrlById(AttachUrlId).SpecialTermsConditionsId;
+                var ContractId = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsById(SpecialTermsConditionsId).ContractId;
+                var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
+                if (sub != null)
+                {
+                    Dic_File.Add("GeneralContractor", sub.GeneralContractor);
+                    Dic_File.Add("SubConstruction", sub.SubConstruction);
+ 
+                }
                 foreach (var item in Dic_File)
                 {
                     string[] key = { item.Key };
@@ -2558,7 +2740,16 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 File.Copy(uploadfilepath, newUrl);
                 Document doc = new Aspose.Words.Document(newUrl);
                 Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+                var SpecialTermsConditionsId = BLL.AttachUrlService.GetAttachUrlById(AttachUrlId).SpecialTermsConditionsId;
+                var ContractId = BLL.PHTGL_SpecialTermsConditionsService.GetSpecialTermsConditionsById(SpecialTermsConditionsId).ContractId;
+                var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
+                if (sub != null)
+                {
+                    Dic_File.Add("GeneralContractor", sub.GeneralContractor);
+                    Dic_File.Add("SubConstruction", sub.SubConstruction);
 
+
+                }
                 var att = BLL.AttachUrl18Service.GetPHTGL_AttachUrl18ById(AttachUrlId);
                 if (att == null)
                 {
@@ -2672,6 +2863,63 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
                 ErrLogInfo.WriteLog(string.Empty, ex);
 
+
+                Document doc1 = new Aspose.Words.Document();
+                if (File.Exists(newUrl))
+                {
+                    File.Delete(newUrl);
+                }
+                return doc1;
+            }
+        }
+
+        public Document sch20(string AttachUrlId, int schnumber)
+        {
+            string rootPath = Server.MapPath("~/");
+            string initTemplatePath = string.Empty;
+            string uploadfilepath = string.Empty;
+            string newUrl = string.Empty;
+            string filePath = string.Empty;
+            initTemplatePath = "File\\Word\\PHTGL\\施工分包合同\\附件20   其他.docx";
+            uploadfilepath = rootPath + initTemplatePath;
+            newUrl = uploadfilepath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".docx");
+            filePath = initTemplatePath.Replace(".docx", string.Format("{0:yyyy-MM}", DateTime.Now) + ".pdf");
+            try
+            {
+
+                File.Copy(uploadfilepath, newUrl);
+                Document doc = new Aspose.Words.Document(newUrl);
+  
+                Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+                Dic_File.Add("schNumber", schnumber.ToString());
+
+                foreach (var item in Dic_File)
+                {
+                    string[] key = { item.Key };
+                    object[] value = { item.Value };
+                    doc.MailMerge.Execute(key, value);
+                }
+                var model = AttachUrl20Service.GetAttachUrl20ByAttachUrlId(AttachUrlId);
+                if (model != null)
+                {
+                    var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                    AsposeWordHelper.HtmlIntoWord(model.AttachUrlContent, Path);
+                    Document doc2 = new Document(Path);
+
+                    doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                    doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                    File.Delete(Path);
+                }
+                doc.Save(newUrl);
+                //生成PDF文件
+                Document doc1 = new Aspose.Words.Document(newUrl);
+                File.Delete(newUrl);
+                return doc1;
+            }
+            catch (Exception ex)
+            {
+                ErrLogInfo.WriteLog(string.Empty, ex);
 
                 Document doc1 = new Aspose.Words.Document();
                 if (File.Exists(newUrl))

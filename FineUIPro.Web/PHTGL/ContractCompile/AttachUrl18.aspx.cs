@@ -52,9 +52,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     attItem.SubcontractorsName=txtSubcontractorsName.Text;
                     attItem.ProjectName=txtProjectName.Text;
                     attItem.ContractId=txtContractId.Text;
-                    attItem.StartDate= Convert.ToDateTime( txtStartDate.Text);
-                    attItem.EndDate=Convert.ToDateTime( txtEndDate.Text);
-                    attItem.PersonSum= Convert.ToInt32( txtPersonSum.Text);
+                    attItem.StartDate=  txtStartDate.Text;
+                    attItem.EndDate= txtEndDate.Text;
+                    attItem.PersonSum=  txtPersonSum.Text;
                     
 
                     BLL.AttachUrl18Service.UpdatePHTGL_AttachUrl18(attItem);
@@ -68,9 +68,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     newUrl18.SubcontractorsName = txtSubcontractorsName.Text;
                     newUrl18.ProjectName = txtProjectName.Text;
                     newUrl18.ContractId = txtContractId.Text;
-                    newUrl18.StartDate = Convert.ToDateTime(txtStartDate.Text);
-                    newUrl18.EndDate = Convert.ToDateTime(txtEndDate.Text);
-                    newUrl18.PersonSum = Convert.ToInt32(txtPersonSum.Text);
+                    newUrl18.StartDate = txtStartDate.Text;
+                    newUrl18.EndDate = txtEndDate.Text;
+                    newUrl18.PersonSum =txtPersonSum.Text;
                     BLL.AttachUrl18Service.AddPHTGL_AttachUrl18(newUrl18);
                 }
                 var att = BLL.AttachUrlService.GetAttachUrlById(attachUrlId);
@@ -81,7 +81,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
         }
     }
 }

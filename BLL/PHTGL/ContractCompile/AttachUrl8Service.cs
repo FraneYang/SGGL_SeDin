@@ -43,6 +43,8 @@ namespace BLL
             newUrl.DrivingManager = url8.DrivingManager;
             newUrl.FinancialManager = url8.FinancialManager;
             newUrl.OfficeManager = url8.OfficeManager;
+            newUrl.AttachUrlContent = url8.AttachUrlContent;
+
             Funs.DB.PHTGL_AttachUrl8.InsertOnSubmit(newUrl);
             Funs.DB.SubmitChanges();
         }
@@ -71,6 +73,8 @@ namespace BLL
                 newUrl.DrivingManager = url8.DrivingManager;
                 newUrl.FinancialManager = url8.FinancialManager;
                 newUrl.OfficeManager = url8.OfficeManager;
+                newUrl.AttachUrlContent = url8.AttachUrlContent;
+
                 try
                 {
                     Funs.DB.SubmitChanges();

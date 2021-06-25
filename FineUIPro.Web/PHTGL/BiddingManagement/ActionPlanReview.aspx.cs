@@ -30,7 +30,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
                 GetButtonPower();
                 BindGrid();
-            }
+             }
         }
 
         #endregion
@@ -46,15 +46,18 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                           ,Act.ActionPlanCode
                                           ,Pro.ProjectName
                                           ,Pro.ProjectCode
+                                          ,Act.ProjectShortName as Name
+                                          ,Act.EPCCode
                                           , (CASE APR.State 
                                                      WHEN  @ContractCreat_Complete THEN '编制完成'
                                                      WHEN  @ContractReviewing THEN '审批中'
                                                      WHEN  @ContractReview_Complete THEN '审批完成'
                                                      WHEN  @ContractReview_Refuse THEN '审批被拒'END) AS State
+                                          ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = APR.ActionPlanReviewId and app2 .state =0    for xml path('')), 1, 1, '')
                                           ,APR.Approval_Construction
                                           ,Act.CreateTime
                                           ,U.UserName AS CreateUser "
-                            + @" FROM PHTGL_ActionPlanReview  AS APR "
+                            + @" FROM  PHTGL_ActionPlanReview  AS APR "
                             + @" LEFT JOIN Sys_User AS U ON U.UserId = APR.CreateUser  "
                             + @" LEFT JOIN PHTGL_ActionPlanFormation AS Act ON Act.ActionPlanID=APR.ActionPlanID"
                             + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Act.ProjectID  WHERE 1=1";
@@ -168,6 +171,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindGrid();
+            OAWebSevice.Pushoa();
         }
 
         protected void btnRset_Click(object sender, EventArgs e)
@@ -192,6 +196,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             this.EditData();
         }
+
+        /// <summary>
+        /// 单击事件EnableRowClickEvent="false"未启用
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
         {
              string id = Grid1.SelectedRowID;
@@ -206,9 +216,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 MenuButton1.Hidden = true;
 
             }
-
-
-        }
+         }
 
         /// <summary>
         /// 重新提交
@@ -234,7 +242,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
             if (actReview.CreateUser!=this.CurrUser.UserId)
             {
-               string name= UserService.GetUserNameByUserId(actReview.CreateUser);
+                string name= UserService.GetUserNameByUserId(actReview.CreateUser);
                 Alert.ShowInTop("！此审批不是您创建，无法重新提交【创建者："+name+"】", MessageBoxIcon.Warning);
                 return;
 
@@ -247,24 +255,26 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             //PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model);
 
               ///删除历史审批记录
-             PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
+            // PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
              var _ActFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(actReview.ActionPlanID);
-              //创建第一节点审批信息
-            Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
+            //创建第一节点审批信息
+            var   ApproveManModels = PHTGL_ActionPlanReviewService.GetApproveManModels(_ActFormation.ProjectID, actReview.ActionPlanReviewId);
+             Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
             _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
             _Approve.ContractId = actReview.ActionPlanReviewId;
-            _Approve.ApproveMan = PHTGL_ActionPlanReviewService.Get_DicApproveman(_ActFormation.ProjectID, actReview.ActionPlanReviewId)[1];
+            _Approve.ApproveMan = ApproveManModels.Find(x => x.Number == 1).userid;
             _Approve.ApproveDate = "";
             _Approve.State = 0;
             _Approve.IsAgree = 0;
             _Approve.ApproveIdea = "";
-            _Approve.ApproveType = "1";
-            _Approve.ApproveForm = Request.Path;
+            _Approve.ApproveType = ApproveManModels.Find(x => x.Number == 1).Rolename;
+            _Approve.IsPushOa = 0;
+            _Approve.ApproveForm = PHTGL_ApproveService.ActionPlanReview;
 
             BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
+            OAWebSevice.Pushoa();
             ShowNotify("重新提交成功!", MessageBoxIcon.Success);
             BindGrid();
-
         }
 
         /// <summary>
@@ -374,10 +384,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     btnNew.Hidden = false;
                 }
                  
-                if (buttonList.Contains(Const.BtnDelete))
-                {
-                    btnDelete.Hidden = false;
-                }
+                //if (buttonList.Contains(Const.BtnDelete))
+                //{
+                //    btnDelete.Hidden = false;
+                //}
             }
         }
         #endregion

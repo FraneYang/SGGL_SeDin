@@ -387,7 +387,6 @@
     <Compile Include="HSSE\Technique\SpecialSchemeService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemDetailService.cs" />
     <Compile Include="HSSE\Technique\Technique_CheckItemSetService.cs" />
-    <Compile Include="HTGL\APIHTGLPersonService.cs" />
     <Compile Include="Notice\NoticeService.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
@@ -427,6 +426,7 @@
     <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch1Service.cs" />
     <Compile Include="PHTGL\BiddingManagement\SetSubReview_Sch2Service.cs" />
     <Compile Include="PHTGL\BiddingManagement\WordHelp.cs" />
+    <Compile Include="PHTGL\ContractCompile\AttachUrl10Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_HumanInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl10_MachineInputService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl11Service.cs" />
@@ -440,10 +440,12 @@
     <Compile Include="PHTGL\ContractCompile\AttachUrl18Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl19Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl1Service.cs" />
+    <Compile Include="PHTGL\ContractCompile\AttachUrl20Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl2DetailService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl2Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl3Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl4Service.cs" />
+    <Compile Include="PHTGL\ContractCompile\AttachUrl5Service.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl5_DevicePriceService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl5_MaterialsPriceService.cs" />
     <Compile Include="PHTGL\ContractCompile\AttachUrl6Service.cs" />
@@ -532,6 +534,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <Fakes Include="Fakes\Aspose.Words.fakes" />
     <None Include="obj\Debug\BLL.csproj.CopyComplete" />
     <None Include="obj\Debug\BLL.csproj.CoreCompileInputs.cache" />
     <None Include="obj\Debug\BLL.csprojAssemblyReference.cache" />

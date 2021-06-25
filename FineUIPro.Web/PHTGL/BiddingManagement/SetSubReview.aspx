@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="SetSubReviewID" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="SetSubReviewID" AllowSorting="true"   OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -41,6 +41,9 @@
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="right">
                             <Items>
+                                 <f:Button ID="MenuButton1" EnablePostBack="true" runat="server" Text="重新编辑" Icon="Pencil" Hidden="true" ConfirmText="是否重新编辑"
+                                    OnClick="btnMenuEditAgain_Click">
+                                </f:Button>
                                 <f:Button ID="btnPrinter" EnablePostBack="true" runat="server"
                                     Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
                                 </f:Button>
@@ -62,33 +65,36 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="SetSubReviewCode" DataField="SetSubReviewCode" Width="120px" FieldType="String" HeaderText="编号" TextAlign="Center"
+                        <f:RenderField ColumnID="SetSubReviewCode" DataField="SetSubReviewCode" Width="120px" FieldType="String" HeaderText="审批表编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标编号" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                        <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="Type" DataField="Type" Width="120px" FieldType="String" HeaderText="类型" TextAlign="Center"
+                          <f:RenderField ColumnID="BidContent" DataField="BidContent" Width="120px" FieldType="String" HeaderText="招标内容" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="工程名称" TextAlign="Center"
+                        <f:RenderField ColumnID="Type" DataField="Type" Width="120px" FieldType="String" HeaderText="评标办法" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="BidContent" DataField="BidContent" Width="120px" FieldType="String" HeaderText="招标内容" TextAlign="Center"
+                        <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="开标日期" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="开标日期" TextAlign="Center"
+                        <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
+                        <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                        <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:LinkButtonField HeaderText="查看" ColumnID="LooK" Width="60px" Icon="Zoom" CommandName="LooK" />
- 
-                     </Columns>
+
+                    </Columns>
                     <Listeners>
                         <f:Listener Event="beforerowcontextmenu" Handler="onRowContextMenu" />
                     </Listeners>
@@ -109,9 +115,9 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-           <f:Window ID="Window1" Title="确定分包商审批表" Hidden="true" EnableIFrame="true" EnableMaximize="true"  Maximized="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1000px" Height="420px">
+           <f:Window ID="Window1" Title="确定分包商审批表" Hidden="true" EnableIFrame="true" EnableMaximize="true"  Maximized="false"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"  EnableDrag="true"
+            Width="1200px" Height="650px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

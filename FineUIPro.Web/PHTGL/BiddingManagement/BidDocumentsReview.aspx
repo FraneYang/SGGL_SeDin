@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="BidDocumentsReviewId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="BidDocumentsReviewId" AllowSorting="true" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"  OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -33,16 +33,19 @@
                                 </f:Button>
                                 <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="重置" Icon="ArrowUndo" Text="重置" EnablePostBack="true" runat="server">
                                 </f:Button>
-                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text="新增" EnablePostBack="false" runat="server"
-                                    Hidden="false">
+                                <f:Button ID="btnNew" ToolTip="新增" Icon="Add" Text="新增" EnablePostBack="true" runat="server" OnClick="btnNew_Click"
+                                    Hidden="true">
                                 </f:Button>
-                                 <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
-                                    OnClick="btnMenuDelete_Click">
+                                 <f:Button ID="btnDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                                    OnClick="btnDelete_Click">
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
                             <Items>
+                                <f:Button ID="btnEditAgain" EnablePostBack="true" runat="server" Text="重新编辑" Icon="Pencil" Hidden="true" ConfirmText="是否重新编辑"
+                                    OnClick="btnEditAgain_Click">
+                                </f:Button>
                                <f:Button ID="btnPrinter" EnablePostBack="true" runat="server"
                                     Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
                                 </f:Button>
@@ -61,30 +64,33 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
+                         <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="220px" FieldType="String" HeaderText="实施计划编号编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="BidDocumentsName" DataField="BidDocumentsName" Width="120px" FieldType="String" HeaderText="招标文件名称" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="200px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号编号" TextAlign="Center"
+                        <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="220px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="BidDocumentsName" DataField="BidDocumentsName" Width="220px" FieldType="String" HeaderText="招标文件名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+                        <f:RenderField ColumnID="BidType" DataField="BidType" Width="120px" FieldType="String" HeaderText="招标方式" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Bidding_SendTime" DataField="Bidding_SendTime" Width="120px" FieldType="String" HeaderText="计划发标时间" TextAlign="Center"
+                        <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                       <%-- <f:RenderField ColumnID="Bidding_SendTime" DataField="Bidding_SendTime" Width="120px" FieldType="String" HeaderText="计划发标时间" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="计划开标时间" TextAlign="Center"
                             HeaderTextAlign="Center">
-                        </f:RenderField>
+                        </f:RenderField>--%>
                         <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
@@ -113,17 +119,17 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="招标文件审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1000px" Height="420px">
+        <f:Window ID="Window1" Title="招标文件审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="false"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"  EnableDrag="true"
+            Width="1200px" Height="720px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
                <%-- <f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"
                     OnClick="btnMenuEdit_Click">
                 </f:MenuButton>
-                <f:MenuButton ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
-                    OnClick="btnMenuDelete_Click">
+                <f:MenuButton ID="btnDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                    OnClick="btnDelete_Click">
                 </f:MenuButton>--%>
                 <%--<f:MenuButton ID="btnPrinter" EnablePostBack="true" runat="server"
                 Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="false">

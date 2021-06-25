@@ -49,22 +49,22 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Label Label1;
         
         /// <summary>
-        /// drpProjectId 控件。
+        /// txtEPCCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpProjectId;
+        protected global::FineUIPro.TextBox txtEPCCode;
         
         /// <summary>
-        /// txtProjectName 控件。
+        /// txtProjectCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectName;
+        protected global::FineUIPro.TextBox txtProjectCode;
         
         /// <summary>
         /// txtActionPlanCode 控件。
@@ -76,6 +76,24 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtActionPlanCode;
         
         /// <summary>
+        /// txtBidType 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList txtBidType;
+        
+        /// <summary>
+        /// txtProjectShortName 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextBox txtProjectShortName;
+        
+        /// <summary>
         /// txtBidProject 控件。
         /// </summary>
         /// <remarks>
@@ -85,22 +103,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtBidProject;
         
         /// <summary>
-        /// txtBidType 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtBidType;
-        
-        /// <summary>
         /// txtPriceType 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtPriceType;
+        protected global::FineUIPro.DropDownList txtPriceType;
         
         /// <summary>
         /// txtBidPrice 控件。
@@ -109,7 +118,16 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtBidPrice;
+        protected global::FineUIPro.TextBox txtBidPrice;
+        
+        /// <summary>
+        /// btnAttachUrl 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttachUrl;
         
         /// <summary>
         /// Label7 控件。
@@ -409,6 +427,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextArea txtSchedulePlan;
         
         /// <summary>
+        /// txtAttachUrlContent 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HtmlEditor txtAttachUrlContent;
+        
+        /// <summary>
         /// Toolbar1 控件。
         /// </summary>
         /// <remarks>
@@ -443,5 +470,14 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button btnClose;
+        
+        /// <summary>
+        /// WindowAtt 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window WindowAtt;
     }
 }

@@ -92,18 +92,19 @@
                 </f:FormRow>
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill ID="ToolbarFill1" runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存"  Text="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存"  Text="保存" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnSubmit" Icon="SystemSave" runat="server" ToolTip="提交" Text="提交" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSubmit" Icon="SystemSave" runat="server" ToolTip="提交" Text="提交" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSubmit_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭"  runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭"  runat="server" Icon="SystemClose" Size="Medium">
                         </f:Button>
+    
                     </Items>
                 </f:Toolbar>
             </Toolbars>

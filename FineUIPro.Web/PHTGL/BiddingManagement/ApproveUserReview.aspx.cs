@@ -46,6 +46,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             string strSql = @"SELECT   Bid.ApproveUserReviewID
                                       ,BidDoc.BidDocumentsCode
                                       ,Acp.ActionPlanCode
+                                      ,Acp.ProjectShortName
+                                      ,Acp.EPCCode
                                       ,Bid.ProjectId
 	                                  ,Pro.ProjectName
                                       ,Pro.ProjectCode
@@ -57,7 +59,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                         WHEN @ContractReviewing THEN '审批中'
                                         WHEN @ContractReview_Complete THEN '审批成功'
                                         WHEN @ContractReview_Refuse THEN '审批被拒'END) AS State
-                                      ,Bid.ConstructionManager
+                                       ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = Bid.ApproveUserReviewID and app2 .state =0    for xml path('')), 1, 1, '')
+                                       ,Bid.ConstructionManager
                                       ,Bid.ProjectManager
                                       ,Bid.Approval_Construction
                                       ,Bid.DeputyGeneralManager"
@@ -182,6 +185,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         protected void btnSearch_Click(object sender, EventArgs e)
         {
             BindGrid();
+            OAWebSevice.Pushoa();
         }
 
         protected void btnRset_Click(object sender, EventArgs e)
@@ -192,6 +196,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         protected void btnQueryApprove_Click(object sender, EventArgs e)
         {
+  
             this.EditData();
         }
          #endregion
@@ -223,7 +228,31 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             var Bid = BLL.PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById (id);
             PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ApproveUserReviewEdit.aspx?ApproveUserReviewID={0}", Bid.ApproveUserReviewID, "审批 - ")));
         }
+        /// <summary>
+        /// 恢复状态重新编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void btnMenuEditAgain_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+             var Bid = BLL.PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(id);
 
+            if (Bid.CreateUser!= this.CurrUser.UserId)
+            {
+                string name = UserService.GetUserNameByUserId(Bid.CreateUser);
+                Alert.ShowInTop("！此审批不是您创建，无法重新提交【创建者：" + name + "】", MessageBoxIcon.Warning);
+                return;
+            }
+             //PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);
+            PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ApproveUserReviewEdit.aspx?ApproveUserReviewID={0}&&State=Again", Bid.ApproveUserReviewID, "审批 - ")));
+
+        }
         /// <summary>
         /// 编辑数据方法
         /// </summary>
@@ -321,22 +350,37 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 {
                     btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(Const.BtnDelete))
-                {
-                    btnMenuDelete.Hidden = false;
-                }
+ 
             }
+        }
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+            string id = Grid1.SelectedRowID;
+            var actReview = PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(id);
+            if (actReview.State == Const.ContractReview_Refuse)
+            {
+                MenuButton1.Hidden = false;
+
+            }
+            else
+            {
+                MenuButton1.Hidden = true;
+
+            }
+
+
         }
         #endregion
 
+ 
 
 
-        #region 打印
-        /// <summary>
-        /// ApproveUserReviewById
-        /// </summary>
-        /// <param name="id"></param>
-        public void Print(string Id)
+            #region 打印
+            /// <summary>
+            /// ApproveUserReviewById
+            /// </summary>
+            /// <param name="id"></param>
+            public void Print(string Id)
         {
             string rootPath = Server.MapPath("~/");
             string initTemplatePath = string.Empty;
@@ -351,9 +395,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             ///更新书签
             var getFireWork = PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(Id);
             var Bid = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(getFireWork.BidDocumentsReviewId);
+            var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Bid.ActionPlanID);
             #region 评标小组成员名单
             string strSql = @"  SELECT    Number = row_number() over(order by ID)
-                                           ,U.UserName as Name
+                                           ,APP.ApproveUserName as Name
                                           ,APP.ApproveUserSpecial as Special
                                           ,APP.ApproveUserUnit as Unit
                                           ,APP.Remarks as Remarks"
@@ -370,7 +415,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             doc.MailMerge.ExecuteWithRegions(tb);
             #endregion
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
-            Dic_File.Add("txtProjectName", BLL.ProjectService.GetProjectNameByProjectId(getFireWork.ProjectId));
+            Dic_File.Add("txtProjectName", Act.ProjectShortName);
             Dic_File.Add("txtBidProject", getFireWork.BidProject);
             Dic_File.Add("txtBidDocumentCode", Bid.BidDocumentsCode);
             foreach (var item in Dic_File)

@@ -283,20 +283,17 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();
             try
-            {
+            {                
                 var getItem = TestRecordItemService.GetTestRecordItemTestRecordItemId(testRecordItemId);
                 if (getItem != null)
                 {
+                    APITestRecordService.getTestRecordItemAnswerBySelectedItem(getItem, selectedItem);
                     //更新没有结束时间且超时的考试记录
                     int closeCount = TestRecordService.UpdateTestEndTimeNull(getItem.TestRecordId);
                     if (closeCount > 0)
                     {
                         responeData.code = 2;
                         responeData.message = "本次考试已结束，系统自动交卷！";
-                    }
-                    else
-                    {
-                        APITestRecordService.getTestRecordItemAnswerBySelectedItem(getItem, selectedItem);
                     }
                 }
                 else

@@ -24,7 +24,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     }
                     if (att != null)
                     {
-                        this.txtAttachUrlContent.Text = att.AttachUrlContent;
+                        this.txtAttachUrlContent.Text = HttpUtility.HtmlDecode(att.AttachUrlContent);  
                     }
                 }
             }
@@ -63,7 +63,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
         }
     }
 }

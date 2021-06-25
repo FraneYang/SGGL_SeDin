@@ -30,14 +30,14 @@
                 </f:FormRow>
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" Size="Medium" ValidateForms="SimpleForm1"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text ="关闭" Size="Medium" runat="server" Icon="SystemClose">
                         </f:Button>
                     </Items>
                 </f:Toolbar>

@@ -1,4 +1,5 @@
 ﻿using BLL;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,7 +22,9 @@ namespace WebAPI.Controllers
         [HttpPost]
          public Model.ResponeData AddHTGLPerson([FromBody]Model.Person PersonjsonData)
         {
-            var responeData = new Model.ResponeData();
+             var responeData = new Model.ResponeData();
+           
+            APICommonService.SaveSysHttpLog("API", JsonConvert.SerializeObject(PersonjsonData), "");
             try
             {
                 var Data = APIHTGLPersonService.SavePerson(PersonjsonData);
@@ -40,6 +43,7 @@ namespace WebAPI.Controllers
                 ErrLogInfo.WriteLog(Newtonsoft.Json.JsonConvert.SerializeObject(responeData));
 
             }
+            APICommonService.SaveSysHttpLog("API", JsonConvert.SerializeObject(PersonjsonData), JsonConvert.SerializeObject(responeData));
 
             return responeData;
         }
@@ -53,6 +57,8 @@ namespace WebAPI.Controllers
         public Model.ResponeData AddHTGLPerson_Pro([FromBody]Model.Pro_Person PersonjsonData)
         {
             var responeData = new Model.ResponeData();
+            APICommonService.SaveSysHttpLog("API", JsonConvert.SerializeObject(PersonjsonData), "");
+
             try
             {
                 var Data = APIHTGLPersonService.SavePro_Person(PersonjsonData);
@@ -72,6 +78,7 @@ namespace WebAPI.Controllers
                 ErrLogInfo.WriteLog(Newtonsoft.Json.JsonConvert.SerializeObject(responeData));
 
             }
+            APICommonService.SaveSysHttpLog("API", JsonConvert.SerializeObject(PersonjsonData), JsonConvert.SerializeObject(responeData));
 
             return responeData;
         }

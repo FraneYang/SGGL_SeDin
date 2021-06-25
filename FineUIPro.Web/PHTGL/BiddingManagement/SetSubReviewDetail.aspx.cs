@@ -57,6 +57,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ViewState["Dic_ApproveMan"] = value;
             }
         }
+        public List<ApproveManModel> ApproveManModels
+        {
+            get
+            {
+                return (List<ApproveManModel>)Session["ApproveManModels"];
+            }
+            set
+            {
+                Session["ApproveManModels"] = value;
+            }
+        }
         public Model.PHTGL_Approve pHTGL_Approve
         {
             get
@@ -76,44 +87,40 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 SetSubReviewID = Request.Params["SetSubReviewID"];
                 EndApproveType = 4;
-                this.btnClose.OnClientClick = ActiveWindow.GetHideRefreshReference();
-
+ 
                  //获取审批人字典
                 Dic_ApproveMan = PHTGL_SetSubReviewService.Get_DicApproveman(SetSubReviewID);
+                ApproveManModels = PHTGL_SetSubReviewService.GetApproveManModels(SetSubReviewID);
                 //获取当前登录人审批信息
                 pHTGL_Approve = BLL.PHTGL_ApproveService.GetPHTGL_ApproveByUserId(SetSubReviewID, this.CurrUser.UserId);
                 //数据加载
                 Bind();
                 var _SetSubReview = BLL.PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById(SetSubReviewID);
 
-                if (pHTGL_Approve != null)
+                if (PHTGL_ApproveService.IsApproveMan(SetSubReviewID, this.CurrUser.UserId))
                 {
-                    txtApproveType.Text = pHTGL_Approve.ApproveType;
                     BindGrid();
-                    BindSchGrid();
-                    if (pHTGL_Approve.State == 1)
-                    {
-                        btnSave.Hidden = true;
-                    }
+
                 }
                 else if (this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId)
                 {
-                    txtApproveType.Text = "管理员";
                     BindGrid();
-                    BindSchGrid();
-                    btnSave.Hidden = true;
+
                 }
                 else if (_SetSubReview.CreateUser == this.CurrUser.UserId)
                 {
-                    txtApproveType.Text = "创建者";
                     BindGrid();
-                    BindSchGrid();
-                    btnSave.Hidden = true;
                 }
-                else
+
+                if (pHTGL_Approve != null)
                 {
-                    btnSave.Hidden = true;
+                    btnAgree.Enabled = true;
+                    btnDisgree.Enabled = true;
                 }
+                if (!BLL.AttachFileService.Getfile(SetSubReviewID, BLL.Const.SetSubReview))
+                {
+                    btnAttachUrl.Hidden = true;
+                 }
 
             }
 
@@ -130,11 +137,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 if (_SetSubReview != null)
                 {
                     txtSetSubReviewCode.Text = _SetSubReview.SetSubReviewCode;
-                    DropBidCode.SelectedValue = _SetSubReview.ApproveUserReviewID;
-                    txtProjectName.Text = ProjectService.GetProjectNameByProjectId(BidUser.ProjectId);
+                    txtProjectName.Text = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(BidDocument.ActionPlanID).ProjectShortName;
                     txtBidContent.Text = BidDocument.BidContent;
                     this.txtCreateUser.Text = BLL.UserService.GetUserNameByUserId(_SetSubReview.CreateUser);
-
                 }
 
             }
@@ -231,7 +236,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                         App.ApproveId,
                                         App.ApproveType
                                        from PHTGL_Approve as App"
-                             + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
+                             + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId order by convert(datetime ,App.ApproveDate)  ";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractId", SetSubReviewID));
 
@@ -241,10 +246,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
             Grid1.DataBind();
+            BindSchGrid();
+
         }
         #endregion
 
-      
+
         #region 分页 排序
         /// <summary>
         /// 改变索引事件
@@ -267,78 +274,82 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         #endregion
 
         #region 保存提交
-        protected void btnSave_Click(object sender, EventArgs e)
+        protected void btnAgree_Click(object sender, EventArgs e)
         {
+            ApprovemanSave(true);
+            OAWebSevice.DoneRequest(pHTGL_Approve.ApproveId);
+            OAWebSevice.Pushoa();
+        }
 
-            ApprovemanSave();
+        protected void btnDisgree_Click(object sender, EventArgs e)
+        {
+            ApprovemanSave(false);
+            OAWebSevice.DoneRequest(pHTGL_Approve.ApproveId);
+            OAWebSevice.Pushoa_Creater(pHTGL_Approve.ApproveId);
 
         }
- 
+
         /// <summary>
         /// 审批人员保存
         /// </summary>
-        void ApprovemanSave()
+        /// <param name="IsAgree"></param>
+        void ApprovemanSave(bool IsAgree)
         {
             pHTGL_Approve.ApproveDate = Funs.GetNewDateTimeOrNow("").ToString();
-            if (CBIsAgree.SelectedValueArray.Length > 0)
+            pHTGL_Approve.State = 1;
+            //pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray[0]);
+            pHTGL_Approve.IsAgree = IsAgree ? 2 : 1;
+            pHTGL_Approve.ApproveIdea = txtApproveIdea.Text;
+            BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(pHTGL_Approve);
+
+            int thisApproveTypeNumber = ApproveManModels.Find(e => e.Rolename == pHTGL_Approve.ApproveType).Number;
+            int nextApproveType = thisApproveTypeNumber + 1;
+
+            if (IsAgree)
             {
-                pHTGL_Approve.State = 1;
-                pHTGL_Approve.IsAgree = Convert.ToInt32(CBIsAgree.SelectedValueArray[0]);
-                pHTGL_Approve.ApproveIdea = txtApproveIdea.Text;
-                BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(pHTGL_Approve);
-
-                int nextApproveType = Convert.ToInt32(pHTGL_Approve.ApproveType) + 1;
-
-                if (Convert.ToInt32(pHTGL_Approve.ApproveType) < EndApproveType) //判断当前审批节点是否结束
+                if (thisApproveTypeNumber < EndApproveType)
                 {
-                    if (Convert.ToInt32(CBIsAgree.SelectedValueArray[0]) == 2)  //同意时
+
+                    Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
+                    _Approve.ContractId = pHTGL_Approve.ContractId;
+                    _Approve.ApproveMan = ApproveManModels.Find(e => e.Number == nextApproveType).userid;
+                    _Approve.ApproveDate = "";
+                    _Approve.State = 0;
+                    _Approve.IsAgree = 0;
+                    _Approve.ApproveIdea = "";
+                    _Approve.ApproveType = ApproveManModels.Find(e => e.Number == nextApproveType).Rolename;
+                    _Approve.IsPushOa = 0;
+                    _Approve.ApproveForm = PHTGL_ApproveService.SetSubReview;
+
+                    var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
+                    if (IsExitmodel == null)
                     {
-                        Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
-                        //  _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-                        _Approve.ContractId = pHTGL_Approve.ContractId;
-                        _Approve.ApproveMan = Dic_ApproveMan[nextApproveType];
-                        _Approve.ApproveDate = "";
-                        _Approve.State = 0;
-                        _Approve.IsAgree = 0;
-                        _Approve.ApproveIdea = "";
-                        _Approve.ApproveType = nextApproveType.ToString();
-                        _Approve.ApproveForm = Request.Path;
+                        _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
+                        BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
 
-                        var IsExitmodel = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdAndType(_Approve.ContractId, _Approve.ApproveType);
-                        if (IsExitmodel == null)
-                        {
-                            _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
-                            BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
-
-                        }
-                        else
-                        {
-                            _Approve.ApproveId = IsExitmodel.ApproveId;
-                            BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(_Approve);
-
-                        }
-                        ChangeState(Const.ContractReviewing);
                     }
                     else
                     {
-                        ChangeState(Const.ContractReview_Refuse);
-                    }
+                        _Approve.ApproveId = IsExitmodel.ApproveId;
+                        BLL.PHTGL_ApproveService.UpdatePHTGL_Approve(_Approve);
 
+                    }
+                    ChangeState(Const.ContractReviewing);
                 }
                 else
                 {
                     ChangeState(Const.ContractReview_Complete);
+
                 }
-
-                ShowNotify("保存成功！", MessageBoxIcon.Success);
-                PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
-
             }
             else
             {
-                ShowNotify("请确认是否同意！", MessageBoxIcon.Warning);
-
+                ChangeState(Const.ContractReview_Refuse);
             }
+
+
+            ShowNotify("保存成功！", MessageBoxIcon.Success);
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
 
 
         }
@@ -355,11 +366,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
         #endregion
 
-        #region 导出
+        #region 附件
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-            SetSubReview setSubReview = new SetSubReview();
-            setSubReview.Print(SetSubReviewID);
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SetSubReviewAttachUrl&menuId={1}", this.SetSubReviewID, BLL.Const.SetSubReview)));
+
+            //SetSubReview setSubReview = new SetSubReview();
+            //setSubReview.Print(SetSubReviewID);
+        }
+        protected void btnAttachUrl2_Click(object sender, EventArgs e)
+        {
+            PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/SetSubReviewAttachUrl&menuId={1}", this.SetSubReviewID + "report", BLL.Const.SetSubReview)));
         }
         #endregion
 

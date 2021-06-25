@@ -59,7 +59,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
         }
     }
 }

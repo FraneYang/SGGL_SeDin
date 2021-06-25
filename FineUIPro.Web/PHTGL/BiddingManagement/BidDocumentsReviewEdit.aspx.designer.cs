@@ -85,13 +85,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
         
         /// <summary>
-        /// txtProjectCode 控件。
+        /// txtEPCCode 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtProjectCode;
+        protected global::FineUIPro.TextBox txtEPCCode;
         
         /// <summary>
         /// txtProjectName 控件。
@@ -110,6 +110,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DropDownList txtBidType;
+        
+        /// <summary>
+        /// btnAttachUrl 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttachUrl;
         
         /// <summary>
         /// txtBidDocumentsCode 控件。
@@ -136,16 +145,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextBox txtBidContent;
-        
-        /// <summary>
-        /// btnAttachUrl 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnAttachUrl;
+        protected global::FineUIPro.TextArea txtBidContent;
         
         /// <summary>
         /// Bidding_SendTime 控件。
@@ -164,6 +164,24 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.DatePicker Bidding_StartTime;
+        
+        /// <summary>
+        /// ContentPanel2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.ContentPanel ContentPanel2;
+        
+        /// <summary>
+        /// Form3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form Form3;
         
         /// <summary>
         /// DropConstructionManager 控件。

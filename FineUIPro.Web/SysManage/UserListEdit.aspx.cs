@@ -323,5 +323,11 @@ namespace FineUIPro.Web.SysManage
             }
         }
         #endregion
+
+        protected void btnRet_Click(object sender, EventArgs e)
+        {
+            this.SignatureUrl = string.Empty;
+            this.Image2.ImageUrl =  "~/res/images/Signature0.png";
+        }
     }
 }

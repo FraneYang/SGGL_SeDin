@@ -123,7 +123,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 T entity = new T();
                 foreach (PropertyInfo p in pArray)
                 {
-                     
+                    if (!row.Table.Columns.Contains(p.Name))
+                    {
+                        continue;
+
+                    }
+
                     if (row[p.Name].ToString () == "" )
                     {
                         p.SetValue(entity, null, null);
@@ -317,82 +322,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 if (cbIsSelected.GetCheckedState(e.RowIndex))
                 {
                     string id = Grid1.SelectedRowID;
-                    if (id == BLL.Const.AttachUrlId1)
+                    var att = BLL.AttachUrlService.GetAttachUrlById(id);
+                    if (att != null)
                     {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl1.aspx?AttachUrlId={0}", id, "编辑 - ")));
+                        att.IsSelected = true;
+                        BLL.AttachUrlService.UpdateAttachUrl(att);
                     }
-                    else if (id == BLL.Const.AttachUrlId2)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl2.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId3)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl3.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId4)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl4.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId5)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl5.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId6)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl6.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId7)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl7.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId8)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl8.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId9)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl9.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId10)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl10.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId11)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl11.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId12)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl12.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId13)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl13.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId14)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl14.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId15)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl15.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId16)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl16.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId17)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl17.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId18)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl18.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
-                    else if (id == BLL.Const.AttachUrlId19)
-                    {
-                        PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl19.aspx?AttachUrlId={0}", id, "编辑 - ")));
-                    }
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("AttachUrl{0}.aspx?AttachUrlId={1}", att.SortIndex, id, "编辑 - ")));
                 }
                 else
                 {

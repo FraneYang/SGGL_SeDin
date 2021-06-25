@@ -32,6 +32,7 @@ namespace BLL
             table.PlanningContent = newtable.PlanningContent;
             table.ActionPlan = newtable.ActionPlan;
             table.Remarks = newtable.Remarks;
+            table.SortIndex = newtable.SortIndex;
             Funs.DB.PHTGL_ActionPlanFormation_Sch1.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -49,6 +50,8 @@ namespace BLL
                 table.PlanningContent = newtable.PlanningContent;
                 table.ActionPlan = newtable.ActionPlan;
                 table.Remarks = newtable.Remarks;
+                table.SortIndex = newtable.SortIndex;
+
                 Funs.DB.SubmitChanges();
             }
 

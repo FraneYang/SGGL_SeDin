@@ -51,6 +51,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             string strSql = @"  select Sub.SetSubReviewID
                                       ,Sub.SetSubReviewCode
+                                      ,Acp.ProjectShortName
                                       ,BidDoc.BidDocumentsCode
                                       ,BidDoc.BidContent
                                       ,BidDoc.Bidding_StartTime
@@ -59,6 +60,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                         WHEN @ContractReviewing THEN '审批中'
                                         WHEN @ContractReview_Complete THEN '审批成功'
                                         WHEN @ContractReview_Refuse THEN '审批被拒'END) AS State
+                                     ,ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = Sub.SetSubReviewID and app2 .state =0    for xml path('')), 1, 1, '')
                                      ,(Case Sub.Type  
 				                          WHEN @Type_MinPrice THEN '用于经评审的最低投标报价法'
                                           WHEN @Type_ConEvaluation THEN '综合评估法' END) AS Type
@@ -68,7 +70,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                + @"  from  PHTGL_SetSubReview as  Sub "
                                + @" LEFT JOIN  PHTGL_BidApproveUserReview as BidUser on BidUser.ApproveUserReviewID = Sub.ApproveUserReviewID   "
                                + @" LEFT JOIN PHTGL_BidDocumentsReview as BidDoc  on BidDoc.BidDocumentsReviewId = BidUser.BidDocumentsReviewId "
-                               + @" LEFT JOIN Sys_User AS U ON U.UserId = Sub.CreateUser    "
+                               + @" LEFT JOIN PHTGL_ActionPlanFormation AS Acp ON Acp.ActionPlanID =BidDoc.ActionPlanID  "
+                                + @" LEFT JOIN Sys_User AS U ON U.UserId = Sub.CreateUser    "
                                + @" LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = BidUser.ProjectId WHERE 1 = 1  ";
 
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -200,6 +203,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="e"></param>
         protected void btnSearch_Click(object sender, EventArgs e)
         {
+            OAWebSevice.Pushoa();
             BindGrid();
         }
         protected void btnQueryApprove_Click(object sender, EventArgs e)
@@ -254,6 +258,32 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SetSubReviewEdit.aspx?SetSubReviewID={0}", Sub.SetSubReviewID, "审批 - ")));
 
                     break;
+            }
+        }
+        protected void btnMenuEditAgain_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string id = Grid1.SelectedRowID;
+            var Sub = BLL.PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById(id);
+            if (Sub.CreateUser != this.CurrUser.UserId)
+            {
+                string name = UserService.GetUserNameByUserId(Sub.CreateUser);
+                Alert.ShowInTop("！此审批不是您创建，无法重新提交【创建者：" + name + "】", MessageBoxIcon.Warning);
+                return;
+            }
+
+            switch (Sub.Type)
+            {
+                 case PHTGL_SetSubReviewService.Type_MinPrice:
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SetSubReviewEdit2.aspx?SetSubReviewID={0}&&State=Again", Sub.SetSubReviewID, "审批 - ")));
+                    break;
+                case PHTGL_SetSubReviewService.@Type_ConEvaluation:
+                    PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("SetSubReviewEdit.aspx?SetSubReviewID={0}&&State=Again", Sub.SetSubReviewID, "审批 - ")));
+                     break;
             }
         }
         protected void btnNew_Click(object sender, EventArgs e)
@@ -351,7 +381,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                         {
                             BLL.LogService.AddSys_Log(this.CurrUser, p.SetSubReviewID, p.ApproveUserReviewID, BLL.Const.SetSubReview, BLL.Const.BtnDelete);
                             PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(rowID);
-                            PHTGL_SetSubReviewService.DeletePHTGL_SetSubReviewById(rowID);
+                            BLL.AttachFileService.DeleteAttachFile(Funs.RootPath, rowID, BLL.Const.SetSubReview);
+                             PHTGL_SetSubReviewService.DeletePHTGL_SetSubReviewById(rowID);
                         }
                     }
                 }
@@ -408,11 +439,28 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 {
                     //btnMenuEdit.Hidden = false;
                 }
-                if (buttonList.Contains(Const.BtnDelete))
-                {
-                    btnMenuDelete.Hidden = false;
-                }
+                //if (buttonList.Contains(Const.BtnDelete))
+                //{
+                //    btnMenuDelete.Hidden = false;
+                //}
             }
+        }
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+            string id = Grid1.SelectedRowID;
+            var actReview = PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById(id);
+            if (actReview.State == Const.ContractReview_Refuse)
+            {
+                MenuButton1.Hidden = false;
+
+            }
+            else
+            {
+                MenuButton1.Hidden = true;
+
+            }
+
+
         }
         #endregion
 
@@ -432,6 +480,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             var getFireWork = PHTGL_SetSubReviewService.GetPHTGL_SetSubReviewById(Id);
             var BidUser = PHTGL_BidApproveUserReviewService.GetPHTGL_BidApproveUserReviewById(getFireWork.ApproveUserReviewID);
             var BidDoc = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidUser.BidDocumentsReviewId);
+            var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(BidDoc.ActionPlanID);
 
             switch (getFireWork.Type)
             {
@@ -442,7 +491,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                            ,Sch2.Price_ReviewResults as Price_ReviewResults
                                            ,Sch2.Skill_ReviewResults as Skill_ReviewResults
                                            ,Sch2.Business_ReviewResults as Business_ReviewResults
-                                           ,Sch2.Synthesize_ReviewResults as Synthesize_ReviewResults "
+                                           ,Sch2.Synthesize_ReviewResults as Synthesize_ReviewResults 
+                                           ,Sch2.Remarks as Remarks "
                          + @" FROM PHTGL_SetSubReview_Sch2 AS Sch2 "
                           + @"where 1=1 AND SetSubReviewID = @SetSubReviewID ";
                     break;
@@ -450,7 +500,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     initTemplatePath = "File\\Word\\PHTGL\\确定分包商审批表（用于经评审的最低投标报价法）.docx";
                     strSql = @"  SELECT     
                                             Sch1.Company as Company
-                                           ,Sch1.ReviewResults as ReviewResults "
+                                           ,Sch1.ReviewResults as ReviewResults 
+                                           ,Sch1.Remarks as Remarks "
                           + @" FROM PHTGL_SetSubReview_Sch1 AS Sch1 "
                           + @"where 1=1 AND SetSubReviewID = @SetSubReviewID ";
                     break;
@@ -479,7 +530,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
             Dic_File.Add("txtSetSubReviewCode", getFireWork.SetSubReviewCode);
             Dic_File.Add("txtBidDocumentsCode", BidDoc.BidDocumentsCode);
-            Dic_File.Add("txtProjectName", ProjectService.GetProjectNameByProjectId(BidDoc.ProjectId));
+            Dic_File.Add("txtProjectName", Act.ProjectShortName);
             Dic_File.Add("txtBidContent", BidDoc.BidContent);
             Dic_File.Add("txtBidding_StartTime", string.Format("{0:D}", BidDoc.Bidding_StartTime));
 

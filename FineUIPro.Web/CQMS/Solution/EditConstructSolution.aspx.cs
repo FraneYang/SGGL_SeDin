@@ -155,7 +155,7 @@ namespace FineUIPro.Web.CQMS.Solution
                     {
                         SetCheck(trSixe, xmUserIds);
                     }
-                    if (constructSolution.State == Const.CQMSConstructSolution_ReCompile)
+                    if (constructSolution.State == Const.CQMSConstructSolution_ReCompile || constructSolution.State == Const.CQMSConstructSolution_Compile)
                     {
                         agree.Hidden = true;
                         options.Hidden = true;
@@ -190,11 +190,15 @@ namespace FineUIPro.Web.CQMS.Solution
                         txtUnitWork.Enabled = true;
                         ContactImg = 0;
                         Panel2.Enabled = true;
-                        rblIsAgree.Hidden = true;
-                        rblIsAgree.Required = false;
-                        options.Hidden = true;
-                        txtOptions.Required = false;
-                        optio.Hidden = true;
+                        Model.Solution_CQMSConstructSolutionApprove approve = CQMSConstructSolutionApproveService.GetConstructSolutionApproveByApproveMan(ConstructSolutionId, CurrUser.UserId);
+                        if (approve == null)
+                        {
+                            rblIsAgree.Hidden = true;
+                            rblIsAgree.Required = false;
+                            options.Hidden = true;
+                            txtOptions.Required = false;
+                            optio.Hidden = true;
+                        }
                     }
                     //if (!string.IsNullOrEmpty(countersign.CVRole))
                     //{
@@ -584,7 +588,15 @@ namespace FineUIPro.Web.CQMS.Solution
                 approve1.Edition = Convert.ToInt32(txtEdition.Text);
                 CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve1);
             }
-
+            else
+            {
+                Model.Solution_CQMSConstructSolutionApprove approve1 = new Model.Solution_CQMSConstructSolutionApprove();
+                approve1.ConstructSolutionId = constructSolution.ConstructSolutionId;
+                approve1.ApproveMan = this.CurrUser.UserId;
+                approve1.ApproveType = Const.CQMSConstructSolution_Compile;
+                approve1.Edition = Convert.ToInt32(txtEdition.Text);
+                CQMSConstructSolutionApproveService.AddConstructSolutionApprove(approve1);
+            }
 
 
             LogService.AddSys_Log(CurrUser, constructSolution.Code, ConstructSolutionId, Const.CQMSConstructSolutionMenuId, "添加施工方案");

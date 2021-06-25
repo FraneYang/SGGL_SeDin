@@ -44,13 +44,13 @@
                                 <%-- <f:DropDownList ID="drpStates" runat="server" Label="状态" AutoPostBack="true" OnSelectedIndexChanged="btnSearch_Click"
                                     LabelWidth="70px" LabelAlign="Right" Width="170px">
                                 </f:DropDownList>--%>
-                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click">
+                                <f:Button ID="btnSearch" ToolTip="查询" Icon="SystemSearch" runat="server" OnClick="btnSearch_Click" Text="查询">
                                 </f:Button>
                                 <f:ToolbarFill runat="server"></f:ToolbarFill>
 
-                                <f:Button ID="Button1" ToolTip="重置" Icon="ArrowUndo" runat="server" OnClick="btnReset_Click">
+                                <f:Button ID="Button1" ToolTip="重置" Icon="ArrowUndo" runat="server" OnClick="btnReset_Click" Text="重置">
                                 </f:Button>
-                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp"
+                                <f:Button ID="btnOut" OnClick="btnOut_Click" runat="server" ToolTip="导出" Icon="FolderUp" Text="导出"
                                     EnableAjax="false" DisableControlBeforePostBack="false">
                                 </f:Button>
                             </Items>
@@ -63,10 +63,10 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
+                        <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ShortName" DataField="ShortName" Width="180px" FieldType="String" HeaderText="项目简称" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="180px" FieldType="String" HeaderText="项目简称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="180px" FieldType="String" HeaderText="项目代码" TextAlign="Center"
@@ -81,7 +81,7 @@
                         <f:RenderField ColumnID="SubConstruction" DataField="SubConstruction" Width="120px" FieldType="String" HeaderText="施工分包商" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Currency" DataField="Currency" Width="100px" FieldType="String" HeaderText="合同价格类型" TextAlign="Center"
+                        <f:RenderField ColumnID="SubcontractPriceForm" DataField="SubcontractPriceForm" Width="100px" FieldType="String" HeaderText="合同价格形式" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ContractAmount" DataField="ContractAmount" Width="120px" FieldType="String" HeaderText="合同价格（元）" TextAlign="Center"

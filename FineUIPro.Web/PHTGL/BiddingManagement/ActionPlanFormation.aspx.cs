@@ -45,8 +45,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             string strSql = @"SELECT  Act.ActionPlanID
                                   ,Act.ActionPlanCode
-                                  ,Pro.ProjectName as Name
-                                  ,Pro.ProjectCode
+                                  ,Act.ProjectShortName as Name
+                                  ,Act.EPCCode
                                   ,(CASE Act.State  
                                     WHEN  @ContractCreating     THEN '编制中'
                                     WHEN  @ContractCreat_Complete     THEN '编制完成'
@@ -206,9 +206,51 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             this.EditData();
         }
-
         /// <summary>
-        /// 右键编辑事件
+        /// 表格单击事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+            string id = Grid1.SelectedRowID;
+             var actReview = PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(id);
+            if (actReview!=null)
+            {
+                if (actReview.State == Const.ContractReview_Refuse)
+                {
+                    btnEditAgain.Hidden = false;
+
+                }
+                else
+                {
+                    btnEditAgain.Hidden = true;
+
+                }
+
+                if (actReview.State>= Const.ContractCreat_Complete)
+                {
+                    btnDelete.Hidden = true;
+                }
+                else
+                {
+                    var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ActionPlanFormation);
+                    if (buttonList.Count() > 0)
+                    {
+                        if (buttonList.Contains(Const.BtnDelete))
+                        {
+                            btnDelete.Hidden = false;
+                        }
+                    }
+
+                }
+               
+
+            }
+            
+        }
+        /// <summary>
+        /// 编辑事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -216,6 +258,11 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             this.EditData();
         }
+        /// <summary>
+        /// 重新编辑
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         protected void btnEditAgain_Click(object sender, EventArgs e)
         {
             if (Grid1.SelectedRowIndexArray.Length == 0)
@@ -224,6 +271,11 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 return;
             }
             string id = Grid1.SelectedRowID;
+            // var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(id);
+            //if (_ActionPlanReview!=null)
+            //{
+            //    PHTGL_ActionPlanReviewService.DeletePHTGL_ActionPlanReviewById(_ActionPlanReview.ActionPlanReviewId);
+            //}
             var model = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(id);
             model.State = Const.ContractCreating;
             PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model);
@@ -250,7 +302,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
         #region 删除
         /// <summary>
-        /// 右键删除事件
+        /// 删除事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -371,9 +423,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             var list = PHTGL_ActionPlanFormation_Sch1Service.GetListPHTGL_ActionPlanFormation_Sch1ById(Id);
            
             Document doc = new Aspose.Words.Document(newUrl);
-             Bookmark txtActionPlanCode=doc.Range.Bookmarks["ActionPlanCode"];
+            Bookmark txtActionPlanCode=doc.Range.Bookmarks["ActionPlanCode"];
+            Bookmark txtBidProject = doc.Range.Bookmarks["txtBidProject"];
+            Bookmark txtName = doc.Range.Bookmarks["txtName"];
             Bookmark txtCreateTime = doc.Range.Bookmarks["CreateTime"];
-
             Bookmark txtProjectName = doc.Range.Bookmarks["txtProjectName"];
             Bookmark txtUnit = doc.Range.Bookmarks["txtUnit"];
             Bookmark txtConstructionSite = doc.Range.Bookmarks["txtConstructionSite"];
@@ -396,141 +449,47 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             Bookmark txtBiddingMethods_Select = doc.Range.Bookmarks["txtBiddingMethods_Select"];
             Bookmark txtSchedulePlan = doc.Range.Bookmarks["txtSchedulePlan"];
             #region 附件表
-            Bookmark txtPlanningContent1 = doc.Range.Bookmarks["txtPlanningContent1"];
-            Bookmark txtPlanningContent2 = doc.Range.Bookmarks["txtPlanningContent2"];
-            Bookmark txtPlanningContent3 = doc.Range.Bookmarks["txtPlanningContent3"];
-            Bookmark txtPlanningContent4 = doc.Range.Bookmarks["txtPlanningContent4"];
-            Bookmark txtPlanningContent5 = doc.Range.Bookmarks["txtPlanningContent5"];
-            Bookmark txtPlanningContent6 = doc.Range.Bookmarks["txtPlanningContent6"];
-            Bookmark txtPlanningContent7 = doc.Range.Bookmarks["txtPlanningContent7"];
-            Bookmark txtPlanningContent8 = doc.Range.Bookmarks["txtPlanningContent8"];
-            Bookmark txtPlanningContent9 = doc.Range.Bookmarks["txtPlanningContent9"];
-            Bookmark txtPlanningContent10 = doc.Range.Bookmarks["txtPlanningContent10"];
-
-            Bookmark txtRemarks1 = doc.Range.Bookmarks["txtRemarks1"];
-            Bookmark txtRemarks2 = doc.Range.Bookmarks["txtRemarks2"];
-            Bookmark txtRemarks3 = doc.Range.Bookmarks["txtRemarks3"];
-            Bookmark txtRemarks4 = doc.Range.Bookmarks["txtRemarks4"];
-            Bookmark txtRemarks5 = doc.Range.Bookmarks["txtRemarks5"];
-            Bookmark txtRemarks6 = doc.Range.Bookmarks["txtRemarks6"];
-            Bookmark txtRemarks7 = doc.Range.Bookmarks["txtRemarks7"];
-            Bookmark txtRemarks8 = doc.Range.Bookmarks["txtRemarks8"];
-            Bookmark txtRemarks9 = doc.Range.Bookmarks["txtRemarks9"];
-            Bookmark txtRemarks10 = doc.Range.Bookmarks["txtRemarks10"];
-
-            foreach (var item in list)
+             Dictionary<string, object> Dic_File = new Dictionary<string, object>();
+            for (int i = 1; i < 14; i++)
             {
-                switch (item.PlanningContent)
+                string txtPlanningContent = "txtPlanningContent" + Convert.ToString(i);
+                string txtRemarks = "txtRemarks" + Convert.ToString(i);
+                string value_ActionPlan = "";
+                string value_Remarks = "";
+                 var model = list.Find(e => e.SortIndex == Convert.ToString(i));
+                if (model != null)
                 {
-                    case "分包方式":
-                        if (txtPlanningContent1!=null)
-                        {
-                            txtPlanningContent1.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks1 != null)
-                        {
-                            txtRemarks1.Text = item.Remarks;
-                        }
-                        break;
-                    case "标段划分":
-                        if (txtPlanningContent2 != null)
-                        {
-                            txtPlanningContent2.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks2 != null)
-                        {
-                            txtRemarks2.Text = item.Remarks;
-                        }
-                        break;
-                    case "承包方式":
-                        if (txtPlanningContent3 != null)
-                        {
-                            txtPlanningContent3.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks3 != null)
-                        {
-                            txtRemarks3.Text = item.Remarks;
-                        }
-                        break;
-                    case "计价方式":
-                        if (txtPlanningContent4 != null)
-                        {
-                            txtPlanningContent4.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks4 != null)
-                        {
-                            txtRemarks4.Text = item.Remarks;
-                        }
-                        break;
-                    case "设备材料划分":
-                        if (txtPlanningContent5 != null)
-                        {
-                            txtPlanningContent5.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks5 != null)
-                        {
-                            txtRemarks5.Text = item.Remarks;
-                        }
-                        break;
-                    case "短名单资质标准":
-                        if (txtPlanningContent6 != null)
-                        {
-                            txtPlanningContent6.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks6 != null)
-                        {
-                            txtRemarks6.Text = item.Remarks;
-                        }
-                        break;
-                    case "评标办法":
-                        if (txtPlanningContent7 != null)
-                        {
-                            txtPlanningContent7.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks7 != null)
-                        {
-                            txtRemarks7.Text = item.Remarks;
-                        }
-                        break;
-                    case "招标方式":
-                        if (txtPlanningContent8 != null)
-                        {
-                            txtPlanningContent8.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks8 != null)
-                        {
-                            txtRemarks8.Text = item.Remarks;
-                        }
-                        break;
-                    case "计划发标时间":
-                        if (txtPlanningContent9 != null)
-                        {
-                            txtPlanningContent9.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks9 != null)
-                        {
-                            txtRemarks9.Text = item.Remarks;
-                        }
-                        break;
-                    case "计划开标时间":
-                        if (txtPlanningContent10 != null)
-                        {
-                            txtPlanningContent10.Text = item.ActionPlan;
-                        }
-                        if (txtRemarks10 != null)
-                        {
-                            txtRemarks10.Text = item.Remarks;
-                        }
-                        break;
+                    value_ActionPlan = model.ActionPlan;
+                    value_Remarks = model.Remarks;
                 }
-            }
+                string[] key = { txtPlanningContent, txtRemarks };
+                object[] value = { value_ActionPlan, value_Remarks };
+                doc.MailMerge.Execute(key, value);
 
-            #endregion
+            }
+           
+             #endregion
             if (txtActionPlanCode != null)
             {
                 if (getFireWork != null)
                 {
                     txtActionPlanCode.Text = getFireWork.ActionPlanCode;
+                }
+            }
+            if (txtName!=null)
+            {
+                if (getFireWork != null)
+                {
+                    txtName.Text = getFireWork.ProjectShortName;
+                }
+
+            }
+            if (txtBidProject != null)
+            {
+                if (getFireWork != null)
+                {
+
+                    txtBidProject.Text = getFireWork.BidProject;
                 }
             }
             if (txtCreateTime != null)
@@ -541,18 +500,18 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     txtCreateTime.Text = string.Format("{0:D}", getFireWork.CreateTime);
                 }
             }
-            if (Act.State == Const.ContractReview_Complete)
+            if (Act!=null)
             {
-                //string Approval_Constructioni_Idea = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Act.ActionPlanReviewId, Act.Approval_Construction).ApproveIdea;
-                //string ConstructionManager_Idea = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Act.ActionPlanReviewId, Act.ConstructionManager).ApproveIdea;
-                //string DeputyGeneralManager_Idea = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Act.ActionPlanReviewId, Act.DeputyGeneralManager).ApproveIdea;
-                //string ProjectManager_Idea = PHTGL_ApproveService.GetPHTGL_ApproveByContractIdandUserId(Act.ActionPlanReviewId, Act.ProjectManager).ApproveIdea;
+                if (Act.State == Const.ContractReview_Complete)
+                {
 
-                AsposeWordHelper.InsertImg(doc, rootPath, "Approval_Construction", Act.Approval_Construction, "");
-                AsposeWordHelper.InsertImg(doc, rootPath, "ConstructionManager", Act.ConstructionManager, "");
-                AsposeWordHelper.InsertImg(doc, rootPath, "DeputyGeneralManager", Act.DeputyGeneralManager, "");
-                AsposeWordHelper.InsertImg(doc, rootPath, "ProjectManager", Act.ProjectManager, "");
+                    AsposeWordHelper.InsertImg(doc, rootPath, "Approval_Construction", Act.Approval_Construction, "");
+                    AsposeWordHelper.InsertImg(doc, rootPath, "ConstructionManager", Act.ConstructionManager, "");
+                    AsposeWordHelper.InsertImg(doc, rootPath, "DeputyGeneralManager", Act.DeputyGeneralManager, "");
+                    AsposeWordHelper.InsertImg(doc, rootPath, "ProjectManager", Act.ProjectManager, "");
+                }
             }
+            
 
             if (txtProjectName != null)
             {
@@ -737,6 +696,17 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 }
 
             }
+            if (!string .IsNullOrEmpty( getFireWork.AttachUrlContent))
+            {
+                var Path = newUrl.Replace(".docx", "编辑栏.docx"); //word文件保存路径
+                AsposeWordHelper.HtmlIntoWord(getFireWork.AttachUrlContent, Path);
+                Document doc2 = new Document(Path);
+
+                doc2.FirstSection.PageSetup.SectionStart = SectionStart.OddPage;
+
+                doc.AppendDocument(doc2, ImportFormatMode.UseDestinationStyles);
+                File.Delete(Path);
+            }
  
             doc.Save(newUrl);
             //生成PDF文件
@@ -745,7 +715,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             //验证参数
             if (doc1 == null) { throw new Exception("Word文件无效"); }
             doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-            string fileName = Path.GetFileName(filePath);
+            string fileName = Path.GetFileName(filePath).Replace("施工招标实施计划审批表", getFireWork.ActionPlanCode+ "施工分包实施计划");
             FileInfo info = new FileInfo(pdfUrl);
             long fileSize = info.Length;
             System.Web.HttpContext.Current.Response.Clear();

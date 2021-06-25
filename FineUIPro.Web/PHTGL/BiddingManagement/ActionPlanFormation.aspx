@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="ActionPlanID" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ActionPlanID" AllowSorting="true" SortField="CreateTime" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -43,13 +43,13 @@
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar1" runat="server" ToolbarAlign="Right">
                             <Items>
-                                 <f:Button ID="MenuButton3" EnablePostBack="true" runat="server"
+                                 <f:Button ID="MenuButton3" EnablePostBack="true" runat="server" Hidden="true"
                                     Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
                                 </f:Button>
-                                 <f:Button ID="btnEditAgain" EnablePostBack="true" runat="server"   Text="重新编辑" Icon="Pencil"
+                                 <f:Button ID="btnEditAgain" EnablePostBack="true" runat="server" Hidden="true"   Text="重新编辑" Icon="Pencil" ConfirmText="是否重新编辑"
                                     OnClick="btnEditAgain_Click">
                                 </f:Button>
-                                <f:Button ID="btnEdit" EnablePostBack="true" runat="server"   Text="编辑" Icon="Pencil"
+                                <f:Button ID="btnEdit" EnablePostBack="true" runat="server"    Text="编辑" Icon="Pencil"
                                     OnClick="btnMenuEdit_Click">
                                 </f:Button>
                             </Items>
@@ -62,33 +62,33 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
+                        <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="220px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Name" DataField="Name" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="Name" DataField="Name" Width="200px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+                        <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="200px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="BidProject" DataField="BidProject" Width="120px" FieldType="String" HeaderText="招标工程" TextAlign="Center"
+                        <f:RenderField ColumnID="BidProject" DataField="BidProject" Width="200px" FieldType="String" HeaderText="招标工程" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="BidType" DataField="BidType" Width="180px" FieldType="String" HeaderText="招标方式" TextAlign="Center"
+                        <f:RenderField ColumnID="BidType" DataField="BidType" Width="120px" FieldType="String" HeaderText="招标方式" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="PriceType" DataField="PriceType" Width="180px" FieldType="String" HeaderText="计价方式" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="CreatUser" DataField="CreatUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
+                        <f:RenderField ColumnID="CreatUser" DataField="CreatUser" Width="150px" FieldType="String" HeaderText="创建人" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField Width="120px" ColumnID="CreateTime" DataField="CreateTime" FieldType="Date"
+                      <%--  <f:RenderField Width="120px" ColumnID="CreateTime" DataField="CreateTime" FieldType="Date"
                             Renderer="Date" RendererArgument="yyyy-MM-dd" HeaderText="创建日期">
-                        </f:RenderField>
+                        </f:RenderField>--%>
                         <f:LinkButtonField HeaderText="查看" ColumnID="LooK" Width="60px" Icon="Zoom" CommandName="LooK" />
 
 <%--                        <f:LinkButtonField ColumnID="export" HeaderText="导出" Width="60px" Icon="ArrowUp" CommandName="export" />--%>

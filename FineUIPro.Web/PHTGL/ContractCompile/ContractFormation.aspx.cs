@@ -60,7 +60,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         /// </summary>
         private void BindGrid()
         {
-            string strSql = @"SELECT Con.ContractId, 
+            string strSql = @"SELECT  Con.ContractId, 
                                     Con.ProjectId, 
                                     Con.ContractName, 
                                     Con.ContractNum, 
@@ -82,11 +82,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                       WHEN  @ContractReview_Complete  THEN '审批成功' 
                                       WHEN  @ContractReview_Refuse    THEN '审批被拒'END) AS ApproveState,
                                     Con.Remarks,
-                                    Pro.ProjectCode,
+                                    Con.EPCCode,
+                                    Act.ProjectShortName,
+                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @"  FROM PHTGL_Contract AS Con"
+                            + @"  left join (select * from PHTGL_ActionPlanFormation as a where  not  exists(select 1 from PHTGL_ActionPlanFormation where a.EPCCode = EPCCode and a.CreateTime< CreateTime )) as Act on Act.EPCCode=Con.EPCCode"
                             + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
                             + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
                             + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
@@ -319,6 +322,47 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
         }
-        #endregion        
+        protected void Grid1_RowClick(object sender, GridRowClickEventArgs e)
+        {
+            string id = Grid1.SelectedRowID;
+            var actReview = ContractService.GetContractById(id);
+            if (actReview == null)
+            {
+                return;
+            }
+            if (actReview.ApproveState >= Const.ContractCreat_Complete)
+            {
+                btnMenuDelete.Hidden = true;
+            }
+            else
+            {
+                var buttonList = CommonService.GetAllButtonList(CurrUser.LoginProjectId, CurrUser.UserId, Const.ActionPlanFormation);
+                if (buttonList.Count() > 0)
+                {
+                    if (buttonList.Contains(Const.BtnDelete))
+                    {
+                        btnMenuDelete.Hidden = false;
+                    }
+                }
+
+            }
+
+
+        }
+        #endregion
+
+        protected void btnPrinterWord_Click(object sender, EventArgs e)
+        {
+            if (Grid1.SelectedRowIndexArray.Length == 0)
+            {
+                Alert.ShowInTop("请至少选择一条记录！", MessageBoxIcon.Warning);
+                return;
+            }
+            string Id = Grid1.SelectedRowID;
+             ContractReview contractReview = new ContractReview();
+            contractReview.printContractAgreement(Id);
+             btnPrinterWord.Enabled = true;
+            
+        }
     }
 }

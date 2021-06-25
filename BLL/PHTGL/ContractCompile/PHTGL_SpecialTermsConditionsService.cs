@@ -148,6 +148,7 @@ namespace BLL
             newSpecialTermsConditions.CertificateInsurance = SpecialTermsConditions.CertificateInsurance;
             newSpecialTermsConditions.ArbitrationCommission = SpecialTermsConditions.ArbitrationCommission;
             newSpecialTermsConditions.PeopleCourt = SpecialTermsConditions.PeopleCourt;
+            newSpecialTermsConditions.BadWeatherInclude = SpecialTermsConditions.BadWeatherInclude;
             Funs.DB.PHTGL_SpecialTermsConditions.InsertOnSubmit(newSpecialTermsConditions);
             Funs.DB.SubmitChanges();
         }
@@ -274,6 +275,8 @@ namespace BLL
                 newSpecialTermsConditions.CertificateInsurance = SpecialTermsConditions.CertificateInsurance;
                 newSpecialTermsConditions.ArbitrationCommission = SpecialTermsConditions.ArbitrationCommission;
                 newSpecialTermsConditions.PeopleCourt = SpecialTermsConditions.PeopleCourt;
+                newSpecialTermsConditions.BadWeatherInclude = SpecialTermsConditions.BadWeatherInclude;
+
                 try
                 {
                     Funs.DB.SubmitChanges();

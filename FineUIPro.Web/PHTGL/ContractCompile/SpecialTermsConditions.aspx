@@ -23,9 +23,9 @@
             border-right-width: 0px;
             border-bottom-width: 1px;
         }
-         .lab {
-            font-weight: bolder;
 
+        .lab {
+            font-weight: bolder;
             background-color: aliceblue;
         }
     </style>
@@ -54,7 +54,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:Label runat="server" ID="Labe00" Text="11&nbsp;一般约定" CssClass="lab"></f:Label>
+                        <f:Label runat="server" ID="Labe00" Text="1&nbsp;一般约定" CssClass="lab"></f:Label>
 
                     </Items>
                 </f:FormRow>
@@ -644,7 +644,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox runat="server" Label="异常恶劣的气候条件包括" LabelWidth="300" ID="TextBox96" AutoPostBack="true" OnTextChanged="TextBoxChanged"
+                        <f:TextBox runat="server" Label="异常恶劣的气候条件包括" LabelWidth="300" ID="BadWeatherInclude" AutoPostBack="true" OnTextChanged="TextBoxChanged"
                             Width="120px" LabelAlign="right">
                         </f:TextBox>
                     </Items>
@@ -947,7 +947,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox runat="server" Label="14.3.3进度款审核与支付（此部分是填空，但需要固定化）" LabelWidth="300" ID="TextBox146" AutoPostBack="true" OnTextChanged="TextBoxChanged"
+                        <f:TextBox runat="server" Label="14.3.3进度款审核与支付" LabelWidth="300" ID="TextBox146" AutoPostBack="true" OnTextChanged="TextBoxChanged"
                             Width="120px" LabelAlign="left">
                         </f:TextBox>
                     </Items>
@@ -967,7 +967,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox runat="server" Label="16.1试车的组织和配合（此部分是填空，但需要固定化）" LabelWidth="300" ID="TextBox150" AutoPostBack="true" OnTextChanged="TextBoxChanged"
+                        <f:TextBox runat="server" Label="16.1试车的组织和配合" LabelWidth="300" ID="TextBox150" AutoPostBack="true" OnTextChanged="TextBoxChanged"
                             Width="120px" LabelAlign="left">
                         </f:TextBox>
                     </Items>
@@ -1230,9 +1230,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox runat="server" Label="22.5因不可抗力解除合同" LabelWidth="300" ID="GeneralContractorShallPay" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                            Width="120px" LabelAlign="left">
-                        </f:TextBox>
+                        <f:Label runat="server" ID="Label1" Text="22.5因不可抗力解除合同" Width="120px" LabelAlign="left"></f:Label>
                     </Items>
                 </f:FormRow>
                 <f:FormRow>
@@ -1265,7 +1263,7 @@
                 <f:FormRow>
                     <Items>
                         <f:TextBox runat="server" Label="（3）施工机具保险的保险金额" LabelWidth="300" ID="InsuredAmount" AutoPostBack="true" OnTextChanged="TextBoxChanged"
-                            Width="120px" LabelAlign="right">
+                            Width="120px" LabelAlign="right" InputType="number">
                         </f:TextBox>
                     </Items>
                 </f:FormRow>
@@ -1315,7 +1313,7 @@
 
                 <f:FormRow>
                     <Items>
-                        <f:Grid ID="Grid1" ShowBorder="true" EnableAjax="false" ShowHeader="true" Title="专用合同条款附件" EnableCollapse="true"
+                        <f:Grid ID="Grid1" ShowBorder="true" ShowHeader="true" Title="专用合同条款附件" EnableCollapse="true"
                             runat="server" BoxFlex="1" DataKeyNames="AttachUrlId" AllowCellEditing="true"
                             ClicksToEdit="2" DataIDField="AttachUrlId" EnableColumnLines="true"
                             EnableTextSelection="True" OnPreRowDataBound="Grid1_PreRowDataBound" OnRowCommand="Grid1_RowCommand">
@@ -1342,7 +1340,7 @@
                 </f:FormRow>
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar2" Position="Bottom" ToolbarAlign="Right" runat="server">
                     <Items>
 
                         <f:Button ID="btnSave" ToolTip="保存" Icon="SystemSave" runat="server"
@@ -1354,7 +1352,7 @@
                 </f:Toolbar>
             </Toolbars>
         </f:Form>
-        <f:Window ID="Window1" Title="编辑附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+          <f:Window ID="Window1" Title="编辑附件" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="1000px" Height="620px">
         </f:Window>

@@ -13,7 +13,7 @@ namespace BLL
     public static class AttachUrl4Service
     {
         /// <summary>
-        /// 根据Id获取附件1内容
+        /// 根据Id获取附件4内容
         /// </summary>
         /// <param name="attachUrlItemId"></param>
         /// <returns></returns>
@@ -32,7 +32,7 @@ namespace BLL
             return q;
         }
         /// <summary>
-        /// 增加附件1
+        /// 增加附件4
         /// </summary>
         /// <param name="url4"></param>
         public static void AddAttachurl4(Model.PHTGL_AttachUrl4 url4)
@@ -45,12 +45,13 @@ namespace BLL
             newUrl.Duty_Gen = url4.Duty_Gen;
             newUrl.Duty_Sub = url4.Duty_Sub;
             newUrl.Remarks = url4.Remarks;
+            newUrl.AttachUrlContent = url4.AttachUrlContent;
             Funs.DB.PHTGL_AttachUrl4.InsertOnSubmit(newUrl);
             Funs.DB.SubmitChanges();
         }
 
         /// <summary>
-        /// 修改合同协议书
+        ///  
         /// </summary>
         /// <param name="sub"></param>
         public static void UpdateAttachurl4(Model.PHTGL_AttachUrl4 url4)
@@ -65,6 +66,8 @@ namespace BLL
                 newUrl.Duty_Gen = url4.Duty_Gen;
                 newUrl.Duty_Sub = url4.Duty_Sub;
                 newUrl.Remarks = url4.Remarks;
+                newUrl.AttachUrlContent = url4.AttachUrlContent;
+
                 try
                 {
                     Funs.DB.SubmitChanges();

@@ -154,7 +154,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtStartDate;
+        protected global::FineUIPro.TextBox txtStartDate;
         
         /// <summary>
         /// txtEndDate 控件。
@@ -163,7 +163,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DatePicker txtEndDate;
+        protected global::FineUIPro.TextBox txtEndDate;
         
         /// <summary>
         /// Label30 控件。
@@ -181,7 +181,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.NumberBox txtPersonSum;
+        protected global::FineUIPro.TextBox txtPersonSum;
         
         /// <summary>
         /// Label31 控件。

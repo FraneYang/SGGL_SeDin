@@ -8,10 +8,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 {
     public partial class AttachUrl15 : PageBase
     {
-        private bool AppendToEnd = false;
-
-        private bool AppendToEnd2 = false;
-
+ 
+ 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -34,8 +32,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     defaultObj.Add("MainPoints", "");
  
 
-                    // 在第一行新增一条数据
-                    btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, AppendToEnd);
+                    // 在末尾新增一条数据
+                    btnNew.OnClientClick = Grid1.GetAddNewRecordReference(defaultObj, true);
                     // 删除选中行按钮
                     btnDelete.OnClientClick = Grid1.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript;
                     #endregion
@@ -57,8 +55,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     defaultObj2.Add("GeneralContractorName", "");
                     defaultObj2.Add("Remarks", "");
 
-                    // 在第一行新增一条数据
-                    btnAdd.OnClientClick = Grid3.GetAddNewRecordReference(defaultObj2, AppendToEnd2);
+                    // 在末尾新增一条数据
+                    btnAdd.OnClientClick = Grid3.GetAddNewRecordReference(defaultObj2, true);
                     // 删除选中行按钮
                     btnDel.OnClientClick = Grid3.GetNoSelectionAlertReference("请选择一条记录!") + deleteScript2;
                     #endregion
@@ -311,7 +309,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 #endregion
             }
             ShowNotify("保存成功！", MessageBoxIcon.Success);
-            PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
+            PageContext.RegisterStartupScript(ActiveWindow.GetHideReference());
         }
     }
 }

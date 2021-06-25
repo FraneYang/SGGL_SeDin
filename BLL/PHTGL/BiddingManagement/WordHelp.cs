@@ -170,7 +170,7 @@ namespace BLL
                                 if (File.Exists(url))
                                 {
                                     bookmarkCreateMan.Text = Idea;
-                                    builders.InsertImage(url, JpgSize.Width / i, JpgSize.Height / i);
+                                    builders.InsertImage(url, JpgSize.Width *1.5/ i, JpgSize.Height * 1.5 / i);
                                 }
                                 else
                                 {
@@ -186,6 +186,26 @@ namespace BLL
                     }
                 }
             }
+        }
+
+        /// <summary>
+        /// html代码转word
+        /// </summary>
+        /// <param name="Html">html代码</param>
+        /// <param name="path">保存路径</param>
+        public static void HtmlIntoWord(string Html,string path)
+        {
+
+            StringBuilder sb = new StringBuilder();
+            sb.Append(
+                "<html xmlns:v=\"urn:schemas-microsoft-com:vml\"  xmlns:o=\"urn:schemas-microsoft-com:office:office\" xmlns:w=\"urn:schemas-microsoft-com:office:word\" xmlns:m=\"http://schemas.microsoft.com/office/2004/12/omml\"xmlns = \"http://www.w3.org/TR/REC-html40\">");
+            sb.Append(Html);
+            sb.Append("</html>");
+            var html = sb.ToString();//读取html内容
+             StreamWriter sw = new StreamWriter(path, false, Encoding.GetEncoding("utf-8"));
+            sw.WriteLine(html);
+            sw.Flush();
+            sw.Close();
         }
 
     }

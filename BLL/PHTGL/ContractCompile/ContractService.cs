@@ -91,6 +91,10 @@ namespace BLL
             newContract.CreatUser = contract.CreatUser;
             newContract.IsPassBid = contract.IsPassBid;
             newContract.PassBidCode = contract.PassBidCode;
+            newContract.BuildUnit = contract.BuildUnit;
+            newContract.EPCCode = contract.EPCCode;
+            newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
+            newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
             Funs.DB.PHTGL_Contract.InsertOnSubmit(newContract);
             Funs.DB.SubmitChanges();
         }
@@ -120,6 +124,10 @@ namespace BLL
                 newContract.CreatUser = contract.CreatUser;
                 newContract.IsPassBid = contract.IsPassBid;
                 newContract.PassBidCode = contract.PassBidCode;
+                newContract.BuildUnit = contract.BuildUnit;
+                newContract.EPCCode = contract.EPCCode;
+                newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
+                newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
                 Funs.DB.SubmitChanges();
             }
         }

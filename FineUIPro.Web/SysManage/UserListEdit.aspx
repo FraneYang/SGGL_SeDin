@@ -48,7 +48,7 @@
                         </f:DropDownList>
                     </Items>
                 </f:FormRow>                
-                <f:FormRow>
+                <f:FormRow ColumnWidths="33% 33% 24% 10%">
                     <Items>
                           <f:DropDownList ID="drpIsPost" runat="server" Label="在岗" EnableEdit="true" ForceSelection="false"
                             Required="true" ShowRedStar="true" LabelWidth="90px">
@@ -59,6 +59,7 @@
                             <f:FileUpload runat="server" ID="fileSignature" EmptyText="请选择"
                                 OnFileSelected="btnSignature_Click" AutoPostBack="true" Width="150px" LabelWidth="90px">
                             </f:FileUpload>
+                            <f:Button runat="server" ID="btnRet" Icon="Delete" OnClick="btnRet_Click"></f:Button>
                     </Items>
                 </f:FormRow>                
             </Rows>

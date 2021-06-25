@@ -31,13 +31,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.PageManager PageManager1;
         
         /// <summary>
-        /// SimpleForm1 控件。
+        /// Panel4 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Form SimpleForm1;
+        protected global::FineUIPro.Panel Panel4;
+        
+        /// <summary>
+        /// Form2 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Form Form2;
         
         /// <summary>
         /// Label1 控件。
@@ -55,7 +64,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.TextArea txtAttachUrlContent;
+        protected global::FineUIPro.HtmlEditor txtAttachUrlContent;
         
         /// <summary>
         /// Toolbar1 控件。
@@ -65,6 +74,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar1;
+        
+        /// <summary>
+        /// hdAttachUrlItemId 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.HiddenField hdAttachUrlItemId;
         
         /// <summary>
         /// btnSave 控件。

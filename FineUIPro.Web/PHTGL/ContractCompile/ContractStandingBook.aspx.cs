@@ -63,17 +63,22 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             string strSql = @" select 
                                     con.ContractId,
-                                    Pro.ProjectCode,
+                                    Act.ProjectCode,
                                     Pro.ShortName,
                                     Con.ContractName,
                                     Con.ContractNum,
                                     Sub.SubConstruction,
                                     Con.Currency,
                                     Con.ContractAmount,
+                                    Con.EPCCode,
+                                    Act.ProjectShortName,
+                                   (convert(varchar(20),Sub.SignedYear) +'年'+convert(varchar(20),Sub.SignedMonth)+'月') as DepartName,
                                     Sub.Bank1,
+                                    Sub.SubcontractPriceForm,
                                     Sub.Account1"
                             + @"  from PHTGL_Contract as Con "
                             + @"  left join PHTGL_SubcontractAgreement as Sub on Sub.ContractId=Con.ContractId "
+                            + @"  left join PHTGL_ActionPlanFormation as Act on Act.EPCCode=Con.EPCCode"
                             + @"  left join Base_Project as Pro on con.ProjectId=Pro.ProjectId "
                             + @"  WHERE 1=1   and  Con.ApproveState=@ContractReview_Complete";
             List<SqlParameter> listStr = new List<SqlParameter>();

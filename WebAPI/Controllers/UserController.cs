@@ -260,6 +260,53 @@ namespace WebAPI.Controllers
         }
         #endregion
 
+        #region 更新密码
+        /// <summary>
+        /// 更新密码
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <param name="pwd">密码</param>
+        /// <param name="oldpwd">密码</param>
+        /// <returns></returns>
+        public Model.ResponeData getUpdatePassword(string userId, string pwd, string oldpwd)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+                {
+                    if (!string.IsNullOrEmpty(oldpwd))
+                    {
+                        string oldp = Funs.EncryptionPassword(oldpwd);
+                        var getU = db.Sys_User.FirstOrDefault(x => x.UserId == userId && x.Password == oldp);
+                        if (getU != null)
+                        {
+                            getU.Password = Funs.EncryptionPassword(pwd);
+                            db.SubmitChanges();
+                        }
+                        else
+                        {
+                            responeData.code = 2;
+                            responeData.message = "输入的原密码不正确，无法修改密码！";
+                        }
+                    }
+                    else
+                    {
+                        responeData.code = 2;
+                        responeData.message = "密码不能为空！";
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
+
         #region 根据用户UnitId判断是否为本单位用户或管理员
         /// <summary>
         /// 根据用户UnitId判断是否为本单位用户或管理员

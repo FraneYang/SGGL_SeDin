@@ -53,13 +53,13 @@
                         <f:RowNumberField EnablePagingNumber="true" HeaderText="序号" Width="45px" HeaderTextAlign="Center"
                             TextAlign="Center" />
                         <f:RenderField Width="90px" ColumnID="UserCode" DataField="UserCode" SortField="UserCode"
-                            FieldType="String" HeaderText="编号" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="工号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="100px" ColumnID="UserName" DataField="UserName" SortField="UserName"
                             FieldType="String" HeaderText="姓名" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
-                            FieldType="String" HeaderText="工号/账号" HeaderTextAlign="Center" TextAlign="Left">
+                            FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>
                          <f:RenderField Width="120px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
                             FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left">

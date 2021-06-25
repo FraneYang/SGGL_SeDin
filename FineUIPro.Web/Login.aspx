@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="bi-single bi-label list-item-text bi-text"
                                                 style="height: 16px; line-height: 16px; text-align: left; white-space: nowrap; text-overflow: ellipsis; position: relative; flex-shrink: 0;">
-                                                一周内自动登录
+                                                一周内自动登录(账号默认工号初始密码123)
                                             </div>
                                         </div>
                                     </div>

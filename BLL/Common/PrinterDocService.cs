@@ -749,8 +749,8 @@
                 if (getMonthReport4Other != null)
                 {
                     count1 = getMonthReport4Other.FormalNum ?? 0;
-                    count2 = getMonthReport4Other.ForeignNum ?? 0;
-                    count3 = getMonthReport4Other.OutsideNum ?? 0;
+                    count2 = getMonthReport4Other.OutsideNum ?? 0;
+                    count3 = getMonthReport4Other.ForeignNum ?? 0;
                     count4 = getMonthReport4Other.ManagerNum ?? 0;
                     count5 = getMonthReport4Other.TotalNum ?? 0;
                 }

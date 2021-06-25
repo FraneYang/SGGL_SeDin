@@ -935,6 +935,7 @@
     <Content Include="PHTGL\ContractCompile\AttachUrl18.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl19.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl2.aspx" />
+    <Content Include="PHTGL\ContractCompile\AttachUrl20.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl3.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl4.aspx" />
     <Content Include="PHTGL\ContractCompile\AttachUrl5.aspx" />
@@ -10009,6 +10010,13 @@
     </Compile>
     <Compile Include="PHTGL\ContractCompile\AttachUrl2.aspx.designer.cs">
       <DependentUpon>AttachUrl2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl20.aspx.cs">
+      <DependentUpon>AttachUrl20.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PHTGL\ContractCompile\AttachUrl20.aspx.designer.cs">
+      <DependentUpon>AttachUrl20.aspx</DependentUpon>
     </Compile>
     <Compile Include="PHTGL\ContractCompile\AttachUrl3.aspx.cs">
       <DependentUpon>AttachUrl3.aspx</DependentUpon>

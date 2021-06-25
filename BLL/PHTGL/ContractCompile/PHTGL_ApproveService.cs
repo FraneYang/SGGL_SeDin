@@ -9,21 +9,36 @@ namespace BLL
 
     public static class PHTGL_ApproveService
     {
-
+        public const string ActionPlanReview= "ActionPlanReview";
+        public const string ApproveUserReview = "ApproveUserReview";
+        public const string BidDocumentsReview = "BidDocumentsReview";
+        public const string SetSubReview = "SetSubReview";
+        public const string ContractReview = "ContractReview";
  
-
         public static Model.PHTGL_Approve GetPHTGL_ApproveById(string ApproveId)
-
         {
               
             return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ApproveId == ApproveId);
         }
 
 
-        public static Model.PHTGL_Approve GetPHTGL_ApproveByContractId(string contractId)
-
+        public static List<Model.PHTGL_Approve> GetPHTGL_ApproveByContractId(string contractId)
         {
-            return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId);
+            var q = (from x in Funs.DB.PHTGL_Approve where x.ContractId == contractId && x.State==0  select x).ToList();
+
+            return q ;
+        }
+        /// <summary>
+        ///获取当前人员的所有审批信息
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <param name="approveMan"></param>
+        /// <returns></returns>
+        public static List<Model.PHTGL_Approve> GetListPHTGL_ApproveByUserId(string contractId, string approveMan)
+        {
+            var q = (from x in Funs.DB.PHTGL_Approve where x.ContractId == contractId && x.ApproveMan == approveMan select x).ToList();
+
+            return q;
         }
         public static Model.PHTGL_Approve GetPHTGL_ApproveByContractIdandUserId(string contractId,string  UserID)
 
@@ -37,14 +52,36 @@ namespace BLL
             return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId&&e.ApproveType==approveType);
         }
 
+        /// <summary>
+        /// 获取当前人员正在审批的信息
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <param name="approveMan"></param>
+        /// <returns></returns>
         public static Model.PHTGL_Approve GetPHTGL_ApproveByUserId(string contractId,string approveMan)
-
         {
-            return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId &&e.ApproveMan== approveMan);
+            return Funs.DB.PHTGL_Approve.FirstOrDefault(e => e.ContractId == contractId &&e.ApproveMan== approveMan&&e.State==0);
+        }
+
+        /// <summary>
+        /// 判断当前人员是否是审批相关人员
+        /// </summary>
+        /// <param name="contractId"></param>
+        /// <param name="approveMan"></param>
+        /// <returns></returns>
+        public static bool IsApproveMan(string contractId, string approveMan)
+        {
+            bool IsExit = false;
+            var q = (from x in Funs.DB.PHTGL_Approve where x.ContractId == contractId && x.ApproveMan==approveMan select x).ToList();
+            if (q!=null)
+            {
+                IsExit = true;
+            }
+            return IsExit;
         }
 
         public static void AddPHTGL_Approve(Model.PHTGL_Approve newtable)
-        {
+        {  
             Model.PHTGL_Approve table = new Model.PHTGL_Approve();
             table.ApproveId = newtable.ApproveId;
             table.ContractId = newtable.ContractId;
@@ -55,6 +92,7 @@ namespace BLL
             table.ApproveIdea = newtable.ApproveIdea;
             table.ApproveType = newtable.ApproveType;
             table.ApproveForm = newtable.ApproveForm;
+            table.IsPushOa = newtable.IsPushOa;
             Funs.DB.PHTGL_Approve.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -75,6 +113,7 @@ namespace BLL
                 table.ApproveIdea = newtable.ApproveIdea;
                 table.ApproveType = newtable.ApproveType;
                 table.ApproveForm = newtable.ApproveForm;
+                table.IsPushOa = newtable.IsPushOa;
                 Funs.DB.SubmitChanges();
             }
 
@@ -93,5 +132,31 @@ namespace BLL
                 Funs.DB.SubmitChanges();
             }
         }
+
+
+        public static List<Model.PHTGL_Approve> GetApproves_NopushOa()
+        {
+            var q = (from x in Funs.DB.PHTGL_Approve where x.IsPushOa == 0 &&x.ApproveMan!="" select x).ToList();
+            return q;
+        }
+    }
+    public class ApproveManModel
+    {
+        public int Number
+        {
+            get;
+            set;
+        }
+        public string userid
+        {
+            get;
+            set;
+        }
+        public string Rolename
+        {
+            get;
+            set;
+        }
+
     }
 }

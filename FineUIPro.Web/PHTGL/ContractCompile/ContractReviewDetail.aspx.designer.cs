@@ -265,13 +265,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea txtnode9;
         
         /// <summary>
-        /// Toolbar1 控件。
+        /// txtnode10 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar1;
+        protected global::FineUIPro.TextArea txtnode10;
         
         /// <summary>
         /// Tab2 控件。
@@ -292,13 +292,31 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Toolbar Toolbar3;
         
         /// <summary>
-        /// btnSave 控件。
+        /// btnAgree 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnSave;
+        protected global::FineUIPro.Button btnAgree;
+        
+        /// <summary>
+        /// btnDisgree 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDisgree;
+        
+        /// <summary>
+        /// btnClose 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnClose;
         
         /// <summary>
         /// Form3 控件。
@@ -400,33 +418,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextBox Tab2_txtAgent;
         
         /// <summary>
-        /// Panel7 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Panel Panel7;
-        
-        /// <summary>
-        /// txtApproveType 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtApproveType;
-        
-        /// <summary>
-        /// CBIsAgree 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBoxList CBIsAgree;
-        
-        /// <summary>
         /// LooK 控件。
         /// </summary>
         /// <remarks>
@@ -434,6 +425,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Button LooK;
+        
+        /// <summary>
+        /// Panel7 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Panel Panel7;
         
         /// <summary>
         /// txtApproveIdea 控件。
@@ -616,15 +616,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea TextArea2;
         
         /// <summary>
-        /// txtnode10 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextArea txtnode10;
-        
-        /// <summary>
         /// txtnode11 控件。
         /// </summary>
         /// <remarks>
@@ -679,6 +670,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.TextArea txtnode16;
         
         /// <summary>
+        /// txtnode17 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtnode17;
+        
+        /// <summary>
         /// Toolbar2 控件。
         /// </summary>
         /// <remarks>
@@ -697,15 +697,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Toolbar Toolbar4;
         
         /// <summary>
-        /// btnClose 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnClose;
-        
-        /// <summary>
         /// Window1 控件。
         /// </summary>
         /// <remarks>
@@ -713,5 +704,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Window Window1;
+        
+        /// <summary>
+        /// WindowAtt 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Window WindowAtt;
     }
 }

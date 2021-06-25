@@ -46,11 +46,10 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                         <f:LinkButtonField HeaderText="附件" ColumnID="download" Width="60px" Icon="ArrowDown" CommandName="download" />
-                         <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
+                         <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="180px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="180px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
  
@@ -78,9 +77,8 @@
                         <f:RenderField ColumnID="ContractType" DataField="ContractType" Width="150px" FieldType="String" HeaderText="合同类型" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Remarks" DataField="Remarks" Width="220px" FieldType="String" HeaderText="合同摘要" TextAlign="Center"
-                            HeaderTextAlign="Center">
-                        </f:RenderField>
+                      <f:LinkButtonField HeaderText="附件" ColumnID="download" Width="60px" Icon="ArrowDown" CommandName="download" />
+
                     </Columns>
                   
                     <PageItems>
@@ -103,6 +101,10 @@
        <f:Window ID="Windowtt" Title="文件柜" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true"
             Width="700px" Height="500px">
+        </f:Window>
+         <f:Window ID="WindowAtt" Title="文件柜" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
+            Height="500px">
         </f:Window>
      </form>
     <script type="text/javascript">

@@ -39,29 +39,69 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ViewState["Dic_ApproveMan"] = value;
             }
         }
+        public List<ApproveManModel> ApproveManModels
+        {
+            get
+            {
+                return (List<ApproveManModel>)Session["ApproveManModels"];
+            }
+            set
+            {
+                Session["ApproveManModels"] = value;
+            }
+        }
         #endregion
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
             {
                 BidDocumentsReviewId = Request.Params["BidDocumentsReviewId"];
+                if (string.IsNullOrEmpty(BidDocumentsReviewId))
+                {
+                    ContentPanel2.Hidden = true;
+                    btnSubmit.Hidden = true;
+
+                }
+                else
+                {
+                    ContentPanel1.Hidden = true;
+
+                }
+
+    
                 this.btnClose.OnClientClick = ActiveWindow.GetHideReference();
                 //总承包合同编号
                 // BLL.ProjectService.InitAllProjectCodeDropDownList(this.DropProjectId, true);
                 //招标方式
-                BLL.PHTGL_BidDocumentsReviewService.InitGetBidTypeDropDownList(this.txtBidType, true);
+                BLL.PHTGL_BidDocumentsReviewService.InitGetBidTypeDropDownList(this.txtBidType, false);
 
-                UserService.InitUserUnitIdDropDownList(DropConstructionManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(DropControlManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, true);
+                UserService.InitUserUnitIdDropDownList(DropConstructionManager, Const.UnitId_SEDIN, false);
+                UserService.InitUserUnitIdDropDownList(DropControlManager, Const.UnitId_SEDIN, false);
+                UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, false);
+                UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, false);
 
                 //   this.DropProjectId.SelectedValue = this.CurrUser.LoginProjectId;
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(Approval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, true);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(Approval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
                 Bind();
                 BindGrid();
                 DropDownBox1_TextChanged(null, null);
 
+
+                if (Request.Params["State"] == "Again")
+                {
+                    this.btnSave.Hidden = false;
+                    this.btnSubmit.Hidden = false;
+                     ContentPanel1.Hidden = false;
+
+                }
+                else if (Request.Params["State"] == "Edit")
+                {
+                     this.btnSave.Hidden = false;
+                     btnSubmit.Hidden = true;
+                     ContentPanel1.Hidden = false;
+                     ContentPanel2.Hidden = true;
+                   
+                }
                 var newmodel = BLL.PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
                 if (newmodel != null)
                 {
@@ -112,9 +152,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             string strSql = @"SELECT Acp.ActionPlanReviewId
                                   ,Act.ActionPlanID
                                   ,Act.ActionPlanCode
-                                  ,Pro.ProjectName as Name
-                                  ,Pro.ProjectCode
+                                   ,Pro.ProjectCode
                                   ,U.UserName as CreatUser
+                                  ,Act.ProjectShortName as Name
+                                  ,Act.EPCCode
                                   ,Act.CreateTime
                                   ,Act.ProjectID
                                   ,Act.ProjectName
@@ -151,28 +192,23 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             if (this.drpProjectId.Value != null)
             {
                 var Acp = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewById(drpProjectId.Value);
+                var _ActionPlanFormation = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Acp.ActionPlanID);
 
                 Model.PHTGL_ActionPlanFormation table = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(Acp.ActionPlanID);
                 string UnitId = ProjectService.GetProjectByProjectId(table.ProjectID).UnitId;
 
                 //项目名称
-                this.txtProjectName.Text = BLL.ProjectService.GetProjectNameByProjectId(table.ProjectID);
+                this.txtProjectName.Text = _ActionPlanFormation.ProjectShortName;
 
-                this.txtProjectCode.Text = BLL.ProjectService.GetProjectByProjectId(table.ProjectID).ProjectCode;
+                this.txtEPCCode.Text = _ActionPlanFormation.EPCCode;
 
-                ////施工经理
-                //this.DropConstructionManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ConstructionManager);
 
-                ////项目经理
-                //this.DropProjectManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ProjectManager);
 
-                ////控制经理
-                //this.DropControlManager.SelectedValue = BLL.ProjectService.GetRoleID(table.ProjectID, BLL.Const.ControlManager);
             }
             else
             {
                 this.txtProjectName.Text = string.Empty;
-                this.txtProjectCode.Text = string.Empty;
+                this.txtEPCCode.Text = string.Empty;
 
 
             }
@@ -182,12 +218,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
 
         private  bool  Save()
         {
-            if (Approval_Construction.SelectedValue==Const._Null)
-            {
-                ShowNotify("请选择施工管理部审批人员！", MessageBoxIcon.Warning);
-                return false ;
+            //if (Approval_Construction.SelectedValue==Const._Null)
+            //{
+            //    ShowNotify("请选择施工管理部审批人员！", MessageBoxIcon.Warning);
+            //    return false ;
 
-            }
+            //}
             if (txtBidType.SelectedValue==Const._Null)
             {
                 ShowNotify("请选择招标方式！", MessageBoxIcon.Warning);
@@ -209,25 +245,42 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             pHTGL_Bid.Bidding_StartTime = Bidding_StartTime.SelectedDate;
             pHTGL_Bid.Url = "";
             pHTGL_Bid.CreateUser = this.CurrUser.UserId;
-            pHTGL_Bid.Approval_Construction = Approval_Construction.SelectedValue;
             pHTGL_Bid.CreatTime = DateTime.Now;
-            pHTGL_Bid.ConstructionManager =DropConstructionManager.SelectedValue;
-            pHTGL_Bid.ControlManager =DropControlManager.SelectedValue;
-            pHTGL_Bid.PreliminaryMan =DropPreliminaryMan.SelectedValue;
-            pHTGL_Bid.ProjectManager =DropProjectManager.SelectedValue;
+            if (!string.IsNullOrEmpty(BidDocumentsReviewId))
+            {
+                pHTGL_Bid.Approval_Construction = Approval_Construction.SelectedValue;
+                pHTGL_Bid.ConstructionManager = DropConstructionManager.SelectedValue;
+                pHTGL_Bid.ControlManager = DropControlManager.SelectedValue;
+                pHTGL_Bid.PreliminaryMan = DropPreliminaryMan.SelectedValue;
+                pHTGL_Bid.ProjectManager = DropProjectManager.SelectedValue;
+            }
+           
             if (string.IsNullOrEmpty(BidDocumentsReviewId))
             {
                 BidDocumentsReviewId = SQLHelper.GetNewID(typeof(Model.PHTGL_BidDocumentsReview));
                 pHTGL_Bid.BidDocumentsReviewId = BidDocumentsReviewId;
+                
                 PHTGL_BidDocumentsReviewService.AddPHTGL_BidDocumentsReview(pHTGL_Bid);
- 
-                ShowNotify("保存成功！", MessageBoxIcon.Success);
+                 ShowNotify("保存成功！", MessageBoxIcon.Success);
             }
             else
             {
-                pHTGL_Bid.BidDocumentsReviewId = BidDocumentsReviewId;
-                PHTGL_BidDocumentsReviewService.UpdatePHTGL_BidDocumentsReview(pHTGL_Bid);
-                ShowNotify("修改成功", MessageBoxIcon.Success);
+                var Bid = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
+                if (Bid==null)
+                {
+                    pHTGL_Bid.BidDocumentsReviewId = BidDocumentsReviewId;
+
+                    PHTGL_BidDocumentsReviewService.AddPHTGL_BidDocumentsReview(pHTGL_Bid);
+                    ShowNotify("保存成功！", MessageBoxIcon.Success);
+                }
+                else
+                {
+                    pHTGL_Bid.BidDocumentsReviewId = BidDocumentsReviewId;
+
+                    PHTGL_BidDocumentsReviewService.UpdatePHTGL_BidDocumentsReview(pHTGL_Bid);
+                    ShowNotify("修改成功", MessageBoxIcon.Success);
+                }
+                
             }
 
             return true ;
@@ -239,6 +292,12 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             if (Save())
             {
+                if (!BLL.AttachFileService.Getfile(BidDocumentsReviewId, BLL.Const.BidDocumentsReviewIdMenuid))
+                {
+                    ShowNotify("未上传附件，无法提交！", MessageBoxIcon.Warning);
+                    BLL.PHTGL_BidDocumentsReviewService.DeletePHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
+                     return;
+                }
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
 
             }
@@ -249,38 +308,50 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         {
             if (Save())
             {
+                if (!BLL.AttachFileService.Getfile(BidDocumentsReviewId, BLL.Const.BidDocumentsReviewIdMenuid))
+                {
+                    ShowNotify("未上传附件，无法提交！", MessageBoxIcon.Warning);
+
+                    return  ;
+                }
                 var Bid = PHTGL_BidDocumentsReviewService.GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
                 Bid.State = Const.ContractReviewing;
                 PHTGL_BidDocumentsReviewService.UpdatePHTGL_BidDocumentsReview(Bid);
                 #region 创建审批信息
                 Dic_ApproveMan = PHTGL_BidDocumentsReviewService.Get_DicApproveman(Bid.ProjectId, BidDocumentsReviewId);
+                ApproveManModels = PHTGL_BidDocumentsReviewService.GetApproveManModels(Bid.ProjectId, BidDocumentsReviewId);
                 //创建第一节点审批信息
                 Model.PHTGL_Approve _Approve = new Model.PHTGL_Approve();
                 _Approve.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                 _Approve.ContractId = BidDocumentsReviewId;
-                _Approve.ApproveMan = Dic_ApproveMan[1];
+                _Approve.ApproveMan = ApproveManModels.Find(BidDoc => BidDoc.Number == 1).userid;
                 _Approve.ApproveDate = "";
                 _Approve.State = 0;
                 _Approve.IsAgree = 0;
                 _Approve.ApproveIdea = "";
-                _Approve.ApproveType = "1";
-                _Approve.ApproveForm = Request.Path;
+                _Approve.ApproveType = ApproveManModels.Find(BidDoc => BidDoc.Number == 1).Rolename;
+                _Approve.IsPushOa = 0;
+
+                _Approve.ApproveForm = PHTGL_ApproveService.BidDocumentsReview;
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve);
                 //创建第2节点审批信息
                 Model.PHTGL_Approve _Approve2 = new Model.PHTGL_Approve();
                 _Approve2.ApproveId = SQLHelper.GetNewID(typeof(Model.PHTGL_Approve));
                 _Approve2.ContractId = BidDocumentsReviewId;
-                _Approve2.ApproveMan = Dic_ApproveMan[2];
+                _Approve2.ApproveMan = ApproveManModels.Find(BidDoc => BidDoc.Number == 2).userid;
                 _Approve2.ApproveDate = "";
                 _Approve2.State = 0;
                 _Approve2.IsAgree = 0;
                 _Approve2.ApproveIdea = "";
-                _Approve2.ApproveType = "2";
-                _Approve.ApproveForm = Request.Path;
+                _Approve2.ApproveType = ApproveManModels.Find(BidDoc => BidDoc.Number == 2).Rolename;
+                _Approve2.IsPushOa = 0;
+
+                _Approve2.ApproveForm = PHTGL_ApproveService.BidDocumentsReview;
 
                 BLL.PHTGL_ApproveService.AddPHTGL_Approve(_Approve2);
                 #endregion
+                OAWebSevice.Pushoa();
                 ShowNotify("提交成功！", MessageBoxIcon.Success);
                 PageContext.RegisterStartupScript(ActiveWindow.GetHideRefreshReference());
 
@@ -295,7 +366,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         /// <param name="e"></param>
         protected void btnAttachUrl_Click(object sender, EventArgs e)
         {
-           // Save();
+            Save();
             PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/BidDocumentsAttachUrl&menuId={1}", this.BidDocumentsReviewId, BLL.Const.BidDocumentsReviewIdMenuid)));
         }
         #endregion

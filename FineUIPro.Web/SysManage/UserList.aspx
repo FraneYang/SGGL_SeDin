@@ -62,6 +62,9 @@
                         <f:RenderField Width="120px" ColumnID="DepartName" DataField="DepartName" SortField="DepartName"
                             FieldType="String" HeaderText="部门" HeaderTextAlign="Center" TextAlign="Left" >
                         </f:RenderField>
+                        <f:RenderField Width="120px" ColumnID="UserCode" DataField="UserCode" SortField="UserCode"
+                            FieldType="String" HeaderText="工号" HeaderTextAlign="Center" TextAlign="Left" >
+                        </f:RenderField>
                         <f:RenderField Width="120px" ColumnID="Account" DataField="Account" SortField="Account"
                             FieldType="String" HeaderText="账号" HeaderTextAlign="Center" TextAlign="Left">
                         </f:RenderField>

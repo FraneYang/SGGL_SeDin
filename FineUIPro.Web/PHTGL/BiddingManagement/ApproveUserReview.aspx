@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="ApproveUserReviewID" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ApproveUserReviewID" AllowSorting="true" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -37,12 +37,15 @@
                                     Hidden="true">
                                 </f:Button>
                                 <f:Button ID="btnMenuDelete" EnablePostBack="true" runat="server" Hidden="true" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
-                                    OnClick="btnMenuDelete_Click">
+                                    OnClick="btnMenuDelete_Click" >
                                 </f:Button>
                             </Items>
                         </f:Toolbar>
                         <f:Toolbar ID="Toolbar3" Position="Top" runat="server" ToolbarAlign="Right">
                             <Items>
+                                <f:Button ID="MenuButton1" EnablePostBack="true" runat="server" Text="重新编辑" Icon="Pencil" Hidden="true" ConfirmText="是否重新编辑"
+                                    OnClick="btnMenuEditAgain_Click">
+                                </f:Button>
                                 <f:Button ID="btnPrinter" EnablePostBack="true" runat="server"
                                     Text="导出" Icon="Printer" OnClick="btnPrinter_Click" EnableAjax="false" DisableControlBeforePostBack="true">
                                 </f:Button>
@@ -66,19 +69,22 @@
                         <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                         <f:RenderField ColumnID="BidProject" DataField="BidProject" Width="120px" FieldType="String" HeaderText="招标项目" TextAlign="Center"
+                         <f:RenderField ColumnID="BidProject" DataField="BidProject" Width="220px" FieldType="String" HeaderText="招标项目" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="220px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+<%--                        <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>--%>
+                        <f:RenderField ColumnID="State" DataField="State" Width="80px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                        <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
+                        <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="80px" FieldType="String" HeaderText="创建人" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:LinkButtonField HeaderText="查看" ColumnID="LooK" Width="60px" Icon="Zoom" CommandName="LooK" />
@@ -104,9 +110,9 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="评标小组名单审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1000px" Height="420px">
+        <f:Window ID="Window1" Title="评标小组名单审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="false"
+            Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"  EnableDrag="true"
+            Width="1200px" Height="650px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>

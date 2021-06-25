@@ -15,12 +15,12 @@
             <Rows>
                 <f:FormRow>
                     <Items>
-                        <f:TextBox ID="txtUserCode" runat="server" Label="编号" MaxLength="20" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
+                        <f:TextBox ID="txtUserCode" runat="server" Label="工号" MaxLength="20" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
                         </f:TextBox>
                         <f:TextBox ID="txtUserName" runat="server" Label="姓名" Required="true" ShowRedStar="true" MaxLength="20"
                             FocusOnPageLoad="true" LabelWidth="110px">
                         </f:TextBox>
-                        <f:TextBox ID="txtAccount" runat="server" Label="工号/账号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
+                        <f:TextBox ID="txtAccount" runat="server" Label="账号" Required="true" ShowRedStar="true" MaxLength="50" AutoPostBack="true" OnTextChanged="TextBox_TextChanged" LabelWidth="110px">
                         </f:TextBox>
                      
                     </Items>

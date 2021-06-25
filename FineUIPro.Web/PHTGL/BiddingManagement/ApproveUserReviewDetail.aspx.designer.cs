@@ -40,6 +40,33 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Panel Panel4;
         
         /// <summary>
+        /// Toolbar3 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Toolbar Toolbar3;
+        
+        /// <summary>
+        /// btnAgree 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAgree;
+        
+        /// <summary>
+        /// btnDisgree 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnDisgree;
+        
+        /// <summary>
         /// Form3 控件。
         /// </summary>
         /// <remarks>
@@ -67,13 +94,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtProjectName;
         
         /// <summary>
-        /// drpProjectId 控件。
+        /// txtBidProject 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.DropDownList drpProjectId;
+        protected global::FineUIPro.TextBox txtBidProject;
         
         /// <summary>
         /// txtBidDocumentsCode 控件。
@@ -112,24 +139,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.TextBox txtCreateUser;
         
         /// <summary>
-        /// txtApproveType 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.TextBox txtApproveType;
-        
-        /// <summary>
-        /// CBIsAgree 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.CheckBoxList CBIsAgree;
-        
-        /// <summary>
         /// txtApproveIdea 控件。
         /// </summary>
         /// <remarks>
@@ -155,33 +164,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblPageIndex;
-        
-        /// <summary>
-        /// Toolbar3 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Toolbar Toolbar3;
-        
-        /// <summary>
-        /// btnSave 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnSave;
-        
-        /// <summary>
-        /// btnClose 控件。
-        /// </summary>
-        /// <remarks>
-        /// 自动生成的字段。
-        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
-        /// </remarks>
-        protected global::FineUIPro.Button btnClose;
         
         /// <summary>
         /// Window1 控件。

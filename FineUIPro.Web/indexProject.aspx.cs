@@ -308,7 +308,18 @@ namespace FineUIPro.Web
                     this.drpProject.SelectedValue = this.CurrUser.LoginProjectId;
                 }
 
-                this.MenuSwitchMethod(Request.Params["menuType"]);
+                if (!string.IsNullOrEmpty(Request.Params["PHTUrl"]))
+                {
+                    mainTabStrip.ShowTabHeader = true;
+                    PageContext.RegisterStartupScript("parent.removeActiveTab();");
+                    btnPHTGL_Click(null, null);
+                    PageContext.RegisterStartupScript(mainTabStrip.GetAddTabReference("dynamic_tab4", Request.Params["PHTUrl"], "审批", IconHelper.GetIconUrl(Icon.ApplicationAdd), true));
+                }
+                else
+                {
+                    this.MenuSwitchMethod(Request.Params["menuType"]);
+
+                }
                 this.InitMenuStyleButton();
                 this.InitMenuModeButton();
                 this.InitLangMenuButton();

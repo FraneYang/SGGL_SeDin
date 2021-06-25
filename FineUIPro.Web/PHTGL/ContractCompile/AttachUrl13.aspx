@@ -52,8 +52,9 @@
                             <br />
                             <f:Label runat="server" ID="Label6" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;　质量保修范围包括地基基础工程、主体结构工程，屋面防水工程、有防水要求的卫生间、房间和外墙面的防渗漏，供热与供冷系统，电气管线、给排水管道、设备安装和装修工程，以及双方约定的其他项目。 "></f:Label>
                             <br />
-                            <f:TextArea ID="txtWarrantyContent" Height="120px" Required="true" ShowRedStar="true"  runat="server" Label="具体保修的内容，双方约定如下：" Text="">
-                             </f:TextArea>
+                            <f:Label ID="txtWarrantyContent"    runat="server" Text="具体保修的内容，双方约定如下。" >
+                             </f:Label>
+                            <br />
                             <f:Label runat="server" ID="Label7" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 二、质量保修期 "></f:Label>
                             <br />
                             <f:Label runat="server" ID="Label8" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 根据《建设工程质量管理条例》及有关规定，工程的质量保修期如下： "></f:Label>
@@ -101,9 +102,11 @@
                             <br />
                             <f:Label runat="server" ID="Label26" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 保修费用由造成质量缺陷的责任方承担。 "></f:Label>
                             <br />
-                             <f:TextArea runat="server" ID="txtOtherqualityWarranty" EmptyText="" LabelWidth="330" Label="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  六、双方约定的其他工程质量保修事项"
+                                                        <f:Label runat="server" ID="Label27" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  六、双方约定的其他工程质量保修事项"></f:Label>
+
+<%--                             <f:TextArea runat="server" ID="txtOtherqualityWarranty" EmptyText="" LabelWidth="330" Label="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  六、双方约定的其他工程质量保修事项"
                               AutoGrowHeight="true" AutoGrowHeightMin="50" AutoGrowHeightMax="600">
-                             </f:TextArea>
+                             </f:TextArea>--%>
                             <br />
                             <f:Label runat="server" ID="Label28" Text="&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工程质量保修书由总承包商、施工分包商在工程竣工验收前共同签署，作为施工合同附件，其有效期限至保修期满。  "></f:Label>
                             <br />
@@ -125,14 +128,14 @@
                 
             </Rows>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text="保存" ValidateForms="SimpleForm1" Size="Medium"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text ="关闭" runat="server" Icon="SystemClose" Size="Medium">
                         </f:Button>
                     </Items>
                 </f:Toolbar>

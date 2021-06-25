@@ -285,7 +285,7 @@ namespace BLL
                                orderby x.UnitName
                                select x;
                 var getPersons = (from x in db.SitePerson_Person
-                                  where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue)
+                                  where x.ProjectId == projectId && x.InTime <= startDateD && (!x.OutTime.HasValue) && x.WorkPostId != null
                                   select x).ToList();
                 foreach (var item in getUnits)
                 {
@@ -319,28 +319,28 @@ namespace BLL
                 var getUnitPersons = getPersons.Where(x => x.UnitId == unitId);
                 if (getUnitPersons.Count() > 0)
                 {
-                    if (type == "1")
+                    if (type == "1") ///管理岗位-安全专职
                     {
                         num = (from x in getUnitPersons
                                join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                               where y.IsHsse == true
+                               where y.IsHsse == true && (y.PostType == "1" || y.PostType == "4")
                                select x).Count();
                     }
-                    else if (type == "2")
+                    else if (type == "2")  ///管理岗位-其他管理岗位
                     {
                         num = (from x in getUnitPersons
                                join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
                                where (y.IsHsse == false || !y.IsHsse.HasValue) && (y.PostType == "1" || y.PostType == "4")
                                select x).Count();
                     }
-                    else if (type == "3")
+                    else if (type == "3")  /// 特种作业人员  [特种作业人员、特种设备作业人员]
                     {
                         num = (from x in getUnitPersons
                                join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId
-                               where y.PostType == "2"
+                               where y.PostType == "2" || y.PostType == "5"
                                select x).Count();
                     }
-                    else if (type == "4")
+                    else if (type == "4")  /// 一般作业岗位
                     {
                         num = (from x in getUnitPersons
                                join y in db.Base_WorkPost on x.WorkPostId equals y.WorkPostId

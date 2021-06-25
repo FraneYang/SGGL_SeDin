@@ -98,12 +98,20 @@ namespace BLL
             Dic_Approveman.Add(3, table.ProjectManager);
             Dic_Approveman.Add(4,table.PreliminaryMan );
             Dic_Approveman.Add(5, table.Approval_Construction);
-
-            //Dic_Approveman.Add(1, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ConstructionManager));
-            //Dic_Approveman.Add(2, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ControlManager));
-            //Dic_Approveman.Add(3, BLL.ProjectService.GetRoleID(projectid, BLL.Const.ProjectManager));
-            //Dic_Approveman.Add(4, table.Approval_Construction);
             return Dic_Approveman;
+        }
+        public static List<ApproveManModel> GetApproveManModels(string projectid, string BidDocumentsReviewId)
+        {
+
+            Model.PHTGL_BidDocumentsReview table = GetPHTGL_BidDocumentsReviewById(BidDocumentsReviewId);
+
+            List<ApproveManModel> approveManModels = new List<ApproveManModel>();
+            approveManModels.Add(new ApproveManModel { Number = 1, userid = table.ConstructionManager, Rolename = "施工经理" });
+            approveManModels.Add(new ApproveManModel { Number = 2, userid = table.ControlManager, Rolename = "控制经理" });
+            approveManModels.Add(new ApproveManModel { Number = 3, userid = table.ProjectManager, Rolename = "项目经理" });
+            approveManModels.Add(new ApproveManModel { Number = 4, userid = table.PreliminaryMan, Rolename = "预审人员" });
+            approveManModels.Add(new ApproveManModel { Number = 5, userid = table.Approval_Construction, Rolename = "施工管理部" });
+            return approveManModels;
         }
         /// <summary>
         /// 招标方式下拉框

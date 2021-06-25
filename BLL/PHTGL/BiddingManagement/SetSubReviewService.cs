@@ -19,6 +19,8 @@ namespace BLL
         /// </summary>
         public const int Type_MinPrice = 1;
 
+
+        public const string  BidReport= "SetSubReview_sch";
         public static ListItem[] GetCreateType()
         {
             ListItem[] list = new ListItem[2];
@@ -60,6 +62,7 @@ namespace BLL
             table.ConstructionManager = newtable.ConstructionManager;
             table.ProjectManager = newtable.ProjectManager;
             table.Approval_Construction = newtable.Approval_Construction;
+            table.IsOwenerApprove = newtable.IsOwenerApprove;
             Funs.DB.PHTGL_SetSubReview.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -83,6 +86,7 @@ namespace BLL
                 table.ConstructionManager = newtable.ConstructionManager;
                 table.ProjectManager = newtable.ProjectManager;
                 table.Approval_Construction = newtable.Approval_Construction;
+                table.IsOwenerApprove = newtable.IsOwenerApprove;
                 Funs.DB.SubmitChanges();
             }
 
@@ -113,7 +117,18 @@ namespace BLL
 
             return Dic_Approveman;
         }
+        public static List<ApproveManModel> GetApproveManModels(string SetSubReviewID)
+        {
 
+            Model.PHTGL_SetSubReview table = GetPHTGL_SetSubReviewById(SetSubReviewID);
+ 
+            List<ApproveManModel> approveManModels = new List<ApproveManModel>();
+            approveManModels.Add(new ApproveManModel { Number = 1, userid = table.ConstructionManager, Rolename = "施工经理" });
+            approveManModels.Add(new ApproveManModel { Number = 2, userid = table.Approval_Construction, Rolename = "施工管理部" });
+            approveManModels.Add(new ApproveManModel { Number = 3, userid = table.ProjectManager, Rolename = "项目经理" });
+            approveManModels.Add(new ApproveManModel { Number = 4, userid = table.DeputyGeneralManager, Rolename = "分管副总经理" });
+             return approveManModels;
+        }
         public static void InitGetSetSubCompleteDropDownList(FineUIPro.DropDownList dropName, bool isShowPlease)
         {
             dropName.DataValueField = "SetSubReviewCode";

@@ -21,6 +21,27 @@
                 <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" Title="" AutoScroll="true"
                     runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                     <Items>
+                        <f:FormRow>
+                            <Items>
+                                <f:Label ID="Label1" runat="server" Text="附件2    合同价格及支付办法" CssClass="widthBlod"></f:Label>
+                            </Items>
+                        </f:FormRow>
+                        <f:FormRow>
+                            <Items>
+                                <f:HtmlEditor runat="server" Label="合同价款支付办法" ID="txtAttachUrlContent" ShowLabel="false"
+                                    Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="500px" LabelAlign="Right" Text="">
+                                </f:HtmlEditor>
+                            </Items>
+                        </f:FormRow>
+
+                    </Items>
+                </f:Form>
+
+            </Items>
+            <%--<Items>
+                <f:Form ID="Form2" ShowBorder="false" ShowHeader="false" Title="" AutoScroll="true"
+                    runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+                    <Items>
                         <f:CheckBoxList ID="CheckBoxList1" Label="请选择支付办法" runat="server" ColumnNumber="1"  OnSelectedIndexChanged="CheckBoxList1_SelectedIndexChanged" AutoPostBack="true">
                             <f:CheckItem Text="1、	合同总价" Value="1" />
                             <f:CheckItem Text="2、	综合单价" Value="2" />
@@ -290,7 +311,7 @@
                         <f:FormRow>
                             <Items>
                                 <f:HtmlEditor runat="server" Label="合同价款支付办法" ID="txtPayWay" ShowLabel="false"
-                                    Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="240" LabelAlign="Right" Text="1、	预付款
+                                    Editor="UMEditor" BasePath="~/res/umeditor/" ToolbarSet="Full" Height="400" LabelAlign="Right" Text="1、	预付款
 按照专用合同条款14.1款有关规定执行。
 2、	工程进度款（适用于单价合同）
 （1）	施工分包商在收到施工图后60天内向总承包商报送施工图预算和工程量计算书，双方完成费用核对后，将该部分工程费用以总价形式明确作为后续工程款支付和工程结算的依据。在施工图预算双方核对一致前，总承包商按照各装置各专业清单工程量进行工程款支付。
@@ -327,17 +348,17 @@
                 </f:Form>
 
 
-            </Items>
+            </Items>--%>
             <Toolbars>
-                <f:Toolbar ID="Toolbar1" Position="Bottom" ToolbarAlign="Right" runat="server">
+                <f:Toolbar ID="Toolbar1" Position="Top" ToolbarAlign="Right" runat="server">
                     <Items>
-                        <f:HiddenField ID="hdAttachUrlItemId" runat="server"></f:HiddenField>
+                        <f:HiddenField ID="hdAttachUrlItemId" runat="server" ></f:HiddenField>
                         <f:ToolbarFill runat="server">
                         </f:ToolbarFill>
-                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" ValidateForms="SimpleForm1"
+                        <f:Button ID="btnSave" Icon="SystemSave" runat="server" ToolTip="保存" Text ="保存" Size="Medium" ValidateForms="SimpleForm1"
                             OnClick="btnSave_Click">
                         </f:Button>
-                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" runat="server" Icon="SystemClose">
+                        <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" Size="Medium" runat="server" Icon="SystemClose">
                         </f:Button>
                     </Items>
                 </f:Toolbar>

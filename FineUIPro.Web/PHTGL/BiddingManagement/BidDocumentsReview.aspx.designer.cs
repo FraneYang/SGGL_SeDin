@@ -103,13 +103,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         protected global::FineUIPro.Button btnNew;
         
         /// <summary>
-        /// btnMenuDelete 控件。
+        /// btnDelete 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.Button btnMenuDelete;
+        protected global::FineUIPro.Button btnDelete;
         
         /// <summary>
         /// Toolbar3 控件。
@@ -119,6 +119,15 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement {
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
         protected global::FineUIPro.Toolbar Toolbar3;
+        
+        /// <summary>
+        /// btnEditAgain 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnEditAgain;
         
         /// <summary>
         /// btnPrinter 控件。

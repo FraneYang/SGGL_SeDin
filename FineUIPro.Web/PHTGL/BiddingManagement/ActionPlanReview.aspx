@@ -17,7 +17,7 @@
                     runat="server" BoxFlex="1" DataKeyNames="ActionPlanReviewId" AllowCellEditing="true"
                     ClicksToEdit="2" DataIDField="ActionPlanReviewId" AllowSorting="true" SortField="CreateTime" OnSort="Grid1_Sort"
                     SortDirection="DESC" EnableColumnLines="true" OnRowDoubleClick="Grid1_RowDoubleClick" OnPageIndexChange="Grid1_PageIndexChange"
-                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand" OnRowClick="Grid1_RowClick" EnableRowClickEvent="true"
+                    AllowPaging="true" IsDatabasePaging="true" PageSize="10" ForceFit="true" OnRowCommand="Grid1_RowCommand" OnRowClick="Grid1_RowClick" EnableRowClickEvent="false"
                     EnableRowDoubleClickEvent="true"
                     EnableTextSelection="True">
                     <Toolbars>
@@ -34,7 +34,7 @@
 
                                 <f:Button ID="btnRset" OnClick="btnRset_Click" ToolTip="重置" Text="重置" Icon="ArrowUndo" EnablePostBack="true" runat="server">
                                 </f:Button>
-                                <f:Button ID="btnDelete" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？"
+                                <f:Button ID="btnDelete" EnablePostBack="true" runat="server" Icon="Delete" Text="删除" ConfirmText="确定删除当前数据？" Hidden="true"
                                     OnClick="btnMenuDelete_Click">
                                 </f:Button>
                             </Items>
@@ -42,7 +42,7 @@
                         <f:Toolbar ID="Toolbar1" Position="Top" runat="server" ToolbarAlign="right">
                             <Items>
 
-                                <f:Button ID="MenuButton1" EnablePostBack="true" runat="server" Text="重新提交" Icon="Pencil" Hidden="true"
+                                <f:Button ID="MenuButton1" EnablePostBack="true" runat="server" Text="重新提交" Icon="Pencil" Hidden="true" ConfirmText="是否重新提交"
                                     OnClick="btnMenuEdit_Click">
                                 </f:Button>
                                 <f:Button ID="MenuButton3" EnablePostBack="true" runat="server"
@@ -64,16 +64,19 @@
                                 <asp:Label ID="lblPageIndex" runat="server" Text='<%# Grid1.PageIndex * Grid1.PageSize + Container.DataItemIndex + 1 %>'></asp:Label>
                             </ItemTemplate>
                         </f:TemplateField>
-                        <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="120px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
+                        <f:RenderField ColumnID="ActionPlanCode" DataField="ActionPlanCode" Width="200px" FieldType="String" HeaderText="实施计划编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectName" DataField="ProjectName" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
+                        <f:RenderField ColumnID="Name" DataField="Name" Width="120px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ProjectCode" DataField="ProjectCode" Width="120px" FieldType="String" HeaderText="项目编号" TextAlign="Center"
+                        <f:RenderField ColumnID="EPCCode" DataField="EPCCode" Width="120px" FieldType="String" HeaderText="总承包合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+                        <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="CreateUser" DataField="CreateUser" Width="180px" FieldType="String" HeaderText="创建人" TextAlign="Center"
@@ -106,8 +109,8 @@
                 </f:Grid>
             </Items>
         </f:Panel>
-        <f:Window ID="Window1" Title="实施计划审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="true"
-            Target="Parent" EnableResize="false" runat="server" IsModal="true" OnClose="Window1_Close"
+        <f:Window ID="Window1" Title="实施计划审批" Hidden="true" EnableIFrame="true" EnableMaximize="true" Maximized="false"  EnableDrag="true" EnableMinimize="true"
+            Target="Parent" EnableResize="true" runat="server" IsModal="false" OnClose="Window1_Close"     ConstrainSize="true"
             Width="1200px" Height="650px">
         </f:Window>
         <f:Menu ID="Menu1" runat="server">

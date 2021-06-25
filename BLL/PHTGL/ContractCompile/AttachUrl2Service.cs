@@ -48,6 +48,7 @@ namespace BLL
             newAtt.TestCar2 = att.TestCar2;
             newAtt.PayWay = att.PayWay;
             newAtt.PayMethod = att.PayMethod;
+            newAtt.AttachUrlContent = att.AttachUrlContent;
             Funs.DB.PHTGL_AttachUrl2.InsertOnSubmit(newAtt);
             Funs.DB.SubmitChanges();
         }
@@ -79,6 +80,8 @@ namespace BLL
                 newAtt.TestCar2 = att.TestCar2;
                 newAtt.PayWay = att.PayWay;
                 newAtt.PayMethod = att.PayMethod;
+                newAtt.AttachUrlContent = att.AttachUrlContent;
+
                 Funs.DB.SubmitChanges();
             }
         }
