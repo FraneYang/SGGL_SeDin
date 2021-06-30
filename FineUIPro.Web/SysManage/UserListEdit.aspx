@@ -26,7 +26,7 @@
                 </f:FormRow>
                 <f:FormRow>
                     <Items>
-                          <f:DropDownList ID="drpUnit" runat="server" Label="单位" EnableEdit="true" ForceSelection="false"
+                          <f:DropDownList ID="drpUnit" runat="server" Label="单位" EnableEdit="true" ForceSelection="false" AutoPostBack="true" OnSelectedIndexChanged="drpUnit_SelectedIndexChanged"
                             Required="true" ShowRedStar="true" LabelWidth="90px">
                         </f:DropDownList>
                         <f:TextBox ID="txtIdentityCard" runat="server" Label="身份证号" MaxLength="50" ShowRedStar="true" Required="true"

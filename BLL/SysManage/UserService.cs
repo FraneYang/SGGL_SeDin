@@ -1529,14 +1529,14 @@ namespace BLL
                     if (!string.IsNullOrEmpty(unitId))
                     {
                         list = (from x in db.Sys_User
-                                where x.RoleId == RoleId && x.UnitId == unitId
+                                where x.RoleId.Contains(RoleId) && x.UnitId == unitId
                                 orderby x.UserName
                                 select x).ToList();
                     }
                     else
                     {
                         list = (from x in db.Sys_User
-                                where x.RoleId == RoleId
+                                where x.RoleId.Contains(RoleId)
                                 orderby x.UserName
                                 select x).ToList();
                     }

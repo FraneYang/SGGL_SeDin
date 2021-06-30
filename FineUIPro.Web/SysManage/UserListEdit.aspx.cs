@@ -133,6 +133,8 @@ namespace FineUIPro.Web.SysManage
                 else if (type == "0")
                 {
                     this.drpUnit.SelectedValue = Const.UnitId_SEDIN;
+                    this.txtIdentityCard.Required = false;
+                    this.txtIdentityCard.ShowRedStar = false;
                 }
             }
         }
@@ -169,13 +171,14 @@ namespace FineUIPro.Web.SysManage
                     return;
                 }
             }
-
-            if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)
+            if (this.drpUnit.SelectedValue != BLL.Const.UnitId_SEDIN)
             {
-                Alert.ShowInParent("输入的身份证号码已存在！", MessageBoxIcon.Warning);
-                return;
+                if (!string.IsNullOrEmpty(this.txtIdentityCard.Text) && BLL.UserService.IsExistUserIdentityCard(this.UserId, this.txtIdentityCard.Text.Trim()) == true)
+                {
+                    Alert.ShowInParent("输入的身份证号码已存在！", MessageBoxIcon.Warning);
+                    return;
+                }
             }
-            
             Model.Sys_User newUser = new Model.Sys_User
             {
                 UserCode = this.txtUserCode.Text.Trim(),
@@ -328,6 +331,23 @@ namespace FineUIPro.Web.SysManage
         {
             this.SignatureUrl = string.Empty;
             this.Image2.ImageUrl =  "~/res/images/Signature0.png";
+        }
+
+        protected void drpUnit_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            if (this.drpUnit.SelectedValue != BLL.Const._Null)
+            {
+                if (this.drpUnit.SelectedValue == BLL.Const.UnitId_SEDIN)
+                {
+                    this.txtIdentityCard.Required = false;
+                    this.txtIdentityCard.ShowRedStar = false;
+                }
+                else
+                {
+                    this.txtIdentityCard.Required = true;
+                    this.txtIdentityCard.ShowRedStar = true;
+                }
+            }
         }
     }
 }

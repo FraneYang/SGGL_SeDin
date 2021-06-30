@@ -73,14 +73,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                                     ApproveType =stuff((select ','+ ApproveType  from PHTGL_Approve app2 where app2.ContractId = Rev.ContractReviewId and app2 .state =0    for xml path('')), 1, 1, '') ,
                                      Con.Remarks,
                                     Con.EPCCode,
-                                    Act.ProjectShortName,
+                                    Con.ProjectShortName,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @" from PHTGL_ContractReview AS Rev"
                             + @"  LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
-                            + @"  left join (select * from PHTGL_ActionPlanFormation as a where  not  exists(select 1 from PHTGL_ActionPlanFormation where a.EPCCode = EPCCode and a.CreateTime< CreateTime )) as Act on Act.EPCCode=Con.EPCCode"
+                            //+ @"  left join (select * from PHTGL_ActionPlanFormation as a where  not  exists(select 1 from PHTGL_ActionPlanFormation where a.EPCCode = EPCCode and a.CreateTime< CreateTime )) as Act on Act.EPCCode=Con.EPCCode"
                             + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
                             + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
                             + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1 ";
@@ -480,183 +480,210 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             string node15Time = "";
             string node16Time = "";
             string node17Time = "";
-
-            #region 评审单
-            if (getFireWork != null)
+            try
             {
-                if (!string.IsNullOrEmpty(getFireWork.ProjectId))
+                #region 评审单
+                if (getFireWork != null)
                 {
-                    txtProjectid = getFireWork.EPCCode;
-                }
-                txtContractName = getFireWork.ContractName;
-                txtContractNum = getFireWork.ContractNum;
-                txtParties = getFireWork.Parties;
+                    if (!string.IsNullOrEmpty(getFireWork.ProjectId))
+                    {
+                        txtProjectid = getFireWork.EPCCode;
+                    }
+                    txtContractName = getFireWork.ContractName;
+                    txtContractNum = getFireWork.ContractNum;
+                    txtParties = getFireWork.Parties;
 
-                txtContractAmount = getFireWork.ContractAmount.ToString();
-                if (!string.IsNullOrEmpty(getFireWork.DepartId))
-                {
-                    txtDepartId = DepartService.getDepartNameById(getFireWork.DepartId);
-                }
-                if (!string.IsNullOrEmpty(getFireWork.Agent))
-                {
-                    txtAgent = UserService.GetUserNameByUserId(getFireWork.Agent);
-                }
-                if (!string.IsNullOrEmpty(getFireWork.Remarks))
-                {
-                    txtRemark = getFireWork.Remarks;
-                }
-                switch (getFireWork.ContractType)
-                {
-                    case "1":
-                          type1 = "√";
-                         break;
-                    case "2":
-                        type2 = "√";
+                    txtContractAmount = getFireWork.ContractAmount.ToString();
+                    if (!string.IsNullOrEmpty(getFireWork.DepartId))
+                    {
+                        txtDepartId = DepartService.getDepartNameById(getFireWork.DepartId);
+                    }
+                    if (!string.IsNullOrEmpty(getFireWork.Agent))
+                    {
+                        txtAgent = UserService.GetUserNameByUserId(getFireWork.Agent);
+                    }
+                    if (!string.IsNullOrEmpty(getFireWork.Remarks))
+                    {
+                        txtRemark = getFireWork.Remarks;
+                    }
+                    switch (getFireWork.ContractType)
+                    {
+                        case "1":
+                            type1 = "√";
+                            break;
+                        case "2":
+                            type2 = "√";
 
-                        break;
-                    case "3":
-                        type3= "√";
+                            break;
+                        case "3":
+                            type3 = "√";
 
-                        break;
-                    case "4":
-                        type4 = "√";
+                            break;
+                        case "4":
+                            type4 = "√";
 
-                        break;
-                    case "5":
-                        type5 = "√";
-                         break;
+                            break;
+                        case "5":
+                            type5 = "√";
+                            break;
+                    }
+                    //if (!string.IsNullOrEmpty(getFireWork.ContractType))
+                    //{
+                    //    CBContractType.SelectedValueArray = getFireWork.ContractType.Split();
+                    //}
                 }
-                //if (!string.IsNullOrEmpty(getFireWork.ContractType))
-                //{
-                //    CBContractType.SelectedValueArray = getFireWork.ContractType.Split();
-                //}
-            }
 
-            string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
+                string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
                                 from PHTGL_Approve a "
-                            + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-            listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
+                                + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
+                List<SqlParameter> listStr = new List<SqlParameter>();
+                listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
-            var ApproveManModels = PHTGL_ContractReviewService.GetApproveManModels(ContractReviewId);
-            var ApproveManModels__Countersigner = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(ContractReviewId);
-            var allApproveMan = ApproveManModels__Countersigner.Concat(ApproveManModels).ToList();
+                SqlParameter[] parameter = listStr.ToArray();
+                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                var ApproveManModels = PHTGL_ContractReviewService.GetApproveManModels(ContractReviewId);
+                var ApproveManModels__Countersigner = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(ContractReviewId);
+                var allApproveMan = ApproveManModels__Countersigner.Concat(ApproveManModels).ToList();
 
-            foreach (DataRow dr in tb.Rows)
-            {
-
-                string ApproveMan = dr["ApproveMan"].ToString();
-                string ApproveType = allApproveMan.Find(e=>e.Rolename== dr["ApproveType"].ToString()).Number.ToString() ;
-                string ApproveIdea = dr["ApproveIdea"].ToString();
-                string ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
-
-                TextArea2 += ApproveIdea;
-                switch (ApproveType)
+                foreach (DataRow dr in tb.Rows)
                 {
-                    case "1":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode1", ApproveMan, ApproveIdea);
-                        node1Time = ApproveDate;
-                         break;
-                    case "2":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode2", ApproveMan, ApproveIdea);
-                        node2Time = ApproveDate;
-                        break;
-                    case "3":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode3", ApproveMan, ApproveIdea);
-                        node3Time = ApproveDate;
-                        break;
-                    case "4":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode4", ApproveMan, ApproveIdea);
-                        node4Time = ApproveDate;
-                        break;
-                    case "5":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode5", ApproveMan, ApproveIdea);
-                        node5Time = ApproveDate;
-                        break;
-                    case "6":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode6", ApproveMan, ApproveIdea);
-                        node6Time = ApproveDate;
-                        break;
-                    case "7":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode7", ApproveMan, ApproveIdea);
-                        node7Time = ApproveDate;
-                        break;
-                    case "8":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode8", ApproveMan, ApproveIdea);
-                        node8Time = ApproveDate;
-                        break;
-                    case "9":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode9", ApproveMan, ApproveIdea);
-                        node9Time = ApproveDate;
-                        break;
-                    case "10":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode10", ApproveMan, ApproveIdea);
-                        node10Time = ApproveDate;
-                        break;
-                    case "11":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode11", ApproveMan, ApproveIdea);
-                        node11Time = ApproveDate;
-                        break;
-                    case "12":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode12", ApproveMan, ApproveIdea);
-                        node12Time = ApproveDate;
-                        break;
-                    case "13":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode13", ApproveMan, ApproveIdea);
-                        node13Time = ApproveDate;
-                        break;
-                    case "14":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode14", ApproveMan, ApproveIdea);
-                        node14Time = ApproveDate;
-                        break;
-                    case "15":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode15", ApproveMan, ApproveIdea);
-                        node15Time = ApproveDate;
-                        break;
-                    case "16":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode16", ApproveMan, ApproveIdea);
-                        node16Time = ApproveDate;
-                        break;
-                    case "17":
-                        AsposeWordHelper.InsertImg(doc, rootPath, "txtnode17", ApproveMan, ApproveIdea);
-                        node17Time = ApproveDate;
-                        break;
+
+                    string ApproveMan = dr["ApproveMan"].ToString();
+                    var model = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString());
+                    string ApproveType = "";
+                    string ApproveDate = "";
+                    if (model != null)
+                    {
+                        ApproveType = model.Number.ToString();
+
+                    }
+                    string ApproveIdea = dr["ApproveIdea"].ToString();
+                    try
+                    {
+                          ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+
+
+                    }
+                    catch (Exception)
+                    {
+                        ApproveDate = "";
+                    }
+                    TextArea2 += ApproveIdea;
+                    switch (ApproveType)
+                    {
+                        case "1":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode1", ApproveMan, ApproveIdea);
+                            node1Time = ApproveDate;
+                            break;
+                        case "2":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode2", ApproveMan, ApproveIdea);
+                            node2Time = ApproveDate;
+                            break;
+                        case "3":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode3", ApproveMan, ApproveIdea);
+                            node3Time = ApproveDate;
+                            break;
+                        case "4":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode4", ApproveMan, ApproveIdea);
+                            node4Time = ApproveDate;
+                            break;
+                        case "5":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode5", ApproveMan, ApproveIdea);
+                            node5Time = ApproveDate;
+                            break;
+                        case "6":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode6", ApproveMan, ApproveIdea);
+                            node6Time = ApproveDate;
+                            break;
+                        case "7":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode7", ApproveMan, ApproveIdea);
+                            node7Time = ApproveDate;
+                            break;
+                        case "8":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode8", ApproveMan, ApproveIdea);
+                            node8Time = ApproveDate;
+                            break;
+                        case "9":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode9", ApproveMan, ApproveIdea);
+                            node9Time = ApproveDate;
+                            break;
+                        case "10":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode10", ApproveMan, ApproveIdea);
+                            node10Time = ApproveDate;
+                            break;
+                        case "11":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode11", ApproveMan, ApproveIdea);
+                            node11Time = ApproveDate;
+                            break;
+                        case "12":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode12", ApproveMan, ApproveIdea);
+                            node12Time = ApproveDate;
+                            break;
+                        case "13":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode13", ApproveMan, ApproveIdea);
+                            node13Time = ApproveDate;
+                            break;
+                        case "14":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode14", ApproveMan, ApproveIdea);
+                            node14Time = ApproveDate;
+                            break;
+                        case "15":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode15", ApproveMan, ApproveIdea);
+                            node15Time = ApproveDate;
+                            break;
+                        case "16":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode16", ApproveMan, ApproveIdea);
+                            node16Time = ApproveDate;
+                            break;
+                        case "17":
+                            AsposeWordHelper.InsertImg(doc, rootPath, "txtnode17", ApproveMan, ApproveIdea);
+                            node17Time = ApproveDate;
+                            break;
+                    }
                 }
+                Dic_File.Add("txtProjectid", txtProjectid);
+                Dic_File.Add("txtContractName", txtContractName);
+                Dic_File.Add("txtContractNum", txtContractNum);
+                Dic_File.Add("txtParties", txtParties);
+                Dic_File.Add("txtContractAmount", txtContractAmount);
+                Dic_File.Add("txtDepartId", txtDepartId);
+                Dic_File.Add("txtAgent", txtAgent);
+                Dic_File.Add("txtRemark", txtRemark);
+                Dic_File.Add("TextArea2", TextArea2);
+                Dic_File.Add("type1", type1);
+                Dic_File.Add("type2", type2);
+                Dic_File.Add("type3", type3);
+                Dic_File.Add("type4", type4);
+                Dic_File.Add("type5", type5);
+                Dic_File.Add("node1Time", node1Time);
+                Dic_File.Add("node2Time", node2Time);
+                Dic_File.Add("node3Time", node3Time);
+                Dic_File.Add("node4Time", node4Time);
+                Dic_File.Add("node5Time", node5Time);
+                Dic_File.Add("node6Time", node6Time);
+                Dic_File.Add("node7Time", node7Time);
+                Dic_File.Add("node8Time", node8Time);
+                Dic_File.Add("node9Time", node9Time);
+                Dic_File.Add("node10Time", node10Time);
+                Dic_File.Add("node11Time", node11Time);
+                Dic_File.Add("node12Time", node12Time);
+                Dic_File.Add("node13Time", node13Time);
+                Dic_File.Add("node14Time", node14Time);
+                Dic_File.Add("node15Time", node15Time);
+                Dic_File.Add("node16Time", node16Time);
+                Dic_File.Add("node17Time", node17Time);
+                #endregion
             }
-            Dic_File.Add("txtProjectid", txtProjectid);
-            Dic_File.Add("txtContractName", txtContractName);
-            Dic_File.Add("txtContractNum", txtContractNum);
-            Dic_File.Add("txtParties", txtParties);
-            Dic_File.Add("txtContractAmount", txtContractAmount);
-            Dic_File.Add("txtDepartId", txtDepartId);
-            Dic_File.Add("txtAgent", txtAgent);
-            Dic_File.Add("txtRemark", txtRemark);
-            Dic_File.Add("TextArea2", TextArea2);
-            Dic_File.Add("type1", type1);
-            Dic_File.Add("type2", type2);
-            Dic_File.Add("type3", type3);
-            Dic_File.Add("type4", type4);
-            Dic_File.Add("type5", type5);
-            Dic_File.Add("node1Time", node1Time);
-            Dic_File.Add("node2Time", node2Time);
-            Dic_File.Add("node3Time", node3Time);
-            Dic_File.Add("node4Time", node4Time);
-            Dic_File.Add("node5Time", node5Time);
-            Dic_File.Add("node6Time", node6Time);
-            Dic_File.Add("node7Time", node7Time);
-            Dic_File.Add("node8Time", node8Time);
-            Dic_File.Add("node9Time", node9Time);
-            Dic_File.Add("node10Time", node10Time);
-            Dic_File.Add("node11Time", node11Time);
-            Dic_File.Add("node12Time", node12Time);
-            Dic_File.Add("node13Time", node13Time);
-            Dic_File.Add("node14Time", node14Time);
-            Dic_File.Add("node15Time", node15Time);
-            Dic_File.Add("node16Time", node16Time);
-            Dic_File.Add("node17Time", node17Time);
-            #endregion
+            catch (Exception ex)
+            {
+                 ErrLogInfo.WriteLog(string.Empty, ex);
+                  if (File.Exists(newUrl))
+                  {
+                    File.Delete(newUrl);
+                  }
+                return;
+             }
+         
             if (TextArea2=="")
             {
                 TextArea2 = "已按评审意见修改完成，同意签订本合同。";
@@ -711,6 +738,12 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Document doc = new Aspose.Words.Document(newUrl);
             var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
             var ContractModel= BLL.ContractService.GetContractById(ContractId);
+            if (ContractModel.IsUseStandardtxt==2)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", this.ContractId, BLL.Const.ContractFormation)));
+                return;
+
+            }
             if (sub==null)
             {
                 Alert.ShowInTop("分包合同协议书未编制，无法导出！", MessageBoxIcon.Warning);

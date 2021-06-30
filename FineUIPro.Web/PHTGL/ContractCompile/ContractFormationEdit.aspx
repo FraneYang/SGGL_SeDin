@@ -76,44 +76,44 @@
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:DropDownList ID="DropSetSubReviewCode" runat="server" Label="确定中标人审批编号" LabelAlign="Right" AutoPostBack="true" LabelWidth="140px" Hidden="true" OnSelectedIndexChanged="DropSetSubReviewCode_SelectedIndexChanged"></f:DropDownList>
-                                                        <f:DropDownList ID="DropActionPlanCode" runat="server" Label="实施计划编号" LabelAlign="Right" AutoPostBack="true" LabelWidth="140px" Hidden="true" OnSelectedIndexChanged="DropActionPlanCode_SelectedIndexChanged"></f:DropDownList>
+                                                        <f:DropDownList ID="DropSetSubReviewCode" runat="server" Label="确定中标人审批编号" LabelAlign="Right" AutoPostBack="true" ShowRedStar="true" Required="true" AutoSelectFirstItem="false"   LabelWidth="140px" Hidden="true" OnSelectedIndexChanged="DropSetSubReviewCode_SelectedIndexChanged"></f:DropDownList>
+                                                        <f:DropDownList ID="DropActionPlanCode" runat="server" Label="实施计划编号" LabelAlign="Right" AutoPostBack="true" ShowRedStar="true" Required="true"  AutoSelectFirstItem="false" LabelWidth="140px" Hidden="true" OnSelectedIndexChanged="DropActionPlanCode_SelectedIndexChanged"></f:DropDownList>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:TextBox ID="tab1_txtEPCCode" runat="server" Label="总承包合同编号" LabelAlign="Right" AutoPostBack="true"   LabelWidth="120px"></f:TextBox>
-                                                        <f:TextBox ID="tab1_txtProjectName" runat="server" Label="项目名称" LabelAlign="Right"   LabelWidth="140px"></f:TextBox>
+                                                        <f:TextBox ID="tab1_txtEPCCode" runat="server" Label="总承包合同编号"  ShowRedStar="true" Required="true" LabelAlign="Right" AutoPostBack="true"   LabelWidth="120px"></f:TextBox>
+                                                        <f:TextBox ID="tab1_txtProjectName" runat="server" Label="项目名称"  ShowRedStar="true" Required="true" LabelAlign="Right"   LabelWidth="140px"></f:TextBox>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:TextBox ID="tab1_txtContractName" runat="server" Label="合同名称" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:TextBox>
-                                                        <f:TextBox ID="tab1_txtContractNum" runat="server" Label="合同编号" LabelAlign="Right" MaxLength="30" LabelWidth="140px"></f:TextBox>
+                                                        <f:TextBox ID="tab1_txtContractName" runat="server" Label="合同名称"  ShowRedStar="true" Required="true" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:TextBox>
+                                                        <f:TextBox ID="tab1_txtContractNum" runat="server" Label="合同编号"  ShowRedStar="true" Required="true" LabelAlign="Right" MaxLength="30" LabelWidth="140px"></f:TextBox>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow ColumnWidths="50% 30% 20%">
                                                     <Items>
-                                                        <f:TextBox ID="tab1_txtParties" runat="server" Label="签约方" LabelAlign="Right" MaxLength="100" LabelWidth="120px"></f:TextBox>
-                                                        <f:DropDownList ID="drpCurrency" runat="server" Label="（预计）合同金额" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
-                                                        <f:NumberBox ID="tab1_txtContractAmount" runat="server" LabelAlign="Right" NoNegative="true"></f:NumberBox>
+                                                        <f:TextBox ID="tab1_txtParties" runat="server" Label="签约方"  ShowRedStar="true" Required="true" LabelAlign="Right" MaxLength="100" LabelWidth="120px"></f:TextBox>
+                                                        <f:DropDownList ID="drpCurrency" runat="server" Label="（预计）合同金额"  ShowRedStar="true" Required="true" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
+                                                        <f:NumberBox ID="tab1_txtContractAmount" runat="server" LabelAlign="Right"  ShowRedStar="true" Required="true" NoNegative="true"></f:NumberBox>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
                                                         <f:DropDownList ID="drpDepartId" runat="server" Label="主办部门" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-                                                        <f:DropDownList ID="drpAgent" runat="server" Label="经办人" LabelAlign="Right" LabelWidth="140px"  AutoPostBack="true" EnableEdit="true"></f:DropDownList>
+                                                        <f:DropDownList ID="drpAgent" runat="server" Label="经办人" ShowRedStar="true" Required="true" AutoSelectFirstItem="false"  LabelAlign="Right" LabelWidth="140px"  AutoPostBack="true" EnableEdit="true"></f:DropDownList>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:DropDownList ID="drpContractType" runat="server" Label="合同类型" LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
-                                                        <f:TextBox ID="tab1_BuildUnit" runat="server" Label="建设单位" LabelAlign="Right" MaxLength="100" LabelWidth="120px"></f:TextBox>
+                                                        <f:DropDownList ID="drpContractType" runat="server" Label="合同类型" ShowRedStar="true" Required="true" AutoSelectFirstItem="false"  LabelAlign="Right" LabelWidth="120px"></f:DropDownList>
+                                                        <f:TextBox ID="tab1_BuildUnit" runat="server" Label="建设单位"  ShowRedStar="true" Required="true" LabelAlign="Right" MaxLength="100" LabelWidth="120px"></f:TextBox>
                                                     </Items>
                                                 </f:FormRow>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:TextArea ID="tab1_txtRemark" runat="server" Label="合同摘要" LabelAlign="Right" MaxLength="1000" LabelWidth="120px" AutoGrowHeightMax="150px"  AutoGrowHeight="true"></f:TextArea>
+                                                        <f:TextArea ID="tab1_txtRemark" runat="server" Label="合同摘要"  ShowRedStar="true" Required="true" LabelAlign="Right" MaxLength="1000" LabelWidth="120px" AutoGrowHeightMax="150px"  AutoGrowHeight="true"></f:TextArea>
                                                     </Items>
                                                 </f:FormRow>
                                             </Rows>

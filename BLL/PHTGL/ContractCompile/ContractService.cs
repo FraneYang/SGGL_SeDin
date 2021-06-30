@@ -95,6 +95,7 @@ namespace BLL
             newContract.EPCCode = contract.EPCCode;
             newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
             newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
+            newContract.ProjectShortName = contract.ProjectShortName;
             Funs.DB.PHTGL_Contract.InsertOnSubmit(newContract);
             Funs.DB.SubmitChanges();
         }
@@ -128,6 +129,7 @@ namespace BLL
                 newContract.EPCCode = contract.EPCCode;
                 newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
                 newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
+                newContract.ProjectShortName = contract.ProjectShortName;
                 Funs.DB.SubmitChanges();
             }
         }

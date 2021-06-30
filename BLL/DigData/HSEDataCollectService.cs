@@ -448,7 +448,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month1 = (Funs.GetNewIntOrZero(getItem24.Month1) +  getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month1 = (Funs.GetNewIntOrZero(getItem24.Month1) +  getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -809,7 +809,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month2 = (Funs.GetNewIntOrZero(getItem24.Month2) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month2 = (Funs.GetNewIntOrZero(getItem24.Month2) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -1170,7 +1170,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month3 = (Funs.GetNewIntOrZero(getItem24.Month3) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month3 = (Funs.GetNewIntOrZero(getItem24.Month3) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -1531,7 +1531,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month4 = (Funs.GetNewIntOrZero(getItem24.Month4) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month4 = (Funs.GetNewIntOrZero(getItem24.Month4) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -1892,7 +1892,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month5 = (Funs.GetNewIntOrZero(getItem24.Month5) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month5 = (Funs.GetNewIntOrZero(getItem24.Month5) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -2093,7 +2093,7 @@ namespace BLL
                         var getItem7 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 7);
                         if (getItem7 != null)
                         {
-                            getItem7.Month6 = (Funs.GetNewDecimalOrZero(getItem7.Month7) + getSeDin_MonthReport2.MonthWorkTime ?? 0).ToString();
+                            getItem7.Month6 = (Funs.GetNewDecimalOrZero(getItem7.Month6) + getSeDin_MonthReport2.MonthWorkTime ?? 0).ToString();
                         }
                     }
                     ////事故
@@ -2253,7 +2253,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month6 = (Funs.GetNewIntOrZero(getItem24.Month6) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month6 = (Funs.GetNewIntOrZero(getItem24.Month6) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -2614,7 +2614,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month7 = (Funs.GetNewIntOrZero(getItem24.Month7) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month7 = (Funs.GetNewIntOrZero(getItem24.Month7) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -2975,7 +2975,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month8 = (Funs.GetNewIntOrZero(getItem24.Month8) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month8 = (Funs.GetNewIntOrZero(getItem24.Month8) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -3336,7 +3336,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month9 = (Funs.GetNewIntOrZero(getItem24.Month9) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month9 = (Funs.GetNewIntOrZero(getItem24.Month9) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -3697,7 +3697,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month10 = (Funs.GetNewIntOrZero(getItem24.Month10) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month10 = (Funs.GetNewIntOrZero(getItem24.Month10) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -4058,7 +4058,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month11 = (Funs.GetNewIntOrZero(getItem24.Month11) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month11 = (Funs.GetNewIntOrZero(getItem24.Month11) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -4419,7 +4419,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month12 = (Funs.GetNewIntOrZero(getItem24.Month12) + getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month12 = (Funs.GetNewIntOrZero(getItem24.Month12) + getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -4785,7 +4785,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month1 = (Funs.GetNewIntOrZero(getItem24.Month1) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month1 = (Funs.GetNewIntOrZero(getItem24.Month1) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -5123,7 +5123,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month2 = (Funs.GetNewIntOrZero(getItem24.Month2) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month2 = (Funs.GetNewIntOrZero(getItem24.Month2) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -5461,7 +5461,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month3 = (Funs.GetNewIntOrZero(getItem24.Month3) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month3 = (Funs.GetNewIntOrZero(getItem24.Month3) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -5799,7 +5799,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month4 = (Funs.GetNewIntOrZero(getItem24.Month4) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month4 = (Funs.GetNewIntOrZero(getItem24.Month4) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -6137,7 +6137,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month5 = (Funs.GetNewIntOrZero(getItem24.Month5) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month5 = (Funs.GetNewIntOrZero(getItem24.Month5) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -6475,7 +6475,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month6 = (Funs.GetNewIntOrZero(getItem24.Month6) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month6 = (Funs.GetNewIntOrZero(getItem24.Month6) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -6813,7 +6813,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month7 = (Funs.GetNewIntOrZero(getItem24.Month7) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month7 = (Funs.GetNewIntOrZero(getItem24.Month7) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -7151,7 +7151,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month8 = (Funs.GetNewIntOrZero(getItem24.Month8) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month8 = (Funs.GetNewIntOrZero(getItem24.Month8) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -7489,7 +7489,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month9 = (Funs.GetNewIntOrZero(getItem24.Month9) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month9 = (Funs.GetNewIntOrZero(getItem24.Month9) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -7827,7 +7827,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month10 = (Funs.GetNewIntOrZero(getItem24.Month10) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month10 = (Funs.GetNewIntOrZero(getItem24.Month10) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -8165,7 +8165,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month11 = (Funs.GetNewIntOrZero(getItem24.Month11) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month11 = (Funs.GetNewIntOrZero(getItem24.Month11) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查
@@ -8503,7 +8503,7 @@ namespace BLL
                         var getItem24 = getHSEDataCollectItemYear.FirstOrDefault(x => x.SortIndex == 24);
                         if (getItem24 != null)
                         {
-                            getItem24.Month12 = (Funs.GetNewIntOrZero(getItem24.Month12) - getSeDin_MonthReport8.SpecialMontPerson ?? 0).ToString();
+                            getItem24.Month12 = (Funs.GetNewIntOrZero(getItem24.Month12) - getSeDin_MonthReport8.SpecialMontNum ?? 0).ToString();
                         }
                     }
                     /// 安全检查

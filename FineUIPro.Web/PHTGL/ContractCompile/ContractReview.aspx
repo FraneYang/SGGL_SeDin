@@ -70,19 +70,16 @@
                         <f:RenderField ColumnID="ProjectShortName" DataField="ProjectShortName" Width="200px" FieldType="String" HeaderText="项目名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="State" DataField="State" Width="80px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
-                            HeaderTextAlign="Center">
-                        </f:RenderField>
-                         <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
+                        <f:RenderField ColumnID="ContractNum" DataField="ContractNum" Width="200px" FieldType="String" HeaderText="合同编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="ContractName" DataField="ContractName" Width="200px" FieldType="String" HeaderText="合同名称" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ContractNum" DataField="ContractNum" Width="200px" FieldType="String" HeaderText="合同编号" TextAlign="Center"
+                        <f:RenderField ColumnID="Parties" DataField="Parties" Width="120px" FieldType="String" HeaderText="签约方" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Parties" DataField="Parties" Width="120px" FieldType="String" HeaderText="签约方" TextAlign="Center"
+                        <f:RenderField ColumnID="ContractType" DataField="ContractType" Width="150px" FieldType="String" HeaderText="合同类型" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="Currency" DataField="Currency" Width="100px" FieldType="String" HeaderText="币种" TextAlign="Center"
@@ -91,15 +88,20 @@
                         <f:RenderField ColumnID="ContractAmount" DataField="ContractAmount" Width="120px" FieldType="String" HeaderText="合同金额" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="DepartName" DataField="DepartName" Width="120px" FieldType="String" HeaderText="主办部门" TextAlign="Center"
+                        <f:RenderField ColumnID="State" DataField="State" Width="80px" FieldType="String" HeaderText="审批状态" TextAlign="Center"
                             HeaderTextAlign="Center">
+                        </f:RenderField>
+                        <f:RenderField ColumnID="ApproveType" DataField="ApproveType" Width="120px" FieldType="String" HeaderText="正在进行节点" TextAlign="Center"
+                            HeaderTextAlign="Center">
+                        </f:RenderField>
+  
+                        <f:RenderField ColumnID="DepartName" DataField="DepartName" Width="120px" FieldType="String" HeaderText="主办部门" TextAlign="Center"
+                            HeaderTextAlign="Center" Hidden="true">
                         </f:RenderField>
                         <f:RenderField ColumnID="AgentName" DataField="AgentName" Width="120px" FieldType="String" HeaderText="经办人" TextAlign="Center"
-                            HeaderTextAlign="Center">
+                            HeaderTextAlign="Center" Hidden="true">
                         </f:RenderField>
-                        <f:RenderField ColumnID="ContractType" DataField="ContractType" Width="150px" FieldType="String" HeaderText="合同类型" TextAlign="Center"
-                            HeaderTextAlign="Center">
-                        </f:RenderField>
+
                       <%--  <f:RenderField ColumnID="Remarks" DataField="Remarks" Width="220px" FieldType="String" HeaderText="合同摘要" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>--%>

@@ -227,6 +227,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             {
                 CountersignerSave(false);
                 OAWebSevice.DoneRequest(pHTGL_Approve.ApproveId);
+                OAWebSevice.Pushoa_Creater(pHTGL_Approve.ApproveId);
+
 
             }
             else

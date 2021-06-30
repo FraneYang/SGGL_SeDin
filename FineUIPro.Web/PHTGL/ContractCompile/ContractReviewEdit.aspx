@@ -96,7 +96,7 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:DropDownList ID="DropProjectManager" runat="server" Label="项目经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
+                                                <f:DropDownList ID="DropProjectManager" runat="server" Label="项目经理" Required="true" ShowRedStar="true" OnSelectedIndexChanged="DropProjectManager_SelectedIndexChanged" AutoSelectFirstItem="false" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
@@ -129,6 +129,11 @@
                                 <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" AutoScroll="false" Title=""
                                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                     <Rows>
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropProjectManager2" runat="server" Label="项目经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true"  Enabled="false" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
+                                            </Items>
+                                        </f:FormRow>
                                         <f:FormRow>
                                             <Items>
                                                 <f:DropDownList ID="dropApproval_Construction" runat="server" Label="施工管理部" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" EnableEdit="true" LabelAlign="Right" AutoPostBack="true" LabelWidth="120px"></f:DropDownList>

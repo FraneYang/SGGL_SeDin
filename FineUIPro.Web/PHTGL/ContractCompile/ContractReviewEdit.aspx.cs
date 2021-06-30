@@ -39,6 +39,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 UserService.InitUserUnitIdDropDownList(DropQAManager, Const.UnitId_SEDIN, false);  //质量经理
                 UserService.InitUserUnitIdDropDownList(DropFinancialManager, Const.UnitId_SEDIN, false);  //财务经理
                 UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, false);  //项目经理
+                UserService.InitUserUnitIdDropDownList(DropProjectManager2, Const.UnitId_SEDIN, false);  //项目经理
 
 
                 BLL.UserService.InitUserRoleIdUnitIdDropDownList(this.dropCountersign_Construction, this.CurrUser.UnitId, Const.SGContractManageEngineer, false);  ///施工管理部合同评审人员
@@ -162,7 +163,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             DropGeneralAccountant.SelectedValue = Convert.ToString(newmodel.Approval_GeneralAccountant);
             DropGeneralManager.SelectedValue = Convert.ToString(newmodel.Approval_GeneralManager);
             DropChairman.SelectedValue = Convert.ToString(newmodel.Approval_Chairman);
-
+            DropProjectManager_SelectedIndexChanged(null, null);
             Model.PHTGL_Contract table = BLL.ContractService.GetContractById(this.drpProjectId.Value);
             txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
         }
@@ -360,5 +361,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             
         }
         #endregion
+
+        protected void DropProjectManager_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            DropProjectManager2.SelectedValue = DropProjectManager.SelectedValue;
+        }
     }
 }

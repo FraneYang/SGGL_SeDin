@@ -139,9 +139,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             //总承包合同编号
               ///this.drpProjectId.Enabled = false;
              ///确定中标人审批编号
-            BLL.PHTGL_SetSubReviewService.InitGetSetSubCompleteDropDownList(DropSetSubReviewCode,true);
+            BLL.PHTGL_SetSubReviewService.InitGetSetSubCompleteDropDownList(DropSetSubReviewCode,false);
             ///实施计划编号
-            BLL.PHTGL_ActionPlanFormationService.InitGetAcpCompleteDropDownList(DropActionPlanCode,true );
+            BLL.PHTGL_ActionPlanFormationService.InitGetAcpCompleteDropDownList(DropActionPlanCode, false);
             //币种
             this.drpCurrency.DataTextField = "Text";
             this.drpCurrency.DataValueField = "Value";
@@ -149,10 +149,10 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             this.drpCurrency.DataBind();
             Funs.FineUIPleaseSelect(this.drpCurrency);
             //主办部门
-            BLL.DepartService.InitDepartDropDownList(this.drpDepartId, true);
+            BLL.DepartService.InitDepartDropDownList(this.drpDepartId, false);
             this.drpDepartId.SelectedValue = Const.Depart_constructionId;  //默认为施工管理部id
             //经办人
-             UserService.InitUserUnitIdDropDownList(drpAgent, Const.UnitId_SEDIN, true);
+             UserService.InitUserUnitIdDropDownList(drpAgent, Const.UnitId_SEDIN, false);
              //合同类型
             this.drpContractType.DataTextField = "Text";
             this.drpContractType.DataValueField = "Value";
@@ -182,11 +182,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                             DropActionPlanCode_SelectedIndexChanged(null, null);
                         }
                     }
-                     this.tab1_txtContractName.Text = contract.ContractName;
+                    tab1_txtProjectName.Text = contract.ProjectShortName;
+                    tab1_txtEPCCode.Text = contract.EPCCode;
+                    this.tab1_txtContractName.Text = contract.ContractName;
                     this.tab1_txtContractNum.Text = contract.ContractNum;
                     this.tab1_txtParties.Text = contract.Parties;
                     this.tab1_BuildUnit.Text = contract.BuildUnit;
                     this.IsUseStandardtxt.SelectedValue = Convert.ToString( contract.IsUseStandardtxt);
+                    IsUseStandardtxt_SelectedIndexChanged(null, null);
                     this.NoUseStandardtxtRemark.Text = contract.NoUseStandardtxtRemark;
                     if (!string.IsNullOrEmpty(contract.Currency))
                     {
@@ -303,6 +306,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             newContract.Parties = this.tab1_txtParties.Text.Trim();
             newContract.BuildUnit = this.tab1_BuildUnit.Text.Trim();
             newContract.EPCCode = tab1_txtEPCCode.Text;
+            newContract.ProjectShortName = tab1_txtProjectName.Text;
             newContract.IsUseStandardtxt = Convert.ToInt32( this.IsUseStandardtxt.SelectedValue);
             newContract.NoUseStandardtxtRemark = this.NoUseStandardtxtRemark.Text.ToString();
             if (this.drpCurrency.SelectedValue != BLL.Const._Null)
@@ -331,6 +335,8 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 if (con!=null)
                 {
                     newContract.ContractId = ContractId;
+                    newContract.ApproveState = Const.ContractCreating;
+                    newContract.CreatUser = this.CurrUser.UserId;
                     BLL.ContractService.UpdateContract(newContract);
                     ShowNotify("修改成功！", MessageBoxIcon.Success);
                 }
@@ -386,10 +392,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         protected void DropActionPlanCode_SelectedIndexChanged(object sender, EventArgs e)
         {
             var Act = BLL.PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationByCode(DropActionPlanCode.SelectedValue);
-            tab1_txtEPCCode.Text = Act.EPCCode;
-            tab1_txtProjectName.Text = Act.ProjectShortName;
+            
             if (Act != null)
             {
+                tab1_txtEPCCode.Text = Act.EPCCode;
+                tab1_txtProjectName.Text = Act.ProjectShortName;
                 if (string.IsNullOrEmpty(tab1_txtContractNum.Text))
                 {
                     tab1_txtContractNum.Text = Act.ProjectCode + ".000.C01.90-";

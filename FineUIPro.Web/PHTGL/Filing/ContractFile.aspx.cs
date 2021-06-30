@@ -53,14 +53,14 @@ namespace FineUIPro.Web.PHTGL.Filing
                                     WHEN  @ContractReview_Refuse    THEN '审批被拒'   END) AS State ,
                                       Con.Remarks,
                                     Con.EPCCode,
-                                    Act.ProjectShortName,
+                                    Con.ProjectShortName,
                                     Pro.ProjectCode,
                                     Pro.ProjectName,
                                     Dep.DepartName,
                                     U.UserName AS AgentName"
                             + @" from PHTGL_ContractReview AS Rev"
                             + @"  LEFT JOIN PHTGL_Contract AS Con  ON Con.ContractId=Rev.ContractId"
-                            + @"  left join PHTGL_ActionPlanFormation as Act on Act.EPCCode=Con.EPCCode"
+                            //+ @"  left join PHTGL_ActionPlanFormation as Act on Act.EPCCode=Con.EPCCode"
                             + @"  LEFT JOIN Base_Project AS Pro ON Pro.ProjectId = Con.ProjectId"
                             + @"  LEFT JOIN Base_Depart AS Dep ON Dep.DepartId = Con.DepartId"
                             + @"  LEFT JOIN Sys_User AS U ON U.UserId = Con.Agent WHERE 1=1  and Rev.State=@State";
