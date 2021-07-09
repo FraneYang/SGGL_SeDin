@@ -51,8 +51,9 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 PHTGL_BidApproveUserReviewService.InitGetBidCompleteDropDownList(DropBidCode, true);
                 UserService.InitUserUnitIdDropDownList(this.DropConstructionManager, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(this.DropProjectManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(this.DropApproval_Construction, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(this.DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
+
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropApproval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropDeputyGeneralManager, this.CurrUser.UnitId, Const.DeputyGeneralManager, false);
 
                 Bind();
                 BindGrid();
@@ -141,6 +142,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                       ,Skill_ReviewResults
                                       ,Business_ReviewResults
                                       ,Synthesize_ReviewResults
+                                      ,SortIndex
                                       ,Remarks"
                             + @"     FROM PHTGL_SetSubReview_Sch2 where 1=1 AND SetSubReviewID = @SetSubReviewID ";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -314,7 +316,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     model.Skill_ReviewResults = objects["values"]["Skill_ReviewResults"].ToString();
                     model.Business_ReviewResults = objects["values"]["Business_ReviewResults"].ToString();
                     model.Synthesize_ReviewResults = objects["values"]["Synthesize_ReviewResults"].ToString();
-                    model.Synthesize_ReviewResults = objects["values"]["Remarks"].ToString();
+                    model.Remarks = objects["values"]["Remarks"].ToString();
+                    model.SortIndex = i;
                     BLL.PHTGL_SetSubReview_Sch2Service.AddPHTGL_SetSubReview_Sch2(model);
                 }
             }

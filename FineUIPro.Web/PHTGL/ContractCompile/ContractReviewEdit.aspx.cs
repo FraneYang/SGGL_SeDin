@@ -49,33 +49,15 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 #endregion
                 #region 签订评审下拉框
                 ///绑定施工管理部正副主任
-                dropApproval_Construction.DataValueField = "UserId";
-                dropApproval_Construction.DataTextField = "UserName";
-                var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionMinister);
-                var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionViceMinister);
-                var model3 = model1.Concat(model2).ToList();
-                dropApproval_Construction.DataSource = model3;
-                dropApproval_Construction.DataBind();
-                ///法律合规部主任
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(dropApproval_Law, this.CurrUser.UnitId, Const.dropApproval_Law, false); 
-
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropGeneralAccountant, this.CurrUser.UnitId, Const.GeneralAccountant, false); 
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropGeneralManager, this.CurrUser.UnitId, Const.GeneralManager, false); 
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropDeputyGeneralManager, this.CurrUser.UnitId, Const.DeputyGeneralManager, false); 
-                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropChairman, this.CurrUser.UnitId, Const.Chairman, false);
-
-      
-                //UserService.InitUserUnitIdDropDownList(DropGeneralAccountant, Const.UnitId_SEDIN, true);  //总会计师
-                //UserService.InitUserUnitIdDropDownList(DropGeneralManager, Const.UnitId_SEDIN, true);  //总经理
-                //UserService.InitUserUnitIdDropDownList(DropDeputyGeneralManager, Const.UnitId_SEDIN, true);  //分管副总经理
-                //UserService.InitUserUnitIdDropDownList(DropChairman, Const.UnitId_SEDIN, true);  //董事长
-
-
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(dropApproval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(dropApproval_Law, this.CurrUser.UnitId, Const.dropApproval_Law, false);   ///法律合规部主任
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropGeneralAccountant, this.CurrUser.UnitId, Const.GeneralAccountant, false); //总会计师
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropGeneralManager, this.CurrUser.UnitId, Const.GeneralManager, false);  //总经理
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropDeputyGeneralManager, this.CurrUser.UnitId, Const.DeputyGeneralManager, false); //分管副总经理
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropChairman, this.CurrUser.UnitId, Const.Chairman, false);//董事长
                 #endregion
-
                 BindGrid();
                 BindFrom();
-
             }
 
 
@@ -167,6 +149,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Model.PHTGL_Contract table = BLL.ContractService.GetContractById(this.drpProjectId.Value);
             txtContractNum.Text = BLL.ContractService.GetContractByProjectId(table.ProjectId).ContractNum;
         }
+
         private bool DropIsNull(Control c)
         {
             bool IsOk = true;
@@ -183,8 +166,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         ShowNotify("请选择要审批的"+tb.Label, MessageBoxIcon.Warning);
                         return IsOk;
                     }
-                   
-
                 }
  
             }

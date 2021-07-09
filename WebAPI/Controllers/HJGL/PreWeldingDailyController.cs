@@ -5,6 +5,7 @@ using System.Net;
 using System.Net.Http;
 using System.Web.Http;
 using BLL;
+using Model;
 
 namespace WebAPI.Controllers
 {
@@ -24,7 +25,7 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                 responeData.data = APIPreWeldingDailyService.getPreWeldingDailyInfo(preWeldingDailyId);
+                responeData.data = APIPreWeldingDailyService.getPreWeldingDailyInfo(preWeldingDailyId);
             }
             catch (Exception ex)
             {
@@ -62,6 +63,23 @@ namespace WebAPI.Controllers
                 responeData.message = ex.Message;
             }
             return responeData;
+        }
+        #endregion
+
+        #region 获取焊接任务单记录
+        /// <summary>
+        /// 获取日报明细记录
+        /// </summary>
+        /// <param name="itemEndCheckListId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        public ResponseData<List<View_HJGL_WeldingTask>> GetWeldingTasks(string weldingDailyId, string unitWorkId, string date, string projectId)
+        {
+            ResponseData<List<View_HJGL_WeldingTask>> res = new ResponseData<List<View_HJGL_WeldingTask>>();
+            res.successful = true;
+            res.resultValue = BLL.APIPreWeldingDailyService.GetWeldingTasks(weldingDailyId, unitWorkId, date, projectId);
+            return res;
+
         }
         #endregion
 

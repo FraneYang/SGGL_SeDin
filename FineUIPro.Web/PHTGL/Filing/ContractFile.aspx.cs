@@ -185,8 +185,8 @@ namespace FineUIPro.Web.PHTGL.Filing
             }
             string Id = Grid1.SelectedRowID;
             var ContractId = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(Id).ContractId;
-             var Con = BLL.ContractService.GetContractById(ContractId);
-            if (Con.IsUseStandardtxt == 2)
+            var Con = BLL.ContractService.GetContractById(ContractId);
+            if (Con.IsUseStandardtxt == 2 || Con.ContractAttribute == 1)
             {
                 PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", ContractId, BLL.Const.ContractFormation)));
             }

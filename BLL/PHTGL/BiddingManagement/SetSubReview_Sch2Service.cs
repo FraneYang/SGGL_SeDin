@@ -30,6 +30,7 @@ namespace BLL
             table.Business_ReviewResults = newtable.Business_ReviewResults;
             table.Synthesize_ReviewResults = newtable.Synthesize_ReviewResults;
             table.Remarks = newtable.Remarks;
+            table.SortIndex = newtable.SortIndex;
             Funs.DB.PHTGL_SetSubReview_Sch2.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -50,6 +51,7 @@ namespace BLL
                 table.Business_ReviewResults = newtable.Business_ReviewResults;
                 table.Synthesize_ReviewResults = newtable.Synthesize_ReviewResults;
                 table.Remarks = newtable.Remarks;
+                table.SortIndex = newtable.SortIndex;
                 Funs.DB.SubmitChanges();
             }
 

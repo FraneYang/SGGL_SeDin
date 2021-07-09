@@ -359,10 +359,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 return;
             }
             string Id = Grid1.SelectedRowID;
-             ContractReview contractReview = new ContractReview();
-            contractReview.printContractAgreement(Id);
-             btnPrinterWord.Enabled = true;
-            
+            var Con = BLL.ContractService.GetContractById(Id);
+            if (Con.IsUseStandardtxt == 2 || Con.ContractAttribute == 1)
+            {
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", Id, BLL.Const.ContractFormation)));
+            }
+            else
+            {
+                ContractReview contractReview = new ContractReview();
+                contractReview.printContractAgreement(Id);
+            }
+
         }
     }
 }

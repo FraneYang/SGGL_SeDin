@@ -93,11 +93,14 @@ namespace FineUIPro.Web
                 Model.SingleSerie s = new Model.SingleSerie();
                 List<double> listdata = new List<double>();
                 var getStates = LicensePublicService.drpStatesItem().Where(x=>x.Value != Const._Null);
-                var getLicense = APILicenseDataService.getLicenseDataListByStates(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, null);
-                foreach (var itemStates in getStates)
+                var getLicense = APILicenseDataService.getLicenseDataListByStates(this.CurrUser.LoginProjectId, Const.UnitId_SEDIN, null,0);
+                if (getLicense != null)
                 {
-                    listCategories.Add(itemStates.Text);                   
-                    listdata.Add(getLicense.Where(x => x.States == itemStates.Value).Count());
+                    foreach (var itemStates in getStates)
+                    {
+                        listCategories.Add(itemStates.Text);
+                        listdata.Add(getLicense.Where(x => x.States == itemStates.Value).Count());
+                    }
                 }
                 s.data = listdata;
                 series.Add(s);

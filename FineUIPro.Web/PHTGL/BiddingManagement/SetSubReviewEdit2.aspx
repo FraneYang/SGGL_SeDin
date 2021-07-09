@@ -10,8 +10,8 @@
 <body>
     <form id="form1" runat="server">
         <f:PageManager ID="PageManager1" AutoSizePanelID="SimpleForm1" runat="server" />
-        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="false" Title="审批信息"
-            BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
+        <f:Form ID="SimpleForm1" ShowBorder="false" ShowHeader="false" AutoScroll="true" Title="审批信息"
+            BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right" Layout="VBox">
             <Rows>
                 <f:FormRow>
                     <Items>
@@ -30,12 +30,12 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtProjectName" runat="server" Readonly="true" Label="工程名称"  LabelAlign="Right" MaxLength="30" LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
+                                                <f:TextBox ID="txtProjectName" runat="server" Readonly="true" Label="工程名称"  LabelAlign="Right"  LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
                                             </Items>
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:TextBox ID="txtBidContent" runat="server" Readonly="true" Label="招标内容" LabelAlign="Right" MaxLength="30" LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
+                                                <f:TextBox ID="txtBidContent" runat="server" Readonly="true" Label="招标内容" LabelAlign="Right"  LabelWidth="140px" Required="true" ShowRedStar="true"></f:TextBox>
                                                 <f:DatePicker runat="server" Required="true" Readonly="true" DateFormatString="yyyy-MM-dd" Label="开标日期" EmptyText="请选择开始日期"
                                                     ID="StartTime" ShowRedStar="true">
                                                 </f:DatePicker>
@@ -74,7 +74,7 @@
                                             <Items>
                                                 <f:Grid ID="Grid1" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" Title="" EnableCollapse="false"
                                                     runat="server" DataKeyNames="ID" AllowCellEditing="true" ClicksToEdit="1" ForceFit="true"
-                                                    EnableColumnLines="true" DataIDField="ID">
+                                                    EnableColumnLines="true" DataIDField="ID" MaxHeight="300px" SortField="SortIndex">
                                                     <Toolbars>
                                                         <f:Toolbar ID="Toolbar2" runat="server" Position="Top" ToolbarAlign="Left">
                                                             <Items>

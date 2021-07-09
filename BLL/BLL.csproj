@@ -46,7 +46,7 @@
       <HintPath>..\packages\Apache.NMS.ActiveMQ.1.7.2\lib\net40\Apache.NMS.ActiveMQ.dll</HintPath>
     </Reference>
     <Reference Include="Aspose.Words">
-      <HintPath>..\FineUIPro.Web\bin\Aspose.Words.dll</HintPath>
+      <HintPath>..\..\..\CQMS_New\CQMS\FineUIPro.Web\bin\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="EmitMapper, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\EmitMapper.1.0.0\lib\EmitMapper.dll</HintPath>

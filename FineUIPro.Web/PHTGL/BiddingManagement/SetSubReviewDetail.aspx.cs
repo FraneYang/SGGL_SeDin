@@ -150,6 +150,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                           ,SetSubReviewID
                                           ,Company
                                           ,ReviewResults
+                                          ,SortIndex
                                           ,Remarks"
                             + @"     FROM PHTGL_SetSubReview_Sch1 where 1=1 AND SetSubReviewID = @SetSubReviewID ";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -180,6 +181,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                       ,Skill_ReviewResults
                                       ,Business_ReviewResults
                                       ,Synthesize_ReviewResults
+                                      ,SortIndex
                                       ,Remarks"
                             + @"     FROM PHTGL_SetSubReview_Sch2 where 1=1 AND SetSubReviewID = @SetSubReviewID ";
             List<SqlParameter> listStr = new List<SqlParameter>();

@@ -170,7 +170,8 @@ namespace BLL
                                 if (File.Exists(url))
                                 {
                                     bookmarkCreateMan.Text = Idea;
-                                    builders.InsertImage(url, JpgSize.Width *1.5/ i, JpgSize.Height * 1.5 / i);
+                                    builders.InsertImage(url, JpgSize.Width *1.6/ i, JpgSize.Height * 1.2 / i);
+                                    
                                 }
                                 else
                                 {

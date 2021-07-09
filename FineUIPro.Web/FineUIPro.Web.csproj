@@ -67,7 +67,7 @@
     </Reference>
     <Reference Include="Aspose.Words, Version=10.5.0.0, Culture=neutral, PublicKeyToken=fa9a48344f15a022, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\CQMS_New\CQMS\FineUIPro.Web\bin\Aspose.Words.dll</HintPath>
+      <HintPath>..\..\..\..\宁波MVC变更平台\NBSGGL_NET_CORE\NBSGGL_MVC\bin\Aspose.Words.dll</HintPath>
     </Reference>
     <Reference Include="AxInterop.SYNCARDOCXLib">
       <HintPath>..\..\..\SGGL\SGGL\FineUIPro.Web\bin\AxInterop.SYNCARDOCXLib.dll</HintPath>

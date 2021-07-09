@@ -103,13 +103,40 @@ namespace FineUIPro.Web.PHTGL.ContractCompile {
         protected global::FineUIPro.Form SimpleForm1;
         
         /// <summary>
+        /// DropContractAttribute 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.DropDownList DropContractAttribute;
+        
+        /// <summary>
+        /// txtContractAttributeRemark 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.TextArea txtContractAttributeRemark;
+        
+        /// <summary>
+        /// btnAttributeRemark 控件。
+        /// </summary>
+        /// <remarks>
+        /// 自动生成的字段。
+        /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
+        /// </remarks>
+        protected global::FineUIPro.Button btnAttributeRemark;
+        
+        /// <summary>
         /// CBIsPassBid 控件。
         /// </summary>
         /// <remarks>
         /// 自动生成的字段。
         /// 若要进行修改，请将字段声明从设计器文件移到代码隐藏文件。
         /// </remarks>
-        protected global::FineUIPro.CheckBoxList CBIsPassBid;
+        protected global::FineUIPro.RadioButtonList CBIsPassBid;
         
         /// <summary>
         /// IsUseStandardtxt 控件。

@@ -27,14 +27,9 @@ namespace WebAPI.Controllers
         {
             var responeData = new Model.ResponeData();            
             try
-            {              
-                var getDataList = APILicenseDataService.getLicenseDataList(strMenuId, projectId, unitId, states);
-                int pageCount = getDataList.Count;
-                if (pageCount > 0 && pageIndex > 0)
-                {
-                    getDataList = (from x in getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
-                                   select x).ToList();
-                }
+            {
+                var getDataList = APILicenseDataService.getLicenseDataList(strMenuId, projectId, unitId, states, pageIndex);
+                int pageCount = APILicenseDataService.getLicenseDataCount;
                 responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
@@ -60,13 +55,8 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APILicenseDataService.getLicenseDataListByStates(projectId, unitId, states);
-                int pageCount = getDataList.Count;
-                if (pageCount > 0 && pageIndex > 0)
-                {
-                    getDataList = (from x in getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize)
-                                   select x).ToList();
-                }
+                var getDataList = APILicenseDataService.getLicenseDataListByStates( projectId, unitId, states, pageIndex);
+                int pageCount = APILicenseDataService.getLicenseDataStatesCount;
                 responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)

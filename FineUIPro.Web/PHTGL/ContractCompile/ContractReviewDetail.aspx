@@ -115,6 +115,8 @@
                                 <f:Form ID="Form3" ShowBorder="false" ShowHeader="false" AutoScroll="true" Title="审批流程"
                                     BodyPadding="10px" runat="server" RedStarPosition="BeforeText" LabelAlign="Right">
                                     <Items>
+                                        <f:TextBox ID="Tab2_txtProjectShortName" Label="项目名称" Margin="0 5 0 0"  Readonly="true"  runat="server">
+                                                </f:TextBox>
                                         <f:Panel ID="Panel4" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
                                                 <f:TextBox ID="Tab2_txtContractName" Label="合同名称" Margin="0 5 0 0"  Readonly="true"  ColumnWidth="50%" runat="server">
@@ -146,6 +148,8 @@
                                                 </f:Button>
                                             </Items>
                                         </f:Panel>
+                                        <f:TextArea ID="NoUseStandardtxtRemark" runat="server" Label="说明" LabelAlign="Right" AutoGrowHeightMax="50px" Readonly="true" AutoGrowHeight="true" Hidden="true" EmptyText="不使用标准文本原因"></f:TextArea>
+ 
                                         <f:Panel ID="Panel7" Layout="Column" ShowHeader="false" ShowBorder="false" runat="server">
                                             <Items>
                                               <%--  <f:TextBox ID="txtApproveType" Label="当前节点" Margin="0 5 0 0" Readonly="true"  ColumnWidth="50%" runat="server">

@@ -96,6 +96,8 @@ namespace BLL
             newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
             newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
             newContract.ProjectShortName = contract.ProjectShortName;
+            newContract.ContractAttribute = contract.ContractAttribute;
+            newContract.ContractAttributeRemark = contract.ContractAttributeRemark;
             Funs.DB.PHTGL_Contract.InsertOnSubmit(newContract);
             Funs.DB.SubmitChanges();
         }
@@ -130,6 +132,9 @@ namespace BLL
                 newContract.IsUseStandardtxt = contract.IsUseStandardtxt;
                 newContract.NoUseStandardtxtRemark = contract.NoUseStandardtxtRemark;
                 newContract.ProjectShortName = contract.ProjectShortName;
+                newContract.ContractAttribute = contract.ContractAttribute;
+                newContract.ContractAttributeRemark = contract.ContractAttributeRemark;
+
                 Funs.DB.SubmitChanges();
             }
         }

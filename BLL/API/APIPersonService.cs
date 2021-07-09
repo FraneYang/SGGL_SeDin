@@ -303,8 +303,17 @@ namespace BLL
             }
         }
         #endregion
-
+        
         #region 获取在岗、离岗、待审人员列表
+        /// <summary>
+        /// 记录数
+        /// </summary>
+        public static int getPersonListCount
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// 获取在岗、离岗、待审人员列表
         /// </summary>
@@ -315,7 +324,7 @@ namespace BLL
         /// <param name="strWorkPostId">查询岗位</param>
         ///  <param name="strParam">查询条件</param>
         /// <returns></returns>
-        public static List<Model.PersonItem> getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam)
+        public static List<Model.PersonItem> getPersonListByProjectIdStates(string projectId, string unitId, string states, string strUnitId, string strWorkPostId, string strParam, int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -348,41 +357,56 @@ namespace BLL
                     getViews = getViews.Where(x => x.IsUsed == false && x.AuditorDate.HasValue);
                 }
 
+                getPersonListCount = getViews.Count();
 
-                var persons = from x in getViews
-                              join y in db.Base_Unit on x.UnitId equals y.UnitId
-                              orderby x.InTime descending
-                              select new Model.PersonItem
-                              {
-                                  PersonId = x.PersonId,
-                                  CardNo = x.CardNo,
-                                  PersonName = x.PersonName,
-                                  SexName = (x.Sex == "2" ? "女" : "男"),
-                                  IdentityCard = x.IdentityCard,
-                                  Address = x.Address,
-                                  ProjectId = x.ProjectId,
-                                  UnitId = x.UnitId,
-                                  UnitCode = y.UnitCode,
-                                  UnitName = y.UnitName,
-                                  TeamGroupId = x.TeamGroupId,
-                                  TeamGroupName = db.ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
-                                  WorkPostId = x.WorkPostId,
-                                  WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
-                                  InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
-                                  OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
-                                  OutResult = x.OutResult,
-                                  Telephone = x.Telephone,
-                                  PhotoUrl = x.PhotoUrl,
-                                  IsUsed = x.IsUsed,
-                                  IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
-                                  WorkAreaId = x.WorkAreaId,
-                                  WorkAreaName = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
-                                  PostType = ReturnQuality(x.PersonId, x.WorkPostId),
-                                  //PostTypeName = db.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == p.PostType).ConstText,
-                                  IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
-                                  IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
-                              };
-                return persons.ToList();
+                if (getPersonListCount == 0)
+                {
+                    return null;
+                }
+                else
+                {
+                    var persons = from x in getViews
+                                  join y in db.Base_Unit on x.UnitId equals y.UnitId
+                                  orderby x.InTime descending
+                                  select new Model.PersonItem
+                                  {
+                                      PersonId = x.PersonId,
+                                      CardNo = x.CardNo,
+                                      PersonName = x.PersonName,
+                                      SexName = (x.Sex == "2" ? "女" : "男"),
+                                      IdentityCard = x.IdentityCard,
+                                      Address = x.Address,
+                                      ProjectId = x.ProjectId,
+                                      UnitId = x.UnitId,
+                                      UnitCode = y.UnitCode,
+                                      UnitName = y.UnitName,
+                                      TeamGroupId = x.TeamGroupId,
+                                      TeamGroupName = db.ProjectData_TeamGroup.First(z => z.TeamGroupId == x.TeamGroupId).TeamGroupName,
+                                      WorkPostId = x.WorkPostId,
+                                      WorkPostName = db.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
+                                      InTime = string.Format("{0:yyyy-MM-dd}", x.InTime),
+                                      OutTime = string.Format("{0:yyyy-MM-dd}", x.OutTime),
+                                      OutResult = x.OutResult,
+                                      Telephone = x.Telephone,
+                                      PhotoUrl = x.PhotoUrl,
+                                      IsUsed = x.IsUsed,
+                                      IsUsedName = (x.IsUsed == true ? "启用" : "未启用"),
+                                      WorkAreaId = x.WorkAreaId,
+                                      WorkAreaName = UnitWorkService.GetUnitWorkName(x.WorkAreaId),
+                                      PostType = ReturnQuality(x.PersonId, x.WorkPostId),
+                                      //PostTypeName = db.Sys_Const.First(p => p.GroupId == ConstValue.Group_PostType && p.ConstValue == p.PostType).ConstText,
+                                      IsForeign = x.IsForeign.HasValue ? x.IsForeign : false,
+                                      IsOutside = x.IsOutside.HasValue ? x.IsOutside : false,
+                                  };
+                    if (pageIndex > 0)
+                    {
+                        return persons.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    }
+                    else
+                    {
+                        return persons.ToList();
+                    }
+                }
             }
         }
 

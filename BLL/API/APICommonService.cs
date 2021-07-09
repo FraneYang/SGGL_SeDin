@@ -316,6 +316,31 @@ namespace BLL
             }
         }
 
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="userName"></param>
+        /// <param name="HttpUrl"></param>
+        /// <param name="LogTxt"></param>
+        public static void SaveSysAPILog(string apiName, string operationLog, string code)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.Sys_APILog newLog = new Model.Sys_APILog()
+                {
+                    LogId = SQLHelper.GetNewID(),
+                    OperationTime = DateTime.Now,
+                    APIName = apiName,
+                    OperationLog = operationLog,
+                    Code = code,
+                };
+
+                db.Sys_APILog.InsertOnSubmit(newLog);
+                db.SubmitChanges();
+            }
+        }
+
         /// 获中的照片拍摄日期
         /// </summary>
         /// <param name="fileName">文件名</param>

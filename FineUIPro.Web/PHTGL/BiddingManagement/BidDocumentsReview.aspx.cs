@@ -474,7 +474,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
             //验证参数
             if (doc1 == null) { throw new Exception("Word文件无效"); }
             doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-            string fileName = Path.GetFileName(filePath);
+            string fileName = Path.GetFileName(filePath).Replace("招标文件审批表", getFireWork.BidDocumentsCode+ "招标文件审批表");
             FileInfo info = new FileInfo(pdfUrl);
             long fileSize = info.Length;
             System.Web.HttpContext.Current.Response.Clear();

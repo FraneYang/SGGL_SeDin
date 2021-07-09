@@ -103,9 +103,13 @@ namespace FineUIPro.Web.SysManage
                         {
                             this.drpRole.SelectedValueArray = user.RoleId.Split(',');
                         }
-                        if (user.IsPost.HasValue)
+                        if (user.IsPost == true)
                         {
-                            this.drpIsPost.SelectedValue = Convert.ToString(user.IsPost);
+                            this.drpIsPost.SelectedValue = "True";
+                        }
+                        else
+                        {
+                            this.drpIsPost.SelectedValue = "False";
                         }
                         this.txtTelephone.Text = user.Telephone;
                         if (user.IsOffice == true)

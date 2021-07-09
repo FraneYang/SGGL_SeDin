@@ -79,8 +79,6 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 UserService.InitUserUnitIdDropDownList(DropControlManager, Const.UnitId_SEDIN, false);
                 UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, false);
                 UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, false);
-
-                //   this.DropProjectId.SelectedValue = this.CurrUser.LoginProjectId;
                 BLL.UserService.InitUserRoleIdUnitIdDropDownList(Approval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
                 Bind();
                 BindGrid();

@@ -50,8 +50,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 PHTGL_BidApproveUserReviewService.InitGetBidCompleteDropDownList(DropBidCode, true);
                 UserService.InitUserUnitIdDropDownList(this.DropConstructionManager, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(this.DropProjectManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(this.DropApproval_Construction, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(this.DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropApproval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropDeputyGeneralManager, this.CurrUser.UnitId, Const.DeputyGeneralManager, false);
 
                 Bind();
                 BindGrid();
@@ -133,6 +133,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                           ,SetSubReviewID
                                           ,Company
                                           ,ReviewResults
+                                          ,SortIndex
                                           ,Remarks"
                             + @"     FROM PHTGL_SetSubReview_Sch1 where 1=1 AND SetSubReviewID = @SetSubReviewID ";
             List<SqlParameter> listStr = new List<SqlParameter>();
@@ -305,6 +306,8 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                     model.Company = objects["values"]["Company"].ToString();
                     model.ReviewResults = objects["values"]["ReviewResults"].ToString();
                     model.Remarks = objects["values"]["Remarks"].ToString();
+                    model.SortIndex = i;
+
                     BLL.PHTGL_SetSubReview_Sch1Service.AddPHTGL_SetSubReview_Sch1(model);
                 }
             }

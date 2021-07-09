@@ -124,7 +124,7 @@
                                             </div>
                                             <div class="bi-single bi-label list-item-text bi-text"
                                                 style="height: 16px; line-height: 16px; text-align: left; white-space: nowrap; text-overflow: ellipsis; position: relative; flex-shrink: 0;">
-                                                一周内自动登录(账号默认工号初始密码123)
+                                                一周内自动登录
                                             </div>
                                         </div>
                                     </div>
@@ -146,6 +146,10 @@
                                             登录
                                         </div>
                                     </div>
+                                </div>
+                                <div class="bi-single bi-label list-item-text bi-text"
+                                    style="height: 16px; line-height: 16px; text-align: center; white-space: nowrap; text-overflow: ellipsis; position: relative; flex-shrink: 0;">
+                                    (账号：工号；初始密码：123)
                                 </div>
                                 <div id="error" class="bi-vertical-layout login-error"
                                     style="display: none; position: relative; margin-top: 20px;">

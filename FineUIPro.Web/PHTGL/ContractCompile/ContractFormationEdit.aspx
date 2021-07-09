@@ -32,7 +32,7 @@
                     <Items>
                         <f:Panel ID="Panel16" runat="server" CssStyle="text-align: right;" ShowBorder="false" ShowHeader="false" AutoScroll="true"  >
                             <Items>
-                                <f:Button runat="server" Text="提交" ValidateForms="Form1"  Size="Medium" ConfirmText="是否提交"
+                                <f:Button runat="server" Text="提交" ValidateForms="SimpleForm1"  Size="Medium" ConfirmText="是否提交" 
                                     ID="btnSubmitForm1" OnClick="btnSubmitForm1_Click">
                                 </f:Button>
                                 <f:Button ID="btnClose" EnablePostBack="false" ToolTip="关闭" Text="关闭" runat="server" Icon="SystemClose" Size="Medium">
@@ -50,7 +50,23 @@
                                             <Rows>
                                                 <f:FormRow>
                                                     <Items>
-                                                        <f:CheckBoxList ID="CBIsPassBid" Label="是否通过招标确定" runat="server" ColumnWidth="50%" LabelWidth="120px" OnSelectedIndexChanged="CBIsAgree_SelectedIndexChanged">
+                                                        <f:DropDownList runat="server" ID="DropContractAttribute"  Label="合同属性" OnSelectedIndexChanged="DropContractAttribute_SelectedIndexChanged" ShowRedStar="true"   Required="true"  AutoPostBack="true">
+                                                            <f:ListItem Text="主合同" Value="0" />
+                                                            <f:ListItem Text="补充合同" Value="1"/>
+                                                         </f:DropDownList>
+                                                         <f:TextArea ID="txtContractAttributeRemark" runat="server" Label="说明" LabelAlign="Right"   ShowRedStar="true" Required="true" AutoGrowHeightMax="50px"  Hidden="true"   AutoGrowHeight="true" EmptyText="使用补充合同说明"></f:TextArea>
+                                                         <f:Button ID="btnAttributeRemark" Text="合同文本及说明" ToolTip="附件" Icon="TableCell" runat="server" Hidden="true"
+                                                            OnClick="btnAttachUrl_Click" ValidateForms="SimpleForm1">
+                                                        </f:Button>
+                                                    </Items>
+                                                </f:FormRow>
+                                                <f:FormRow>
+                                                    <Items>
+                                                        <f:RadioButtonList ID="CBIsPassBid" Label="是否通过招标确定" runat="server" ShowRedStar="true" AutoPostBack="true" Required="true" OnSelectedIndexChanged="CBIsAgree_SelectedIndexChanged">
+                                                            <f:RadioItem Text="是" Value="1" />
+                                                            <f:RadioItem Text="否" Value="2" />
+                                                        </f:RadioButtonList>
+                           <%--                             <f:CheckBoxList ID="CBIsPassBid" Label="是否通过招标确定" runat="server" ColumnWidth="50%" LabelWidth="120px" ShowRedStar="true" AutoPostBack="true"  Required="true" OnSelectedIndexChanged="CBIsAgree_SelectedIndexChanged">
                                                             <Items>
                                                                 <f:CheckItem Text="是" Value="1" />
                                                                 <f:CheckItem Text="否" Value="2" />
@@ -58,7 +74,9 @@
                                                             <Listeners>
                                                                 <f:Listener Event="change" Handler="onCheckBoxListChange" />
                                                             </Listeners>
-                                                        </f:CheckBoxList>
+                                                        </f:CheckBoxList>--%>
+                                                        <f:Label runat="server"></f:Label>
+
                                                         <f:Label runat="server"></f:Label>
                                                     </Items>
                                                 </f:FormRow>

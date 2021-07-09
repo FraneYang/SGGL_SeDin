@@ -137,32 +137,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         }
 
 
-        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
-        {
-            object[] keys = Grid1.DataKeys[e.RowIndex];
-            string fileId = string.Empty;
-            if (keys == null)
-            {
-                return;
-            }
-            else
-            {
-                fileId = keys[0].ToString();
-            }
-            if (e.CommandName == "LooK")
-            {
-                 string id = fileId;
-                 PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", id, "编辑 - ")));
-                 return;
-            }
 
-            if (e.CommandName == "export")
-            {
-                btnPrinter_Click(null, null);
-            //    Print(fileId);
-            }
-
-        }
         #endregion
 
         #region 关闭弹出窗体
@@ -205,6 +180,36 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
         protected void Grid1_RowDoubleClick(object sender, GridRowClickEventArgs e)
         {
             this.EditData();
+        }
+        /// <summary>
+        /// 行事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Grid1_RowCommand(object sender, GridCommandEventArgs e)
+        {
+            object[] keys = Grid1.DataKeys[e.RowIndex];
+            string fileId = string.Empty;
+            if (keys == null)
+            {
+                return;
+            }
+            else
+            {
+                fileId = keys[0].ToString();
+            }
+            if (e.CommandName == "LooK")
+            {
+                string id = fileId;
+                PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ActionPlanFormationEdit.aspx?ActionPlanID={0}", id, "编辑 - ")));
+                return;
+            }
+
+            if (e.CommandName == "export")
+            {
+                btnPrinter_Click(null, null);
+            }
+
         }
         /// <summary>
         /// 表格单击事件
@@ -271,11 +276,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 return;
             }
             string id = Grid1.SelectedRowID;
-            // var _ActionPlanReview = BLL.PHTGL_ActionPlanReviewService.GetPHTGL_ActionPlanReviewByActionPlanID(id);
-            //if (_ActionPlanReview!=null)
-            //{
-            //    PHTGL_ActionPlanReviewService.DeletePHTGL_ActionPlanReviewById(_ActionPlanReview.ActionPlanReviewId);
-            //}
+
             var model = PHTGL_ActionPlanFormationService.GetPHTGL_ActionPlanFormationById(id);
             model.State = Const.ContractCreating;
             PHTGL_ActionPlanFormationService.UpdatePHTGL_ActionPlanFormation(model);

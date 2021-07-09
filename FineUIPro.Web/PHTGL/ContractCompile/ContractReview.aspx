@@ -128,7 +128,7 @@
         </f:Panel>
         <f:Window ID="Window1" Title="合同审批" Hidden="true" EnableIFrame="true" EnableMaximize="true"  Maximized="false"  EnableDrag="true"
             Target="Parent" EnableResize="true" runat="server" IsModal="true" OnClose="Window1_Close"
-            Width="1200px" Height="650px">
+            Width="1200px" Height="700px">
         </f:Window>
           <f:Window ID="WindowAtt" Title="文件柜" Hidden="true" EnableIFrame="true" EnableMaximize="true"
             Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"

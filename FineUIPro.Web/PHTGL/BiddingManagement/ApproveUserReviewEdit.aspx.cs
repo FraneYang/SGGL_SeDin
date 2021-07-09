@@ -50,12 +50,10 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 DropUser.DataSource = BLL.UserService.GetUserListByUnitId(Const.UnitId_SEDIN);
                 DropUser.DataBind();
                 Funs.FineUIPleaseSelect(DropUser);
-               
-                //UserService.InitUserUnitIdDropDownList(this.DropUser, Const.UnitId_SEDIN, true);
+                ///绑定施工管理部正副主任
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropApproval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
+ 
                 UserService.InitUserUnitIdDropDownList(this.DropConstructionManager, Const.UnitId_SEDIN, true);
-               // UserService.InitUserUnitIdDropDownList(this.DropProjectManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(this.DropApproval_Construction, Const.UnitId_SEDIN, true);
-               // UserService.InitUserUnitIdDropDownList(this.DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
                 Bind();
                 BindGrid();
                 #region Grid1

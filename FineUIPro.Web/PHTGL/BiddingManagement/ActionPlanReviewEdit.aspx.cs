@@ -58,19 +58,13 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                 ActionPlanReviewId = Request.Params["ActionPlanReviewId"];
                 #region 绑定下拉列表
                 /// 绑定施工管理部正副主任
-                Approval_Construction.DataValueField = "UserId";
-                Approval_Construction.DataTextField = "UserName";
-                var model1 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionMinister);
-                var model2 = BLL.UserService.GetUserListByRoleIDAndUnitId(CurrUser.UnitId, Const.ConstructionViceMinister);
-                var model3 = model1.Concat(model2).ToList();
-                Approval_Construction.DataSource = model3;
-                Approval_Construction.DataBind();
-                Funs.FineUIPleaseSelect(Approval_Construction);
-
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(Approval_Construction, CurrUser.UnitId, Const.ConstructionMinister, Const.ConstructionViceMinister, false);
+ 
                 UserService.InitUserUnitIdDropDownList(DropConstructionManager, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(DropPreliminaryMan, Const.UnitId_SEDIN, true);
                 UserService.InitUserUnitIdDropDownList(DropProjectManager, Const.UnitId_SEDIN, true);
-                UserService.InitUserUnitIdDropDownList(DropDeputyGeneralManager, Const.UnitId_SEDIN, true);
+                BLL.UserService.InitUserRoleIdUnitIdDropDownList(DropDeputyGeneralManager, this.CurrUser.UnitId, Const.DeputyGeneralManager, false);
+
                 #endregion
                 BindGrid();
                 BindForm();

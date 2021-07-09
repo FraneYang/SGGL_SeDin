@@ -179,13 +179,17 @@ namespace WebAPI.Controllers
             var responeData = new Model.ResponeData();
             try
             {
-                var getDataList = APIPersonService.getPersonListByProjectIdStates(projectId, unitId, states, strUnitId, strWorkPostId, strParam);
-                int pageCount = getDataList.Count;
-                if (pageCount > 0 && pageIndex > 0)
-                {
-                    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
-                }
+                var getDataList = APIPersonService.getPersonListByProjectIdStates(projectId, unitId, states, strUnitId, strWorkPostId, strParam, pageIndex);
+                int pageCount = APIPersonService.getPersonListCount;
                 responeData.data = new { pageCount, getDataList };
+
+                //var getDataList = APIPersonService.getPersonListByProjectIdStates(projectId, unitId, states, strUnitId, strWorkPostId, strParam);
+                //int pageCount = getDataList.Count;
+                //if (pageCount > 0 && pageIndex > 0)
+                //{
+                //    getDataList = getDataList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                //}
+                //responeData.data = new { pageCount, getDataList };
             }
             catch (Exception ex)
             {
@@ -504,14 +508,17 @@ namespace WebAPI.Controllers
         public Model.ResponeData getPersonInOut(string projectId, string idCard, int isIn,DateTime changeTime)
         {
             var responeData = new Model.ResponeData();
+            string operationLog= "projectId:" + projectId+ ";idCard:"+idCard + ";isIn:" + isIn.ToString() + ";isIn:" + Funs.GetNewFileName( changeTime);
             try
             {
                 APIPersonService.getPersonInOut(projectId, idCard, isIn, changeTime);
+                APICommonService.SaveSysAPILog("Person/getPersonInOut", operationLog, responeData.code.ToString());
             }
             catch (Exception ex)
             {
                 responeData.code = 0;
                 responeData.message = ex.Message;
+                APICommonService.SaveSysAPILog("Person/getPersonInOut", operationLog+"|"+ ex.Message, responeData.code.ToString());
             }
             return responeData;
         }

@@ -115,6 +115,10 @@
             Target="Parent" EnableResize="true" runat="server" IsModal="false" OnClose="Window1_Close" ConstrainSize="true" AutoScroll="true"
             Width="1200px" Height="650px">
         </f:Window>
+        <f:Window ID="WindowAtt" Title="文件柜" Hidden="true" EnableIFrame="true" EnableMaximize="true"
+            Target="Parent" EnableResize="false" runat="server" IsModal="true" Width="700px"
+            Height="500px">
+        </f:Window>
         <f:Menu ID="Menu1" runat="server">
             <Items>
                 <%--<f:MenuButton ID="btnMenuEdit" EnablePostBack="true" runat="server" Hidden="true" Text="编辑" Icon="Pencil"

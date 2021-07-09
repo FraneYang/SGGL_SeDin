@@ -27,6 +27,8 @@ namespace BLL
             table.Company = newtable.Company;
             table.ReviewResults = newtable.ReviewResults;
             table.Remarks = newtable.Remarks;
+            table.SortIndex = newtable.SortIndex;
+
             Funs.DB.PHTGL_SetSubReview_Sch1.InsertOnSubmit(table);
             Funs.DB.SubmitChanges();
         }
@@ -44,6 +46,8 @@ namespace BLL
                 table.Company = newtable.Company;
                 table.ReviewResults = newtable.ReviewResults;
                 table.Remarks = newtable.Remarks;
+                table.SortIndex = newtable.SortIndex;
+
                 Funs.DB.SubmitChanges();
             }
 

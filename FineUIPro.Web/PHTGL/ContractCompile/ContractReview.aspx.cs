@@ -245,7 +245,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             _ContractReview.State = Const.Contract_countersign;
             BLL.PHTGL_ContractReviewService.UpdatePHTGL_ContractReview(_ContractReview);
 
-            PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);  //先删除
+          //  PHTGL_ApproveService.DeletePHTGL_ApproveBycontractId(id);  //先删除
 
             var Countersignermodel = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(id);
             for (int i = 0; i < Countersignermodel.Count; i++)
@@ -416,14 +416,13 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             btnPrinterWord.EnablePress = false;
              ContractId = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(Id).ContractId;
             var Con = BLL.ContractService.GetContractById(ContractId);
-            if (Con.IsUseStandardtxt == 2)
+            if (Con.IsUseStandardtxt == 2||Con.ContractAttribute == 1)
             {
                 PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", ContractId, BLL.Const.ContractFormation)));
             }
             else
             {
                 printContractAgreement(ContractId);
-                btnPrinterWord.EnablePress = true;
             }
            
 
@@ -484,12 +483,14 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
                 #region 评审单
                 if (getFireWork != null)
-                {
-                    if (!string.IsNullOrEmpty(getFireWork.ProjectId))
+                { 
+                     DataTable data = BLL.PHTGL_ApproveService.GetFinalApproveData(ReviewModel.ContractReviewId);
+                    if (data.Rows !=null && data.Rows.Count >0)
                     {
-                        txtProjectid = getFireWork.EPCCode;
+                        txtProjectid = string.Format("{0:yyyyMMdd}", Convert.ToDateTime(data.Rows[0]["ApproveDate"].ToString()));
                     }
-                    txtContractName = getFireWork.ContractName;
+ 
+                     txtContractName = getFireWork.ContractName;
                     txtContractNum = getFireWork.ContractNum;
                     txtParties = getFireWork.Parties;
 
@@ -527,37 +528,35 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                             type5 = "√";
                             break;
                     }
-                    //if (!string.IsNullOrEmpty(getFireWork.ContractType))
-                    //{
-                    //    CBContractType.SelectedValueArray = getFireWork.ContractType.Split();
-                    //}
+ 
                 }
 
-                string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
-                                from PHTGL_Approve a "
-                                + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
-                List<SqlParameter> listStr = new List<SqlParameter>();
-                listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
+                //string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
+                //                from PHTGL_Approve a "
+                //                + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
+                //List<SqlParameter> listStr = new List<SqlParameter>();
+                //listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
-                SqlParameter[] parameter = listStr.ToArray();
-                DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                //SqlParameter[] parameter = listStr.ToArray();
+                //DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+                DataTable tb = BLL.PHTGL_ApproveService.GetFinalApproveData(ContractReviewId);
                 var ApproveManModels = PHTGL_ContractReviewService.GetApproveManModels(ContractReviewId);
                 var ApproveManModels__Countersigner = PHTGL_ContractReviewService.GetApproveManModels__Countersigner(ContractReviewId);
                 var allApproveMan = ApproveManModels__Countersigner.Concat(ApproveManModels).ToList();
 
                 foreach (DataRow dr in tb.Rows)
                 {
-
                     string ApproveMan = dr["ApproveMan"].ToString();
-                    var model = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString());
                     string ApproveType = "";
                     string ApproveDate = "";
+                    string ApproveIdea = dr["ApproveIdea"].ToString();
+                    var model = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString());
+
                     if (model != null)
                     {
                         ApproveType = model.Number.ToString();
 
                     }
-                    string ApproveIdea = dr["ApproveIdea"].ToString();
                     try
                     {
                           ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
@@ -568,7 +567,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     {
                         ApproveDate = "";
                     }
-                    TextArea2 += ApproveIdea;
+                    if (ApproveIdea.Length>4)
+                    {
+                        TextArea2 += ApproveIdea;
+
+                    }
                     switch (ApproveType)
                     {
                         case "1":
@@ -641,6 +644,11 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                             break;
                     }
                 }
+                if (TextArea2 == "")
+                {
+                    TextArea2 = "已按评审意见修改完成，同意签订本合同。";
+
+                }
                 Dic_File.Add("txtProjectid", txtProjectid);
                 Dic_File.Add("txtContractName", txtContractName);
                 Dic_File.Add("txtContractNum", txtContractNum);
@@ -684,11 +692,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 return;
              }
          
-            if (TextArea2=="")
-            {
-                TextArea2 = "已按评审意见修改完成，同意签订本合同。";
 
-            }
              foreach (var item in Dic_File)
             {
                 string[] key = { item.Key };
@@ -699,12 +703,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             //生成PDF文件
             string pdfUrl = newUrl.Replace(".doc", ".pdf");
             Document doc1 = new Aspose.Words.Document(newUrl);
-            //Document srcDoc = new Document(newUrl);
-            //doc1.AppendDocument(srcDoc, ImportFormatMode.UseDestinationStyles);
-             //验证参数
             if (doc1 == null) { throw new Exception ("Word文件无效"); }
             doc1.Save(pdfUrl, Aspose.Words.SaveFormat.Pdf);//还可以改成其它格式
-            string fileName = Path.GetFileName(filePath);
+            string fileName = Path.GetFileName(filePath).Replace("合同评审", txtContractNum+"合同评审");
             FileInfo info = new FileInfo(pdfUrl);
             long fileSize = info.Length;
             System.Web.HttpContext.Current.Response.Clear();
@@ -738,12 +739,6 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             Document doc = new Aspose.Words.Document(newUrl);
             var sub = BLL.SubcontractAgreementService.GetSubcontractAgreementByContractId(ContractId);
             var ContractModel= BLL.ContractService.GetContractById(ContractId);
-            if (ContractModel.IsUseStandardtxt==2)
-            {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", this.ContractId, BLL.Const.ContractFormation)));
-                return;
-
-            }
             if (sub==null)
             {
                 Alert.ShowInTop("分包合同协议书未编制，无法导出！", MessageBoxIcon.Warning);

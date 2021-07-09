@@ -370,6 +370,14 @@ namespace BLL
 
         #region 获取作业票列表信息
         /// <summary>
+        /// 
+        /// </summary>
+        public static int getLicenseDataCount
+        {
+            get;
+            set;
+        }
+        /// <summary>
         /// 获取作业票列表信息
         /// </summary>
         /// <param name="strMenuId"></param>
@@ -377,7 +385,7 @@ namespace BLL
         /// <param name="unitId"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public static List<Model.LicenseDataItem> getLicenseDataList(string strMenuId, string projectId, string unitId, string states)
+        public static List<Model.LicenseDataItem> getLicenseDataList(string strMenuId, string projectId, string unitId, string states,  int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -385,7 +393,7 @@ namespace BLL
                 {
                     unitId = null;
                 }
-                List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
+                IQueryable<Model.LicenseDataItem> getInfoList = null;
                 #region 动火作业票
                 if (strMenuId == Const.ProjectFireWorkMenuId)
                 {
@@ -419,7 +427,7 @@ namespace BLL
                                        CloseReasons = x.CloseReasons,
                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 高处作业票
@@ -455,7 +463,7 @@ namespace BLL
                                        CloseReasons = x.CloseReasons,
                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 受限空间作业票
@@ -491,7 +499,7 @@ namespace BLL
                                        CloseReasons = x.CloseReasons,
                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 射线作业票
@@ -534,7 +542,7 @@ namespace BLL
                                        NextManId = x.NextManId,
                                        NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 断路(占道)作业票
@@ -570,7 +578,7 @@ namespace BLL
                                        CloseReasons = x.CloseReasons,
                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 动土作业票
@@ -605,7 +613,7 @@ namespace BLL
                                        CloseReasons = x.CloseReasons,
                                        CloseTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.CloseTime),
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 夜间作业票
@@ -647,7 +655,7 @@ namespace BLL
                                        NextManId = x.NextManId,
                                        NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
                 #region 吊装作业票
@@ -685,7 +693,7 @@ namespace BLL
                                        NextManId = x.NextManId,
                                        NextManName = db.Sys_User.First(u => u.UserId == x.NextManId).UserName,
                                        States = x.States,
-                                   }).ToList();
+                                   });
                 }
                 #endregion
 
@@ -713,16 +721,36 @@ namespace BLL
                                        ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
                                        States = x.WorkStates,
                                        AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
-                                   }).ToList(); ;
+                                   }) ;
                 }
                 #endregion
 
-                return getInfoList;
+                getLicenseDataCount = getInfoList.Count();
+                if (getLicenseDataCount == 0)
+                {
+                    return null;
+                }
+                if (pageIndex > 0)
+                {
+                    return getInfoList.Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                }
+                else
+                {
+                    return getInfoList.ToList();
+                }
             }
         }
-        #endregion 
+        #endregion
 
         #region 获取作业票列表信息-按状态
+        /// <summary>
+        /// 
+        /// </summary>
+        public static int getLicenseDataStatesCount
+        {
+            get;
+            set;
+        }
         /// <summary>
         /// 获取作业票列表信息-按状态
         /// </summary>
@@ -730,7 +758,7 @@ namespace BLL
         /// <param name="unitId"></param>
         /// <param name="states"></param>
         /// <returns></returns>
-        public static List<Model.LicenseDataItem> getLicenseDataListByStates(string projectId, string unitId, string states)
+        public static List<Model.LicenseDataItem> getLicenseDataListByStates(string projectId, string unitId, string states, int pageIndex)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -738,8 +766,7 @@ namespace BLL
                 {
                     unitId = null;
                 }
-                List<Model.LicenseDataItem> getInfoList = new List<Model.LicenseDataItem>();
-
+                IEnumerable<Model.LicenseDataItem> getInfoList = null;
                 #region 动火作业票
                 var getFireWork = (from x in db.License_FireWork
                                    where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -760,13 +787,8 @@ namespace BLL
                                        ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                        ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                        States = x.States,
-                                   }).ToList();
-                if (getFireWork.Count() > 0)
-                {
-                    getInfoList.AddRange(getFireWork);
-                }
+                                   });              
                 #endregion
-
                 #region 高处作业票            
                 var getHeightWork = (from x in db.License_HeightWork
                                      where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -788,13 +810,8 @@ namespace BLL
                                          ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                          ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                          States = x.States,
-                                     }).ToList();
-                if (getHeightWork.Count() > 0)
-                {
-                    getInfoList.AddRange(getHeightWork);
-                }
+                                     });            
                 #endregion
-
                 #region 受限空间作业票
                 var getLimitedSpace = (from x in db.License_LimitedSpace
                                        where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -815,13 +832,8 @@ namespace BLL
                                            ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                            ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                            States = x.States,
-                                       }).ToList();
-                if (getLimitedSpace.Count() > 0)
-                {
-                    getInfoList.AddRange(getLimitedSpace);
-                }
+                                       });
                 #endregion
-
                 #region 射线作业票
                 var getRadialWork = (from x in db.License_RadialWork
                                      where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -843,13 +855,8 @@ namespace BLL
                                          ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                          WorkPalce = x.WorkPalce,
                                          States = x.States,
-                                     }).ToList();
-                if (getRadialWork.Count() > 0)
-                {
-                    getInfoList.AddRange(getRadialWork);
-                }
+                                     });            
                 #endregion
-
                 #region 断路(占道)作业票
                 var getOpenCircuit = (from x in db.License_OpenCircuit
                                       where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -871,13 +878,9 @@ namespace BLL
                                           ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                           RoadName = x.RoadName,
                                           States = x.States,
-                                      }).ToList();
-                if (getOpenCircuit.Count() > 0)
-                {
-                    getInfoList.AddRange(getOpenCircuit);
-                }
+                                      });
+             
                 #endregion
-
                 #region 动土作业票            
                 var getBreakGround = (from x in db.License_BreakGround
                                       where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -899,13 +902,8 @@ namespace BLL
                                           ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                           ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                           States = x.States,
-                                      }).ToList();
-                if (getBreakGround.Count() > 0)
-                {
-                    getInfoList.AddRange(getBreakGround);
-                }
+                                      });          
                 #endregion
-
                 #region 夜间作业票
                 var getNightWork = (from x in db.License_NightWork
                                     where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -926,13 +924,9 @@ namespace BLL
                                         ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                         ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                         States = x.States,
-                                    }).ToList();
-                if (getNightWork.Count() > 0)
-                {
-                    getInfoList.AddRange(getNightWork);
-                }
+                                    });
+              
                 #endregion
-
                 #region 吊装作业票
                 var getLiftingWork = (from x in db.License_LiftingWork
                                       where x.ProjectId == projectId && (x.ApplyUnitId == unitId || unitId == null)
@@ -954,13 +948,9 @@ namespace BLL
                                           ValidityStartTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityStartTime),
                                           ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.ValidityEndTime),
                                           States = x.States,
-                                      }).ToList();
-                if (getLiftingWork.Count() > 0)
-                {
-                    getInfoList.AddRange(getLiftingWork);
-                }
+                                      });
+            
                 #endregion
-
                 #region 作业票【定稿 】"待开工"="1";"作业中"="2";"已关闭"="3";"已取消"="-1"
                 var getLicenseManager = (from x in db.License_LicenseManager
                                          where x.ProjectId == projectId && (x.UnitId == unitId || unitId == null)
@@ -982,14 +972,127 @@ namespace BLL
                                              ValidityEndTime = string.Format("{0:yyyy-MM-dd HH:mm}", x.EndDate),
                                              States = x.WorkStates,
                                              AttachUrl = APIUpLoadFileService.getFileUrl(x.LicenseManagerId, null),
-                                         }).ToList();
-                if (getLicenseManager.Count() > 0)
-                {
-                    getInfoList.AddRange(getLicenseManager);
-                }
+                                         });
                 #endregion
 
-                return getInfoList.OrderByDescending(x => x.ValidityStartTime).ToList();
+                #region 合集
+                if (getFireWork.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getFireWork;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getFireWork);
+                    }
+                }
+                if (getHeightWork.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getHeightWork;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getHeightWork);
+                    }
+                }
+                if (getLimitedSpace.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getLimitedSpace;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getLimitedSpace);
+                    }
+                }
+                if (getRadialWork.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getRadialWork;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getRadialWork);
+                    }
+                }
+                if (getOpenCircuit.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getOpenCircuit;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getOpenCircuit);
+                    }
+                }
+                if (getBreakGround.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getBreakGround;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getBreakGround);
+                    }
+                }
+                if (getNightWork.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getNightWork;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getNightWork);
+                    }
+                }
+                if (getLiftingWork.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getLiftingWork;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getLiftingWork);
+                    }
+                }
+                if (getLicenseManager.Count() > 0)
+                {
+                    if (getInfoList == null)
+                    {
+                        getInfoList = getLicenseManager;
+                    }
+                    else
+                    {
+                        getInfoList.Union(getLicenseManager);
+                    }
+                }
+                #endregion
+                if (getInfoList == null || getInfoList.Count() == 0)
+                {
+                    getLicenseDataStatesCount = 0;
+                    return null;
+                }
+                else
+                {
+                    getLicenseDataStatesCount = getInfoList.Count();                    
+                    if (pageIndex > 0)
+                    {
+                        return getInfoList.OrderByDescending(x => x.ValidityStartTime).Skip(Funs.PageSize * (pageIndex - 1)).Take(Funs.PageSize).ToList();
+                    }
+                    else
+                    {
+                        return getInfoList.ToList();
+                    }
+                }
             }
         }
         #endregion 
@@ -1854,6 +1957,14 @@ namespace BLL
                 bool boolIsFlowEnd = false;
                 string applyManId = string.Empty;
                 var updateFlowOperate = db.License_FlowOperate.FirstOrDefault(x => x.FlowOperateId == newItem.FlowOperateId);
+                if (updateFlowOperate == null)
+                {
+                    updateFlowOperate = db.License_FlowOperate.Where(x => x.DataId == newItem.DataId && (!x.IsClosed.HasValue || x.IsClosed ==false)).OrderBy(x => x.SortIndex).OrderBy(x => x.GroupNum).OrderBy(x => x.OrderNum).FirstOrDefault();
+                    if (updateFlowOperate == null)
+                    {
+                        updateFlowOperate = db.License_FlowOperate.Where(x => x.DataId == newItem.DataId && x.IsClosed == true).OrderByDescending(x => x.OperaterTime).FirstOrDefault();
+                    }
+                }
                 if (updateFlowOperate != null && !string.IsNullOrEmpty(newItem.OperaterId))
                 {
                     strMenuId = updateFlowOperate.MenuId;
@@ -2250,29 +2361,45 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                ////审核记录
-                var getFlowOperate = from x in db.License_FlowOperate
-                                     where x.DataId == dataId && x.OperaterId == userId
-                                        && (!x.IsClosed.HasValue || x.IsClosed == false)
-                                     orderby x.SortIndex, x.GroupNum, x.OrderNum
-                                     select new Model.FlowOperateItem
-                                     {
-                                         FlowOperateId = x.FlowOperateId,
-                                         MenuId = x.MenuId,
-                                         DataId = x.DataId,
-                                         AuditFlowName = x.AuditFlowName,
-                                         SortIndex = x.SortIndex ?? 0,
-                                         GroupNum = x.GroupNum ?? 0,
-                                         OrderNum = x.OrderNum ?? 0,
-                                         RoleIds = x.RoleIds,
-                                         OperaterId = x.OperaterId,
-                                         OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
-                                         IsAgree = x.IsAgree,
-                                         Opinion = x.Opinion,
-                                         IsFlowEnd = x.IsFlowEnd ?? false,
-                                         SignatureUrl = db.Sys_User.First(y => y.UserId == x.OperaterId).SignatureUrl.Replace('\\', '/'),
-                                     };
-                return getFlowOperate.FirstOrDefault();
+                var getData = db.License_FlowOperate.FirstOrDefault(x => x.DataId == dataId && x.OperaterId == userId
+                                         && (!x.IsClosed.HasValue || x.IsClosed == false));
+                if (getData != null)
+                {
+                    ////审核记录
+                    string name = string.Empty;
+                    string signatureUrl = string.Empty;
+                    var getUser = db.Sys_User.FirstOrDefault(y => y.UserId == getData.OperaterId);
+                    if (getUser != null)
+                    {
+                        name = getUser.UserName;
+                        if (!string.IsNullOrEmpty(getUser.SignatureUrl))
+                        {
+                            signatureUrl = getUser.SignatureUrl.Replace('\\', '/');
+                        }
+                    }
+
+                    return new Model.FlowOperateItem
+                                         {
+                                             FlowOperateId = getData.FlowOperateId,
+                                             MenuId = getData.MenuId,
+                                             DataId = getData.DataId,
+                                             AuditFlowName = getData.AuditFlowName,
+                                             SortIndex = getData.SortIndex ?? 0,
+                                             GroupNum = getData.GroupNum ?? 0,
+                                             OrderNum = getData.OrderNum ?? 0,
+                                             RoleIds = getData.RoleIds,
+                                             OperaterId = getData.OperaterId,
+                                             OperaterName = name,
+                                             IsAgree = getData.IsAgree,
+                                             Opinion = getData.Opinion,
+                                             IsFlowEnd = getData.IsFlowEnd ?? false,
+                                             SignatureUrl = signatureUrl,
+                                         };
+                }
+                else
+                {
+                    return null;
+                }
             }
         }
         #endregion
@@ -2402,7 +2529,32 @@ namespace BLL
                                                       IsFlowEnd = x.IsFlowEnd ?? false,
                                                   }).ToList();
                             }
-                        }
+                            else
+                            {
+                                getFlowOperate = (from x in getAllFlows
+                                                  where (!x.IsClosed.HasValue || x.IsClosed == false)
+                                                  && x.SortIndex == getNowFlowOperate.SortIndex && x.FlowOperateId != getNowFlowOperate.FlowOperateId
+                                                  orderby x.SortIndex, x.GroupNum, x.OrderNum
+                                                  select new Model.FlowOperateItem
+                                                  {
+                                                      FlowOperateId = x.FlowOperateId,
+                                                      MenuId = x.MenuId,
+                                                      DataId = x.DataId,
+                                                      ProjectId = x.ProjectId,
+                                                      AuditFlowName = x.AuditFlowName,
+                                                      SortIndex = x.SortIndex ?? 0,
+                                                      GroupNum = x.GroupNum ?? 1,
+                                                      OrderNum = x.OrderNum ?? 1,
+                                                      RoleIds = x.RoleIds,
+                                                      OperaterId = x.OperaterId,
+                                                      OperaterName = db.Sys_User.First(y => y.UserId == x.OperaterId).UserName,
+                                                      IsAgree = x.IsAgree,
+                                                      Opinion = x.Opinion,
+                                                      IsFlowEnd = x.IsFlowEnd ?? false,
+                                                  }).ToList();
+                            }
+                           
+                        }                        
                     }
                 }
                 return getFlowOperate;

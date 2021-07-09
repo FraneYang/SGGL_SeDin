@@ -130,17 +130,17 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                         }
 
                     }
-                     if (Convert.ToInt32(Number) > 6)
-                    {
-                        Tab1.Hidden = false;
-                        BindCountersignFrom();
-                        if (_ContractReview.State == Const.ContractReview_Complete)
-                        {
-                            Tab3.Hidden = false;
-                            BindApproveForm();
+                    // if (Convert.ToInt32(Number) > 6)
+                    //{
+                    //    Tab1.Hidden = false;
+                    //    BindCountersignFrom();
+                    //    if (_ContractReview.State == Const.ContractReview_Complete)
+                    //    {
+                    //        Tab3.Hidden = false;
+                    //        BindApproveForm();
 
-                        }
-                    }
+                    //    }
+                    //}
                 }
                 else if (this.CurrUser.UserId == Const.sysglyId || this.CurrUser.UserId == Const.hfnbdId)
                 {
@@ -177,11 +177,25 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
 
             if (_Contract != null)
             {
-                 
+                this.Tab2_txtProjectShortName.Text = _Contract.ProjectShortName;
                 this.Tab2_txtContractName.Text = _Contract.ContractName;
                 this.Tab2_txtContractNum.Text = _Contract.ContractNum;
                 this.Tab2_txtParties.Text = _Contract.Parties;
+                if (_Contract.ContractAttribute==1) //补充合同
+                {
+                    this.NoUseStandardtxtRemark.Hidden = false;
 
+                    this.NoUseStandardtxtRemark.Text = _Contract.ContractAttributeRemark;
+
+                }
+                else if(_Contract.IsUseStandardtxt==2) //不使用标准文本
+                {
+                    this.NoUseStandardtxtRemark.Hidden = false;
+
+                    this.NoUseStandardtxtRemark.Text = _Contract.NoUseStandardtxtRemark;
+
+                }
+ 
                 this.Tab2_txtContractAmount.Text = _Contract.ContractAmount.HasValue ? _Contract.ContractAmount.ToString() : "";
                 if (!string.IsNullOrEmpty(_Contract.DepartId))
                 {
@@ -198,20 +212,21 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                     Tab2_CBContractType.SelectedValueArray = _Contract.ContractType.Split();
                 }
             }
-            string strSql = @"  select u.UserName as  ApproveMan,
-                                       App.ApproveDate,
-                                      (CASE App.IsAgree WHEN '1' THEN '不同意'
-                                        WHEN '2' THEN '同意' END) AS IsAgree,
-                                        App.ApproveIdea,
-                                        App.ApproveId,
-                                        App.ApproveType
-                                       from PHTGL_Approve as App"
-                              + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId order by convert(datetime ,App.ApproveDate)  ";
-            List<SqlParameter> listStr = new List<SqlParameter>();
-                 listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
-     
-            SqlParameter[] parameter = listStr.ToArray();
-            DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            //string strSql = @"  select u.UserName as  ApproveMan,
+            //                           App.ApproveDate,
+            //                          (CASE App.IsAgree WHEN '1' THEN '不同意'
+            //                            WHEN '2' THEN '同意' END) AS IsAgree,
+            //                            App.ApproveIdea,
+            //                            App.ApproveId,
+            //                            App.ApproveType
+            //                           from PHTGL_Approve as App"
+            //                  + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId order by convert(datetime ,App.ApproveDate)  ";
+            //List<SqlParameter> listStr = new List<SqlParameter>();
+            //     listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
+
+            //SqlParameter[] parameter = listStr.ToArray();
+            //DataTable tb = SQLHelper.GetDataTableRunText(strSql, parameter);
+            DataTable tb = BLL.PHTGL_ApproveService.GetAllApproveData(ContractReviewId);
             Grid1.RecordCount = tb.Rows.Count;
             var table = this.GetPagedDataTable(Grid1, tb);
             Grid1.DataSource = table;
@@ -221,9 +236,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
         {
             var model = BLL.PHTGL_ContractReviewService.GetPHTGL_ContractReviewById(ContractReviewId);
             var Con = BLL.ContractService.GetContractById(model.ContractId);
-            if (Con.IsUseStandardtxt==2)
+            if (Con.IsUseStandardtxt==2 || Con.ContractAttribute == 1)
             {
-                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}", model.ContractId, BLL.Const.ContractFormation)));
+                PageContext.RegisterStartupScript(WindowAtt.GetShowReference(String.Format("~/AttachFile/webuploader.aspx?toKeyId={0}&path=FileUpload/ContractAttachUrl&menuId={1}&type=-1", model.ContractId, BLL.Const.ContractFormation)));
               }
             else
             {
@@ -231,9 +246,7 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 contractReview.printContractAgreement(model.ContractId);
             }
 
-
-            //  PageContext.RegisterStartupScript(Window1.GetShowReference(String.Format("ContractFormationEdit.aspx?ContractId={0}", model.ContractId, "编辑 - ")));
-        }
+          }
 
         /// <summary>
         /// 绑定会签评审单
@@ -273,14 +286,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
 
-            string strSql = @"  select u.UserName as  ApproveMan,
-                                       App.ApproveDate,
-                                      (CASE App.IsAgree WHEN '1' THEN '不同意'
-                                        WHEN '2' THEN '同意' END) AS IsAgree,
-                                        App.ApproveIdea,
-                                        App.ApproveType
-                                       from PHTGL_Approve as App"
-                            + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
+            string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
+                                from PHTGL_Approve a "
+                                + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
@@ -292,10 +300,25 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             foreach (DataRow dr in tb.Rows)
             {
                 string ApproveMan = dr["ApproveMan"].ToString();
-                string ApproveType = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString()).Number.ToString();
-                string ApproveIdea = dr["ApproveIdea"].ToString();
-                string ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+                var model = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString());
+                string ApproveType = "";
+                string ApproveDate = "";
+                if (model != null)
+                {
+                    ApproveType = model.Number.ToString();
 
+                }
+                string ApproveIdea = dr["ApproveIdea"].ToString();
+                try
+                {
+                    ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+
+
+                }
+                catch (Exception)
+                {
+                    ApproveDate = "";
+                }
                 switch (ApproveType)
                 {
                     case "1":
@@ -376,14 +399,9 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
                 }
             }
 
-            string strSql = @"  select u.UserName as  ApproveMan,
-                                       App.ApproveDate,
-                                      (CASE App.IsAgree WHEN '1' THEN '不同意'
-                                        WHEN '2' THEN '同意' END) AS IsAgree,
-                                        App.ApproveIdea,
-                                        App.ApproveType
-                                       from PHTGL_Approve as App"
-                            + @"   left join Sys_User AS U ON U.UserId = App.ApproveMan WHERE 1=1   and App.IsAgree <>0 and app.ContractId= @ContractId";
+            string strSql = @"  select  a.ApproveId ,a.ApproveMan,a.ApproveType,a.ApproveDate ,a.ApproveIdea,a.ApproveForm
+                                from PHTGL_Approve a "
+                               + @"  where not exists (select 1 from PHTGL_Approve b where a.ApproveType=b.ApproveType and a.ContractId=b.ContractId and a.ApproveDate<b.ApproveDate ) and ContractId=@ContractId";
             List<SqlParameter> listStr = new List<SqlParameter>();
             listStr.Add(new SqlParameter("@ContractId", ContractReviewId));
 
@@ -395,9 +413,25 @@ namespace FineUIPro.Web.PHTGL.ContractCompile
             {
 
                 string ApproveMan = dr["ApproveMan"].ToString();
-                string ApproveType = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString()).Number.ToString();
+                var model = allApproveMan.Find(e => e.Rolename == dr["ApproveType"].ToString());
+                string ApproveType = "";
+                string ApproveDate = "";
+                if (model != null)
+                {
+                    ApproveType = model.Number.ToString();
+
+                }
                 string ApproveIdea = dr["ApproveIdea"].ToString();
-                string ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+                try
+                {
+                    ApproveDate = string.Format("{0:D}", DateTime.Parse(dr["ApproveDate"].ToString()));
+
+
+                }
+                catch (Exception)
+                {
+                    ApproveDate = "";
+                }
 
                 switch (ApproveType)
                 {

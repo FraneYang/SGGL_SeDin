@@ -131,11 +131,6 @@
                                     <Rows>
                                         <f:FormRow>
                                             <Items>
-                                                <f:DropDownList ID="DropProjectManager2" runat="server" Label="项目经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true"  Enabled="false" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
-                                            </Items>
-                                        </f:FormRow>
-                                        <f:FormRow>
-                                            <Items>
                                                 <f:DropDownList ID="dropApproval_Construction" runat="server" Label="施工管理部" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" EnableEdit="true" LabelAlign="Right" AutoPostBack="true" LabelWidth="120px"></f:DropDownList>
                                                 <f:DropDownList ID="DropGeneralAccountant" runat="server" Label="总会计师" Required="true" Hidden="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" LabelWidth="140px"></f:DropDownList>
                                             </Items>
@@ -148,13 +143,17 @@
                                         </f:FormRow>
                                         <f:FormRow>
                                             <Items>
-                                                <f:DropDownList ID="DropDeputyGeneralManager" runat="server" Label="分管副总经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
+                                                <f:DropDownList ID="DropProjectManager2" runat="server" Label="项目经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true" Enabled="false" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
                                                 <f:DropDownList ID="DropChairman" runat="server" Label="董事长" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" Hidden="true" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" MaxLength="30" LabelWidth="140px"></f:DropDownList>
                                             </Items>
                                         </f:FormRow>
-
+                                        <f:FormRow>
+                                            <Items>
+                                                <f:DropDownList ID="DropDeputyGeneralManager" runat="server" Label="分管副总经理" Required="true" ShowRedStar="true" AutoSelectFirstItem="false" AutoPostBack="true" EnableEdit="true" LabelAlign="Right" MaxLength="200" LabelWidth="120px"></f:DropDownList>
+                                                <f:Label runat="server"></f:Label>
+                                            </Items>
+                                        </f:FormRow>
                                     </Rows>
-
                                 </f:Form>
                             </Items>
 

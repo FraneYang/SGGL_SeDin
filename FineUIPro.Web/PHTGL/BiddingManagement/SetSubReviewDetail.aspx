@@ -62,7 +62,7 @@
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="Grid_MinPrice" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" Title="" EnableCollapse="false"
-                                    runat="server" DataKeyNames="ID" AllowCellEditing="true" ForceFit="true"
+                                    runat="server" DataKeyNames="ID" AllowCellEditing="true" ForceFit="true" SortField="SortIndex"
                                     EnableColumnLines="true" DataIDField="ID">
 
                                     <Columns>
@@ -84,7 +84,7 @@
                         <f:FormRow>
                             <Items>
                                 <f:Grid ID="Grid_ConEvaluation" CssClass="blockpanel" ShowBorder="true" ShowHeader="false" Title="" EnableCollapse="false"
-                                    runat="server" DataKeyNames="ID" AllowCellEditing="true" ForceFit="true"
+                                    runat="server" DataKeyNames="ID" AllowCellEditing="true" ForceFit="true" SortField="SortIndex"
                                     EnableColumnLines="true" DataIDField="ID">
 
                                     <Columns>

@@ -74,13 +74,13 @@
                         <f:RenderField ColumnID="BidDocumentsCode" DataField="BidDocumentsCode" Width="120px" FieldType="String" HeaderText="招标文件编号" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                          <f:RenderField ColumnID="BidContent" DataField="BidContent" Width="120px" FieldType="String" HeaderText="招标内容" TextAlign="Center"
+                          <f:RenderField ColumnID="BidContent"  DataField="BidContent" Width="300px" FieldType="String" HeaderText="招标内容" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="Type" DataField="Type" Width="120px" FieldType="String" HeaderText="评标办法" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
-                        <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String" HeaderText="开标日期" TextAlign="Center"
+                        <f:RenderField ColumnID="Bidding_StartTime" DataField="Bidding_StartTime" Width="120px" FieldType="String"   HeaderText="开标日期" TextAlign="Center"
                             HeaderTextAlign="Center">
                         </f:RenderField>
                         <f:RenderField ColumnID="State" DataField="State" Width="120px" FieldType="String" HeaderText="审批状态" TextAlign="Center"

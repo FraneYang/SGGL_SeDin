@@ -494,7 +494,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                            ,Sch2.Synthesize_ReviewResults as Synthesize_ReviewResults 
                                            ,Sch2.Remarks as Remarks "
                          + @" FROM PHTGL_SetSubReview_Sch2 AS Sch2 "
-                          + @"where 1=1 AND SetSubReviewID = @SetSubReviewID ";
+                          + @"where 1=1 AND SetSubReviewID = @SetSubReviewID order by SortIndex ";
                     break;
                 case PHTGL_SetSubReviewService.Type_MinPrice:
                     initTemplatePath = "File\\Word\\PHTGL\\确定分包商审批表（用于经评审的最低投标报价法）.docx";
@@ -503,7 +503,7 @@ namespace FineUIPro.Web.PHTGL.BiddingManagement
                                            ,Sch1.ReviewResults as ReviewResults 
                                            ,Sch1.Remarks as Remarks "
                           + @" FROM PHTGL_SetSubReview_Sch1 AS Sch1 "
-                          + @"where 1=1 AND SetSubReviewID = @SetSubReviewID ";
+                          + @"where 1=1 AND SetSubReviewID = @SetSubReviewID order by SortIndex ";
                     break;
                 default: /* 可选的 */
                     Alert.ShowInTop("请先编制审批类型！", MessageBoxIcon.Warning);
