@@ -33,11 +33,11 @@ namespace BLL
 
                 if (isFinish == true)
                 {
-                    dataList = dataList.Where(e => e.FinishDate.HasValue == true);
+                    dataList = dataList.Where(e => e.AduditDate.HasValue == true);
                 }
                 else
                 {
-                    dataList = dataList.Where(e => e.FinishDate.HasValue == false);
+                    dataList = dataList.Where(e => e.AduditDate.HasValue == false);
                 }
 
                 var getDataLists = (from x in dataList

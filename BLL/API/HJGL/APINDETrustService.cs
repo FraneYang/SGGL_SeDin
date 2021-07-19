@@ -8,6 +8,32 @@ namespace BLL
 {
     public static class APINDETrustService
     {
+        #region 根据单位工程、项目Id获取未点口的批
+        /// <summary>
+        /// 根据单位工程、项目Id获取未点口的批
+        /// </summary>
+        /// <param name="unitWorkId">单位工程Id</param>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        public static List<Model.NDETrustItem> getNotEndPointBatch(string unitWorkId, string projectId)
+        {
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                var dataList = from x in db.HJGL_Batch_PointBatch
+                               where x.UnitWorkId == unitWorkId && x.EndDate == null && x.ProjectId == projectId
+                               select x;
+                var getDataLists = (from x in dataList
+                                    orderby x.PointBatchCode
+                                    select new Model.NDETrustItem
+                                    {
+                                        PointBatchId = x.PointBatchId,
+                                        PointBatchCode = x.PointBatchCode,
+                                    }).ToList();
+                return getDataLists;
+            }
+        }
+        #endregion
+
         #region 选择单位工程、探伤类型、探伤比例、点口批号获取需要进行点口的批
         /// <summary>
         /// 选择单位工程、探伤类型、探伤比例、点口批号获取还未点口的批
@@ -133,6 +159,7 @@ namespace BLL
                                     select new Model.NDETrustItem
                                     {
                                         WeldJointId = x.WeldJointId,
+                                        PointState = x.PointState,
                                         WeldJointCode = y.WeldJointCode,
                                         PipelineCode = y.PipelineCode,
                                         JointArea = y.JointArea,
@@ -244,6 +271,96 @@ namespace BLL
             }
 
             Funs.DB.SubmitChanges();
+        }
+        #endregion
+
+        #region 生成委托
+        /// <summary>
+        /// 生成委托
+        /// </summary>
+        /// <param name="newItem">委托</param>
+        /// <returns></returns>
+        public static string SaveTrust(string pointBatchId, string nDEUnit)
+        {
+            string result = string.Empty;
+            using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
+            {
+                Model.HJGL_Batch_PointBatch batch = BLL.PointBatchService.GetPointBatchById(pointBatchId);
+                if (batch != null)
+                {
+                    Model.HJGL_Batch_BatchTrust newBatchTrust = new Model.HJGL_Batch_BatchTrust();
+                    var project = BLL.ProjectService.GetProjectByProjectId(batch.ProjectId);
+                    var unit = BLL.UnitService.GetUnitByUnitId(batch.UnitId);
+                    var area = BLL.UnitWorkService.getUnitWorkByUnitWorkId(batch.UnitWorkId);
+                    var ndt = BLL.Base_DetectionTypeService.GetDetectionTypeByDetectionTypeId(batch.DetectionTypeId);
+                    var rate = BLL.Base_DetectionRateService.GetDetectionRateByDetectionRateId(batch.DetectionRateId);
+
+                    string perfix = string.Empty;
+
+                    newBatchTrust.TrustBatchCode = batch.PointBatchCode.Replace("-DK-", "-WT-");
+                    string trustBatchId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrust));
+                    newBatchTrust.TrustBatchId = trustBatchId;
+
+                    newBatchTrust.TrustDate = DateTime.Now;
+                    newBatchTrust.ProjectId = batch.ProjectId;
+                    newBatchTrust.PointBatchId = batch.PointBatchId;
+                    newBatchTrust.UnitId = batch.UnitId;
+                    newBatchTrust.UnitWorkId = batch.UnitWorkId;
+                    newBatchTrust.DetectionTypeId = batch.DetectionTypeId;
+                    newBatchTrust.DetectionRateId = batch.DetectionRateId;
+                    newBatchTrust.NDEUnit = nDEUnit;
+                    newBatchTrust.PointBatchId = pointBatchId;
+                    BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+
+                    // 生成委托条件对比
+                    var generateTrustItem = from x in db.View_GenerateTrustItem
+                                            where x.ProjectId == batch.ProjectId
+                                            && x.UnitWorkId == batch.UnitWorkId && x.UnitId == batch.UnitId
+                                            && x.DetectionTypeId == batch.DetectionTypeId
+                                            && x.DetectionRateId == batch.DetectionRateId
+                                            select x;
+
+                    List<string> toPointBatchList = generateTrustItem.Select(x => x.PointBatchId).Distinct().ToList();
+
+                    // 生成委托明细，并回写点口明细信息
+                    foreach (var item in generateTrustItem)
+                    {
+                        if (BLL.Batch_BatchTrustItemService.GetIsGenerateTrust(item.PointBatchItemId)) ////生成委托单的条件判断
+                        {
+                            Model.HJGL_Batch_BatchTrustItem trustItem = new Model.HJGL_Batch_BatchTrustItem
+                            {
+                                TrustBatchItemId = SQLHelper.GetNewID(typeof(Model.HJGL_Batch_BatchTrustItem)),
+                                TrustBatchId = trustBatchId,
+                                PointBatchItemId = item.PointBatchItemId,
+                                WeldJointId = item.WeldJointId,
+                                CreateDate = DateTime.Now
+                            };
+                            Batch_BatchTrustItemService.AddBatchTrustItem(trustItem);
+                        }
+
+                        Model.HJGL_Batch_PointBatchItem pointBatchItem = db.HJGL_Batch_PointBatchItem.First(x => x.PointBatchItemId == item.PointBatchItemId);
+
+                        pointBatchItem.IsBuildTrust = true;
+                        db.SubmitChanges();
+                    }
+
+
+                    // 回写委托批对应点口信息
+                    if (toPointBatchList.Count() > 0)
+                    {
+                        string toPointBatch = String.Join(",", toPointBatchList);
+
+                        var updateTrut = BLL.Batch_BatchTrustService.GetBatchTrustById(trustBatchId);
+                        if (updateTrut != null)
+                        {
+                            updateTrut.TopointBatch = toPointBatch;
+                            BLL.Batch_BatchTrustService.UpdateBatchTrust(updateTrut);
+                        }
+                    }
+                    result = "委托成功!";
+                }
+            }
+            return result;
         }
         #endregion
 
@@ -379,8 +496,8 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var dataList = from x in db.HJGL_Batch_BatchTrust
-                               where x.UnitWorkId == unitWorkId
+                var dataList = from x in db.HJGL_Batch_PointBatch
+                               where x.UnitWorkId == unitWorkId && x.EndDate.HasValue && x.IsClosed == null
                                select x;
 
                 if (!string.IsNullOrEmpty(detectionTypeId))
@@ -396,20 +513,32 @@ namespace BLL
                 {
                     DateTime t = Convert.ToDateTime(startDate + "-01");
                     DateTime mt = t.AddMonths(1);
-                    dataList = dataList.Where(e => e.TrustDate >= t && e.TrustDate < mt);
+                    dataList = dataList.Where(e => e.StartDate >= t && e.StartDate < mt);
                 }
 
                 if (!string.IsNullOrEmpty(trustBatchCode))
                 {
-                    dataList = dataList.Where(e => e.TrustBatchCode.Contains(trustBatchCode));
+                    dataList = dataList.Where(e => e.PointBatchCode.Contains(trustBatchCode));
                 }
-
-                var getDataLists = (from x in dataList
-                                    orderby x.TrustBatchCode
+                List<Model.HJGL_Batch_PointBatch> list = new List<Model.HJGL_Batch_PointBatch>();
+                foreach (var item in dataList)
+                {
+                    var trustItem = (from x in Funs.DB.HJGL_Batch_BatchTrustItem
+                                     join y in Funs.DB.HJGL_Batch_PointBatchItem on x.PointBatchItemId equals y.PointBatchItemId
+                                     where y.PointBatchId == item.PointBatchId
+                                     select x).FirstOrDefault();
+                    if (trustItem == null)
+                    {
+                        list.Add(item);
+                    }
+                }
+                var getDataLists = (from x in list
+                                    orderby x.PointBatchCode
                                     select new Model.BaseInfoItem
                                     {
-                                        BaseInfoId = x.TrustBatchId,
-                                        BaseInfoCode = (x.TrustType == "R" ? ("FXWT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4)) : ("WT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4))),
+                                        BaseInfoId = x.PointBatchId,
+                                        BaseInfoCode = x.PointBatchCode
+                                        //BaseInfoCode = (x.TrustType == "R" ? ("FXWT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4)) : ("WT-" + x.TrustBatchCode.Substring(x.TrustBatchCode.Length - 4))),
                                     }).ToList();
                 return getDataLists;
             }
@@ -426,15 +555,14 @@ namespace BLL
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
-                var getDataLists = (from x in db.HJGL_Batch_BatchTrustItem
-                                    join y in db.HJGL_WeldJoint on x.WeldJointId equals y.WeldJointId
-                                    where x.TrustBatchId == trustBatchId
-                                    orderby y.WeldJointCode
+                var getDataLists = (from x in db.View_GenerateTrustItem
+                                    where x.PointBatchId == trustBatchId
+                                    orderby x.WeldJointCode
                                     select new Model.NDETrustItem
                                     {
-                                        WeldJointCode = y.WeldJointCode,
-                                        PipelineCode = y.PipelineCode,
-                                        JointArea = y.JointArea,
+                                        WeldJointCode = x.WeldJointCode,
+                                        PipelineCode = x.PipelineCode,
+                                        WelderCode = x.WelderCode,
                                     }).ToList();
 
                 return getDataLists;
@@ -573,7 +701,7 @@ namespace BLL
                                     select new Model.BaseInfoItem
                                     {
                                         BaseInfoId = x.RepairRecordId,
-                                        BaseInfoCode = x.RepairRecordCode,
+                                        BaseInfoCode = BLL.RepairRecordService.GetWeldJointCodeById(x.RepairRecordId),
                                         BaseInfoName = x.WeldJointId
                                     }).ToList();
                 return getDataLists;
@@ -629,7 +757,7 @@ namespace BLL
                                 join d in db.HJGL_WeldingDaily on y.WeldingDailyId equals d.WeldingDailyId
                                 where z.DetectionTypeId == record.DetectionTypeId
                                  && !x.PointDate.HasValue || (x.PointDate.HasValue && x.RepairRecordId == repairRecordId)
-                                 orderby y.WeldJointCode
+                                orderby y.WeldJointCode
                                 select new
                                 {
                                     x.PointBatchItemId,

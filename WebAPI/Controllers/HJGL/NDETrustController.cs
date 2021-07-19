@@ -16,6 +16,28 @@ namespace WebAPI.Controllers
     {
         #region 点口
         /// <summary>
+        /// 根据单位工程、项目Id获取未点口的批
+        /// </summary>
+        /// <param name="unitWorkId">单位工程Id</param>
+        /// <param name="projectId">项目Id</param>
+        /// <returns></returns>
+        public Model.ResponeData getNotEndPointBatch(string unitWorkId, string projectId)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.getNotEndPointBatch(unitWorkId, projectId);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+
+        /// <summary>
         /// 选择单位工程、探伤类型、探伤比例、点口批号获取需要进行点口的批，自动点口调用
         /// </summary>
         /// <param name="unitWorkId"></param>
@@ -160,6 +182,7 @@ namespace WebAPI.Controllers
             try
             {
                 APINDETrustService.AutoPointSave(pointBatchId);
+                responeData.code = 1;
             }
             catch (Exception ex)
             {
@@ -209,6 +232,7 @@ namespace WebAPI.Controllers
                         newBatchTrust.DetectionRateId = batch.DetectionRateId;
                         newBatchTrust.PointBatchId = pointBatchId;
                         BLL.Batch_BatchTrustService.AddBatchTrust(newBatchTrust);  // 新增委托单
+                        responeData.code = 1;
                     }
                 }
             }
@@ -283,7 +307,7 @@ namespace WebAPI.Controllers
         /// <param name="unitWorkId"></param>
         /// <param name="detectionTypeId"></param>
         /// <param name="detectionRateId"></param>
-        /// <param name="isAudit"></param>
+        /// <param name="startDate"></param>
         /// <param name="trustBatchCode"></param>
         /// <returns></returns>
         public Model.ResponeData getBatchTrustCode(string unitWorkId, string detectionTypeId, string detectionRateId, string startDate, string trustBatchCode)
@@ -323,6 +347,30 @@ namespace WebAPI.Controllers
 
             return responeData;
         }
+
+        #region 生成委托单
+        /// <summary>
+        /// 生成委托单
+        /// </summary>
+        /// <param name="newItem">委托单</param>
+        /// <returns></returns>
+        [HttpPost]
+        public Model.ResponeData SaveTrust([FromBody] Model.BatchItem newItem)
+        {
+            var responeData = new Model.ResponeData();
+            try
+            {
+                responeData.data = APINDETrustService.SaveTrust(newItem.PointBatchId, newItem.NDEUnit);
+            }
+            catch (Exception ex)
+            {
+                responeData.code = 0;
+                responeData.message = ex.Message;
+            }
+
+            return responeData;
+        }
+        #endregion
 
         /// <summary>
         /// 对所选委托单进行审核

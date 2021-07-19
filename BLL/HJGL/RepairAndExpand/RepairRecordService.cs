@@ -19,6 +19,24 @@ namespace BLL
         }
 
         /// <summary>
+        /// 根据主建获取信息
+        /// </summary>
+        /// <param name="repairRecordId"></param>
+        /// <returns></returns>
+        public static string GetWeldJointCodeById(string repairRecordId)
+        {
+            string code = string.Empty;
+            var r= Funs.DB.HJGL_RepairRecord.FirstOrDefault(e => e.RepairRecordId == repairRecordId);
+            if (r != null)
+            {
+                var jot = BLL.WeldJointService.GetWeldJointByWeldJointId(r.WeldJointId);
+                var iso = BLL.PipelineService.GetPipelineByPipelineId(jot.PipelineId);
+                code = iso.PipelineCode + "-" + jot.WeldJointCode + r.RepairMark;
+            }
+            return code;
+        }
+
+        /// <summary>
         /// 根据检测明细ID获取返修记录
         /// </summary>
         /// <param name="ndeItemID"></param>

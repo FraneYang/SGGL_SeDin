@@ -27,6 +27,15 @@ namespace Model
         }
 
         /// <summary>
+        /// 焊工号
+        /// </summary>
+        public string WelderCode
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// 材质1
         /// </summary>
         public string Material

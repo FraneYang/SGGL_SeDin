@@ -14,7 +14,7 @@ namespace BLL
         /// </summary>
         /// <param name="unitWrokId"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId,string hotProessTrustNo)
+        public static List<Model.BaseInfoItem> getHotProessTrustNo(string unitWrokId, string hotProessTrustNo)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -47,7 +47,7 @@ namespace BLL
         /// <param name="unitWrokId"></param>
         /// <param name="hardTrustNo"></param>
         /// <returns></returns>
-        public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId,string hardTrustNo)
+        public static List<Model.BaseInfoItem> getHardTrustNo(string unitWrokId, string hardTrustNo)
         {
             using (Model.SGGLDB db = new Model.SGGLDB(Funs.ConnString))
             {
@@ -120,9 +120,10 @@ namespace BLL
                                     {
                                         PipelineCode = x.PipelineCode,
                                         WeldJointCode = x.WeldJointCode,
+                                        WelderCode = x.WelderCode,
                                         Specification = x.Specification,
                                         Material = x.MaterialCode,
-                                        TrustDate= x.HardTrustDate,
+                                        TrustDate = x.HardTrustDate,
                                         IsPass = x.IsPass == true ? "是" : "否"
                                     }
                                 ).ToList();

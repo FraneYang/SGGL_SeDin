@@ -540,7 +540,7 @@ namespace WebAPI.Controllers
                                    where x.ProjectId == projectId
                                    && !x.ExchangeTime.HasValue
                                    && (!x.OutTime.HasValue || x.OutTime > DateTime.Now) && x.InTime.HasValue && x.InTime < DateTime.Now
-                                   && x.IsUsed == true && x.CardNo != null
+                                   && x.IsUsed == true && x.CardNo != null && x.PhotoUrl != null
                                    select new
                                    {
                                        x.PersonId,
@@ -550,7 +550,7 @@ namespace WebAPI.Controllers
                                        x.UnitId,
                                        y.UnitCode,
                                        y.UnitName,
-                                       x.Sex,
+                                       Sex = x.Sex ?? "1",
                                        Funs.DB.Base_WorkPost.First(z => z.WorkPostId == x.WorkPostId).WorkPostName,
                                        x.Telephone,
                                        x.Address,

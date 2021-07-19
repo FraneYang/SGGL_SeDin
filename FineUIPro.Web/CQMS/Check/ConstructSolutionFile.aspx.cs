@@ -594,14 +594,14 @@ namespace FineUIPro.Web.CQMS.Check
                                     }
                                     else
                                     {
-                                        bookmarkAuditMan1.Text = user.UserName;
+                                        bookmarkAuditMan2.Text = user.UserName;
                                     }
 
                                 }
                             }
                             else
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                bookmarkAuditMan2.Text = user.UserName;
                             }
                         }
                     }
@@ -645,14 +645,14 @@ namespace FineUIPro.Web.CQMS.Check
                                     }
                                     else
                                     {
-                                        bookmarkAuditMan1.Text = user.UserName;
+                                        bookmarkAuditMan3.Text = user.UserName;
                                     }
 
                                 }
                             }
                             else
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                bookmarkAuditMan3.Text = user.UserName;
                             }
                         }
                     }
@@ -696,14 +696,14 @@ namespace FineUIPro.Web.CQMS.Check
                                     }
                                     else
                                     {
-                                        bookmarkAuditMan1.Text = user.UserName;
+                                        bookmarkAuditMan4.Text = user.UserName;
                                     }
 
                                 }
                             }
                             else
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                bookmarkAuditMan4.Text = user.UserName;
                             }
                         }
                     }
@@ -747,14 +747,14 @@ namespace FineUIPro.Web.CQMS.Check
                                     }
                                     else
                                     {
-                                        bookmarkAuditMan1.Text = user.UserName;
+                                        bookmarkAuditMan5.Text = user.UserName;
                                     }
 
                                 }
                             }
                             else
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                bookmarkAuditMan5.Text = user.UserName;
                             }
                         }
                     }
@@ -798,14 +798,14 @@ namespace FineUIPro.Web.CQMS.Check
                                     }
                                     else
                                     {
-                                        bookmarkAuditMan1.Text = user.UserName;
+                                        bookmarkAuditMan6.Text = user.UserName;
                                     }
 
                                 }
                             }
                             else
                             {
-                                bookmarkAuditMan1.Text = user.UserName;
+                                bookmarkAuditMan6.Text = user.UserName;
                             }
                         }
                     }

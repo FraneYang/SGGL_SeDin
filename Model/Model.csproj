@@ -61,6 +61,7 @@
   <ItemGroup>
     <Compile Include="APIItem\BaseInfoItem.cs" />
     <Compile Include="APIItem\DigData\SafeLawItem.cs" />
+    <Compile Include="APIItem\HJGL\BatchItem.cs" />
     <Compile Include="APIItem\HJGL\ItemEndCheck.cs" />
     <Compile Include="APIItem\HJGL\ItemEndCheckList.cs" />
     <Compile Include="APIItem\HJGL\JointCompreInfoItem.cs" />
@@ -147,6 +148,7 @@
     <Compile Include="APIItem\UnitItem.cs" />
     <Compile Include="APIItem\UserItem.cs" />
     <Compile Include="APIItem\UserReadItem.cs" />
+    <Compile Include="APIItem\WeldingDailyItem.cs" />
     <Compile Include="BusinessColumn.cs" />
     <Compile Include="Chart\DataSourceChart.cs" />
     <Compile Include="Chart\DataSourcePoint.cs" />
